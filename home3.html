@@ -5,130 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>M. Wakefield</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: Arial, sans-serif; 
+        } 
 
-        body {
-            background-color: #0B0C10;
-            color: #C5C6C7;
-        }
+        body { 
+            background-color: #0B0C10; 
+            color: #C5C6C7; 
+        } 
 
-        header {
-            padding: 20px 50px;
-            background-color: #1F2833;
-        }
+        header { 
+            padding: 20px 50px; 
+            background-color: #1F2833; 
+        } 
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        nav { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        } 
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
+        nav ul { 
+            list-style: none; 
+            display: flex; 
+            gap: 20px; 
+        } 
 
-        nav ul li a {
-            text-decoration: none;
-            color: #C5C6C7;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
+        nav ul li a { 
+            text-decoration: none; 
+            color: #C5C6C7; 
+            font-weight: 500; 
+        } 
 
-        nav ul li a:hover {
-            color: #66FCF1;
-        }
+        .resume-btn { 
+            padding: 8px 12px; 
+            border: 1px solid #66FCF1; 
+            border-radius: 5px; 
+            text-decoration: none; 
+            color: #66FCF1; 
+            transition: background 0.3s, color 0.3s; 
+        } 
 
-        .resume-btn {
-            padding: 8px 12px;
-            border: 1px solid #66FCF1;
-            border-radius: 5px;
-            text-decoration: none;
-            color: #66FCF1;
-            transition: background 0.3s, color 0.3s;
-        }
+        .resume-btn:hover { 
+            background-color: #66FCF1; 
+            color: #0B0C10; 
+        } 
 
-        .resume-btn:hover {
-            background-color: #66FCF1;
-            color: #0B0C10;
-        }
+        .profile { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            max-width: 900px; 
+            margin: 50px auto; 
+            padding: 20px; 
+        } 
 
-        .profile {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 20px;
-        }
+        .text { 
+            max-width: 50%; 
+        } 
 
-        .text {
-            max-width: 50%;
-        }
+        .text h3 { 
+            font-size: 1.2em; 
+            color: #45A29E; 
+        } 
 
-        .text h3 {
-            font-size: 1.2em;
-            color: #45A29E;
-        }
+        .text h1 { 
+            font-size: 2em; 
+            margin: 5px 0; 
+            color: #C5C6C7; 
+        } 
 
-        .text h1 {
-            font-size: 2em;
-            margin: 5px 0;
-            color: #C5C6C7;
-        }
+        .text p { 
+            margin: 10px 0; 
+            font-size: 1.1em; 
+            color: #C5C6C7; 
+        } 
 
-        .text p {
-            margin: 10px 0;
-            font-size: 1.1em;
-            color: #C5C6C7;
-        }
+        .btn { 
+            display: inline-block; 
+            padding: 10px 20px; 
+            background-color: #66FCF1; 
+            color: #0B0C10; 
+            text-decoration: none; 
+            border-radius: 5px; 
+            margin-top: 10px; 
+            transition: background 0.3s, color 0.3s; 
+        } 
 
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #66FCF1;
-            color: #0B0C10;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 10px;
-            transition: background 0.3s, color 0.3s;
-        }
+        .btn:hover { 
+            background-color: #45A29E; 
+            color: #0B0C10; 
+        } 
 
-        .btn:hover {
-            background-color: #45A29E;
-            color: #0B0C10;
-        }
+        .profile-img img { 
+            width: 250px; 
+            height: auto; 
+            border-radius: 10px; 
+            border: 3px solid #45A29E; 
+        } 
 
-        .profile-img img {
-            width: 250px;
-            height: auto;
-            border-radius: 10px;
-            border: 3px solid #45A29E;
-        }
-
-        @media (max-width: 768px) {
-            .profile {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .text {
-                max-width: 100%;
-                margin-bottom: 20px;
-            }
-        }
+        @media (max-width: 768px) { 
+            .profile { 
+                flex-direction: column; 
+                text-align: center; 
+            } 
+            .text { 
+                max-width: 100%; 
+                margin-bottom: 20px; 
+            } 
+        } 
     </style>
 </head>
 <body>
     <header>
         <nav>
-            <div class="logo" style="color: #66FCF1; font-weight: bold;">M. Wakefield</div>
+            <div class="logo">M. Wakefield</div>
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#">About</a></li>
