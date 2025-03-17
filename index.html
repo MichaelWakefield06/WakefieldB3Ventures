@@ -3,135 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>H. Jansma</title>
+    <title>Wakefield B3 Ventures</title>
     <style>
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            background-color: #222629; /* Black background */
+            color: #6B6E70;
             font-family: Arial, sans-serif;
+            height: 100%; /* Full height of the viewport */
         }
 
-        body {
-            background-color: #f8f9fc;
-            color: #222;
-        }
-
-        header {
-            padding: 20px 50px;
-            background-color: white;
-        }
-
-        nav {
+        /* Container to center the background image */
+        .image-container {
+            width: 75%; /* 75% of the page width will be the content area */
+            height: 100%; /* Full height of the viewport */
+            margin: 0 auto; /* Center horizontally */
+            background-image: url('WakefieldB3Ventures/Images/ChaosToClarityBanner_PNG.png');
+            background-size: cover; /* Cover the content area */
+            background-position: center;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
         }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: black;
-            font-weight: 500;
-        }
-
-        .resume-btn {
-            padding: 8px 12px;
-            border: 1px solid #000;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-
-        .profile {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 900px;
-            margin: 50px auto;
+        /* Text and content in the middle of the background image */
+        .content {
             padding: 20px;
-        }
-
-        .text {
-            max-width: 50%;
-        }
-
-        .text h3 {
-            font-size: 1.2em;
-            color: #555;
-        }
-
-        .text h1 {
-            font-size: 2em;
-            margin: 5px 0;
-        }
-
-        .text p {
-            margin: 10px 0;
-            font-size: 1.1em;
-            color: #666;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #5c9cf5;
+            text-align: center;
             color: white;
+        }
+
+        h1 {
+            color: #86C232;
+            font-size: 2em;
+        }
+
+        p {
+            font-size: 1.2em;
+        }
+
+        /* Flexbox styles to display elements horizontally */
+        .boxes {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px; /* Space between the boxes */
+            flex-wrap: wrap; /* Ensures wrapping on smaller screens */
+        }
+
+        /* Styles for each of the information boxes */
+        .box {
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+            color: white;
+            padding: 20px;
+            margin: 15px;
+            border-radius: 8px;
+            width: 300px; /* Width of each box */
+            text-align: center;
+        }
+
+        .box h2 {
+            color: #86C232;
+            font-size: 1.5em;
+        }
+
+        /* Footer Section for Navigation Links */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #222629; /* Black background for footer */
+            color: #6B6E70; /* Text color */
+            text-align: center;
+            padding: 10px 0;
+            font-size: 1.2em;
+        }
+
+        footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        footer ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+
+        .disabled {
+            color: #6B6E70;
+            pointer-events: none;
             text-decoration: none;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-
-        .profile-img img {
-            width: 250px;
-            height: auto;
-            border-radius: 10px;
-        }
-
-        @media (max-width: 768px) {
-            .profile {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .text {
-                max-width: 100%;
-                margin-bottom: 20px;
-            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">H. Jansma</div>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Portfolio</a></li>
-                <li><a href="#">Huck</a></li>
-                <li><a href="#">The Fiancé</a></li>
-                <li><a href="#" class="resume-btn">Resume</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <section class="profile">
-            <div class="text">
-                <h3>I am</h3>
-                <h1>Harrison Jansma</h1>
-                <p>Contemplative coder and analyst. Inspired by tough problems.</p>
-                <a href="#" class="btn">My Projects</a>
+    <!-- Main image container with background image -->
+    <div class="image-container">
+        <div class="content">
+            <h1>Welcome to Wakefield B3 Ventures</h1>
+            <p>Your go-to platform for [your mission or purpose].</p>
+
+            <!-- Flex container for the boxes -->
+            <div class="boxes">
+                <!-- Hobbies Section -->
+                <div class="box">
+                    <h2>Hobbies</h2>
+                    <p>Explore my favorite hobbies, from photography to painting. I find creativity through these activities and enjoy sharing them with others.</p>
+                </div>
+
+                <!-- Sports Section -->
+                <div class="box">
+                    <h2>Sports</h2>
+                    <p>Sports have been an integral part of my life. Whether it’s playing basketball or watching the latest games, sports offer excitement and camaraderie.</p>
+                </div>
+
+                <!-- Friends Section -->
+                <div class="box">
+                    <h2>Friends</h2>
+                    <p>Friendship is a key value I cherish. Good friends make life more fulfilling, and I’m grateful for the incredible people I have in my life.</p>
+                </div>
             </div>
-            <div class="profile-img">
-                <img src="profile.jpg" alt="Harrison Jansma">
-            </div>
-        </section>
-    </main>
+        </div>
+    </div>
+
+    <!-- Footer Section for Navigation Links -->
+    <footer>
+        <ul>
+            <li><a href="index.html" class="disabled">Home</a></li> |
+            <li><a href="about.html">About Us</a></li> |
+            <li><a href="services.html">Services</a></li> |
+            <li><a href="business-insights.html">Business Insights</a></li> |
+            <li><a href="contact.html">Contact</a></li> |
+            <li><a href="testimonials.html">Testimonials</a></li>
+        </ul>
+    </footer>
+
 </body>
 </html>
