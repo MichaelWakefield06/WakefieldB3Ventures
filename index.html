@@ -14,25 +14,34 @@
             height: 100%; /* Full height of the viewport */
         }
 
-        /* Container to center the background image */
-        .image-container {
-            width: 75%; /* 75% of the page width will be the content area */
-            height: 100%; /* Full height of the viewport */
-            margin: 0 auto; /* Center horizontally */
-            background-image: url('WakefieldB3Ventures/Images/ChaosToClarityBanner_PNG.png');
-            background-size: cover; /* Cover the content area */
-            background-position: center;
+        /* Wrapper to separate the left and right background from the image */
+        .page-wrapper {
             display: flex;
-            flex-direction: column;
             justify-content: center;
-            align-items: center;
+            height: 100vh; /* Full height of the viewport */
         }
 
-        /* Text and content in the middle of the background image */
-        .content {
+        /* Left and right 12.5% background color */
+        .side {
+            width: 12.5%;
+            background-color: #222629;
+        }
+
+        /* Middle 75% with a background image */
+        .center-image {
+            width: 75%;
+            background-image: url('WakefieldB3Ventures/Images/Logo1.png'); /* Background image path */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Make the background image stay fixed while scrolling */
+            color: white;
             padding: 20px;
             text-align: center;
-            color: white;
+        }
+
+        /* Content inside the center image */
+        .content {
+            padding: 20px;
         }
 
         h1 {
@@ -74,8 +83,8 @@
             position: fixed;
             bottom: 0;
             width: 100%;
-            background-color: #222629; /* Black background for footer */
-            color: #6B6E70; /* Text color */
+            background-color: #222629;
+            color: #6B6E70;
             text-align: center;
             padding: 10px 0;
             font-size: 1.2em;
@@ -91,9 +100,8 @@
             margin-right: 10px;
         }
 
-        /* Update the link colors to match the text color */
         footer a {
-            color: #6B6E70; /* This color matches the text color in the body */
+            color: #6B6E70;
             text-decoration: none;
         }
 
@@ -110,33 +118,42 @@
 </head>
 <body>
 
-    <!-- Main image container with background image -->
-    <div class="image-container">
-        <div class="content">
-            <h1>Welcome to Wakefield B3 Ventures</h1>
-            <p>Your go-to professional for all things data related.</p>
+    <!-- Main wrapper containing the side sections and the image center -->
+    <div class="page-wrapper">
+        <!-- Left and right side sections -->
+        <div class="side"></div>
 
-            <!-- Flex container for the boxes -->
-            <div class="boxes">
-                <!-- Hobbies Section -->
-                <div class="box">
-                    <h2>Hobbies</h2>
-                    <p>I enjoy learning about finance, staying active, and finding ways to support the people around me. Most of my free time is spent with family, and lately, I’ve been cheering on my daughter’s robotics team as they compete at nationals.</p>
-                </div>
+        <!-- Center image section with content -->
+        <div class="center-image">
+            <div class="content">
+                <h1>Welcome to Wakefield B3 Ventures</h1>
+                <p>Your go-to professional for all things data related.</p>
 
-                <!-- Sports Section -->
-                <div class="box">
-                    <h2>Sports</h2>
-                    <p>I’ve always enjoyed playing sports more than watching them. Basketball and soccer have been my go-to, but I’ve recently started playing pickleball and find it surprisingly fun.</p>
-                </div>
+                <!-- Flex container for the boxes -->
+                <div class="boxes">
+                    <!-- Hobbies Section -->
+                    <div class="box">
+                        <h2>Hobbies</h2>
+                        <p>I enjoy learning about finance, staying active, and finding ways to support the people around me. Most of my free time is spent with family, and lately, I’ve been cheering on my daughter’s robotics team as they compete at nationals.</p>
+                    </div>
 
-                <!-- Friends Section -->
-                <div class="box">
-                    <h2>Friends & Relationships</h2>
-                    <p>I appreciate genuine connections and good conversation. Trust, respect, and showing up for people matter most to me.</p>
+                    <!-- Sports Section -->
+                    <div class="box">
+                        <h2>Sports</h2>
+                        <p>I’ve always enjoyed playing sports more than watching them. Basketball and soccer have been my go-to, but I’ve recently started playing pickleball and find it surprisingly fun.</p>
+                    </div>
+
+                    <!-- Friends Section -->
+                    <div class="box">
+                        <h2>Friends & Relationships</h2>
+                        <p>I appreciate genuine connections and good conversation. Trust, respect, and showing up for people matter most to me.</p>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- Right side section -->
+        <div class="side"></div>
     </div>
 
     <!-- Footer Section for Navigation Links -->
