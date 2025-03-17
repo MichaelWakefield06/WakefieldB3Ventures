@@ -63,7 +63,7 @@
             padding: 20px;
             margin: 15px;
             border-radius: 8px;
-            width: 33.33%; /* Ensure each box takes up one-third of the container */
+            width: calc(33.33% - 20px); /* Ensure each box fits within the container, accounting for the gap */
             box-sizing: border-box; /* Include padding in width calculation */
             text-align: center;
         }
