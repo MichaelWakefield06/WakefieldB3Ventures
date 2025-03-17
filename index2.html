@@ -50,7 +50,7 @@
             justify-content: space-between; /* Evenly spaced boxes */
             align-items: flex-start;
             gap: 20px; /* Space between the boxes */
-            flex-wrap: wrap; /* Ensures wrapping on smaller screens */
+            flex-wrap: nowrap; /* Ensure no wrapping occurs */
             width: 100%;
             max-width: 960px; /* Limit the max width */
             margin-top: 20px;
@@ -63,10 +63,9 @@
             padding: 20px;
             margin: 15px;
             border-radius: 8px;
-            width: 30%; /* Set to 30% to ensure all three fit in one row */
-            min-width: 280px; /* Prevent the boxes from getting too small */
+            width: 33.33%; /* Ensure each box takes up one-third of the container */
+            box-sizing: border-box; /* Include padding in width calculation */
             text-align: center;
-            box-sizing: border-box; /* Ensure padding is included in width calculation */
         }
 
         .box h2 {
