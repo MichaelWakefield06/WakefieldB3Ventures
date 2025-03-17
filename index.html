@@ -11,13 +11,13 @@
             background-color: #222629; /* Black background */
             color: #6B6E70;
             font-family: Arial, sans-serif;
-            height: 100vh; /* Full height of the viewport */
+            height: 100%; /* Full height of the viewport */
         }
 
         /* Container to center the background image */
         .image-container {
             width: 75%; /* 75% of the page width will be the content area */
-            height: 100vh; /* Full height of the viewport */
+            height: 100%; /* Full height of the viewport */
             margin: 0 auto; /* Center horizontally */
             background-image: url('WakefieldB3Ventures/Images/ChaosToClarityBanner_PNG.png');
             background-size: cover; /* Cover the content area */
@@ -51,9 +51,14 @@
         }
 
         footer {
-            margin-top: 40px;
-            font-size: 1.2em;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #222629; /* Black background for footer */
+            color: #6B6E70; /* Text color */
             text-align: center;
+            padding: 10px 0;
+            font-size: 1.2em;
         }
 
         footer ul {
@@ -86,36 +91,14 @@
     <!-- Footer Section for Navigation Links -->
     <footer>
         <ul>
-            <li><a href="index.html" id="home-link">Home</a></li>
-            <li><a href="about.html" id="about-link">About</a></li>
-            <li><a href="services.html" id="services-link">Services/Portfolio</a></li>
-            <li><a href="business-insights.html" id="business-insights-link">Business Insights</a></li>
-            <li><a href="contact.html" id="contact-link">Contact</a></li>
-            <li><a href="testimonials.html" id="testimonials-link">Testimonials</a></li>
+            <li><a href="index.html" class="disabled">Home</a></li> |
+            <li><a href="about.html">About Us</a></li> |
+            <li><a href="services.html">Services</a></li> |
+            <li><a href="business-insights.html">Business Insights</a></li> |
+            <li><a href="contact.html">Contact</a></li> |
+            <li><a href="testimonials.html">Testimonials</a></li>
         </ul>
     </footer>
-
-    <p>&copy; 2025 Wakefield B3 Ventures. All rights reserved.</p>
-
-    <script>
-        // Get the current page URL
-        var currentPage = window.location.pathname.split("/").pop();
-
-        // Disable the link for the current page
-        if (currentPage === "index.html") {
-            document.getElementById("home-link").classList.add("disabled");
-        } else if (currentPage === "about.html") {
-            document.getElementById("about-link").classList.add("disabled");
-        } else if (currentPage === "services.html") {
-            document.getElementById("services-link").classList.add("disabled");
-        } else if (currentPage === "business-insights.html") {
-            document.getElementById("business-insights-link").classList.add("disabled");
-        } else if (currentPage === "contact.html") {
-            document.getElementById("contact-link").classList.add("disabled");
-        } else if (currentPage === "testimonials.html") {
-            document.getElementById("testimonials-link").classList.add("disabled");
-        }
-    </script>
 
 </body>
 </html>
