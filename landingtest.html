@@ -5,11 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Michael Wakefield</title>
 <style>
+    @font-face {
+        font-family: 'Myriad';
+        src: url('https://example.com/path-to-myriad.woff2') format('woff2'),
+             url('https://example.com/path-to-myriad.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+
     body {
         margin: 0;
         height: 100vh;
         display: flex;
-        font-family: Georgia, serif; /* Default fallback */
+        font-family: 'Myriad', sans-serif;
     }
     .left {
         width: 65%;
@@ -17,11 +25,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        flex-direction: column; /* Stack items vertically */
+        flex-direction: column;
     }
     .right {
         width: 35%;
-        background: linear-gradient(to right, black, #61892F); /* Horizontal gradient from black to #61892F */
+        background: linear-gradient(to right, black, #61892F);
     }
     .container {
         text-align: center;
