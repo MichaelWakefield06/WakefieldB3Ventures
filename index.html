@@ -6,44 +6,66 @@
     <title>Wakefield B3 Ventures</title>
     <style>
         body {
-            background-color: #222629;
+            margin: 0;
+            padding: 0;
+            background-color: #222629; /* Black background */
             color: #6B6E70;
             font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
+            height: 100vh; /* Full height of the viewport */
         }
+
+        /* Container to center the background image */
+        .image-container {
+            width: 75%; /* 75% of the page width will be the content area */
+            height: 100vh; /* Full height of the viewport */
+            margin: 0 auto; /* Center horizontally */
+            background-image: url('WakefieldB3Ventures/Images/ChaosToClarityBanner_PNG.png');
+            background-size: cover; /* Cover the content area */
+            background-position: center;
+        }
+
+        /* Text and content in the middle of the background image */
+        .content {
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
         h1 {
             color: #86C232;
             font-size: 2em;
         }
+
         p {
             font-size: 1.2em;
         }
+
         a {
             color: lightblue;
             text-decoration: none;
             font-weight: bold;
         }
+
         a:hover {
             text-decoration: underline;
         }
-        .banner {
-            width: 100%; /* Makes the banner span the entire width */
-            height: auto;
-        }
+
         footer {
             margin-top: 40px;
             font-size: 1.2em;
             text-align: center;
         }
+
         footer ul {
             list-style: none;
             padding: 0;
         }
+
         footer ul li {
             display: inline;
             margin-right: 10px;
         }
+
         .disabled {
             color: #6B6E70;
             pointer-events: none;
@@ -53,13 +75,15 @@
 </head>
 <body>
 
-    <!-- Banner Section -->
-    <img src="WakefieldB3Ventures/Images/ChaosToClarityBanner_PNG.png" alt="Banner Image" class="banner">
+    <!-- Main image container with background image -->
+    <div class="image-container">
+        <div class="content">
+            <h1>Welcome to Wakefield B3 Ventures</h1>
+            <p>Your go-to platform for [your mission or purpose].</p>
+        </div>
+    </div>
 
-    <h1>Welcome to Wakefield B3 Ventures</h1>
-    <p>Your go-to platform for [your mission or purpose].</p>
-
-    <!-- Footer Section -->
+    <!-- Footer Section for Navigation Links -->
     <footer>
         <ul>
             <li><a href="index.html" id="home-link">Home</a></li>
