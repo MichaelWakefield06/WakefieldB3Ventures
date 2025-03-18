@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll Transition Example</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <div class="bubble" data-page="Page 1" onclick="scrollToSection(0)"></div>
+    <div class="bubble" data-page="Page 2" onclick="scrollToSection(1)"></div>
+    <div class="bubble" data-page="Page 3" onclick="scrollToSection(2)"></div>
+    <div class="bubble" data-page="Page 4" onclick="scrollToSection(3)"></div>
+  </div>
+
+  <!-- Main Content -->
+  <div id="content">
+    <div class="section" id="section1">Page 1 Content</div>
+    <div class="section" id="section2">Page 2 Content</div>
+    <div class="section" id="section3">Page 3 Content</div>
+    <div class="section" id="section4">Page 4 Content</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
