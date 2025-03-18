@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scroll Transition Example</title>
+  <title>Scroll Transition with Links and Progress Bar</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- Sidebar -->
+  <!-- Sidebar with Links -->
   <div id="sidebar">
-    <div class="bubble" data-page="Page 1" onclick="scrollToSection(0)"></div>
-    <div class="bubble" data-page="Page 2" onclick="scrollToSection(1)"></div>
-    <div class="bubble" data-page="Page 3" onclick="scrollToSection(2)"></div>
-    <div class="bubble" data-page="Page 4" onclick="scrollToSection(3)"></div>
+    <a href="#section1" class="bubble" data-page="Page 1"></a>
+    <a href="#section2" class="bubble" data-page="Page 2"></a>
+    <a href="#section3" class="bubble" data-page="Page 3"></a>
+    <a href="#section4" class="bubble" data-page="Page 4"></a>
   </div>
 
   <!-- Main Content -->
@@ -23,6 +23,9 @@
     <div class="section" id="section3">Page 3 Content</div>
     <div class="section" id="section4">Page 4 Content</div>
   </div>
+
+  <!-- Scroll Progress Bar -->
+  <div id="progress-bar"></div>
 
   <script src="script.js"></script>
 </body>
