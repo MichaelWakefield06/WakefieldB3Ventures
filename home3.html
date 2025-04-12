@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>M. Wakefield</title>
     <style>
-        /* Global Reset and Basic Styles */
         * { 
             margin: 0; 
             padding: 0; 
@@ -13,44 +12,34 @@
             font-family: Arial, sans-serif; 
         }
 
-        /* Body Styling - Flexbox for layout */
         body { 
             background-color: #222629; 
             color: #C5C6C7; 
-            display: flex; /* Creates a flexible layout with a sidebar and main content */
-            flex-direction: row; /* Ensures elements are aligned side by side */
-            min-height: 100vh; /* Ensures the page takes up the full height of the viewport */
         }
 
-        /* Header Styles */
         header { 
             padding: 20px 50px; 
             background-color: #474B4F; 
-            width: 100%; /* Full width to span across the page */
         }
 
-        /* Navigation Styling */
         nav { 
             display: flex; 
-            justify-content: space-between; /* Spacing between logo and navigation links */
+            justify-content: space-between; 
             align-items: center; 
         }
 
-        /* Navigation List Styles */
         nav ul { 
             list-style: none; 
             display: flex; 
-            gap: 20px; /* Space between navigation items */
+            gap: 20px; 
         }
 
-        /* Navigation Link Styling */
         nav ul li a { 
             text-decoration: none; 
             color: #C5C6C7; 
             font-weight: 500; 
         }
 
-        /* Resume Button Styling */
         .resume-btn { 
             padding: 8px 12px; 
             border: 1px solid #86C232; 
@@ -60,49 +49,41 @@
             transition: background 0.3s, color 0.3s; 
         }
 
-        /* Hover effect for Resume Button */
         .resume-btn:hover { 
             background-color: #86C232; 
             color: #222629; 
         }
 
-        /* Profile Section Styling */
         .profile { 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            max-width: 900px; 
+            max-width: 100%; 
             margin: 50px auto; 
             padding: 20px; 
-            flex-grow: 1; /* Ensures profile section takes up remaining space */
         }
 
-        /* Profile Text Section Styling */
         .text { 
-            max-width: 70%; /* Makes the text section occupy 70% of the profile area */
+            max-width: 50%; 
         }
 
-        /* Styling for Profile Text Headings */
         .text h3 { 
             font-size: 1.2em; 
             color: #61892F; 
         }
 
-        /* Styling for Profile Text Main Heading */
         .text h1 { 
             font-size: 2em; 
             margin: 5px 0; 
             color: #C5C6C7; 
         }
 
-        /* Paragraph Text Styling */
         .text p { 
             margin: 10px 0; 
             font-size: 1.1em; 
             color: #C5C6C7; 
         }
 
-        /* Button Styling */
         .btn { 
             display: inline-block; 
             padding: 10px 20px; 
@@ -114,12 +95,10 @@
             transition: background 0.3s, color 0.3s; 
         }
 
-        /* Hover effect for the Button */
         .btn:hover { 
             background-color: #61892F; 
         }
 
-        /* Profile Image Styling */
         .profile-img img { 
             width: 250px; 
             height: auto; 
@@ -127,74 +106,20 @@
             border: 3px solid #61892F; 
         }
 
-        /* Sidebar Styles */
-        .sidebar {
-            position: fixed; /* Keeps the sidebar fixed while scrolling */
-            top: 0;
-            right: 0;
-            width: 250px; /* Fixed width for the sidebar */
-            height: 100%; /* Full height of the viewport */
-            background-color: #474B4F; 
-            padding: 20px;
-            display: flex;
-            flex-direction: column; /* Stacks links vertically in the sidebar */
-            align-items: flex-start; 
-        }
-
-        /* Sidebar Links List */
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        /* Sidebar List Item */
-        .sidebar ul li {
-            margin: 20px 0; /* Space between items */
-        }
-
-        /* Sidebar Link Styling */
-        .sidebar ul li a {
-            color: #C5C6C7;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.2em;
-            transition: color 0.3s;
-        }
-
-        /* Sidebar Link Hover Effect */
-        .sidebar ul li a:hover {
-            color: #86C232; 
-        }
-
-        /* Responsive Styling for Smaller Screens (max-width: 768px) */
         @media (max-width: 768px) { 
             .profile { 
                 flex-direction: column; 
-                text-align: center; /* Centers text and profile content */
+                text-align: center; 
             }
 
             .text { 
-                max-width: 100%; /* Full width for text content */
+                max-width: 100%; 
                 margin-bottom: 20px; 
-            }
-
-            /* Sidebar becomes a full-width section at the top of the page on smaller screens */
-            .sidebar {
-                position: static;
-                width: 100%;
-                height: auto;
-                padding: 10px;
-            }
-
-            /* Align sidebar items to the center */
-            .sidebar ul li {
-                text-align: center;
-            }
+            } 
         }
     </style>
 </head>
 <body>
-    <!-- Header Section -->
     <header>
         <nav>
             <div class="logo">M. Wakefield</div>
@@ -208,11 +133,11 @@
         </nav>
     </header>
 
-    <!-- Main Content Section -->
     <main>
         <section class="profile">
             <div class="text">
                 <h3>Daily Log - I guess</h3>
+                <h1></h1>
                 <p>4/11/2025</p>
                 <p>It's 12:47AM. I'm still up. I finished writing this response to your last email. Somehow I fear it will be the last email. I don't dare say that but there is a part of me that thinks that. I'll send the email I have for you in the morning when I wake up. Maybe I should just start getting up when I wake up at 4 and go running. It needs to be a little warmer in the morning and I'll go run up and down this main road... hopefully no one is driving dangerously at that time of the morning ;). Good night. I'll post more later in the morning.</p>
                 <p>Sent you the email. On morning standup. Feel better than I did on Tuesday morning so that is a win. I know there are so many things I would tell you this morning but I either hold it back or put some things here. sigh...</p>
@@ -253,20 +178,10 @@
                 <p>I decided to stay home today because I can't be around people. My office is dark and lonely. the recent terminations have soured the mood. My team has been broken up. Morale is low. What am I even doing. This isn't getting me anywhere close to where I want to be... HELLLOOOOO!!!</p>
                 <p>I just read your email...I know this isn't fun for either of us, I'm sorry if I came across as if it was only hard for me... Yes, I'm also resisting the urge to reply immediately - or even at all...it's probably better to wait some time and try to heal the wound :(. Hang in there, you got this...</p>
                 <p>Made it through the first work day. I have things to occupy me tonight. Schoolwork (gotta try to at least pass this class with a C), then I might double up on the miles tonight again. I came home last night and completely crashed after my shower. Trade one pain for another... Have a good night!</p>
-                
+                <a href="#" class="btn">My Projects</a>
+            </div>
             </div>
         </section>
     </main>
-
-    <!-- Sidebar Section for Links to Other HTML Pages -->
-    <aside class="sidebar">
-        <ul>
-            <li><a href="page1.html">Page 1</a></li>
-            <li><a href="page2.html">Page 2</a></li>
-            <li><a href="page3.html">Page 3</a></li>
-            <li><a href="page4.html">Page 4</a></li>
-            <li><a href="page5.html">Page 5</a></li>
-        </ul>
-    </aside>
 </body>
 </html>
