@@ -5,121 +5,147 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>M. Wakefield</title>
     <style>
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: Arial, sans-serif; 
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
 
-        body { 
-            background-color: #222629; 
-            color: #C5C6C7; 
+        body {
+            background-color: #222629;
+            color: #C5C6C7;
         }
 
-        header { 
-            padding: 20px 50px; 
-            background-color: #474B4F; 
+        header {
+            padding: 20px 50px;
+            background-color: #474B4F;
         }
 
-        nav { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        nav ul { 
-            list-style: none; 
-            display: flex; 
-            gap: 20px; 
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
         }
 
-        nav ul li a { 
-            text-decoration: none; 
-            color: #C5C6C7; 
-            font-weight: 500; 
+        nav ul li a {
+            text-decoration: none;
+            color: #C5C6C7;
+            font-weight: 500;
         }
 
-        .resume-btn { 
-            padding: 8px 12px; 
-            border: 1px solid #86C232; 
-            border-radius: 5px; 
-            text-decoration: none; 
-            color: #86C232; 
-            transition: background 0.3s, color 0.3s; 
+        .resume-btn {
+            padding: 8px 12px;
+            border: 1px solid #86C232;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #86C232;
+            transition: background 0.3s, color 0.3s;
         }
 
-        .resume-btn:hover { 
-            background-color: #86C232; 
-            color: #222629; 
+        .resume-btn:hover {
+            background-color: #86C232;
+            color: #222629;
         }
 
-        .profile { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            max-width: 100%; 
-            margin: 50px auto; 
-            padding: 20px; 
+        /* Main Layout */
+        .profile {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin: 40px auto;
+            padding: 20px;
         }
 
-        .text { 
-            max-width: 50%; 
+        /* Sidebars */
+        .left-sidebar,
+        .right-sidebar {
+            flex: 1;
+            background-color: #474B4F;
+            padding: 20px;
+            border-radius: 10px;
+            height: fit-content;
         }
 
-        .text h3 { 
-            font-size: 1.2em; 
-            color: #61892F; 
+        .left-sidebar h2,
+        .right-sidebar h2 {
+            color: #86C232;
+            margin-bottom: 15px;
         }
 
-        .text h1 { 
-            font-size: 2em; 
-            margin: 5px 0; 
-            color: #C5C6C7; 
+        .left-sidebar a,
+        .right-sidebar a {
+            display: block;
+            color: #C5C6C7;
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: color 0.3s;
         }
 
-        .text p { 
-            margin: 10px 0; 
-            font-size: 1.1em; 
-            color: #C5C6C7; 
+        .left-sidebar a:hover,
+        .right-sidebar a:hover {
+            color: #86C232;
         }
 
-        .btn { 
-            display: inline-block; 
-            padding: 10px 20px; 
-            background-color: #86C232; 
-            color: #222629; 
-            text-decoration: none; 
-            border-radius: 5px; 
-            margin-top: 10px; 
-            transition: background 0.3s, color 0.3s; 
+        /* Main Content */
+        .text {
+            flex: 3;
         }
 
-        .btn:hover { 
-            background-color: #61892F; 
+        .text h3 {
+            font-size: 1.2em;
+            color: #61892F;
         }
 
-        .profile-img img { 
-            width: 250px; 
-            height: auto; 
-            border-radius: 10px; 
-            border: 3px solid #61892F; 
+        .text h1 {
+            font-size: 2em;
+            margin: 5px 0;
+            color: #C5C6C7;
         }
 
-        @media (max-width: 768px) { 
-            .profile { 
-                flex-direction: column; 
-                text-align: center; 
+        .text p {
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #86C232;
+            color: #222629;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #61892F;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .profile {
+                flex-direction: column;
             }
 
-            .text { 
-                max-width: 100%; 
-                margin-bottom: 20px; 
-            } 
+            .text,
+            .left-sidebar,
+            .right-sidebar {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Header and Navigation -->
     <header>
         <nav>
             <div class="logo">M. Wakefield</div>
@@ -133,11 +159,23 @@
         </nav>
     </header>
 
+    <!-- Main Section with Left Sidebar, Main Content, Right Sidebar -->
     <main>
         <section class="profile">
+
+            <!-- Left Sidebar -->
+            <aside class="left-sidebar">
+                <h2>Quick Links</h2>
+                <a href="#">Journal</a>
+                <a href="#">Reflections</a>
+                <a href="#">Goals</a>
+                <a href="#">Mood Tracker</a>
+                <a href="#">Music Log</a>
+            </aside>
+
+            <!-- Main Content -->
             <div class="text">
                 <h3>Daily Log - I guess</h3>
-                <h1></h1>
                 <p>4/11/2025</p>
                 <p>It's 12:47AM. I'm still up. I finished writing this response to your last email. Somehow I fear it will be the last email. I don't dare say that but there is a part of me that thinks that. I'll send the email I have for you in the morning when I wake up. Maybe I should just start getting up when I wake up at 4 and go running. It needs to be a little warmer in the morning and I'll go run up and down this main road... hopefully no one is driving dangerously at that time of the morning ;). Good night. I'll post more later in the morning.</p>
                 <p>Sent you the email. On morning standup. Feel better than I did on Tuesday morning so that is a win. I know there are so many things I would tell you this morning but I either hold it back or put some things here. sigh...</p>
@@ -178,9 +216,21 @@
                 <p>I decided to stay home today because I can't be around people. My office is dark and lonely. the recent terminations have soured the mood. My team has been broken up. Morale is low. What am I even doing. This isn't getting me anywhere close to where I want to be... HELLLOOOOO!!!</p>
                 <p>I just read your email...I know this isn't fun for either of us, I'm sorry if I came across as if it was only hard for me... Yes, I'm also resisting the urge to reply immediately - or even at all...it's probably better to wait some time and try to heal the wound :(. Hang in there, you got this...</p>
                 <p>Made it through the first work day. I have things to occupy me tonight. Schoolwork (gotta try to at least pass this class with a C), then I might double up on the miles tonight again. I came home last night and completely crashed after my shower. Trade one pain for another... Have a good night!</p>
+                
                 <a href="#" class="btn">My Projects</a>
             </div>
-            </div>
+
+            <!-- Right Sidebar -->
+            <aside class="right-sidebar">
+                <h2>Other Pages</h2>
+                <a href="#">Home</a>
+                <a href="#">About Me</a>
+                <a href="#">Portfolio</a>
+                <a href="#">Services</a>
+                <a href="#">Contact</a>
+                <a href="#">Blog</a>
+            </aside>
+
         </section>
     </main>
 </body>
