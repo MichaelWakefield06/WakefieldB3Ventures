@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Vintage Rug Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #fdfaf6;
+      color: #222;
+      text-align: center;
+    }
+
+    header {
+      padding: 40px 20px 20px;
+      border-bottom: 1px solid #e5dfd4;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      letter-spacing: 0.2rem;
+      margin-bottom: 10px;
+    }
+
+    .subheading {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-style: italic;
+      margin: 40px 0 20px;
+      position: relative;
+    }
+
+    .subheading::before,
+    .subheading::after {
+      content: "";
+      display: block;
+      height: 1px;
+      background: #d4c2a8;
+      width: 60px;
+      margin: 10px auto;
+    }
+
+    .gallery {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 0 20px;
+    }
+
+    .gallery img {
+      width: 180px;
+      height: auto;
+      border: 1px solid #d4c2a8;
+      padding: 5px;
+      background: #fff;
+    }
+
+    .shop-button {
+      display: inline-block;
+      margin: 40px auto;
+      padding: 12px 30px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      border: 1px solid #d4c2a8;
+      background-color: #fdfaf6;
+      color: #222;
+      text-decoration: none;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .shop-button:hover {
+      background-color: #d4c2a8;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>THE VINTAGE RUG STUDIO</h1>
+  </header>
+
+  <div class="subheading">New In</div>
+
+  <div class="gallery">
+    <img src="rug1.jpg" alt="Vintage Rug 1">
+    <img src="rug2.jpg" alt="Vintage Rug 2">
+    <img src="rug3.jpg" alt="Vintage Rug 3">
+    <img src="rug4.jpg" alt="Vintage Rug 4">
+    <img src="rug5.jpg" alt="Vintage Rug 5">
+  </div>
+
+  <a href="#" class="shop-button">SHOP NOW</a>
+</body>
+</html>
