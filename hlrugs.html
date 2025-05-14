@@ -73,4 +73,144 @@
       padding: 10px 20px;
       text-decoration: none;
       color: #333;
-      font-family: 'Playfair Display
+      font-family: 'Playfair Display', serif;
+    }
+
+    .dropdown a:hover {
+      background-color: #f0f0f0;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .subheading {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 6rem;
+      font-style: normal;
+      margin: 90px 0 30px;
+      position: relative;
+    }
+
+    .subheading::before,
+    .subheading::after {
+      content: "";
+      display: block;
+      height: 1px;
+      background: #d4c2a8;
+      width: 60px;
+      margin: 10px auto;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 0 20px;
+    }
+
+    .gallery img {
+      width: 240px;
+      height: auto;
+      border: 1px solid #d4c2a8;
+      padding: 5px;
+      background: #fff;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    .shop-button {
+      display: inline-block;
+      margin: 90px auto 40px;
+      padding: 12px 30px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      border: 1px solid #d4c2a8;
+      background-color: #fdfaf6;
+      color: #333;
+      text-decoration: none;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .shop-button:hover {
+      background-color: #d4c2a8;
+      color: #fff;
+    }
+
+    footer {
+      background-color: #fdfaf6;
+      padding: 20px 0;
+    }
+
+    footer .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    footer .social-icons img {
+      width: 30px;
+      height: 30px;
+      transition: opacity 0.3s ease;
+    }
+
+    footer .social-icons img:hover {
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>THE VINTAGE RUG STUDIO</h1>
+    
+    <!-- Hamburger Menu -->
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div id="dropdownMenu" class="dropdown">
+      <a href="https://www.wakefieldb3ventures.com/hlrugsshop.html">Our Collection</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="subheading">New In</div>
+
+    <div class="gallery">
+      <img src="hlrugs/VintageRug_1.jpg" alt="Vintage Rug 1">
+      <img src="hlrugs/VintageRug_3.jpg" alt="Vintage Rug 3">
+      <img src="hlrugs/VintageRug_2.jpg" alt="Vintage Rug 2">
+      <img src="hlrugs/VintageRug_4.jpg" alt="Vintage Rug 4">
+      <img src="hlrugs/VintageRug_5.jpg" alt="Vintage Rug 5">
+    </div>
+
+    <!-- Update this link to point to the Shop page -->
+    <a href="hlrugsshop.html" class="shop-button">SHOP NOW</a>
+  </main>
+
+  <footer>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/thevintagerugstudio/" target="_blank" aria-label="Instagram">
+        <img src="hlrugs/icons/Instagram_icon.png.webp" alt="Instagram">
+      </a>
+      <a href="https://www.facebook.com/marketplace/profile/1333233563/" target="_blank" aria-label="Facebook">
+        <img src="hlrugs/icons/FB_Icon.png" alt="Facebook">
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const dropdown = document.getElementById("dropdownMenu");
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+  </script>
+
+</body>
+</html>
