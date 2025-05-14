@@ -21,7 +21,7 @@
     body {
       font-family: 'Roboto', sans-serif;
       background-color: #fdfaf6;
-      color: #333;
+      color: #222;
       text-align: center;
     }
 
@@ -72,7 +72,7 @@
       display: block;
       padding: 10px 20px;
       text-decoration: none;
-      color: #333;
+      color: #222;
       font-family: 'Playfair Display', serif;
     }
 
@@ -131,7 +131,7 @@
       font-size: 1rem;
       border: 1px solid #d4c2a8;
       background-color: #fdfaf6;
-      color: #333;
+      color: #222;
       text-decoration: none;
       transition: background-color 0.3s, color 0.3s;
     }
@@ -160,75 +160,6 @@
 
     footer .social-icons img:hover {
       opacity: 0.6;
-    }
-
-    /* Testimonial Carousel Styles */
-    .testimonial-carousel {
-      position: relative;
-      width: 90%; /* Set width to be larger */
-      max-width: 700px; /* Maximum width */
-      margin: 50px auto;
-      overflow: hidden; /* Hide overflow to show only one testimonial */
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      background-color: #fff;
-      height: 250px; /* Set the height for the carousel */
-    }
-
-    .testimonial-container {
-      display: flex;
-      transition: transform 0.5s ease;
-    }
-
-    .testimonial {
-      width: 100%; /* Ensure each testimonial takes full width */
-      box-sizing: border-box;
-      text-align: center;
-      padding: 40px;
-    }
-
-    .testimonial p {
-      font-size: 18px;
-      line-height: 1.5;
-      color: #333;
-      margin-bottom: 20px;
-    }
-
-    .testimonial h3 {
-      font-size: 22px;
-      font-weight: bold;
-      color: #333;
-    }
-
-    .testimonial .job-title {
-      font-size: 16px;
-      color: #777;
-    }
-
-    .prev, .next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: rgba(0, 0, 0, 0.5);
-      color: white;
-      font-size: 30px;
-      padding: 10px;
-      cursor: pointer;
-      border: none;
-      border-radius: 50%;
-      transition: background-color 0.3s;
-    }
-
-    .prev:hover, .next:hover {
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-
-    .prev {
-      left: 10px;
-    }
-
-    .next {
-      right: 10px;
     }
   </style>
 </head>
@@ -259,36 +190,8 @@
       <img src="hlrugs/VintageRug_5.jpg" alt="Vintage Rug 5">
     </div>
 
+    <!-- Update this link to point to the Shop page -->
     <a href="hlrugsshop.html" class="shop-button">SHOP NOW</a>
-
-    <!-- Testimonial Carousel Section -->
-    <div class="testimonial-carousel">
-      <div class="testimonial-container">
-        <!-- Testimonial 1 -->
-        <div class="testimonial">
-          <p>"My purchase was exactly as described on Hannah's site, it came via UPS with tracking and arrived on time. Hannah was prompt with her responses and very helpful with description of this vintage rug. I highly recommend buying from this seller!"</p>
-          <h3>- Giselle</h3>
-          <p class="job-title">Customer</p>
-        </div>
-        <!-- Testimonial 2 -->
-        <div class="testimonial">
-          <p>"Beautiful product and great pricing! Would highly recommend the seller, very kind and was quick to respond!!"</p>
-          <h3>- Reagan</h3>
-          <p class="job-title">Customer</p>
-        </div>
-        <!-- Testimonial 3 -->
-        <div class="testimonial">
-          <p>"Her rugs are beautiful and her prices are fair. 10/10 recommend."</p>
-          <h3>- Andi</h3>
-          <p class="job-title">Customer</p>
-        </div>
-      </div>
-
-      <!-- Navigation Arrows -->
-      <span class="prev" onclick="moveSlide(-1)">&#10094;</span>
-      <span class="next" onclick="moveSlide(1)">&#10095;</span>
-    </div>
-
   </main>
 
   <footer>
@@ -307,27 +210,6 @@
       const dropdown = document.getElementById("dropdownMenu");
       dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
     }
-
-    let currentIndex = 0;
-
-    function moveSlide(step) {
-      const testimonials = document.querySelectorAll('.testimonial');
-      const totalTestimonials = testimonials.length;
-
-      currentIndex += step;
-
-      if (currentIndex >= totalTestimonials) {
-        currentIndex = 0;
-      } else if (currentIndex < 0) {
-        currentIndex = totalTestimonials - 1;
-      }
-
-      document.querySelector('.testimonial-container').style.transform = `translateX(-${currentIndex * 100}%)`;
-    }
-
-    setInterval(function() {
-      moveSlide(1);
-    }, 5000);
   </script>
 
 </body>
