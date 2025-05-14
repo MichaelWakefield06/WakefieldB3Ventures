@@ -59,8 +59,13 @@
       padding: 0 20px;
     }
 
-    .gallery img {
+    .product {
       width: 240px;
+      text-align: center;
+    }
+
+    .product img {
+      width: 100%;
       height: auto;
       border: 1px solid #d4c2a8;
       padding: 5px;
@@ -68,8 +73,43 @@
       transition: transform 0.3s ease;
     }
 
-    .gallery img:hover {
+    .product img:hover {
       transform: scale(1.05);
+    }
+
+    .product .name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+
+    .product .description {
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.9rem;
+      color: #666;
+      margin: 5px 0;
+    }
+
+    .product .price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      margin: 10px 0;
+      color: #d4c2a8;
+    }
+
+    .product .buy-button {
+      padding: 10px 20px;
+      background-color: #d4c2a8;
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .product .buy-button:hover {
+      background-color: #b39c7f;
     }
 
     footer {
@@ -105,25 +145,127 @@
 
     <div class="gallery">
       <!-- First Set of Products -->
-      <img src="hlrugs/VintageRug_1.jpg" alt="Vintage Rug 1">
-      <img src="hlrugs/VintageRug_3.jpg" alt="Vintage Rug 3">
-      <img src="hlrugs/VintageRug_2.jpg" alt="Vintage Rug 2">
-      <img src="hlrugs/VintageRug_4.jpg" alt="Vintage Rug 4">
-      <img src="hlrugs/VintageRug_5.jpg" alt="Vintage Rug 5">
+      <div class="product">
+        <img src="hlrugs/VintageRug_1.jpg" alt="Vintage Rug 1">
+        <div class="name">Vintage Rug 1</div>
+        <div class="description">A timeless piece to add character to any room.</div>
+        <div class="price">$299.99</div>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="hlrugs/VintageRug_3.jpg" alt="Vintage Rug 3">
+        <div class="name">Vintage Rug 3</div>
+        <div class="description">Beautiful design with rich color tones.</div>
+        <div class="price">$349.99</div>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="hlrugs/VintageRug_2.jpg" alt="Vintage Rug 2">
+        <div class="name">Vintage Rug 2</div>
+        <div class="description">Perfect for creating a cozy atmosphere.</div>
+        <div class="price">$279.99</div>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="hlrugs/VintageRug_4.jpg" alt="Vintage Rug 4">
+        <div class="name">Vintage Rug 4</div>
+        <div class="description">Classic design with a modern twist.</div>
+        <div class="price">$399.99</div>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="hlrugs/VintageRug_5.jpg" alt="Vintage Rug 5">
+        <div class="name">Vintage Rug 5</div>
+        <div class="description">An elegant rug that complements any decor.</div>
+        <div class="price">$349.99</div>
+        <button class="buy-button">Add to Cart</button>
+      </div>
 
       <!-- Second Set of Products (Same Products) -->
-      <img src="hlrugs/VintageRug_1.jpg" alt="Vintage Rug 1">
-      <img src="hlrugs/VintageRug_3.jpg" alt="Vintage Rug 3">
-      <img src="hlrugs/VintageRug_2.jpg" alt="Vintage Rug 2">
-      <img src="hlrugs/VintageRug_4.jpg" alt="Vintage Rug 4">
-      <img src="hlrugs/VintageRug_5.jpg" alt="Vintage Rug 5">
+      <div class="product">
+        <img src="hlrugs/VintageRug_1.jpg" alt="Vintage Rug 1">
+        <div class="name">Vintage Rug 1</div>
+        <div class="description">A timeless piece to add character to any room.</div>
+        <div class="price">$299.99</div>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="hlrugs/VintageRug_3.jpg" alt="Vintage Rug 3">
+        <div class="name">Vintage Rug 3</div>
+        <div class="description">Beautiful design with rich color tones.</div>
+        <div class="price">$349.99</div>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="hlrugs/VintageRug_2.jpg" alt="Vintage Rug 2">
+        <div class="name">Vintage Rug 2</div>
+        <div class="description">Perfect for creating a cozy atmosphere.</div>
+        <div class="price">$279.99</div>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="hlrugs/VintageRug_4.jpg" alt="Vintage Rug 4">
+        <div class="name">Vintage Rug 4</div>
+        <div class="description">Classic design with a modern twist.</div>
+        <div class="price">$399.99</div>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="hlrugs/VintageRug_5.jpg" alt="Vintage Rug 5">
+        <div class="name">Vintage Rug 5</div>
+        <div class="description">An elegant rug that complements any decor.</div>
+        <div class="price">$349.99</div>
+        <button class="buy-button">Add to Cart</button>
+      </div>
 
       <!-- Third Set of Products (Same Products) -->
-      <img src="hlrugs/VintageRug_1.jpg" alt="Vintage Rug 1">
-      <img src="hlrugs/VintageRug_3.jpg" alt="Vintage Rug 3">
-      <img src="hlrugs/VintageRug_2.jpg" alt="Vintage Rug 2">
-      <img src="hlrugs/VintageRug_4.jpg" alt="Vintage Rug 4">
-      <img src="hlrugs/VintageRug_5.jpg" alt="Vintage Rug 5">
+      <div class="product">
+        <img src="hlrugs/VintageRug_1.jpg" alt="Vintage Rug 1">
+        <div class="name">Vintage Rug 1</div>
+        <div class="description">A timeless piece to add character to any room.</div>
+        <div class="price">$299.99</div>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="hlrugs/VintageRug_3.jpg" alt="Vintage Rug 3">
+        <div class="name">Vintage Rug 3</div>
+        <div class="description">Beautiful design with rich color tones.</div>
+        <div class="price">$349.99</div>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="hlrugs/VintageRug_2.jpg" alt="Vintage Rug 2">
+        <div class="name">Vintage Rug 2</div>
+        <div class="description">Perfect for creating a cozy atmosphere.</div>
+        <div class="price">$279.99</div>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="hlrugs/VintageRug_4.jpg" alt="Vintage Rug 4">
+        <div class="name">Vintage Rug 4</div>
+        <div class="description">Classic design with a modern twist.</div>
+        <div class="price">$399.99</div>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+
+      <div class="product">
+        <img src="hlrugs/VintageRug_5.jpg" alt="Vintage Rug 5">
+        <div class="name">Vintage Rug 5</div>
+        <div class="description">An elegant rug that complements any decor.</div>
+        <div class="price">$349.99</div>
+        <button class="buy-button">Add to Cart</button>
+      </div>
     </div>
   </main>
 
