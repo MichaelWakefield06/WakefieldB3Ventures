@@ -40,129 +40,6 @@
       margin-bottom: 10px;
     }
 
-    /* Hamburger Menu */
-    .hamburger {
-      position: absolute;
-      left: 20px;
-      top: 20px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .hamburger div {
-      width: 25px;
-      height: 3px;
-      background-color: white;
-    }
-
-    .dropdown {
-      display: none;
-      position: absolute;
-      top: 60px;
-      left: 20px;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      z-index: 1000;
-    }
-
-    .dropdown a {
-      display: block;
-      padding: 10px 20px;
-      text-decoration: none;
-      color: #222;
-      font-family: 'Playfair Display', serif;
-    }
-
-    .dropdown a:hover {
-      background-color: #f0f0f0;
-    }
-
-    main {
-      flex: 1;
-    }
-
-    .subheading {
-      font-family: 'Pinyon Script', cursive;
-      font-size: 6rem;
-      font-style: normal;
-      margin: 90px 0 30px;
-      position: relative;
-    }
-
-    .subheading::before,
-    .subheading::after {
-      content: "";
-      display: block;
-      height: 1px;
-      background: #d4c2a8;
-      width: 60px;
-      margin: 10px auto;
-    }
-
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding: 0 20px;
-    }
-
-    .gallery img {
-      width: 240px;
-      height: auto;
-      border: 1px solid #d4c2a8;
-      padding: 5px;
-      background: #fff;
-      transition: transform 0.3s ease;
-    }
-
-    .gallery img:hover {
-      transform: scale(1.05);
-    }
-
-    .shop-button {
-      display: inline-block;
-      margin: 90px auto 40px;
-      padding: 12px 30px;
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      border: 1px solid #d4c2a8;
-      background-color: #fdfaf6;
-      color: #222;
-      text-decoration: none;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    .shop-button:hover {
-      background-color: #d4c2a8;
-      color: #fff;
-    }
-
-    footer {
-      background-color: #fdfaf6;
-      padding: 20px 0;
-    }
-
-    footer .social-icons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    footer .social-icons img {
-      width: 30px;
-      height: 30px;
-      transition: opacity 0.3s ease;
-    }
-
-    footer .social-icons img:hover {
-      opacity: 0.6;
-    }
-
-    /* Testimonial Carousel Styles */
     .testimonial-carousel {
       position: relative;
       width: 70%; /* Set width to be larger */
@@ -177,10 +54,11 @@
     .testimonial-container {
       display: flex;
       transition: transform 0.5s ease;
+      width: 300%; /* Make the container 3 times as wide as the viewport */
     }
 
     .testimonial {
-      width: 100%; /* Each testimonial takes up full width */
+      width: 33.33%; /* Each testimonial takes up 1/3 of the container */
       padding: 40px;
       text-align: center;
       box-sizing: border-box;
@@ -321,7 +199,8 @@
         currentIndex = totalTestimonials - 1;
       }
 
-      document.querySelector('.testimonial-container').style.transform = `translateX(-${currentIndex * 100}%)`;
+      // Update the transform property to move the carousel
+      document.querySelector('.testimonial-container').style.transform = `translateX(-${currentIndex * 33.33}%)`;
     }
 
     setInterval(function() {
