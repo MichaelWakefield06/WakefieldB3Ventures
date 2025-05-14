@@ -30,6 +30,7 @@
       color: #fff;
       padding: 40px 20px 20px;
       border-bottom: 1px solid #e5dfd4;
+      position: relative;
     }
 
     header h1 {
@@ -37,6 +38,46 @@
       font-size: 4rem;
       letter-spacing: 0.25rem;
       margin-bottom: 10px;
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 20px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: #222;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .dropdown a:hover {
+      background-color: #f0f0f0;
     }
 
     main {
@@ -126,6 +167,16 @@
 
   <header>
     <h1>THE VINTAGE RUG STUDIO</h1>
+    
+    <!-- Hamburger Menu -->
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div id="dropdownMenu" class="dropdown">
+      <a href="https://www.wakefieldb3ventures.com/hlrugsshop.html">Our Collection</a>
+    </div>
   </header>
 
   <main>
@@ -153,6 +204,13 @@
       </a>
     </div>
   </footer>
+
+  <script>
+    function toggleMenu() {
+      const dropdown = document.getElementById("dropdownMenu");
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+  </script>
 
 </body>
 </html>
