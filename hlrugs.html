@@ -19,13 +19,12 @@
       text-align: center;
     }
 
-header {
-  background-color: #d4c2a8;
-  color: #fff; /* Makes text white */
-  padding: 40px 20px 20px;
-  border-bottom: 1px solid #e5dfd4;
-}
-
+    header {
+      background-color: #d4c2a8;
+      color: #fff;
+      padding: 40px 20px 20px;
+      border-bottom: 1px solid #e5dfd4;
+    }
 
     header h1 {
       font-family: 'Playfair Display', serif;
@@ -91,6 +90,24 @@ header {
       background-color: #d4c2a8;
       color: #fff;
     }
+
+    /* SOCIAL ICON STYLES */
+    .social-icons {
+      margin: 60px 0 30px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .social-icons img {
+      width: 30px;
+      height: 30px;
+      transition: opacity 0.3s ease;
+    }
+
+    .social-icons img:hover {
+      opacity: 0.6;
+    }
   </style>
 </head>
 <body>
@@ -109,5 +126,15 @@ header {
   </div>
 
   <a href="#" class="shop-button">SHOP NOW</a>
+
+  <!-- Social Media Icons -->
+  <div class="social-icons">
+    <a href="https://www.instagram.com/thevintagerugstudio/" target="_blank" aria-label="Instagram">
+      <img src="hlrugs/icons/Instagram_icon.png.webp" alt="Instagram">
+    </a>
+    <a href="https://www.facebook.com/marketplace/profile/1333233563/" target="_blank" aria-label="Facebook">
+      <img src="hlrugs/icons/FB_Icon.png" alt="Facebook">
+    </a>
+  </div>
 </body>
 </html>
