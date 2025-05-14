@@ -1,0 +1,117 @@
+<!-- Shop Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop - The Vintage Rug Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #fdfaf6;
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #d4c2a8;
+      color: #fff;
+      padding: 40px 20px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      letter-spacing: 0.25rem;
+      margin-bottom: 10px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .product-card {
+      border: 1px solid #d4c2a8;
+      background: #fff;
+      padding: 10px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: auto;
+    }
+
+    .product-card:hover {
+      transform: scale(1.05);
+    }
+
+    .product-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin: 10px 0;
+    }
+
+    .product-card p {
+      font-size: 1.2rem;
+      color: #555;
+    }
+
+    .product-card .price {
+      font-weight: bold;
+      color: #d4c2a8;
+    }
+
+    .shop-button {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 12px 30px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      border: 1px solid #d4c2a8;
+      background-color: #fdfaf6;
+      color: #222;
+      text-decoration: none;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .shop-button:hover {
+      background-color: #d4c2a8;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Shop - The Vintage Rug Studio</h1>
+  </header>
+
+  <div class="product-grid">
+    <!-- Example of a Product Card -->
+    <div class="product-card">
+      <img src="hlrugs/VintageRug_1.jpg" alt="Vintage Rug 1">
+      <h3>Vintage Rug 1</h3>
+      <p>Beautiful handwoven vintage rug with rich colors.</p>
+      <p class="price">$299.99</p>
+      <a href="#" class="shop-button">Add to Cart</a>
+    </div>
+
+    <div class="product-card">
+      <img src="hlrugs/VintageRug_2.jpg" alt="Vintage Rug 2">
+      <h3>Vintage Rug 2</h3>
+      <p>Elegant, traditional design perfect for any room.</p>
+      <p class="price">$349.99</p>
+      <a href="#" class="shop-button">Add to Cart</a>
+    </div>
+
+    <!-- Add more product cards here -->
+  </div>
+</body>
+</html>
