@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Vintage Rug Studio</title>
+  <!-- Add the link for the Great Vibes font -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
   <style>
     body {
@@ -27,9 +29,9 @@
     }
 
     .subheading {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-style: italic;
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      font-style: normal;  
       margin: 40px 0 20px;
       position: relative;
     }
@@ -45,9 +47,8 @@
     }
 
     .gallery {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 20px;
       padding: 0 20px;
     }
@@ -58,6 +59,11 @@
       border: 1px solid #d4c2a8;
       padding: 5px;
       background: #fff;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
     }
 
     .shop-button {
