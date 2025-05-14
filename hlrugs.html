@@ -11,8 +11,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
 
   <style>
-    body {
+    html, body {
+      height: 100%;
       margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body {
       font-family: 'Roboto', sans-serif;
       background-color: #fdfaf6;
       color: #222;
@@ -33,6 +39,10 @@
       margin-bottom: 10px;
     }
 
+    main {
+      flex: 1;
+    }
+
     .subheading {
       font-family: 'Pinyon Script', cursive;
       font-size: 6rem;
@@ -51,7 +61,6 @@
       margin: 10px auto;
     }
 
-    /* FLEXBOX GALLERY */
     .gallery {
       display: flex;
       flex-wrap: wrap;
@@ -91,50 +100,58 @@
       color: #fff;
     }
 
-    /* SOCIAL ICON STYLES */
-    .social-icons {
-      margin: 60px 0 30px;
+    footer {
+      background-color: #fdfaf6;
+      padding: 20px 0;
+    }
+
+    footer .social-icons {
       display: flex;
       justify-content: center;
       gap: 20px;
     }
 
-    .social-icons img {
+    footer .social-icons img {
       width: 30px;
       height: 30px;
       transition: opacity 0.3s ease;
     }
 
-    .social-icons img:hover {
+    footer .social-icons img:hover {
       opacity: 0.6;
     }
   </style>
 </head>
 <body>
+
   <header>
     <h1>THE VINTAGE RUG STUDIO</h1>
   </header>
 
-  <div class="subheading">New In</div>
+  <main>
+    <div class="subheading">New In</div>
 
-  <div class="gallery">
-    <img src="hlrugs/VintageRug_1.jpg" alt="Vintage Rug 1">
-    <img src="hlrugs/VintageRug_3.jpg" alt="Vintage Rug 3">
-    <img src="hlrugs/VintageRug_2.jpg" alt="Vintage Rug 2">
-    <img src="hlrugs/VintageRug_4.jpg" alt="Vintage Rug 4">
-    <img src="hlrugs/VintageRug_5.jpg" alt="Vintage Rug 5">
-  </div>
+    <div class="gallery">
+      <img src="hlrugs/VintageRug_1.jpg" alt="Vintage Rug 1">
+      <img src="hlrugs/VintageRug_3.jpg" alt="Vintage Rug 3">
+      <img src="hlrugs/VintageRug_2.jpg" alt="Vintage Rug 2">
+      <img src="hlrugs/VintageRug_4.jpg" alt="Vintage Rug 4">
+      <img src="hlrugs/VintageRug_5.jpg" alt="Vintage Rug 5">
+    </div>
 
-  <a href="#" class="shop-button">SHOP NOW</a>
+    <a href="#" class="shop-button">SHOP NOW</a>
+  </main>
 
-  <!-- Social Media Icons -->
-  <div class="social-icons">
-    <a href="https://www.instagram.com/thevintagerugstudio/" target="_blank" aria-label="Instagram">
-      <img src="hlrugs/icons/Instagram_icon.png.webp" alt="Instagram">
-    </a>
-    <a href="https://www.facebook.com/marketplace/profile/1333233563/" target="_blank" aria-label="Facebook">
-      <img src="hlrugs/icons/FB_Icon.png" alt="Facebook">
-    </a>
-  </div>
+  <footer>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/thevintagerugstudio/" target="_blank" aria-label="Instagram">
+        <img src="hlrugs/icons/Instagram_icon.png.webp" alt="Instagram">
+      </a>
+      <a href="https://www.facebook.com/marketplace/profile/1333233563/" target="_blank" aria-label="Facebook">
+        <img src="hlrugs/icons/FB_Icon.png" alt="Facebook">
+      </a>
+    </div>
+  </footer>
+
 </body>
 </html>
