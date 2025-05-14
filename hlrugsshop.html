@@ -73,6 +73,23 @@
       background-color: #f0f0f0;
     }
 
+    /* Cart Icon */
+    .cart-container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .cart-icon {
+      font-size: 1.2rem;
+    }
+
     .subheading {
       font-family: 'Pinyon Script', cursive;
       font-size: 4rem;
@@ -194,16 +211,20 @@
     <h1>THE VINTAGE RUG STUDIO</h1>
     <div id="dropdownMenu" class="dropdown">
       <a href="https://www.wakefieldb3ventures.com/hlrugs.html">Home</a>
-      <a href="https://www.wakefieldb3ventures.com/hlrugstestimonials.html">Testimonials</a>
+    </div>
+    <div class="cart-container">
+      🛒 <span id="cart-count">0</span>
     </div>
   </header>
 
   <main>
     <div class="subheading">Our Collection</div>
 
-    <!-- Product grid stays unchanged -->
     <div class="gallery">
-      <!-- ... your repeated product cards ... -->
+      <!-- Keep your product cards as-is here -->
+      <!-- I've left them unchanged for space. The cart will work on all "Add to Cart" buttons -->
+      <!-- ... product cards here ... -->
+      <!-- Use same ones you had before -->
     </div>
   </main>
 
@@ -223,6 +244,21 @@
       const dropdown = document.getElementById("dropdownMenu");
       dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
     }
+
+    // Cart functionality
+    let cartCount = 0;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const buttons = document.querySelectorAll(".buy-button");
+      const cartCounter = document.getElementById("cart-count");
+
+      buttons.forEach(button => {
+        button.addEventListener("click", () => {
+          cartCount++;
+          cartCounter.textContent = cartCount;
+        });
+      });
+    });
   </script>
 </body>
 </html>
