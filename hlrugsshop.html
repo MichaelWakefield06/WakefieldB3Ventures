@@ -1,3 +1,5 @@
+<!-- shop -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,23 +73,6 @@
 
     .dropdown a:hover {
       background-color: #f0f0f0;
-    }
-
-    /* Cart Icon */
-    .cart-container {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .cart-icon {
-      font-size: 1.2rem;
     }
 
     .subheading {
@@ -212,13 +197,23 @@
     <div id="dropdownMenu" class="dropdown">
       <a href="https://www.wakefieldb3ventures.com/hlrugs.html">Home</a>
     </div>
-    <div class="cart-container">
-      🛒 <span id="cart-count">0</span>
-    </div>
   </header>
 
   <main>
-<div class="product">
+    <div class="subheading">Our Collection</div>
+
+    <div class="gallery">
+      <!-- Repeat Product Cards 15x -->
+      <!-- Sample Product Card — repeat for each -->
+      <!-- You can use a loop in JS or server-side in real site -->
+      <!-- Begin Card -->
+      <!-- Loop start -->
+      <!-- 15 products below -->
+      <!-- You can update each image/desc/price as needed -->
+      <!-- 3 sets of 5 items -->
+      <!-- Loop: 3 x -->
+      <!-- Set 1 -->
+      <div class="product">
         <img src="hlrugs/VintageRug_1.jpg" alt="Vintage Rug 1">
         <div class="product-details">
           <div class="name">Vintage Rug 1</div>
@@ -370,7 +365,6 @@
         <button class="buy-button">Add to Cart</button>
       </div>
     </div>
-
   </main>
 
   <footer>
@@ -389,21 +383,6 @@
       const dropdown = document.getElementById("dropdownMenu");
       dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
     }
-
-    // Cart functionality
-    let cartCount = 0;
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const buttons = document.querySelectorAll(".buy-button");
-      const cartCounter = document.getElementById("cart-count");
-
-      buttons.forEach(button => {
-        button.addEventListener("click", () => {
-          cartCount++;
-          cartCounter.textContent = cartCount;
-        });
-      });
-    });
   </script>
 </body>
 </html>
