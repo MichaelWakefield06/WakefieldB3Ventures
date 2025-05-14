@@ -3,22 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shop - The Vintage Rug Studio</title>
+  <title>The Vintage Rug Studio - Shop</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
+
   <style>
     body {
+      margin: 0;
       font-family: 'Roboto', sans-serif;
       background-color: #fdfaf6;
       color: #222;
-      margin: 0;
-      padding: 0;
+      text-align: center;
     }
 
     header {
       background-color: #d4c2a8;
       color: #fff;
       padding: 40px 20px 20px;
-      text-align: center;
+      border-bottom: 1px solid #e5dfd4;
     }
 
     header h1 {
@@ -28,115 +33,110 @@
       margin-bottom: 10px;
     }
 
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 20px;
-      padding: 20px;
+    .subheading {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 6rem;
+      font-style: normal;
+      margin: 90px 0 30px;
+      position: relative;
     }
 
-    .product-card {
+    .subheading::before,
+    .subheading::after {
+      content: "";
+      display: block;
+      height: 1px;
+      background: #d4c2a8;
+      width: 60px;
+      margin: 10px auto;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 0 20px;
+    }
+
+    .gallery img {
+      width: 240px;
+      height: auto;
       border: 1px solid #d4c2a8;
+      padding: 5px;
       background: #fff;
-      padding: 10px;
-      text-align: center;
       transition: transform 0.3s ease;
     }
 
-    .product-card img {
-      width: 100%;
-      height: auto;
-    }
-
-    .product-card:hover {
+    .gallery img:hover {
       transform: scale(1.05);
     }
 
-    .product-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      margin: 10px 0;
-    }
-
-    .product-card p {
-      font-size: 1.2rem;
-      color: #555;
-    }
-
-    .product-card .price {
-      font-weight: bold;
-      color: #d4c2a8;
-    }
-
-    .shop-button {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 12px 30px;
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      border: 1px solid #d4c2a8;
+    footer {
       background-color: #fdfaf6;
-      color: #222;
-      text-decoration: none;
-      transition: background-color 0.3s, color 0.3s;
+      padding: 20px 0;
     }
 
-    .shop-button:hover {
-      background-color: #d4c2a8;
-      color: #fff;
+    footer .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    footer .social-icons img {
+      width: 30px;
+      height: 30px;
+      transition: opacity 0.3s ease;
+    }
+
+    footer .social-icons img:hover {
+      opacity: 0.6;
     }
   </style>
 </head>
 <body>
+
   <header>
-    <h1>Shop - The Vintage Rug Studio</h1>
+    <h1>THE VINTAGE RUG STUDIO - SHOP</h1>
   </header>
 
-  <div class="product-grid">
-    <!-- Product 1 -->
-    <div class="product-card">
+  <main>
+    <div class="subheading">Our Collection</div>
+
+    <div class="gallery">
+      <!-- First Set of Products -->
       <img src="hlrugs/VintageRug_1.jpg" alt="Vintage Rug 1">
-      <h3>Vintage Rug 1</h3>
-      <p>Beautiful handwoven vintage rug with rich colors.</p>
-      <p class="price">$299.99</p>
-      <a href="#" class="shop-button">Add to Cart</a>
-    </div>
-
-    <!-- Product 2 -->
-    <div class="product-card">
       <img src="hlrugs/VintageRug_3.jpg" alt="Vintage Rug 3">
-      <h3>Vintage Rug 3</h3>
-      <p>Classic design with timeless appeal. Perfect for your home.</p>
-      <p class="price">$349.99</p>
-      <a href="#" class="shop-button">Add to Cart</a>
-    </div>
-
-    <!-- Product 3 -->
-    <div class="product-card">
       <img src="hlrugs/VintageRug_2.jpg" alt="Vintage Rug 2">
-      <h3>Vintage Rug 2</h3>
-      <p>Elegant, traditional design perfect for any room.</p>
-      <p class="price">$319.99</p>
-      <a href="#" class="shop-button">Add to Cart</a>
-    </div>
-
-    <!-- Product 4 -->
-    <div class="product-card">
       <img src="hlrugs/VintageRug_4.jpg" alt="Vintage Rug 4">
-      <h3>Vintage Rug 4</h3>
-      <p>Luxurious and vibrant, adds character to any space.</p>
-      <p class="price">$399.99</p>
-      <a href="#" class="shop-button">Add to Cart</a>
-    </div>
-
-    <!-- Product 5 -->
-    <div class="product-card">
       <img src="hlrugs/VintageRug_5.jpg" alt="Vintage Rug 5">
-      <h3>Vintage Rug 5</h3>
-      <p>Intricate patterns and rich colors make this a standout piece.</p>
-      <p class="price">$259.99</p>
-      <a href="#" class="shop-button">Add to Cart</a>
+
+      <!-- Second Set of Products (Same Products) -->
+      <img src="hlrugs/VintageRug_1.jpg" alt="Vintage Rug 1">
+      <img src="hlrugs/VintageRug_3.jpg" alt="Vintage Rug 3">
+      <img src="hlrugs/VintageRug_2.jpg" alt="Vintage Rug 2">
+      <img src="hlrugs/VintageRug_4.jpg" alt="Vintage Rug 4">
+      <img src="hlrugs/VintageRug_5.jpg" alt="Vintage Rug 5">
+
+      <!-- Third Set of Products (Same Products) -->
+      <img src="hlrugs/VintageRug_1.jpg" alt="Vintage Rug 1">
+      <img src="hlrugs/VintageRug_3.jpg" alt="Vintage Rug 3">
+      <img src="hlrugs/VintageRug_2.jpg" alt="Vintage Rug 2">
+      <img src="hlrugs/VintageRug_4.jpg" alt="Vintage Rug 4">
+      <img src="hlrugs/VintageRug_5.jpg" alt="Vintage Rug 5">
     </div>
-  </div>
+  </main>
+
+  <footer>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/thevintagerugstudio/" target="_blank" aria-label="Instagram">
+        <img src="hlrugs/icons/Instagram_icon.png.webp" alt="Instagram">
+      </a>
+      <a href="https://www.facebook.com/marketplace/profile/1333233563/" target="_blank" aria-label="Facebook">
+        <img src="hlrugs/icons/FB_Icon.png" alt="Facebook">
+      </a>
+    </div>
+  </footer>
+
 </body>
 </html>
