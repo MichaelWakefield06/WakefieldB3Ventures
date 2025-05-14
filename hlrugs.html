@@ -172,7 +172,7 @@
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       background-color: #fff;
-      height: 100px; /* Set height to be half of the original height */
+      height: 200px; /* Set height to be half of the original height */
     }
 
     .testimonial-container {
@@ -181,10 +181,10 @@
     }
 
     .testimonial {
-      width: 100%; /* Each testimonial takes up full width */
-      padding: 40px;
-      text-align: center;
+      width: 100vw; /* Each testimonial takes up 100% of the viewport width */
       box-sizing: border-box;
+      text-align: center;
+      padding: 40px;
     }
 
     .testimonial p {
@@ -322,7 +322,7 @@
         currentIndex = totalTestimonials - 1;
       }
 
-      document.querySelector('.testimonial-container').style.transform = `translateX(-${currentIndex * 100}%)`;
+      document.querySelector('.testimonial-container').style.transform = `translateX(-${currentIndex * 100}vw)`;
     }
 
     setInterval(function() {
