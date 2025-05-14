@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Testimonials | The Vintage Rug Studio</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #fdfaf6;
+      color: #333;
+      text-align: center;
+    }
+
+    header {
+      background-color: #d4c2a8;
+      color: #fff;
+      padding: 40px 20px 20px;
+      border-bottom: 1px solid #e5dfd4;
+      position: relative;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      letter-spacing: 0.25rem;
+      margin-bottom: 10px;
+    }
+
+    .hamburger {
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 20px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: #333;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .dropdown a:hover {
+      background-color: #f0f0f0;
+    }
+
+    main {
+      flex: 1;
+      padding: 40px 20px;
+    }
+
+    .subheading {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 6rem;
+      font-style: normal;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .subheading::before,
+    .subheading::after {
+      content: "";
+      display: block;
+      height: 1px;
+      background: #d4c2a8;
+      width: 60px;
+      margin: 10px auto;
+    }
+
+    .testimonials-list {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .testimonial-block {
+      background: #fff;
+      padding: 30px;
+      border: 1px solid #d4c2a8;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    .testimonial-block p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .testimonial-block h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: bold;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .testimonial-block .job-title {
+      font-size: 0.95rem;
+      color: #777;
+    }
+
+    footer {
+      background-color: #fdfaf6;
+      padding: 20px 0;
+    }
+
+    footer .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    footer .social-icons img {
+      width: 30px;
+      height: 30px;
+      transition: opacity 0.3s ease;
+    }
+
+    footer .social-icons img:hover {
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>THE VINTAGE RUG STUDIO</h1>
+
+    <!-- Hamburger Menu -->
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div id="dropdownMenu" class="dropdown">
+      <a href="https://www.wakefieldb3ventures.com/hlrugsshop.html">Our Collection</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="subheading">Testimonials</div>
+
+    <div class="testimonials-list">
+      <div class="testimonial-block">
+        <p>"My purchase was exactly as described on Hannah's site. It came via UPS with tracking and arrived on time. Hannah was prompt with her responses and very helpful with the description of this vintage rug. I highly recommend buying from this seller!"</p>
+        <h3>- Giselle</h3>
+        <p class="job-title">Customer</p>
+      </div>
+
+      <div class="testimonial-block">
+        <p>"Beautiful product and great pricing! Would highly recommend the seller, very kind and was quick to respond!!"</p>
+        <h3>- Reagan</h3>
+        <p class="job-title">Customer</p>
+      </div>
+
+      <div class="testimonial-block">
+        <p>"Her rugs are beautiful and her prices are fair. 10/10 recommend."</p>
+        <h3>- Andi</h3>
+        <p class="job-title">Customer</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/thevintagerugstudio/" target="_blank" aria-label="Instagram">
+        <img src="hlrugs/icons/Instagram_icon.png.webp" alt="Instagram">
+      </a>
+      <a href="https://www.facebook.com/marketplace/profile/1333233563/" target="_blank" aria-label="Facebook">
+        <img src="hlrugs/icons/FB_Icon.png" alt="Facebook">
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const dropdown = document.getElementById("dropdownMenu");
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+  </script>
+
+</body>
+</html>
