@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NC1EY1BCFZ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-NC1EY1BCFZ');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NC1EY1BCFZ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-NC1EY1BCFZ');
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>M. Wakefield</title>
@@ -139,6 +139,14 @@
             background-color: #61892F;
         }
 
+        /* Buffer spacing between paragraphs */
+        .buffer {
+            height: 200px; /* Adjust this to increase or decrease space */
+            /* Optional: background-color for testing
+            background-color: rgba(255, 255, 255, 0.1);
+            */
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .profile {
@@ -186,9 +194,13 @@
             <div class="text">
                 <h2>Daily Log</h2>
                 <p>Well, I archived this entire thing already. I don't remember what I put in it but I may go through it and may share ... whatever...with you... some day... :D If you start being nice to me :-P</p>
+                
+                <!-- Larger buffer inserted here -->
                 <div class="buffer"></div>
+                
                 <p>Let's test embedding a form!</p>
                 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdjP8dvVL4fwc4h33XyCaOx0Gq-_SIdYykp8ptfCgVW-JptSA/viewform?embedded=true" width="740" height="1204" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+                
                 <p></p>
                 <p></p>
                 <p></p>
