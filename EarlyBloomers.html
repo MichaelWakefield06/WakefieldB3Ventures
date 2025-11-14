@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Bloom • Blossom — Sample</title>
+  <title>Early Bloomers — Early Intervention & Child Development Support</title>
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
@@ -11,28 +11,26 @@
   <style>
     :root{
       --cream: #FBF7F3;
-      --soft-pink: #F6E9E6;
-      --muted-green: #8AA49D;
+      --soft-blue: #DCECF7;
+      --soft-green: #CFE9DA;
+      --soft-pink: #F7DFE7;
       --dark: #2D2A28;
-      --accent:#D99DA7;
+      --accent:#7FB1D6;
       --card-bg:#ffffff;
       --shadow: 0 6px 20px rgba(17,17,17,0.08);
     }
 
-    /* Reset-ish */
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      font-family: "Montserrat", system-ui, sans-serif;
       background: linear-gradient(180deg, var(--cream) 0%, #fff 100%);
       color:var(--dark);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
       line-height:1.45;
     }
 
-    /* Top nav */
+    /* Header */
     .site-header{
       display:flex;
       justify-content:space-between;
@@ -50,11 +48,12 @@
     }
     .brand .logo {
       width:54px; height:54px; border-radius:12px;
-      background: linear-gradient(135deg,#FCE7EB,#F6E9E6);
+      background: linear-gradient(135deg,#F6E9E6,#DCECF7);
       display:flex;align-items:center;justify-content:center;
       box-shadow: var(--shadow);
       font-family:"Playfair Display";
       font-weight:700;
+      font-size:20px;
     }
     nav .nav-links{
       display:flex; gap:18px; align-items:center;
@@ -81,47 +80,39 @@
       align-items:center;
       padding:0 28px;
     }
-    @media (max-width:920px){ .hero{ grid-template-columns:1fr; padding:0 20px } .hero .aside{order:2} }
+    @media (max-width:920px){ .hero{ grid-template-columns:1fr } }
 
     .hero .lead{
-      background:linear-gradient(90deg, rgba(255,255,255,0.6), rgba(255,255,255,0.8));
+      background:#ffffffd7;
       padding:28px; border-radius:16px; box-shadow: var(--shadow);
     }
-    .eyebrow{ font-family:"Montserrat"; font-size:13px; color:var(--muted-green); letter-spacing:1px; text-transform:uppercase; font-weight:700 }
+    .eyebrow{ font-size:13px; color:var(--accent); letter-spacing:1px; text-transform:uppercase; font-weight:700 }
     .hero h1{
       font-family:"Playfair Display";
       font-weight:700;
-      font-size:44px;
+      font-size:42px;
       margin:10px 0 8px;
-      color: #2b2a29;
     }
     .hero p.lead-text{
       margin:0 0 18px;
-      color:#544f4c;
       font-size:16px;
+      color:#534f4c;
     }
-    .hero .shop-row{ display:flex; gap:12px; flex-wrap:wrap; }
     .btn{
-      display:inline-block; text-decoration:none; padding:12px 18px; border-radius:10px;
-      background:var(--muted-green); color:white; font-weight:700;
+      display:inline-block;
+      padding:12px 18px; border-radius:10px;
+      text-decoration:none; color:white; background:var(--accent);
+      font-weight:700;
     }
-    .btn.ghost{ background:transparent; border:2px solid var(--dark); color:var(--dark); font-weight:600; }
-
-    /* Aside hero image */
-    .hero .aside{
-      border-radius:16px;
-      overflow:hidden;
-      position:relative;
-      box-shadow: var(--shadow);
-      background:#f7f5f4;
-      min-height:320px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+    .btn.ghost{
+      background:transparent; border:2px solid var(--dark); color:var(--dark); font-weight:600;
     }
-    .hero .aside img{ width:100%; height:100%; object-fit:cover; display:block; }
 
-    /* Featured products */
+    .hero .aside img{
+      width:100%; height:100%; object-fit:cover; border-radius:16px; box-shadow: var(--shadow);
+    }
+
+    /* Services Grid */
     .section{
       max-width:1180px; margin:0 auto; padding:8px 28px 40px;
     }
@@ -129,191 +120,120 @@
       display:grid; grid-template-columns: repeat(3,1fr); gap:20px;
     }
     @media (max-width:980px){ .grid{ grid-template-columns: repeat(2,1fr) } }
-    @media (max-width:640px){ .grid{ grid-template-columns: 1fr } .site-header{padding:14px 18px} }
+    @media (max-width:640px){ .grid{ grid-template-columns:1fr } }
 
     .card{
       border-radius:12px; background:var(--card-bg); overflow:hidden; box-shadow: var(--shadow);
       display:flex; flex-direction:column;
     }
-    .card img{ width:100%; aspect-ratio:4/3; object-fit:cover; display:block; }
-    .card .card-body{ padding:14px 16px 18px; display:flex; flex-direction:column; gap:8px; flex:1 }
+    .card img{ width:100%; aspect-ratio:4/3; object-fit:cover; }
+    .card-body{ padding:16px; display:flex; flex-direction:column; gap:8px; flex:1 }
     .card h3{ margin:0; font-size:18px; font-weight:700; }
-    .price{ color:var(--muted-green); font-weight:700 }
+    .small{ font-size:14px; color:#6f6c6a }
 
-    /* Newsletter */
-    .newsletter{
-      margin-top:30px;
-      display:flex;
-      gap:18px;
-      align-items:center;
-      background:linear-gradient(90deg, #FFF 0%, #FEF9F8 100%);
-      padding:20px;
-      border-radius:12px;
-      box-shadow: var(--shadow);
-    }
-    .newsletter input[type="email"]{
-      padding:12px 14px; border-radius:10px; border:1px solid #e7e2df; flex:1; font-size:15px;
-    }
-
-    /* Footer */
     footer{
       margin-top:48px;
       padding:36px 28px;
       background:var(--cream);
       border-top:1px solid rgba(0,0,0,0.03);
     }
-    .footer-inner{ max-width:1180px; margin:0 auto; display:flex; justify-content:space-between; gap:20px; align-items:flex-start; }
-    .footer-col{ min-width:180px }
-    .small{ font-size:13px; color:#6b6663 }
-
-    /* Simple utility */
-    .container{ max-width:1180px; margin:0 auto; padding:0 28px; }
+    .footer-inner{
+      max-width:1180px; margin:0 auto; display:flex; justify-content:space-between; gap:20px;
+    }
   </style>
 </head>
+
 <body>
-  <header class="site-header" role="banner">
-    <a href="#" class="brand" aria-label="Bloom Blossom home">
-      <div class="logo">BB</div>
-      <div>
-        <div style="font-family:'Playfair Display'; font-size:18px; font-weight:700; line-height:1;">Bloom • Blossom</div>
-        <div style="font-size:12px; color:#7a746f;">Handmade · Seasonal</div>
-      </div>
-    </a>
 
-    <nav aria-label="Main navigation">
-      <div class="nav-links">
-        <a href="#">Shop</a>
-        <a href="#">Collections</a>
-        <a href="#">About</a>
-        <a href="#">Journal</a>
-        <a href="#" class="cta">Contact</a>
-      </div>
-    </nav>
-  </header>
+<header class="site-header">
+  <a href="#" class="brand">
+    <div class="logo">EB</div>
+    <div>
+      <div style="font-family:'Playfair Display'; font-size:20px; font-weight:700;">Early Bloomers</div>
+      <div style="font-size:12px;">Early Intervention & Child Development Support</div>
+    </div>
+  </a>
 
-  <main>
-    <!-- Hero -->
-    <section class="hero" aria-labelledby="hero-heading">
-      <div class="lead">
-        <div class="eyebrow">New arrivals</div>
-        <h1 id="hero-heading">Feminine floral pieces for every day</h1>
-        <p class="lead-text">
-          Curated bouquets and crafted gift sets inspired by seasonal blooms. Hand-picked, sustainably sourced, and delivered with care.
-        </p>
+  <nav>
+    <div class="nav-links">
+      <a href="#">Services</a>
+      <a href="#">For Families</a>
+      <a href="#">Resources</a>
+      <a href="#">About</a>
+      <a href="#" class="cta">Contact</a>
+    </div>
+  </nav>
+</header>
 
-        <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-          <a class="btn" href="#">Shop new</a>
-          <a class="btn ghost" href="#">View collections</a>
-        </div>
-
-        <div style="margin-top:18px;">
-          <div style="font-size:13px; color:#857f7b; margin-bottom:8px;">Best sellers</div>
-          <div style="display:flex; gap:12px;">
-            <div style="background:#fff; border-radius:10px; padding:10px; box-shadow: var(--shadow); display:flex; gap:8px; align-items:center; min-width:160px;">
-              <img src="https://images.unsplash.com/photo-1518976024611-0f9991a3e64b?q=80&w=120&auto=format&fit=crop&crop=top" alt="" style="width:56px;height:56px;object-fit:cover;border-radius:8px;">
-              <div>
-                <div style="font-weight:700">Peony Bouquet</div>
-                <div style="font-size:13px; color:#857f7b">$48</div>
-              </div>
-            </div>
-
-            <div style="background:#fff; border-radius:10px; padding:10px; box-shadow: var(--shadow); display:flex; gap:8px; align-items:center; min-width:160px;">
-              <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=120&auto=format&fit=crop&crop=top" alt="" style="width:56px;height:56px;object-fit:cover;border-radius:8px;">
-              <div>
-                <div style="font-weight:700">Mini Posy</div>
-                <div style="font-size:13px; color:#857f7b">$22</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <aside class="aside" aria-hidden="true">
-        <!-- Placeholder hero image; swap to your image -->
-        <img src="https://images.unsplash.com/photo-1524594154905-2f6d9b0bcf4e?q=80&w=1200&auto=format&fit=crop&crop=edges" alt="Floral arrangement on table">
-      </aside>
-    </section>
-
-    <!-- Product grid -->
-    <section class="section" aria-labelledby="featured-heading">
-      <div style="display:flex; justify-content:space-between; align-items:end; gap:12px; margin-bottom:18px;">
-        <h2 id="featured-heading" style="font-family:'Playfair Display'; margin:0; font-size:28px;">Featured</h2>
-        <div style="color:#6b6663; font-size:14px;">Handmade & locally sourced</div>
-      </div>
-
-      <div class="grid" role="list">
-        <!-- Card 1 -->
-        <article class="card" role="listitem">
-          <img src="https://images.unsplash.com/photo-1518972559570-64c2d3a77b6b?q=80&w=1200&auto=format&fit=crop&crop=edges" alt="Bouquet on table">
-          <div class="card-body">
-            <h3>Garden Rose Bouquet</h3>
-            <div class="small">A mix of garden roses and seasonal greens</div>
-            <div style="margin-top:auto; display:flex; justify-content:space-between; align-items:center;">
-              <div class="price">$58</div>
-              <a class="btn" href="#">Buy</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 2 -->
-        <article class="card">
-          <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1200&auto=format&fit=crop&crop=edges" alt="">
-          <div class="card-body">
-            <h3>Wild Meadow</h3>
-            <div class="small">Loose stems for easy arranging</div>
-            <div style="margin-top:auto; display:flex; justify-content:space-between; align-items:center;">
-              <div class="price">$36</div>
-              <a class="btn" href="#">Buy</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 3 -->
-        <article class="card">
-          <img src="https://images.unsplash.com/photo-1518976024611-0f9991a3e64b?q=80&w=1200&auto=format&fit=crop&crop=edges" alt="">
-          <div class="card-body">
-            <h3>Seasonal Wreath</h3>
-            <div class="small">Hand-tied wreath perfect for front doors</div>
-            <div style="margin-top:auto; display:flex; justify-content:space-between; align-items:center;">
-              <div class="price">$72</div>
-              <a class="btn" href="#">Buy</a>
-            </div>
-          </div>
-        </article>
-      </div>
-
-      <!-- Newsletter -->
-      <div style="margin-top:28px;">
-        <div class="newsletter" role="region" aria-label="Newsletter signup">
-          <div style="font-weight:700; min-width:220px;">Join the bouquet club</div>
-          <form style="display:flex; gap:12px; flex:1;" onsubmit="event.preventDefault(); alert('Thanks! Replace this with real submission.');">
-            <input type="email" placeholder="Your email address" aria-label="Email address" required>
-            <button class="btn" type="submit">Subscribe</button>
-          </form>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-col">
-        <div style="font-weight:700; font-family:'Playfair Display'; font-size:18px;">Bloom • Blossom</div>
-        <div class="small" style="margin-top:8px;">
-          Floral design studio — shipping nationwide. Hand-curated seasonal bouquets and gifts.
-        </div>
-      </div>
-
-      <div class="footer-col">
-        <div style="font-weight:700; margin-bottom:6px;">Shop</div>
-        <div class="small">Bouquets<br>Wreaths<br>Subscriptions</div>
-      </div>
-
-      <div class="footer-col">
-        <div style="font-weight:700; margin-bottom:6px;">Contact</div>
-        <div class="small">hello@bloomblossom.example<br>123 Floral Lane</div>
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="lead">
+      <div class="eyebrow">Support for growing minds</div>
+      <h1>Helping little learners thrive</h1>
+      <p class="lead-text">
+        Early Bloomers partners with families to support speech, motor, social-emotional, and developmental growth during the most important years.
+      </p>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a class="btn" href="#">Explore Services</a>
+        <a class="btn ghost" href="#">Schedule a Consultation</a>
       </div>
     </div>
-  </footer>
+
+    <aside class="aside">
+      <img src="https://images.unsplash.com/photo-1588075592244-918dc9f0ad2a?q=80&w=1200&auto=format&fit=crop" alt="Child playing with wooden toys">
+    </aside>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section">
+    <h2 style="font-family:'Playfair Display'; font-size:28px; margin-bottom:18px;">Our Services</h2>
+
+    <div class="grid">
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1581091870675-e0d23cbdf1dc?q=80&w=1200&auto=format&fit=crop" alt="">
+        <div class="card-body">
+          <h3>Speech & Language Therapy</h3>
+          <div class="small">Language development, articulation, social communication.</div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1520170352451-6c2f42445419?q=80&w=1200&auto=format&fit=crop" alt="">
+        <div class="card-body">
+          <h3>Occupational Therapy</h3>
+          <div class="small">Fine motor skills, sensory support, independence skills.</div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1555252333-9f8a7a3c8f19?q=80&w=1200&auto=format&fit=crop" alt="">
+        <div class="card-body">
+          <h3>Developmental Intervention</h3>
+          <div class="small">Play-based learning for cognitive, social, and emotional growth.</div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div style="font-family:'Playfair Display'; font-size:20px; font-weight:700;">Early Bloomers</div>
+      <div class="small" style="max-width:260px; margin-top:6px;">
+        Supporting infants and toddlers through individualized early-intervention services rooted in evidence-based practice and family partnerships.
+      </div>
+    </div>
+
+    <div class="small">
+      <strong>Contact</strong><br>
+      info@earlybloomers.example<br>
+      (555) 123-4567<br>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
