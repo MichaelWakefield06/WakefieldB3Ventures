@@ -851,7 +851,7 @@
       <!-- RECORD -->
       <div class="audio-tab-panel active" id="tab-record">
         <div class="recorder-ui">
-          <div class="timer" id="timer-display">0:20</div>
+          <div class="timer" id="timer-display">0:10</div>
           <div class="timer-bar-wrap">
             <div class="timer-bar" id="timer-bar"></div>
           </div>
@@ -1017,7 +1017,7 @@
         </div>
         <div class="review-row">
           <span class="review-key">Est. delivery</span>
-          <span class="review-val">2 business days after payment</span>
+          <span class="review-val">Ships within 2 business days of payment processing</span>
         </div>
       </div>
     </div>
@@ -1082,7 +1082,7 @@
   let isRecording = false;
   let timerInterval = null;
   let playbackInterval = null;
-  const MAX_SECONDS = 20;
+  const MAX_SECONDS = 10;
 
   // ── STEP NAVIGATION ──
   function goToStep(n) {
@@ -1225,7 +1225,7 @@
     document.getElementById('progress-fill').style.width = '0%';
     document.getElementById('current-time').textContent = '0:00';
     document.getElementById('total-time').textContent = '0:00';
-    document.getElementById('timer-display').textContent = '0:20';
+    document.getElementById('timer-display').textContent = '0:10';
     document.getElementById('timer-bar').style.width = '0%';
     document.getElementById('timer-bar').classList.remove('danger');
     document.getElementById('record-status').textContent = 'Tap to start recording';
