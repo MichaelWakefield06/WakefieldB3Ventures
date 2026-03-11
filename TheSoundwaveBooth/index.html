@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Soundwave Booth | Their Voice, Forever</title>
+<meta name="description" content="Turn a voicemail, a phrase, or any sound into handcrafted soundwave art. Tumblers, frames, cutting boards & more. Free shipping. Made in the USA.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Karla:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white:      #FAFAF8;
+    --off-white:  #F4F1EC;
+    --linen:      #EDE8DF;
+    --slate:      #4A6378;
+    --slate-mid:  #6B8599;
+    --slate-light:#B8CADB;
+    --slate-pale: #E8EFF5;
+    --slate-deep: #2E4458;
+    --wood:       #A07850;
+    --wood-light: #C4A07A;
+    --wood-pale:  #EDE0CE;
+    --ink:        #22303C;
+    --muted:      #7A8F9E;
+    --border:     #DDD7CC;
+    --border-blue:#C8D8E4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Karla', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* subtle paper texture */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.022;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 clamp(16px, 4vw, 60px);
+    height: 66px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+    color: var(--slate-deep);
+    letter-spacing: 0.01em;
+    text-decoration: none;
+  }
+  .logo em { font-style: italic; color: var(--wood); }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+  .nav-links a {
+    font-size: 0.82rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.07em;
+    font-weight: 400;
+    transition: color 0.18s;
+  }
+  .nav-links a:hover { color: var(--slate); }
+  .nav-cta {
+    background: var(--slate) !important;
+    color: white !important;
+    padding: 9px 22px !important;
+    border-radius: 4px;
+    font-weight: 500 !important;
+    transition: background 0.18s !important;
+  }
+  .nav-cta:hover { background: var(--slate-deep) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--slate-deep);
+    min-height: 94vh;
+    display: grid;
+    grid-template-columns: 55% 45%;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 0% 100%, rgba(160,120,80,0.10) 0%, transparent 55%),
+      radial-gradient(ellipse at 100% 0%, rgba(74,99,120,0.25) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-left {
+    padding: clamp(60px, 8vw, 110px) clamp(16px, 3vw, 50px) clamp(60px, 8vw, 110px) clamp(20px, 5vw, 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-kicker {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--wood-light);
+    margin-bottom: 24px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-kicker::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--wood-light);
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.4rem, 4.5vw, 5rem);
+    color: var(--white);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    margin-bottom: 28px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--slate-light);
+  }
+
+  .hero-body {
+    font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+    line-height: 1.82;
+    color: rgba(250,250,248,0.62);
+    max-width: min(480px, 90%);
+    margin-bottom: 42px;
+    font-weight: 300;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 52px;
+  }
+  .btn-primary {
+    background: var(--wood);
+    color: white;
+    padding: 14px 32px;
+    border-radius: 4px;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    transition: background 0.18s, transform 0.15s;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+  }
+  .btn-primary:hover { background: var(--wood-light); transform: translateY(-2px); }
+  .btn-ghost {
+    font-size: 0.88rem;
+    color: rgba(250,250,248,0.55);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    transition: color 0.18s, gap 0.18s;
+  }
+  .btn-ghost:hover { color: var(--slate-light); gap: 12px; }
+
+  .hero-pills {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .pill {
+    border: 1px solid rgba(184,202,219,0.25);
+    border-radius: 30px;
+    padding: 6px 16px;
+    font-size: 0.75rem;
+    color: rgba(250,250,248,0.45);
+    letter-spacing: 0.05em;
+  }
+
+  /* HERO RIGHT — centered wave display */
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(40px, 5vw, 80px) clamp(20px, 5vw, 80px) clamp(40px, 5vw, 80px) clamp(10px, 2vw, 30px);
+    position: relative;
+    z-index: 2;
+  }
+  .wave-display {
+    width: 100%;
+    max-width: 420px;
+    position: relative;
+  }
+  .wave-frame {
+    background: rgba(255,255,255,0.045);
+    border: 1px solid rgba(184,202,219,0.2);
+    border-radius: 6px;
+    padding: 48px 40px 38px;
+    position: relative;
+  }
+  .wave-frame-label {
+    position: absolute;
+    top: -11px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--slate-deep);
+    padding: 0 16px;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--wood-light);
+    white-space: nowrap;
+    font-weight: 500;
+  }
+  .wave-phrase {
+    text-align: center;
+    margin-top: 26px;
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(184,202,219,0.65);
+    line-height: 1.5;
+  }
+  .wave-hint {
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(184,202,219,0.35);
+  }
+  .wave-hint-dot {
+    width: 6px; height: 6px;
+    background: var(--wood-light);
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: blink 2.4s ease-in-out infinite;
+  }
+  @keyframes blink {
+    0%,100% { opacity: 0.6; }
+    50% { opacity: 0.15; }
+  }
+
+  /* ── STRIP ── */
+  .strip {
+    background: var(--off-white);
+    border-bottom: 1px solid var(--border);
+    padding: 16px clamp(16px, 4vw, 60px);
+    display: flex;
+    justify-content: center;
+    gap: 44px;
+    flex-wrap: wrap;
+  }
+  .strip-item {
+    font-size: clamp(0.75rem, 1vw, 0.92rem);
+    letter-spacing: 0.1em;
+    color: var(--slate);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .strip-item svg { opacity: 0.5; }
+
+  /* ── SECTIONS ── */
+  .section { padding: clamp(60px, 8vw, 110px) clamp(20px, 4vw, 60px); }
+  .section-tinted { background: var(--off-white); }
+  .section-blue { background: var(--slate-pale); }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--wood);
+    font-weight: 500;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 3.2vw, 3.4rem);
+    color: var(--ink);
+    line-height: 1.18;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+  .h2 em { font-style: italic; color: var(--slate); }
+  .lead {
+    font-size: clamp(0.92rem, 1.3vw, 1.1rem);
+    line-height: 1.85;
+    color: var(--muted);
+    max-width: min(640px, 100%);
+    font-weight: 300;
+    margin-bottom: 56px;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .hiw-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+  .hiw-step {
+    background: var(--white);
+    padding: clamp(24px, 3vw, 44px) clamp(18px, 2.5vw, 36px) clamp(20px, 2.5vw, 40px);
+    border: 1px solid var(--border);
+    position: relative;
+    transition: transform 0.22s, box-shadow 0.22s;
+  }
+  .hiw-step:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(46,68,88,0.08);
+    z-index: 2;
+  }
+  .step-n {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.8rem, 4vw, 5rem);
+    color: var(--slate-pale);
+    line-height: 1;
+    margin-bottom: 18px;
+    letter-spacing: -0.02em;
+  }
+  .hiw-step h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1rem, 1.4vw, 1.3rem);
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .hiw-step p {
+    font-size: clamp(0.82rem, 1.1vw, 1rem);
+    line-height: 1.78;
+    color: var(--muted);
+    font-weight: 300;
+  }
+  .step-accent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--slate);
+    transition: height 0.25s;
+  }
+  .hiw-step:hover .step-accent { height: 100%; }
+
+  /* ── PRODUCTS ── */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+  .product {
+    border: 1px solid var(--border);
+    background: var(--white);
+    border-radius: 6px;
+    overflow: hidden;
+    transition: transform 0.22s, box-shadow 0.22s;
+    cursor: pointer;
+  }
+  .product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 36px rgba(46,68,88,0.1);
+  }
+  .product-vis {
+    aspect-ratio: 1;
+    background: var(--slate-pale);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 28px;
+    position: relative;
+  }
+  .product-vis svg { width: 100%; }
+  .product-vis-phrase {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 0.82rem;
+    color: var(--slate-mid);
+    text-align: center;
+    line-height: 1.4;
+  }
+  .product-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--wood);
+    color: white;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+  .product-body { padding: clamp(14px, 1.8vw, 22px) clamp(14px, 2vw, 26px); }
+  .product-body h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(0.95rem, 1.3vw, 1.2rem);
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .product-body p {
+    font-size: clamp(0.78rem, 1vw, 0.96rem);
+    line-height: 1.65;
+    color: var(--muted);
+    margin-bottom: 14px;
+    font-weight: 300;
+  }
+  .product-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .product-price {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    color: var(--slate-deep);
+  }
+  .product-link {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--wood);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.18s;
+  }
+  .product-link:hover { color: var(--slate); }
+
+  /* ── STORY ── */
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .story-img {
+    aspect-ratio: 4/5;
+    background: var(--linen);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--border);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    position: relative;
+    overflow: hidden;
+  }
+  .story-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(255,255,255,0.08) 0%, transparent 50%);
+  }
+  .story-wood-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(to right, var(--wood-pale), var(--wood-light), var(--wood-pale));
+  }
+  .story-text .lead { margin-bottom: 0; }
+  .story-text p {
+    font-size: clamp(0.9rem, 1.2vw, 1.08rem);
+    line-height: 1.88;
+    color: var(--muted);
+    margin-bottom: 18px;
+    font-weight: 300;
+  }
+  .story-quote {
+    margin: 30px 0;
+    padding: 22px 28px;
+    background: var(--slate-pale);
+    border-left: 3px solid var(--slate);
+    border-radius: 0 4px 4px 0;
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1.08rem;
+    color: var(--slate-deep);
+    line-height: 1.6;
+  }
+
+  /* ── FAQ ── */
+  .faq-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 clamp(30px, 5vw, 80px);
+  }
+  .faq-item {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .faq-item:first-child,
+  .faq-col:last-child .faq-item:first-child { border-top: 1px solid var(--border); }
+  .faq-q {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(0.92rem, 1.2vw, 1.1rem);
+    color: var(--ink);
+    margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    line-height: 1.4;
+  }
+  .faq-q::before {
+    content: '—';
+    color: var(--slate-light);
+    flex-shrink: 0;
+    font-style: normal;
+    margin-top: 1px;
+  }
+  .faq-a {
+    font-size: clamp(0.82rem, 1.05vw, 1rem);
+    line-height: 1.82;
+    color: var(--muted);
+    padding-left: 22px;
+    font-weight: 300;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .test-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .test-card {
+    background: var(--white);
+    border: 1px solid var(--border-blue);
+    border-radius: 6px;
+    padding: clamp(22px, 3vw, 42px) clamp(18px, 2.5vw, 36px);
+    position: relative;
+  }
+  .test-mark {
+    font-family: 'DM Serif Display', serif;
+    font-size: 5rem;
+    color: var(--slate-pale);
+    line-height: 0.8;
+    margin-bottom: 18px;
+  }
+  .test-body {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: clamp(0.88rem, 1.2vw, 1.08rem);
+    line-height: 1.72;
+    color: var(--slate-deep);
+    margin-bottom: 22px;
+  }
+  .test-stars { color: var(--wood-light); font-size: 0.8rem; letter-spacing: 0.12em; margin-bottom: 8px; }
+  .test-author { font-size: clamp(0.75rem, 1vw, 0.92rem); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+  /* ── OCCASIONS ── */
+  .occasions {
+    background: var(--white);
+    padding: clamp(48px, 6vw, 80px) clamp(20px, 4vw, 60px);
+    border-top: 1px solid var(--border);
+  }
+  .occasions-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .occasions-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 28px;
+  }
+  .occ-tag {
+    border: 1px solid var(--border-blue);
+    border-radius: 3px;
+    padding: 10px 20px;
+    font-size: clamp(0.8rem, 1.1vw, 1rem);
+    color: var(--slate);
+    background: var(--slate-pale);
+    transition: all 0.18s;
+    cursor: default;
+    font-weight: 400;
+  }
+  .occ-tag:hover { background: var(--slate); color: white; border-color: var(--slate); }
+
+  /* ── CTA ── */
+  .cta {
+    background: var(--slate-deep);
+    padding: clamp(60px, 8vw, 110px) clamp(20px, 4vw, 60px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 0% 100%, rgba(160,120,80,0.10) 0%, transparent 55%),
+      radial-gradient(ellipse at 100% 0%, rgba(74,99,120,0.15) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .cta-left { position: relative; z-index: 2; }
+  .cta-left .eyebrow { color: var(--wood-light); }
+  .cta-h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 3.8vw, 4rem);
+    color: var(--white);
+    line-height: 1.16;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+  .cta-h2 em { font-style: italic; color: var(--slate-light); }
+  .cta-p {
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+    line-height: 1.82;
+    color: rgba(250,250,248,0.55);
+    font-weight: 300;
+  }
+  .cta-right { position: relative; z-index: 2; }
+  .contact-box {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(184,202,219,0.18);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 22px 26px;
+    text-decoration: none;
+    color: var(--white);
+    border-bottom: 1px solid rgba(184,202,219,0.1);
+    transition: background 0.18s;
+  }
+  .contact-row:last-of-type { border-bottom: none; }
+  .contact-row:hover { background: rgba(255,255,255,0.06); }
+  .contact-ico {
+    width: 38px; height: 38px;
+    background: rgba(160,120,80,0.2);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .contact-lbl { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(250,250,248,0.38); margin-bottom: 3px; }
+  .contact-val { font-size: 0.93rem; font-weight: 400; }
+  .cta-shop-btn {
+    display: block;
+    text-align: center;
+    background: var(--wood);
+    color: white;
+    padding: 17px;
+    font-size: 0.88rem;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.18s;
+  }
+  .cta-shop-btn:hover { background: var(--wood-light); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    padding: clamp(40px, 5vw, 70px) clamp(20px, 4vw, 60px) clamp(20px, 3vw, 36px);
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 50px;
+    margin-bottom: 44px;
+    padding-bottom: 44px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .footer-brand .logo {
+    display: block;
+    margin-bottom: 14px;
+    color: var(--white);
+  }
+  .footer-brand .logo em { color: var(--wood-light); }
+  .footer-brand p { font-size: clamp(0.82rem, 1.1vw, 1rem); line-height: 1.75; color: rgba(255,255,255,0.38); max-width: 320px; }
+  .footer-col h4 {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--slate-light);
+    margin-bottom: 18px;
+    font-weight: 500;
+  }
+  .footer-col a {
+    display: block;
+    color: rgba(255,255,255,0.38);
+    text-decoration: none;
+    font-size: clamp(0.82rem, 1.1vw, 1rem);
+    margin-bottom: 11px;
+    transition: color 0.18s;
+  }
+  .footer-col a:hover { color: var(--slate-light); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    font-size: clamp(0.75rem, 1vw, 0.92rem);
+    color: rgba(255,255,255,0.22);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-left > * { animation: fadeUp 0.65s ease both; }
+  .hero-left > *:nth-child(1) { animation-delay: 0.05s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.13s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.20s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.26s; }
+  .hero-left > *:nth-child(5) { animation-delay: 0.32s; }
+  .hero-left > *:nth-child(6) { animation-delay: 0.38s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { display: none; }
+    .hiw-grid { grid-template-columns: 1fr 1fr; gap: 2px; }
+    .products-grid { grid-template-columns: 1fr 1fr; }
+    .story-grid { grid-template-columns: 1fr; }
+    .story-img { display: none; }
+    .faq-wrap { grid-template-columns: 1fr; }
+    .faq-col:last-child .faq-item:first-child { border-top: none; }
+    .test-grid { grid-template-columns: 1fr; }
+    .cta { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; gap: 28px; }
+    .nav-links { display: none; }
+    .strip { gap: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">The Soundwave <em>Booth</em></a>
+  <div class="nav-links">
+    <a href="#how-it-works">How It Works</a>
+    <a href="#shop">Shop</a>
+    <a href="#story">Our Story</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact" class="nav-cta">Order Now</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-kicker">Handcrafted in the USA</div>
+    <h1>The voice you love,<br><em>kept forever.</em></h1>
+    <p class="hero-body">That voicemail you can't bring yourself to delete. A phrase you want to hold onto. A heartbeat heard for the very first time. We turn any sound into a one-of-a-kind piece of art you can see, hold, and keep.</p>
+    <div class="hero-actions">
+      <a href="#shop" class="btn-primary">Shop the Collection</a>
+      <a href="#how-it-works" class="btn-ghost">See how it works →</a>
+    </div>
+    <div class="hero-pills">
+      <span class="pill">Free shipping always</span>
+      <span class="pill">From $16</span>
+      <span class="pill">Custom &amp; ready-made</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="wave-display">
+      <div class="wave-frame">
+        <div class="wave-frame-label">Sample Soundwave Art</div>
+        <svg width="100%" viewBox="0 0 340 110" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#B8CADB" stroke-linecap="round" fill="none">
+            <line x1="8"   y1="55" x2="8"   y2="62"  stroke-width="2"/>
+            <line x1="20"  y1="44" x2="20"  y2="72"  stroke-width="2"/>
+            <line x1="32"  y1="30" x2="32"  y2="84"  stroke-width="2.2"/>
+            <line x1="44"  y1="22" x2="44"  y2="92"  stroke-width="2.5"/>
+            <line x1="56"  y1="34" x2="56"  y2="80"  stroke-width="2"/>
+            <line x1="68"  y1="14" x2="68"  y2="100" stroke-width="3"/>
+            <line x1="80"  y1="6"  x2="80"  y2="108" stroke-width="3.2"/>
+            <line x1="92"  y1="18" x2="92"  y2="96"  stroke-width="2.8"/>
+            <line x1="104" y1="28" x2="104" y2="86"  stroke-width="2.2"/>
+            <line x1="116" y1="10" x2="116" y2="104" stroke-width="3"/>
+            <line x1="128" y1="22" x2="128" y2="92"  stroke-width="2.5"/>
+            <line x1="140" y1="36" x2="140" y2="78"  stroke-width="2"/>
+            <line x1="152" y1="18" x2="152" y2="96"  stroke-width="2.8"/>
+            <line x1="164" y1="8"  x2="164" y2="106" stroke-width="3.2"/>
+            <line x1="176" y1="26" x2="176" y2="88"  stroke-width="2.5"/>
+            <line x1="188" y1="38" x2="188" y2="76"  stroke-width="2"/>
+            <line x1="200" y1="24" x2="200" y2="90"  stroke-width="2.5"/>
+            <line x1="212" y1="16" x2="212" y2="98"  stroke-width="3"/>
+            <line x1="224" y1="32" x2="224" y2="82"  stroke-width="2.2"/>
+            <line x1="236" y1="44" x2="236" y2="70"  stroke-width="2"/>
+            <line x1="248" y1="36" x2="248" y2="78"  stroke-width="2"/>
+            <line x1="260" y1="22" x2="260" y2="92"  stroke-width="2.5"/>
+            <line x1="272" y1="30" x2="272" y2="84"  stroke-width="2.2"/>
+            <line x1="284" y1="40" x2="284" y2="74"  stroke-width="2"/>
+            <line x1="296" y1="46" x2="296" y2="68"  stroke-width="2"/>
+            <line x1="308" y1="50" x2="308" y2="64"  stroke-width="1.8"/>
+            <line x1="320" y1="52" x2="320" y2="62"  stroke-width="1.5"/>
+            <line x1="332" y1="53" x2="332" y2="60"  stroke-width="1.5"/>
+          </g>
+        </svg>
+        <div class="wave-phrase">"I love you more than words can say"</div>
+        <div class="wave-hint">
+          <div class="wave-hint-dot"></div>
+          Scan to hear it play
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-item">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#4A6378" stroke-width="1.5"/><path d="M4 7l2 2 4-4" stroke="#4A6378" stroke-width="1.5" stroke-linecap="round"/></svg>
+    Free shipping on every order
+  </div>
+  <div class="strip-item">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#4A6378" stroke-width="1.5"/><path d="M4 7l2 2 4-4" stroke="#4A6378" stroke-width="1.5" stroke-linecap="round"/></svg>
+    Handmade in Indiana, USA
+  </div>
+  <div class="strip-item">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#4A6378" stroke-width="1.5"/><path d="M4 7l2 2 4-4" stroke="#4A6378" stroke-width="1.5" stroke-linecap="round"/></svg>
+    Custom orders from your audio
+  </div>
+  <div class="strip-item">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#4A6378" stroke-width="1.5"/><path d="M4 7l2 2 4-4" stroke="#4A6378" stroke-width="1.5" stroke-linecap="round"/></svg>
+    Ready-made pieces from $16
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section section-tinted" id="how-it-works">
+  <span class="eyebrow">The Process</span>
+  <h2 class="h2">Simple to order.<br><em>Impossible to forget.</em></h2>
+  <p class="lead">You bring the sound. We turn it into something you'll keep forever.</p>
+  <div class="hiw-grid">
+    <div class="hiw-step">
+      <div class="step-accent"></div>
+      <div class="step-n">01</div>
+      <h3>Send Your Sound</h3>
+      <p>After ordering, text or email us any audio — an old voicemail, a phrase you speak into your phone, a baby's heartbeat, a wedding vow, a dog's bark. If it makes a sound, it can be art.</p>
+    </div>
+    <div class="hiw-step">
+      <div class="step-accent"></div>
+      <div class="step-n">02</div>
+      <h3>We Build the Wave</h3>
+      <p>We convert your audio into a unique soundwave and engrave it onto your chosen piece with precision and care. Every wave is completely one-of-a-kind — because every voice is.</p>
+    </div>
+    <div class="hiw-step">
+      <div class="step-accent"></div>
+      <div class="step-n">03</div>
+      <h3>Add a QR Code</h3>
+      <p>Optionally, we can add a small QR code to your piece. Scan it with any smartphone and it plays the real audio that made the soundwave. Art that speaks — literally.</p>
+    </div>
+    <div class="hiw-step">
+      <div class="step-accent"></div>
+      <div class="step-n">04</div>
+      <h3>Ships Free to You</h3>
+      <p>Every single order ships free, anywhere in the USA. Your piece arrives ready to gift or display — already full of meaning, no assembly required.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section class="section" id="shop">
+  <span class="eyebrow">The Collection</span>
+  <h2 class="h2">Find your <em>perfect piece.</em></h2>
+  <p class="lead">Ready-made designs that ship today, or a fully custom piece made from your own audio. Every order ships free.</p>
+  <div class="products-grid">
+    <div class="product">
+      <div class="product-vis">
+        <svg viewBox="0 0 220 55" xmlns="http://www.w3.org/2000/svg"><g stroke="#6B8599" stroke-linecap="round" fill="none"><line x1="6" y1="27" x2="6" y2="32" stroke-width="2"/><line x1="16" y1="20" x2="16" y2="40" stroke-width="2"/><line x1="26" y1="12" x2="26" y2="48" stroke-width="2.2"/><line x1="36" y1="7"  x2="36" y2="53" stroke-width="2.5"/><line x1="46" y1="16" x2="46" y2="44" stroke-width="2"/><line x1="56" y1="5"  x2="56" y2="55" stroke-width="2.8"/><line x1="66" y1="13" x2="66" y2="47" stroke-width="2.2"/><line x1="76" y1="8"  x2="76" y2="52" stroke-width="2.5"/><line x1="86" y1="18" x2="86" y2="42" stroke-width="2"/><line x1="96" y1="10" x2="96" y2="50" stroke-width="2.5"/><line x1="106" y1="20" x2="106" y2="40" stroke-width="2"/><line x1="116" y1="25" x2="116" y2="35" stroke-width="2"/><line x1="126" y1="14" x2="126" y2="46" stroke-width="2.2"/><line x1="136" y1="9"  x2="136" y2="51" stroke-width="2.5"/><line x1="146" y1="18" x2="146" y2="42" stroke-width="2"/><line x1="156" y1="22" x2="156" y2="38" stroke-width="2"/><line x1="166" y1="16" x2="166" y2="44" stroke-width="2.2"/><line x1="176" y1="20" x2="176" y2="40" stroke-width="2"/><line x1="186" y1="24" x2="186" y2="36" stroke-width="1.8"/><line x1="196" y1="26" x2="196" y2="33" stroke-width="1.5"/><line x1="206" y1="27" x2="206" y2="31" stroke-width="1.5"/></g></svg>
+        <div class="product-vis-phrase">I love you forever</div>
+        <div class="product-badge">Best Seller</div>
+      </div>
+      <div class="product-body">
+        <h3>Soundwave Tumbler</h3>
+        <p>Your voice or phrase engraved on a premium tumbler. An everyday reminder of someone you love.</p>
+        <div class="product-foot">
+          <span class="product-price">from $22</span>
+          <a href="#contact" class="product-link">Order →</a>
+        </div>
+      </div>
+    </div>
+    <div class="product">
+      <div class="product-vis" style="background:#EEF3F8;">
+        <svg viewBox="0 0 220 55" xmlns="http://www.w3.org/2000/svg"><g stroke="#6B8599" stroke-linecap="round" fill="none"><line x1="6" y1="28" x2="6" y2="32" stroke-width="2"/><line x1="16" y1="22" x2="16" y2="38" stroke-width="2"/><line x1="26" y1="14" x2="26" y2="46" stroke-width="2.2"/><line x1="36" y1="9"  x2="36" y2="51" stroke-width="2.5"/><line x1="46" y1="18" x2="46" y2="42" stroke-width="2"/><line x1="56" y1="7"  x2="56" y2="53" stroke-width="2.8"/><line x1="66" y1="16" x2="66" y2="44" stroke-width="2.2"/><line x1="76" y1="10" x2="76" y2="50" stroke-width="2.5"/><line x1="86" y1="22" x2="86" y2="38" stroke-width="2"/><line x1="96" y1="12" x2="96" y2="48" stroke-width="2.5"/><line x1="106" y1="20" x2="106" y2="40" stroke-width="2"/><line x1="116" y1="26" x2="116" y2="34" stroke-width="2"/><line x1="126" y1="16" x2="126" y2="44" stroke-width="2.2"/><line x1="136" y1="10" x2="136" y2="50" stroke-width="2.5"/><line x1="146" y1="20" x2="146" y2="40" stroke-width="2"/><line x1="156" y1="24" x2="156" y2="36" stroke-width="2"/><line x1="166" y1="18" x2="166" y2="42" stroke-width="2"/><line x1="176" y1="22" x2="176" y2="38" stroke-width="2"/><line x1="186" y1="25" x2="186" y2="35" stroke-width="1.8"/><line x1="196" y1="26" x2="196" y2="33" stroke-width="1.5"/></g></svg>
+        <div class="product-vis-phrase">always in my heart</div>
+      </div>
+      <div class="product-body">
+        <h3>Wall Frame</h3>
+        <p>A beautiful piece for any wall — a heartbeat, a wedding vow, or a voice made visible forever.</p>
+        <div class="product-foot">
+          <span class="product-price">from $24</span>
+          <a href="#contact" class="product-link">Order →</a>
+        </div>
+      </div>
+    </div>
+    <div class="product">
+      <div class="product-vis" style="background:#EDE8DF;">
+        <svg viewBox="0 0 220 55" xmlns="http://www.w3.org/2000/svg"><g stroke="#A07850" stroke-linecap="round" fill="none"><line x1="6" y1="27" x2="6" y2="31" stroke-width="2"/><line x1="16" y1="20" x2="16" y2="40" stroke-width="2"/><line x1="26" y1="12" x2="26" y2="48" stroke-width="2.2"/><line x1="36" y1="16" x2="36" y2="44" stroke-width="2"/><line x1="46" y1="6"  x2="46" y2="54" stroke-width="2.8"/><line x1="56" y1="14" x2="56" y2="46" stroke-width="2.2"/><line x1="66" y1="8"  x2="66" y2="52" stroke-width="2.5"/><line x1="76" y1="18" x2="76" y2="42" stroke-width="2"/><line x1="86" y1="6"  x2="86" y2="54" stroke-width="2.8"/><line x1="96" y1="14" x2="96" y2="46" stroke-width="2"/><line x1="106" y1="22" x2="106" y2="38" stroke-width="2"/><line x1="116" y1="12" x2="116" y2="48" stroke-width="2.2"/><line x1="126" y1="18" x2="126" y2="42" stroke-width="2"/><line x1="136" y1="24" x2="136" y2="36" stroke-width="2"/><line x1="146" y1="16" x2="146" y2="44" stroke-width="2"/><line x1="156" y1="22" x2="156" y2="38" stroke-width="1.8"/></g></svg>
+        <div class="product-vis-phrase" style="color:var(--wood);">home is where you are</div>
+      </div>
+      <div class="product-body">
+        <h3>Cutting Board</h3>
+        <p>A kitchen piece that carries real meaning. Beautiful, functional, and full of a voice you love.</p>
+        <div class="product-foot">
+          <span class="product-price">from $28</span>
+          <a href="#contact" class="product-link">Order →</a>
+        </div>
+      </div>
+    </div>
+    <div class="product">
+      <div class="product-vis" style="background:#EDF1F5;">
+        <svg viewBox="0 0 220 55" xmlns="http://www.w3.org/2000/svg"><g stroke="#6B8599" stroke-linecap="round" fill="none"><line x1="6" y1="27" x2="6" y2="30" stroke-width="2"/><line x1="16" y1="23" x2="16" y2="36" stroke-width="2"/><line x1="26" y1="16" x2="26" y2="44" stroke-width="2.2"/><line x1="36" y1="10" x2="36" y2="50" stroke-width="2.5"/><line x1="46" y1="18" x2="46" y2="42" stroke-width="2"/><line x1="56" y1="8"  x2="56" y2="52" stroke-width="2.8"/><line x1="66" y1="16" x2="66" y2="44" stroke-width="2.2"/><line x1="76" y1="20" x2="76" y2="40" stroke-width="2"/><line x1="86" y1="12" x2="86" y2="48" stroke-width="2.5"/><line x1="96" y1="18" x2="96" y2="42" stroke-width="2"/><line x1="106" y1="24" x2="106" y2="36" stroke-width="2"/><line x1="116" y1="16" x2="116" y2="44" stroke-width="2"/><line x1="126" y1="20" x2="126" y2="40" stroke-width="2"/><line x1="136" y1="24" x2="136" y2="36" stroke-width="1.8"/><line x1="146" y1="22" x2="146" y2="38" stroke-width="1.8"/></g></svg>
+        <div class="product-vis-phrase">you are my sunshine</div>
+      </div>
+      <div class="product-body">
+        <h3>Hats & Keychains</h3>
+        <p>Carry your soundwave everywhere. Embroidered hats and engraved keychains — from $16.</p>
+        <div class="product-foot">
+          <span class="product-price">from $16</span>
+          <a href="#contact" class="product-link">Order →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="section section-blue" id="story">
+  <div class="story-grid">
+    <div class="story-img">
+      Photo of Joel &amp; Cindy
+      <div class="story-wood-bar"></div>
+    </div>
+    <div class="story-text">
+      <span class="eyebrow">Meet the Makers</span>
+      <h2 class="h2">Joel &amp; Cindy <em>Pendl</em></h2>
+      <p>We're a husband and wife team from Indiana. We started The Soundwave Booth because we believe the most precious things in life are the words we say to the people we love — and we wanted to find a way to make those words last.</p>
+      <p>It started simply: turning the sounds that matter most into something you can see and hold. A grandmother's voicemail. A baby's first heartbeat. The words spoken on a wedding day.</p>
+      <div class="story-quote">"The phrase beneath each image was spoken to create the soundwave above it. It's the audio, made visible."</div>
+      <p>Every piece we make is built with faith, family, and care. No negativity — just the sounds worth keeping forever.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section-tinted" id="faq">
+  <span class="eyebrow">Questions &amp; Answers</span>
+  <h2 class="h2">Everything you need <em>to know.</em></h2>
+  <p class="lead">Before you order, here are the answers to what we hear most.</p>
+  <div class="faq-wrap">
+    <div class="faq-col">
+      <div class="faq-item"><div class="faq-q">What kind of audio can I use?</div><div class="faq-a">Almost anything — an old voicemail, a phrase you speak into your phone, a baby's heartbeat, a wedding vow, a dog's bark, a Bible verse you recorded. If it makes a sound, we can turn it into art.</div></div>
+      <div class="faq-item"><div class="faq-q">How do I send you my audio?</div><div class="faq-a">After ordering, just text or email your audio directly to us — 574-935-3995 or thesoundwavebooth@gmail.com. We accept most formats straight from your phone.</div></div>
+      <div class="faq-item"><div class="faq-q">What is the QR code option?</div><div class="faq-a">We add a small QR code to your piece. When anyone scans it with their phone, it plays the actual audio that created the soundwave. The art literally speaks.</div></div>
+      <div class="faq-item"><div class="faq-q">Ready-made or custom — what's the difference?</div><div class="faq-a">Pre-made pieces feature faith-filled, family, and inspirational phrases and ship right away. Custom orders are made from your personal audio — just send it to us after ordering.</div></div>
+    </div>
+    <div class="faq-col">
+      <div class="faq-item"><div class="faq-q">How much does everything cost?</div><div class="faq-a">Pieces start at $16 for keychains and go up to around $30 for frames and cutting boards. Every single order ships free — no minimum, no exceptions, ever.</div></div>
+      <div class="faq-item"><div class="faq-q">What if my audio is old or low quality?</div><div class="faq-a">We work with all kinds of audio — old voicemails, scratchy recordings, video audio. We do everything we can to create the most beautiful soundwave possible from whatever you have.</div></div>
+      <div class="faq-item"><div class="faq-q">How long does a custom order take?</div><div class="faq-a">Custom orders typically take 3–7 business days. Need it by a birthday, anniversary, or holiday? Just let us know and we'll do everything we can to make it happen.</div></div>
+      <div class="faq-item"><div class="faq-q">Do you ship everywhere in the USA?</div><div class="faq-a">Yes — free shipping to all 50 states. International orders may be available too, just reach out and ask about your location.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section" id="testimonials">
+  <span class="eyebrow">From Our Customers</span>
+  <h2 class="h2">Stories that <em>stay with us.</em></h2>
+  <p class="lead">Real words from people who turned their most precious sounds into something permanent.</p>
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="test-mark">"</div>
+      <div class="test-stars">★★★★★</div>
+      <p class="test-body">I sent them my mom's last voicemail. Getting that soundwave on a tumbler was one of the most meaningful things I've ever done. I cry every time I hold it — in the best way.</p>
+      <div class="test-author">— Sarah M., Ohio</div>
+    </div>
+    <div class="test-card">
+      <div class="test-mark">"</div>
+      <div class="test-stars">★★★★★</div>
+      <p class="test-body">Ordered a custom frame with my baby's heartbeat. The QR code plays it when you scan. My husband cried. It's the best gift I've ever given anyone, full stop.</p>
+      <div class="test-author">— Jessica R., Indiana</div>
+    </div>
+    <div class="test-card">
+      <div class="test-mark">"</div>
+      <div class="test-stars">★★★★★</div>
+      <p class="test-body">Joel and Cindy are genuinely wonderful people who care about getting it right. My cutting board is beautiful. I've already ordered three more for Christmas gifts.</p>
+      <div class="test-author">— Karen T., Michigan</div>
+    </div>
+  </div>
+</section>
+
+<!-- OCCASIONS -->
+<div class="occasions">
+  <div class="occasions-inner">
+    <span class="eyebrow">A gift for every occasion</span>
+    <h2 class="h2" style="margin-bottom:6px;">The gift that <em>means something.</em></h2>
+    <p style="color:var(--muted);font-size:0.9rem;font-weight:300;">There's never a wrong time to give someone a piece of their own voice.</p>
+    <div class="occasions-tags">
+      <span class="occ-tag">Mother's Day</span>
+      <span class="occ-tag">Father's Day</span>
+      <span class="occ-tag">Christmas</span>
+      <span class="occ-tag">Anniversaries</span>
+      <span class="occ-tag">Weddings</span>
+      <span class="occ-tag">Baby Showers</span>
+      <span class="occ-tag">In Memoriam</span>
+      <span class="occ-tag">Birthdays</span>
+      <span class="occ-tag">Graduations</span>
+      <span class="occ-tag">Housewarming</span>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="cta-left">
+    <span class="eyebrow">Get Started</span>
+    <h2 class="cta-h2">That voice deserves<br>to be <em>seen.</em></h2>
+    <p class="cta-p">Reach out with your audio, or browse our ready-to-ship collection. We're Joel and Cindy — real people who answer every message. Free shipping on every order.</p>
+  </div>
+  <div class="cta-right">
+    <div class="contact-box">
+      <a href="mailto:thesoundwavebooth@gmail.com" class="contact-row">
+        <div class="contact-ico">✉</div>
+        <div>
+          <div class="contact-lbl">Email Us</div>
+          <div class="contact-val">thesoundwavebooth@gmail.com</div>
+        </div>
+      </a>
+      <a href="tel:5749353995" class="contact-row">
+        <div class="contact-ico">☎</div>
+        <div>
+          <div class="contact-lbl">Call or Text</div>
+          <div class="contact-val">574-935-3995</div>
+        </div>
+      </a>
+      <a href="#shop" class="cta-shop-btn">Browse the Collection →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="logo">The Soundwave <em>Booth</em></a>
+      <p>Handcrafted soundwave art made from the sounds you love most. Made with care in Indiana, USA.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="#shop">Tumblers</a>
+      <a href="#shop">Wall Frames</a>
+      <a href="#shop">Cutting Boards</a>
+      <a href="#shop">Hats &amp; Keychains</a>
+      <a href="#contact">Custom Orders</a>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#faq">FAQ</a>
+      <a href="#story">About Us</a>
+      <a href="mailto:thesoundwavebooth@gmail.com">Email Us</a>
+      <a href="tel:5749353995">574-935-3995</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 The Soundwave Booth. All rights reserved.</span>
+    <span>Handmade with love in the USA 🇺🇸</span>
+  </div>
+</footer>
+
+</body>
+</html>
