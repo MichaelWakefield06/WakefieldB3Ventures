@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom Order | The Soundwave Booth</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white:     #FDFAF6;
+    --cream:     #F5EFE6;
+    --ink:       #1E1712;
+    --warm:      #A07050;
+    --warm-lt:   #C49070;
+    --warm-dk:   #7A5035;
+    --border:    #E5DDD5;
+    --muted:     #7A6555;
+    --success:   #4A7C59;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Nunito Sans', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    padding: 0 clamp(20px, 5vw, 80px);
+    height: 66px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(253,250,246,0.97);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.08);
+  }
+  .logo {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(1rem, 1.6vw, 1.3rem);
+    font-weight: 400;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .logo em { font-style: italic; color: var(--warm); }
+  .nav-back {
+    font-size: 0.82rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--warm); }
+
+  /* ── HERO BAND ── */
+  .page-hero {
+    margin-top: 66px;
+    background: var(--ink);
+    padding: clamp(48px, 7vw, 80px) clamp(24px, 6vw, 100px);
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1543342384-1f1350e27861?w=1400&q=60');
+    background-size: cover;
+    background-position: center 30%;
+    opacity: 0.15;
+  }
+  .page-hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+  }
+  .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #E8C090;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 14px;
+  }
+  .page-hero h1 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 400;
+    color: white;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .page-hero h1 em { font-style: italic; color: #E8C090; }
+  .page-hero p {
+    font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+    color: rgba(255,255,255,0.6);
+    line-height: 1.8;
+    font-weight: 300;
+    max-width: 520px;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap {
+    background: var(--cream);
+    border-bottom: 1px solid var(--border);
+    padding: 0 clamp(24px, 6vw, 100px);
+  }
+  .progress-steps {
+    display: flex;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .progress-step {
+    flex: 1;
+    padding: 18px 0 16px;
+    text-align: center;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #C5B8AA;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+    cursor: default;
+  }
+  .progress-step.active {
+    color: var(--warm);
+    border-bottom-color: var(--warm);
+  }
+  .progress-step.done {
+    color: var(--muted);
+    border-bottom-color: var(--border);
+  }
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: currentColor;
+    color: white;
+    font-size: 0.65rem;
+    margin-right: 7px;
+    flex-shrink: 0;
+    vertical-align: middle;
+  }
+  .progress-step.active .step-num { background: var(--warm); color: white; }
+  .progress-step.done .step-num { background: var(--border); color: var(--muted); }
+  .progress-step:not(.active):not(.done) .step-num { background: #D5C8B8; color: white; }
+
+  /* ── MAIN LAYOUT ── */
+  .main {
+    padding: clamp(40px, 6vw, 72px) clamp(24px, 6vw, 100px);
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  /* ── STEP PANELS ── */
+  .step-panel { display: none; }
+  .step-panel.active { display: block; animation: fadeUp 0.35s ease; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .step-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .step-title em { font-style: italic; color: var(--warm); }
+  .step-subtitle {
+    font-size: clamp(0.85rem, 1.1vw, 0.98rem);
+    color: var(--muted);
+    margin-bottom: clamp(28px, 4vw, 44px);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* ── PRODUCT GRID ── */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: clamp(12px, 2vw, 20px);
+    margin-bottom: 36px;
+  }
+  .product-option {
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: white;
+  }
+  .product-option:hover { border-color: var(--warm-lt); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(30,23,18,0.1); }
+  .product-option.selected { border-color: var(--warm); box-shadow: 0 0 0 1px var(--warm), 0 10px 30px rgba(160,112,80,0.15); }
+  .product-option input[type="radio"] { display: none; }
+  .product-img-wrap {
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: var(--cream);
+  }
+  .product-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+    display: block;
+  }
+  .product-option:hover .product-img-wrap img { transform: scale(1.05); }
+  .product-info {
+    padding: 14px 16px 16px;
+    border-top: 1px solid var(--border);
+  }
+  .product-name {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1rem;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .product-desc {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 8px;
+    font-weight: 300;
+  }
+  .product-price {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    color: var(--warm);
+    font-size: 1.05rem;
+  }
+  .product-check {
+    display: none;
+    position: absolute;
+    top: 10px; right: 10px;
+    width: 28px; height: 28px;
+    background: var(--warm);
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+  }
+  .product-option { position: relative; }
+  .product-option.selected .product-check { display: flex; }
+
+  /* ── AUDIO STEP ── */
+  .phrase-section { margin-bottom: 32px; }
+  .field-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .field-hint {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 10px;
+    font-weight: 300;
+    font-style: italic;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: white;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="tel"]:focus,
+  textarea:focus {
+    border-color: var(--warm);
+    box-shadow: 0 0 0 3px rgba(160,112,80,0.12);
+  }
+  textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+
+  /* ── AUDIO RECORDER ── */
+  .audio-section {
+    background: var(--cream);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: clamp(24px, 3.5vw, 40px);
+  }
+  .audio-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 28px;
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    background: white;
+    width: fit-content;
+  }
+  .audio-tab {
+    padding: 10px 24px;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    transition: all 0.2s;
+    font-family: 'Nunito Sans', sans-serif;
+  }
+  .audio-tab.active {
+    background: var(--warm);
+    color: white;
+  }
+  .audio-tab-panel { display: none; }
+  .audio-tab-panel.active { display: block; animation: fadeUp 0.25s ease; }
+
+  /* Record UI */
+  .recorder-ui {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 0;
+  }
+  .record-btn {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    border: 3px solid var(--warm);
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .record-btn:hover { background: rgba(160,112,80,0.08); transform: scale(1.05); }
+  .record-btn.recording { background: #C0392B; border-color: #C0392B; animation: pulse 1.5s infinite; }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(192,57,43,0.4); }
+    50% { box-shadow: 0 0 0 14px rgba(192,57,43,0); }
+  }
+  .record-icon { width: 28px; height: 28px; }
+  .record-btn.recording .record-icon-mic { display: none; }
+  .record-btn:not(.recording) .record-icon-stop { display: none; }
+
+  .record-status {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--muted);
+    text-align: center;
+  }
+  .record-status.recording-active { color: #C0392B; }
+
+  .timer {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 2rem;
+    color: var(--ink);
+    letter-spacing: 0.05em;
+    min-width: 80px;
+    text-align: center;
+  }
+  .timer-bar-wrap {
+    width: 100%;
+    max-width: 300px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .timer-bar {
+    height: 100%;
+    background: var(--warm);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.5s linear;
+  }
+  .timer-bar.danger { background: #C0392B; }
+
+  /* Upload UI */
+  .upload-zone {
+    border: 2px dashed var(--border);
+    border-radius: 6px;
+    padding: 40px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: white;
+  }
+  .upload-zone:hover, .upload-zone.dragover {
+    border-color: var(--warm);
+    background: rgba(160,112,80,0.04);
+  }
+  .upload-icon { font-size: 2.5rem; margin-bottom: 12px; opacity: 0.5; }
+  .upload-label {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1rem;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .upload-hint {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 300;
+  }
+  .upload-zone input[type="file"] { display: none; }
+
+  /* Playback */
+  .playback-section {
+    margin-top: 24px;
+    display: none;
+  }
+  .playback-section.visible { display: block; animation: fadeUp 0.3s ease; }
+  .playback-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .playback-label::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 1px;
+    background: var(--border);
+  }
+  .audio-player {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .play-pause-btn {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--warm);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .play-pause-btn:hover { background: var(--warm-lt); }
+  .play-pause-btn svg { width: 16px; height: 16px; fill: white; }
+  .player-track {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .player-progress {
+    width: 100%;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+  }
+  .player-progress-fill {
+    height: 100%;
+    background: var(--warm);
+    border-radius: 2px;
+    width: 0%;
+    pointer-events: none;
+  }
+  .player-times {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+  .redo-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 6px 14px;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    font-family: 'Nunito Sans', sans-serif;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .redo-btn:hover { border-color: var(--warm); color: var(--warm); }
+
+  /* Waveform visualization */
+  .waveform-canvas {
+    width: 100%;
+    height: 48px;
+    display: block;
+  }
+
+  /* ── FORM FIELDS ── */
+  .fields-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  .fields-grid.single { grid-template-columns: 1fr; }
+  .field-wrap { display: flex; flex-direction: column; }
+  .field-wrap.full { grid-column: 1 / -1; }
+
+  /* ── REVIEW ── */
+  .review-card {
+    background: var(--cream);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+  .review-section-head {
+    padding: 14px 24px;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .review-section-title {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .review-edit {
+    font-size: 0.75rem;
+    color: var(--warm);
+    cursor: pointer;
+    text-decoration: underline;
+    background: none;
+    border: none;
+    font-family: 'Nunito Sans', sans-serif;
+  }
+  .review-body { padding: 20px 24px; }
+  .review-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 20px;
+  }
+  .review-row:last-child { border-bottom: none; }
+  .review-key {
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-weight: 300;
+    flex-shrink: 0;
+  }
+  .review-val {
+    font-size: 0.88rem;
+    color: var(--ink);
+    text-align: right;
+    font-weight: 400;
+  }
+  .review-product-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .review-product-img {
+    width: 64px; height: 64px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+  .review-product-name {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+  .review-product-price {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    color: var(--warm);
+    font-size: 0.95rem;
+  }
+
+  .notice-box {
+    background: rgba(160,112,80,0.08);
+    border: 1px solid rgba(160,112,80,0.25);
+    border-radius: 6px;
+    padding: 16px 20px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+  .notice-box strong { color: var(--ink); }
+
+  /* ── CONFIRMATION ── */
+  .confirm-wrap {
+    text-align: center;
+    padding: clamp(40px, 6vw, 80px) 24px;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .confirm-icon {
+    width: 72px; height: 72px;
+    background: rgba(74,124,89,0.12);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 2rem;
+  }
+  .confirm-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  .confirm-title em { font-style: italic; color: var(--warm); }
+  .confirm-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 32px;
+  }
+  .confirm-detail {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px 24px;
+    text-align: left;
+    margin-bottom: 28px;
+  }
+  .confirm-detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 0.88rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .confirm-detail-row:last-child { border-bottom: none; }
+  .confirm-detail-row span:first-child { color: var(--muted); font-weight: 300; }
+  .confirm-detail-row span:last-child { color: var(--ink); font-weight: 400; }
+
+  /* ── BUTTONS ── */
+  .btn-row {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin-top: clamp(28px, 4vw, 44px);
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--warm);
+    color: white;
+    padding: clamp(13px, 1.6vw, 16px) clamp(28px, 3.5vw, 44px);
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  }
+  .btn-primary:hover { background: var(--warm-lt); transform: translateY(-2px); }
+  .btn-primary:disabled { background: #C5B8AA; cursor: not-allowed; transform: none; }
+  .btn-secondary {
+    background: transparent;
+    color: var(--muted);
+    padding: 13px 24px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.06em;
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--warm); color: var(--warm); }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-top: 80px;
+    padding: 28px clamp(24px, 6vw, 100px);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  footer span {
+    font-size: 0.78rem;
+    color: #B5A898;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .fields-grid { grid-template-columns: 1fr; }
+    .product-grid { grid-template-columns: 1fr 1fr; }
+    .progress-step span:not(.step-num) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">The Soundwave <em>Booth</em></a>
+  <a href="index.html" class="nav-back">← Back to site</a>
+</nav>
+
+<!-- HERO BAND -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <span class="eyebrow">Custom Order</span>
+    <h1>Your voice,<br><em>made visible.</em></h1>
+    <p>Record or upload any sound — a phrase, a voicemail, a laugh — and we'll handcraft it into a piece you'll keep forever. Ships free in 2 business days.</p>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-steps">
+    <div class="progress-step active" id="prog-1"><span class="step-num">1</span><span>Your Product</span></div>
+    <div class="progress-step" id="prog-2"><span class="step-num">2</span><span>Your Sound</span></div>
+    <div class="progress-step" id="prog-3"><span class="step-num">3</span><span>Your Info</span></div>
+    <div class="progress-step" id="prog-4"><span class="step-num">4</span><span>Review</span></div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- STEP 1: PRODUCT -->
+  <div class="step-panel active" id="step-1">
+    <h2 class="step-title">Choose your <em>product.</em></h2>
+    <p class="step-subtitle">Each piece is handcrafted with your soundwave engraved. Every order ships free.</p>
+
+    <div class="product-grid">
+      <label class="product-option" data-product="Tumbler" data-price="$28" data-img="https://131195725.cdn6.editmysite.com/uploads/1/3/1/1/131195725/A2KBQS2WSNNXPHSRQOIO4HP4.jpeg?width=2560&optimize=medium">
+        <input type="radio" name="product" value="Tumbler">
+        <div class="product-img-wrap">
+          <img src="https://131195725.cdn6.editmysite.com/uploads/1/3/1/1/131195725/A2KBQS2WSNNXPHSRQOIO4HP4.jpeg?width=2560&optimize=medium" alt="Tumbler">
+        </div>
+        <div class="product-info">
+          <div class="product-name">Tumbler</div>
+          <div class="product-desc">Laser engraved stainless steel. Keeps drinks hot or cold.</div>
+          <div class="product-price">from $28</div>
+        </div>
+        <div class="product-check">✓</div>
+      </label>
+
+      <label class="product-option" data-product="Framed Soundwave" data-price="$30" data-img="https://131195725.cdn6.editmysite.com/uploads/1/3/1/1/131195725/6XZDWIHHHIITBJPN5SQCLK2C.jpeg?width=2560&optimize=medium">
+        <input type="radio" name="product" value="Framed Soundwave">
+        <div class="product-img-wrap">
+          <img src="https://131195725.cdn6.editmysite.com/uploads/1/3/1/1/131195725/6XZDWIHHHIITBJPN5SQCLK2C.jpeg?width=2560&optimize=medium" alt="Framed Soundwave">
+        </div>
+        <div class="product-info">
+          <div class="product-name">Framed Soundwave</div>
+          <div class="product-desc">Printed on canvas in a beautiful wood frame. Ready to hang.</div>
+          <div class="product-price">from $30</div>
+        </div>
+        <div class="product-check">✓</div>
+      </label>
+
+      <label class="product-option" data-product="Magnet" data-price="$16" data-img="https://131195725.cdn6.editmysite.com/uploads/1/3/1/1/131195725/DBGU5XPMGRZHWBXZRVFAQCHJ.jpeg?width=2560&optimize=medium">
+        <input type="radio" name="product" value="Magnet">
+        <div class="product-img-wrap">
+          <img src="https://131195725.cdn6.editmysite.com/uploads/1/3/1/1/131195725/DBGU5XPMGRZHWBXZRVFAQCHJ.jpeg?width=2560&optimize=medium" alt="Magnet">
+        </div>
+        <div class="product-info">
+          <div class="product-name">Magnet</div>
+          <div class="product-desc">Acrylic soundwave magnet with leather patch detail.</div>
+          <div class="product-price">from $16</div>
+        </div>
+        <div class="product-check">✓</div>
+      </label>
+
+      <label class="product-option" data-product="Baby Beanie" data-price="$22" data-img="https://131195725.cdn6.editmysite.com/uploads/1/3/1/1/131195725/QRGPJQLRAAOYB5G5ZD7K2CUX.jpeg?width=2560&optimize=medium">
+        <input type="radio" name="product" value="Baby Beanie">
+        <div class="product-img-wrap">
+          <img src="https://131195725.cdn6.editmysite.com/uploads/1/3/1/1/131195725/QRGPJQLRAAOYB5G5ZD7K2CUX.jpeg?width=2560&optimize=medium" alt="Baby Beanie">
+        </div>
+        <div class="product-info">
+          <div class="product-name">Baby Beanie</div>
+          <div class="product-desc">Cozy knit beanie with engraved leather soundwave patch.</div>
+          <div class="product-price">from $22</div>
+        </div>
+        <div class="product-check">✓</div>
+      </label>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-primary" id="btn-1-next" disabled onclick="goToStep(2)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: AUDIO -->
+  <div class="step-panel" id="step-2">
+    <h2 class="step-title">Capture your <em>sound.</em></h2>
+    <p class="step-subtitle">Type the phrase you're recording so we can engrave it perfectly — then record live or upload an existing file.</p>
+
+    <div class="phrase-section">
+      <label class="field-label" for="phrase-input">Your phrase</label>
+      <p class="field-hint">This is what will be printed beneath your soundwave.</p>
+      <input type="text" id="phrase-input" placeholder="e.g. love you to the moon and back" maxlength="80">
+    </div>
+
+    <div class="audio-section">
+      <div class="audio-tabs">
+        <button class="audio-tab active" onclick="switchTab('record')">🎙 Record</button>
+        <button class="audio-tab" onclick="switchTab('upload')">📁 Upload</button>
+      </div>
+
+      <!-- RECORD -->
+      <div class="audio-tab-panel active" id="tab-record">
+        <div class="recorder-ui">
+          <div class="timer" id="timer-display">0:20</div>
+          <div class="timer-bar-wrap">
+            <div class="timer-bar" id="timer-bar"></div>
+          </div>
+          <button class="record-btn" id="record-btn" onclick="toggleRecording()">
+            <svg class="record-icon record-icon-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--warm); width:28px;height:28px;">
+              <rect x="9" y="2" width="6" height="12" rx="3"/>
+              <path d="M5 10a7 7 0 0 0 14 0"/>
+              <line x1="12" y1="19" x2="12" y2="22"/>
+              <line x1="8" y1="22" x2="16" y2="22"/>
+            </svg>
+            <svg class="record-icon record-icon-stop" viewBox="0 0 24 24" fill="white" style="width:22px;height:22px;">
+              <rect x="4" y="4" width="16" height="16" rx="2"/>
+            </svg>
+          </button>
+          <div class="record-status" id="record-status">Tap to start recording</div>
+        </div>
+      </div>
+
+      <!-- UPLOAD -->
+      <div class="audio-tab-panel" id="tab-upload">
+        <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
+          <div class="upload-icon">🎵</div>
+          <div class="upload-label">Drop your audio file here</div>
+          <div class="upload-hint">MP3, M4A, WAV, OGG — max 20 seconds</div>
+          <input type="file" id="file-input" accept="audio/*" onchange="handleFileUpload(event)">
+        </div>
+      </div>
+
+      <!-- PLAYBACK (shared) -->
+      <div class="playback-section" id="playback-section">
+        <div class="playback-label">Your recording</div>
+        <div class="audio-player">
+          <button class="play-pause-btn" id="play-pause-btn" onclick="togglePlayback()">
+            <svg id="play-icon" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+            <svg id="pause-icon" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+          </button>
+          <div class="player-track">
+            <canvas class="waveform-canvas" id="waveform-canvas"></canvas>
+            <div class="player-progress" id="player-progress" onclick="seekAudio(event)">
+              <div class="player-progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="player-times">
+              <span id="current-time">0:00</span>
+              <span id="total-time">0:00</span>
+            </div>
+          </div>
+          <button class="redo-btn" onclick="resetAudio()">↺ Redo</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goToStep(1)">← Back</button>
+      <button class="btn-primary" id="btn-2-next" disabled onclick="goToStep(3)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: INFO -->
+  <div class="step-panel" id="step-3">
+    <h2 class="step-title">Where should we <em>send it?</em></h2>
+    <p class="step-subtitle">We'll use this to ship your piece and send you a confirmation. Free shipping, always.</p>
+
+    <div class="fields-grid">
+      <div class="field-wrap">
+        <label class="field-label" for="first-name">First name</label>
+        <input type="text" id="first-name" placeholder="Joel">
+      </div>
+      <div class="field-wrap">
+        <label class="field-label" for="last-name">Last name</label>
+        <input type="text" id="last-name" placeholder="Pendl">
+      </div>
+      <div class="field-wrap full">
+        <label class="field-label" for="email">Email address</label>
+        <input type="email" id="email" placeholder="you@example.com">
+      </div>
+      <div class="field-wrap full">
+        <label class="field-label" for="phone">Phone (optional)</label>
+        <input type="tel" id="phone" placeholder="574-000-0000">
+      </div>
+      <div class="field-wrap full">
+        <label class="field-label" for="address">Street address</label>
+        <input type="text" id="address" placeholder="123 Main St">
+      </div>
+      <div class="field-wrap">
+        <label class="field-label" for="city">City</label>
+        <input type="text" id="city" placeholder="Indianapolis">
+      </div>
+      <div class="field-wrap">
+        <label class="field-label" for="state">State</label>
+        <input type="text" id="state" placeholder="IN" maxlength="2">
+      </div>
+      <div class="field-wrap">
+        <label class="field-label" for="zip">ZIP code</label>
+        <input type="text" id="zip" placeholder="46201" maxlength="10">
+      </div>
+      <div class="field-wrap full">
+        <label class="field-label" for="notes">Special instructions <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:0.78rem;color:var(--muted)">(optional)</span></label>
+        <textarea id="notes" placeholder="Anything we should know about your order..."></textarea>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goToStep(2)">← Back</button>
+      <button class="btn-primary" id="btn-3-next" onclick="goToStep(4)">Review Order →</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: REVIEW -->
+  <div class="step-panel" id="step-4">
+    <h2 class="step-title">Review your <em>order.</em></h2>
+    <p class="step-subtitle">Everything look right? Once you submit, we'll reach out to complete payment and get started on your piece.</p>
+
+    <div class="review-card">
+      <div class="review-section-head">
+        <span class="review-section-title">Product</span>
+        <button class="review-edit" onclick="goToStep(1)">Edit</button>
+      </div>
+      <div class="review-body">
+        <div class="review-product-row">
+          <img class="review-product-img" id="review-product-img" src="" alt="">
+          <div>
+            <div class="review-product-name" id="review-product-name">—</div>
+            <div class="review-product-price" id="review-product-price">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-section-head">
+        <span class="review-section-title">Your Sound</span>
+        <button class="review-edit" onclick="goToStep(2)">Edit</button>
+      </div>
+      <div class="review-body">
+        <div class="review-row">
+          <span class="review-key">Phrase</span>
+          <span class="review-val" id="review-phrase">—</span>
+        </div>
+        <div class="review-row">
+          <span class="review-key">Audio</span>
+          <span class="review-val" id="review-audio-status">—</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-section-head">
+        <span class="review-section-title">Shipping Info</span>
+        <button class="review-edit" onclick="goToStep(3)">Edit</button>
+      </div>
+      <div class="review-body">
+        <div class="review-row">
+          <span class="review-key">Name</span>
+          <span class="review-val" id="review-name">—</span>
+        </div>
+        <div class="review-row">
+          <span class="review-key">Email</span>
+          <span class="review-val" id="review-email">—</span>
+        </div>
+        <div class="review-row">
+          <span class="review-key">Address</span>
+          <span class="review-val" id="review-address">—</span>
+        </div>
+        <div class="review-row">
+          <span class="review-key">Est. delivery</span>
+          <span class="review-val">2 business days after payment</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="notice-box">
+      <strong>Next step: Payment.</strong> After you submit this order, Joel & Cindy will reach out within a few hours to complete payment via Square. Your piece won't ship until payment is confirmed. Free shipping on every order.
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goToStep(3)">← Back</button>
+      <button class="btn-primary" onclick="submitOrder()">Submit Order →</button>
+    </div>
+  </div>
+
+  <!-- STEP 5: CONFIRMATION -->
+  <div class="step-panel" id="step-5">
+    <div class="confirm-wrap">
+      <div class="confirm-icon">✓</div>
+      <h2 class="confirm-title">Order <em>received.</em></h2>
+      <p class="confirm-sub">Joel & Cindy have your order and will be in touch within a few hours to complete payment. Once confirmed, your piece ships free in 2 business days.</p>
+      <div class="confirm-detail">
+        <div class="confirm-detail-row">
+          <span>Product</span>
+          <span id="confirm-product">—</span>
+        </div>
+        <div class="confirm-detail-row">
+          <span>Phrase</span>
+          <span id="confirm-phrase">—</span>
+        </div>
+        <div class="confirm-detail-row">
+          <span>Confirmation sent to</span>
+          <span id="confirm-email">—</span>
+        </div>
+        <div class="confirm-detail-row">
+          <span>Shipping</span>
+          <span>Free — anywhere in the USA</span>
+        </div>
+      </div>
+      <a href="index.html" style="text-decoration:none;">
+        <button class="btn-primary">← Back to The Soundwave Booth</button>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 The Soundwave Booth. Handmade with love in Indiana 🇺🇸</span>
+  <span>Questions? <a href="mailto:thesoundwavebooth@gmail.com" style="color:var(--warm);">thesoundwavebooth@gmail.com</a></span>
+</footer>
+
+<script>
+  // ── STATE ──
+  let currentStep = 1;
+  let selectedProduct = null;
+  let audioBlob = null;
+  let audioUrl = null;
+  let audioEl = null;
+  let mediaRecorder = null;
+  let recordingChunks = [];
+  let isRecording = false;
+  let timerInterval = null;
+  let playbackInterval = null;
+  const MAX_SECONDS = 20;
+
+  // ── STEP NAVIGATION ──
+  function goToStep(n) {
+    document.getElementById(`step-${currentStep}`).classList.remove('active');
+    document.getElementById(`prog-${currentStep}`).classList.remove('active');
+    document.getElementById(`prog-${currentStep}`).classList.add('done');
+    currentStep = n;
+    document.getElementById(`step-${n}`).classList.add('active');
+    document.getElementById(`prog-${n}`).classList.remove('done');
+    document.getElementById(`prog-${n}`).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (n === 4) populateReview();
+  }
+
+  // ── PRODUCT SELECTION ──
+  document.querySelectorAll('.product-option').forEach(option => {
+    option.addEventListener('click', () => {
+      document.querySelectorAll('.product-option').forEach(o => o.classList.remove('selected'));
+      option.classList.add('selected');
+      option.querySelector('input[type="radio"]').checked = true;
+      selectedProduct = {
+        name: option.dataset.product,
+        price: option.dataset.price,
+        img: option.dataset.img
+      };
+      document.getElementById('btn-1-next').disabled = false;
+    });
+  });
+
+  // ── AUDIO TABS ──
+  function switchTab(tab) {
+    document.querySelectorAll('.audio-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.audio-tab-panel').forEach(p => p.classList.remove('active'));
+    if (tab === 'record') {
+      document.querySelectorAll('.audio-tab')[0].classList.add('active');
+      document.getElementById('tab-record').classList.add('active');
+    } else {
+      document.querySelectorAll('.audio-tab')[1].classList.add('active');
+      document.getElementById('tab-upload').classList.add('active');
+    }
+  }
+
+  // ── RECORDING ──
+  async function toggleRecording() {
+    if (!isRecording) {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        recordingChunks = [];
+        mediaRecorder.ondataavailable = e => recordingChunks.push(e.data);
+        mediaRecorder.onstop = () => {
+          const blob = new Blob(recordingChunks, { type: 'audio/webm' });
+          setAudio(blob);
+          stream.getTracks().forEach(t => t.stop());
+        };
+        mediaRecorder.start();
+        isRecording = true;
+        startTimer();
+        document.getElementById('record-btn').classList.add('recording');
+        document.getElementById('record-status').textContent = 'Recording… tap to stop';
+        document.getElementById('record-status').classList.add('recording-active');
+      } catch (e) {
+        alert('Microphone access is required to record. Please allow it and try again.');
+      }
+    } else {
+      stopRecording();
+    }
+  }
+
+  function stopRecording() {
+    if (mediaRecorder && isRecording) {
+      mediaRecorder.stop();
+      isRecording = false;
+      clearInterval(timerInterval);
+      document.getElementById('record-btn').classList.remove('recording');
+      document.getElementById('record-status').textContent = 'Recording saved!';
+      document.getElementById('record-status').classList.remove('recording-active');
+    }
+  }
+
+  function startTimer() {
+    let elapsed = 0;
+    const bar = document.getElementById('timer-bar');
+    const display = document.getElementById('timer-display');
+    timerInterval = setInterval(() => {
+      elapsed++;
+      const remaining = MAX_SECONDS - elapsed;
+      display.textContent = `0:${String(remaining).padStart(2, '0')}`;
+      const pct = (elapsed / MAX_SECONDS) * 100;
+      bar.style.width = pct + '%';
+      if (remaining <= 5) bar.classList.add('danger');
+      if (elapsed >= MAX_SECONDS) stopRecording();
+    }, 1000);
+  }
+
+  // ── FILE UPLOAD ──
+  function handleFileUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    setAudio(file);
+  }
+
+  // Drag & drop
+  const uploadZone = document.getElementById('upload-zone');
+  uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+  uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+  uploadZone.addEventListener('drop', e => {
+    e.preventDefault();
+    uploadZone.classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('audio/')) setAudio(file);
+  });
+
+  // ── SET AUDIO (shared for record + upload) ──
+  function setAudio(blob) {
+    audioBlob = blob;
+    if (audioUrl) URL.revokeObjectURL(audioUrl);
+    audioUrl = URL.createObjectURL(blob);
+    audioEl = new Audio(audioUrl);
+    audioEl.addEventListener('timeupdate', updateProgress);
+    audioEl.addEventListener('ended', () => {
+      document.getElementById('play-icon').style.display = '';
+      document.getElementById('pause-icon').style.display = 'none';
+      clearInterval(playbackInterval);
+    });
+    audioEl.addEventListener('loadedmetadata', () => {
+      document.getElementById('total-time').textContent = formatTime(audioEl.duration);
+    });
+    document.getElementById('playback-section').classList.add('visible');
+    drawWaveform(blob);
+    checkStep2();
+  }
+
+  function resetAudio() {
+    if (audioEl) { audioEl.pause(); audioEl = null; }
+    audioBlob = null;
+    if (audioUrl) URL.revokeObjectURL(audioUrl);
+    audioUrl = null;
+    document.getElementById('playback-section').classList.remove('visible');
+    document.getElementById('progress-fill').style.width = '0%';
+    document.getElementById('current-time').textContent = '0:00';
+    document.getElementById('total-time').textContent = '0:00';
+    document.getElementById('timer-display').textContent = '0:20';
+    document.getElementById('timer-bar').style.width = '0%';
+    document.getElementById('timer-bar').classList.remove('danger');
+    document.getElementById('record-status').textContent = 'Tap to start recording';
+    document.getElementById('file-input').value = '';
+    checkStep2();
+  }
+
+  // ── PLAYBACK ──
+  function togglePlayback() {
+    if (!audioEl) return;
+    if (audioEl.paused) {
+      audioEl.play();
+      document.getElementById('play-icon').style.display = 'none';
+      document.getElementById('pause-icon').style.display = '';
+    } else {
+      audioEl.pause();
+      document.getElementById('play-icon').style.display = '';
+      document.getElementById('pause-icon').style.display = 'none';
+    }
+  }
+
+  function updateProgress() {
+    if (!audioEl || !audioEl.duration) return;
+    const pct = (audioEl.currentTime / audioEl.duration) * 100;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('current-time').textContent = formatTime(audioEl.currentTime);
+  }
+
+  function seekAudio(e) {
+    if (!audioEl || !audioEl.duration) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    audioEl.currentTime = pct * audioEl.duration;
+  }
+
+  function formatTime(s) {
+    const m = Math.floor(s / 60);
+    const sec = Math.floor(s % 60);
+    return `${m}:${String(sec).padStart(2, '0')}`;
+  }
+
+  // ── WAVEFORM VISUALIZATION ──
+  function drawWaveform(blob) {
+    const canvas = document.getElementById('waveform-canvas');
+    const ctx = canvas.getContext('2d');
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const buffer = await audioCtx.decodeAudioData(e.target.result);
+        const data = buffer.getChannelData(0);
+        const step = Math.ceil(data.length / canvas.width);
+        const amp = canvas.height / 2;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = '#A07050';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        for (let i = 0; i < canvas.width; i++) {
+          let min = 1, max = -1;
+          for (let j = 0; j < step; j++) {
+            const d = data[(i * step) + j] || 0;
+            if (d < min) min = d;
+            if (d > max) max = d;
+          }
+          ctx.moveTo(i, (1 + min) * amp);
+          ctx.lineTo(i, (1 + max) * amp);
+        }
+        ctx.stroke();
+      } catch(err) {
+        // fallback: draw placeholder bars
+        drawPlaceholderWave(ctx, canvas);
+      }
+    };
+    reader.readAsArrayBuffer(blob);
+  }
+
+  function drawPlaceholderWave(ctx, canvas) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = '#A07050';
+    ctx.lineWidth = 2;
+    const bars = 60;
+    const w = canvas.width / bars;
+    for (let i = 0; i < bars; i++) {
+      const h = Math.random() * canvas.height * 0.7 + canvas.height * 0.1;
+      ctx.beginPath();
+      ctx.moveTo(i * w + w/2, canvas.height/2 - h/2);
+      ctx.lineTo(i * w + w/2, canvas.height/2 + h/2);
+      ctx.stroke();
+    }
+  }
+
+  // ── VALIDATION ──
+  function checkStep2() {
+    const hasPhrase = document.getElementById('phrase-input').value.trim().length > 0;
+    const hasAudio = audioBlob !== null;
+    document.getElementById('btn-2-next').disabled = !(hasPhrase && hasAudio);
+  }
+  document.getElementById('phrase-input').addEventListener('input', checkStep2);
+
+  // ── POPULATE REVIEW ──
+  function populateReview() {
+    if (selectedProduct) {
+      document.getElementById('review-product-img').src = selectedProduct.img;
+      document.getElementById('review-product-name').textContent = selectedProduct.name;
+      document.getElementById('review-product-price').textContent = selectedProduct.price;
+    }
+    document.getElementById('review-phrase').textContent = document.getElementById('phrase-input').value || '—';
+    document.getElementById('review-audio-status').textContent = audioBlob ? '✓ Audio captured' : '—';
+    const first = document.getElementById('first-name').value;
+    const last = document.getElementById('last-name').value;
+    document.getElementById('review-name').textContent = `${first} ${last}`.trim() || '—';
+    document.getElementById('review-email').textContent = document.getElementById('email').value || '—';
+    const addr = [
+      document.getElementById('address').value,
+      document.getElementById('city').value,
+      document.getElementById('state').value,
+      document.getElementById('zip').value
+    ].filter(Boolean).join(', ');
+    document.getElementById('review-address').textContent = addr || '—';
+  }
+
+  // ── SUBMIT ──
+  async function submitOrder() {
+    const submitBtn = document.querySelector('#step-4 .btn-primary');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+
+    try {
+      await sendToBackend();
+
+      // Populate confirmation screen
+      document.getElementById('confirm-product').textContent = selectedProduct ? selectedProduct.name : '—';
+      document.getElementById('confirm-phrase').textContent = document.getElementById('phrase-input').value || '—';
+      document.getElementById('confirm-email').textContent = document.getElementById('email').value || '—';
+
+      // Move to confirmation
+      document.getElementById(`step-${currentStep}`).classList.remove('active');
+      document.getElementById(`prog-${currentStep}`).classList.remove('active');
+      document.getElementById(`prog-${currentStep}`).classList.add('done');
+      currentStep = 5;
+      document.getElementById('step-5').classList.add('active');
+
+      // Hide progress bar on confirmation
+      document.querySelector('.progress-wrap').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Order →';
+      alert('Something went wrong submitting your order. Please try again or contact us at thesoundwavebooth@gmail.com');
+      console.error(err);
+    }
+  }
+
+  async function sendToBackend() {
+    const formData = new FormData();
+    formData.append('product', selectedProduct?.name || '');
+    formData.append('price', selectedProduct?.price || '');
+    formData.append('phrase', document.getElementById('phrase-input').value);
+    formData.append('firstName', document.getElementById('first-name').value);
+    formData.append('lastName', document.getElementById('last-name').value);
+    formData.append('email', document.getElementById('email').value);
+    formData.append('phone', document.getElementById('phone').value);
+    formData.append('address', document.getElementById('address').value);
+    formData.append('city', document.getElementById('city').value);
+    formData.append('state', document.getElementById('state').value);
+    formData.append('zip', document.getElementById('zip').value);
+    formData.append('notes', document.getElementById('notes').value);
+    if (audioBlob) formData.append('audio', audioBlob, 'recording.webm');
+
+    const res = await fetch(
+      'https://kaaoqwsojgvjlvdrglrs.supabase.co/functions/v1/submit-order',
+      {
+        method: 'POST',
+        headers: {
+          'apikey': 'sb_publishable_2T-CN298_SQxoO5lFZYLCQ_mGSnP9pu',
+        },
+        body: formData,
+      }
+    );
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || 'Submission failed');
+    }
+
+    return await res.json();
+  }
+</script>
+</body>
+</html>
