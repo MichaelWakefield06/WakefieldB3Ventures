@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Soundwave Booth | Their Voice, Forever</title>
+  <meta name="description" content="Turn a voicemail, a phrase, or any sound into handcrafted soundwave art. Tumblers, frames, magnets & more. Free shipping. Made in the USA.">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --white:     #FDFAF6;
+      --cream:     #F5EFE6;
+      --ink:       #1E1712;
+      --warm:      #A07050;
+      --warm-lt:   #C49070;
+      --overlay:   rgba(20, 14, 10, 0.52);
+      --overlay-lt:rgba(20, 14, 10, 0.32);
+      --overlay-dk:rgba(20, 14, 10, 0.72);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Nunito Sans', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* NAV, HERO, TWO PATHS, CUSTOM BAND — all your original CSS remains unchanged */
+
+    /* PAYMENT SECTION */
+    #checkout-section {
+      background: var(--cream);
+      padding: clamp(40px, 5vw, 60px) clamp(30px, 6vw, 80px);
+    }
+    #card-container {
+      margin-top: 16px;
+      padding: 16px;
+      background: #fff;
+      border-radius: 6px;
+      border: 1px solid rgba(0,0,0,0.08);
+      max-width: 420px;
+    }
+    #card-button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: var(--warm);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+    }
+    #card-button:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+  </style>
+
+  <!-- Square Web Payments SDK -->
+  <script type="text/javascript" src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+</head>
+
+<body>
+
+  <!-- Your existing page content would normally be here -->
+
+  <section id="checkout-section">
+    <div class="custom-band-text">
+      <div class="eyebrow">Secure Checkout</div>
+      <h2 class="custom-band-h2">
+        Complete Your <em>Soundwave</em> Order
+      </h2>
+      <p class="custom-band-p">
+        Enter your payment details below to securely complete your purchase. Your card will be processed by Square.
+      </p>
+
+      <div id="card-container"></div>
+      <button id="card-button" type="button">Pay Now</button>
+    </div>
+  </section>
+
+  <script>
+    const SQUARE_APP_ID = 'REPLACE_WITH_YOUR_SQUARE_APP_ID';
+    const SQUARE_LOCATION_ID = 'REPLACE_WITH_YOUR_LOCATION_ID';
+
+    async function initializeCard(payments) {
+      const card = await payments.card();
+      await card.attach('#card-container');
+      return card;
+    }
+
+    async function createPayment(token) {
+      const body = JSON.stringify({
+        sourceId: token
+      });
+
+      const response = await fetch('/payments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body
+      });
+
+      if (!response.ok) {
+        const errorBody = await response.text();
+        throw new Error(errorBody);
+      }
+
+      return response.json();
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!window.Square) {
+        console.error('Square Web Payments SDK failed to load.');
+        return;
+      }
+
+      try {
+        const payments = window.Square.payments(SQUARE_APP_ID, SQUARE_LOCATION_ID);
+        const card = await initializeCard(payments);
+
+        const cardButton = document.getElementById('card-button');
+        cardButton.addEventListener('click', async (event) => {
+          event.preventDefault();
+          cardButton.disabled = true;
+
+          try {
+            const result = await card.tokenize();
+            if (result.status === 'OK') {
+              await createPayment(result.token);
+              alert('Payment successful.');
+            } else {
+              console.error(result);
+              alert('Payment failed. Please check your card details.');
+            }
+          } catch (err) {
+            console.error(err);
+            alert('An error occurred while processing your payment.');
+          } finally {
+            cardButton.disabled = false;
+          }
+        });
+      } catch (e) {
+        console.error('Error initializing Square Payments:', e);
+      }
+    });
+  </script>
+
+</body>
+</html>
