@@ -1,155 +1,926 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Soundwave Booth | Their Voice, Forever</title>
-  <meta name="description" content="Turn a voicemail, a phrase, or any sound into handcrafted soundwave art. Tumblers, frames, magnets & more. Free shipping. Made in the USA.">
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Soundwave Booth | Their Voice, Forever</title>
+<meta name="description" content="Turn a voicemail, a phrase, or any sound into handcrafted soundwave art. Tumblers, frames, magnets & more. Free shipping. Made in the USA.">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white:     #FDFAF6;
+    --cream:     #F5EFE6;
+    --ink:       #1E1712;
+    --warm:      #A07050;
+    --warm-lt:   #C49070;
+    --overlay:   rgba(20, 14, 10, 0.52);
+    --overlay-lt:rgba(20, 14, 10, 0.32);
+    --overlay-dk:rgba(20, 14, 10, 0.72);
+  }
 
-  <style>
-    :root {
-      --white:     #FDFAF6;
-      --cream:     #F5EFE6;
-      --ink:       #1E1712;
-      --warm:      #A07050;
-      --warm-lt:   #C49070;
-      --overlay:   rgba(20, 14, 10, 0.52);
-      --overlay-lt:rgba(20, 14, 10, 0.32);
-      --overlay-dk:rgba(20, 14, 10, 0.72);
-    }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Nunito Sans', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Nunito Sans', sans-serif;
-      background: var(--white);
-      color: var(--ink);
-      overflow-x: hidden;
-    }
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    padding: 0 clamp(20px, 5vw, 80px);
+    height: clamp(60px, 7vw, 74px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    transition: background 0.4s, box-shadow 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(253,250,246,0.97);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.08);
+  }
+  nav.scrolled .logo { color: var(--ink); }
+  nav.scrolled .logo em { color: var(--warm); }
+  nav.scrolled .nav-links a { color: #6B5A4A; }
+  nav.scrolled .nav-links a:hover { color: var(--warm); }
 
-    /* NAV, HERO, TWO PATHS, CUSTOM BAND — all your original CSS remains unchanged */
+  .logo {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+    font-weight: 400;
+    color: white;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    transition: color 0.3s;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+  }
+  .logo em { font-style: italic; color: #E8C090; transition: color 0.3s; }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: clamp(18px, 3vw, 36px);
+  }
+  .nav-links a {
+    font-size: clamp(0.72rem, 1vw, 0.88rem);
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    font-weight: 400;
+    transition: color 0.2s;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+  .nav-links a:hover { color: white; }
+  .nav-cta {
+    background: var(--warm) !important;
+    color: white !important;
+    padding: 9px 22px !important;
+    border-radius: 3px !important;
+    font-weight: 600 !important;
+    text-shadow: none !important;
+    transition: background 0.2s !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
+  .nav-cta:hover { background: var(--warm-lt) !important; }
 
-    /* PAYMENT SECTION */
-    #checkout-section {
-      background: var(--cream);
-      padding: clamp(40px, 5vw, 60px) clamp(30px, 6vw, 80px);
-    }
-    #card-container {
-      margin-top: 16px;
-      padding: 16px;
-      background: #fff;
-      border-radius: 6px;
-      border: 1px solid rgba(0,0,0,0.08);
-      max-width: 420px;
-    }
-    #card-button {
-      margin-top: 20px;
-      padding: 12px 24px;
-      background: var(--warm);
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      cursor: pointer;
-    }
-    #card-button:disabled {
-      opacity: 0.6;
-      cursor: default;
-    }
-  </style>
+  /* CART ICON */
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .cart-icon {
+    position: relative;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+  .cart-count {
+    min-width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: #E53935;
+    color: #fff;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  nav.scrolled .cart-icon { color: #6B5A4A; text-shadow: none; }
 
-  <!-- Square Web Payments SDK -->
-  <script type="text/javascript" src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1800&q=80');
+    background-size: cover;
+    background-position: center 30%;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, rgba(15,10,6,0.78) 0%, rgba(15,10,6,0.55) 45%, rgba(15,10,6,0.2) 100%);
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    padding: clamp(100px, 12vw, 160px) clamp(30px, 7vw, 120px) clamp(80px, 10vw, 130px);
+    max-width: 760px;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: clamp(0.7rem, 0.95vw, 0.82rem);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #E8C090;
+    margin-bottom: clamp(20px, 2.5vw, 30px);
+    font-weight: 600;
+  }
+  .hero-tag::before { content: ''; display: inline-block; width: 32px; height: 1px; background: #E8C090; }
+  .hero h1 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(3rem, 6vw, 7rem);
+    font-weight: 400;
+    color: white;
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    margin-bottom: clamp(14px, 2vw, 22px);
+  }
+  .hero h1 em { font-style: italic; color: #E8C090; }
+  .hero-sub {
+    font-size: clamp(1rem, 1.6vw, 1.25rem);
+    line-height: 1.75;
+    color: rgba(255,255,255,0.72);
+    max-width: 520px;
+    margin-bottom: clamp(36px, 4.5vw, 56px);
+    font-weight: 300;
+  }
+  .hero-btns {
+    display: flex;
+    gap: clamp(14px, 2vw, 22px);
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: clamp(48px, 6vw, 72px);
+  }
+  .btn-gold {
+    background: var(--warm);
+    color: white;
+    padding: clamp(13px, 1.6vw, 17px) clamp(28px, 3.5vw, 44px);
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: clamp(0.82rem, 1.1vw, 0.98rem);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  }
+  .btn-gold:hover { background: var(--warm-lt); transform: translateY(-2px); }
+  .btn-outline-white {
+    border: 1.5px solid rgba(255,255,255,0.5);
+    color: white;
+    padding: clamp(12px, 1.5vw, 16px) clamp(24px, 3vw, 38px);
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: clamp(0.82rem, 1.1vw, 0.98rem);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: all 0.2s;
+  }
+  .btn-outline-white:hover { background: rgba(255,255,255,0.1); border-color: white; }
+  .hero-chips {
+    display: flex;
+    gap: clamp(10px, 1.5vw, 18px);
+    flex-wrap: wrap;
+  }
+  .hero-chip {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 30px;
+    padding: 6px 16px;
+    font-size: clamp(0.7rem, 0.95vw, 0.82rem);
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.05em;
+  }
+
+  /* TWO PATHS, CUSTOM BAND, PRODUCTS, QUOTE, STORY, HIW, FAQ, TESTIMONIALS, OCCASIONS, CTA, FOOTER */
+  /* (All your original CSS from parts 1 & 2 continues unchanged) */
+
+  .two-paths { display: grid; grid-template-columns: 1fr 1fr; }
+  .path-card {
+    position: relative;
+    min-height: clamp(340px, 45vw, 580px);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    cursor: default;
+  }
+  .path-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transition: transform 0.5s ease;
+    background-size: cover;
+    background-position: center;
+  }
+  .path-card:hover::before { transform: scale(1.04); }
+  .path-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(15,10,6,0.88) 0%, rgba(15,10,6,0.3) 55%, transparent 100%);
+  }
+  .path-card-1::before { background-image: url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=900&q=80'); }
+  .path-card-2::before { background-image: url('https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=900&q=80'); }
+  .path-content { position: relative; z-index: 2; padding: clamp(28px, 4vw, 56px); }
+  .path-label {
+    font-size: clamp(0.65rem, 0.9vw, 0.76rem);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #E8C090;
+    font-weight: 600;
+    margin-bottom: clamp(8px, 1vw, 14px);
+  }
+  .path-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(1.6rem, 3vw, 3rem);
+    color: white;
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: clamp(10px, 1.4vw, 18px);
+  }
+  .path-title em { font-style: italic; }
+  .path-desc {
+    font-size: clamp(0.84rem, 1.2vw, 1rem);
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+    margin-bottom: clamp(18px, 2.5vw, 30px);
+    max-width: 380px;
+    font-weight: 300;
+  }
+  .path-btn {
+    display: inline-block;
+    background: white;
+    color: var(--ink);
+    padding: clamp(10px, 1.3vw, 14px) clamp(22px, 2.8vw, 34px);
+    font-size: clamp(0.75rem, 1vw, 0.88rem);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: all 0.2s;
+  }
+  .path-btn:hover { background: #E8C090; color: white; }
+  .path-btn-outline { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.55); }
+  .path-btn-outline:hover { background: rgba(255,255,255,0.12); border-color: white; color: white; }
+
+  .custom-band {
+    background: var(--ink);
+    padding: clamp(48px, 6vw, 80px) clamp(30px, 6vw, 100px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+    position: relative;
+    overflow: hidden;
+  }
+  .custom-band::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1543342384-1f1350e27861?w=1400&q=60');
+    background-size: cover;
+    background-position: center 30%;
+    opacity: 0.1;
+  }
+  .custom-band-text { position: relative; z-index: 2; max-width: 580px; }
+  .custom-band-text .eyebrow { color: #E8C090; margin-bottom: 12px; }
+  .custom-band-h2 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    font-weight: 400;
+    color: white;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  .custom-band-h2 em { font-style: italic; color: #E8C090; }
+  .custom-band-p {
+    font-size: clamp(0.88rem, 1.2vw, 1.05rem);
+    color: rgba(255,255,255,0.55);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+  .custom-band-features {
+    display: flex;
+    gap: clamp(16px, 2.5vw, 32px);
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .custom-feat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.06em;
+  }
+  .custom-feat::before { content: '✓'; color: #E8C090; font-size: 0.75rem; }
+  .custom-band-action { position: relative; z-index: 2; flex-shrink: 0; }
+  .btn-custom {
+    display: inline-block;
+    background: var(--warm);
+    color: white;
+    padding: clamp(14px, 1.8vw, 18px) clamp(32px, 4vw, 52px);
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: clamp(0.88rem, 1.2vw, 1rem);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    white-space: nowrap;
+  }
+  .btn-custom:hover { background: var(--warm-lt); transform: translateY(-2px); }
+
+  .products-section {
+    padding: clamp(60px, 8vw, 110px) clamp(30px, 6vw, 100px);
+    background: var(--white);
+  }
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: clamp(36px, 5vw, 60px);
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .eyebrow {
+    font-size: clamp(0.68rem, 0.92vw, 0.8rem);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--warm);
+    font-weight: 600;
+    margin-bottom: clamp(8px, 1vw, 12px);
+    display: block;
+  }
+  .h2 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(2rem, 3.5vw, 4rem);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .h2 em { font-style: italic; color: var(--warm); }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(16px, 2vw, 28px);
+  }
+  .product {
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--cream);
+    transition: transform 0.25s, box-shadow 0.25s;
+    cursor: pointer;
+  }
+  .product:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(30,23,18,0.14); }
+  .product-img { position: relative; aspect-ratio: 1; overflow: hidden; }
+  .product-img-inner {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.4s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .product:hover .product-img-inner { transform: scale(1.05); }
+  .product-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15,10,6,0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .p1 .product-img-inner { background-image: url('https://131195725.cdn6.editmysite.com/uploads/1/3/1/1/131195725/A2KBQS2WSNNXPHSRQOIO4HP4.jpeg?width=2560&optimize=medium'); background-size: cover; background-position: center; }
+  .p2 .product-img-inner { background-image: url('https://131195725.cdn6.editmysite.com/uploads/1/3/1/1/131195725/6XZDWIHHHIITBJPN5SQCLK2C.jpeg?width=2560&optimize=medium'); background-size: cover; background-position: center; }
+  .p3 .product-img-inner { background-image: url('https://131195725.cdn6.editmysite.com/uploads/1/3/1/1/131195725/DBGU5XPMGRZHWBXZRVFAQCHJ.jpeg?width=2560&optimize=medium'); background-size: cover; background-position: center; }
+  .p4 .product-img-inner { background-image: url('https://131195725.cdn6.editmysite.com/uploads/1/3/1/1/131195725/QRGPJQLRAAOYB5G5ZD7K2CUX.jpeg?width=2560&optimize=medium'); background-size: cover; background-position: center; }
+  .wave-on-img { width: clamp(100px, 16vw, 200px); opacity: 0.55; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3)); mix-blend-mode: screen; }
+  .wave-phrase-img { font-family: 'Libre Baskerville', serif; font-style: italic; font-size: clamp(0.72rem, 1.05vw, 0.9rem); color: white; text-align: center; text-shadow: 0 1px 6px rgba(0,0,0,0.5); opacity: 0.85; }
+  .product-badge { position: absolute; top: 12px; left: 12px; background: var(--warm); color: white; font-size: clamp(0.6rem, 0.8vw, 0.7rem); letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 2px; font-weight: 600; z-index: 3; }
+  .product-body { padding: clamp(16px, 2vw, 24px) clamp(18px, 2.2vw, 28px); }
+  .product-body h3 { font-family: 'Libre Baskerville', serif; font-size: clamp(1rem, 1.4vw, 1.25rem); color: var(--ink); margin-bottom: 6px; font-weight: 400; }
+  .product-body p { font-size: clamp(0.78rem, 1.05vw, 0.94rem); line-height: 1.65; color: #7A6555; margin-bottom: clamp(12px, 1.5vw, 18px); font-weight: 300; }
+  .product-foot { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid #E5DDD5; gap: 8px; }
+  .product-price { font-family: 'Libre Baskerville', serif; font-size: clamp(1rem, 1.4vw, 1.2rem); color: var(--warm); font-style: italic; }
+  .product-link { font-size: clamp(0.7rem, 0.95vw, 0.84rem); letter-spacing: 0.08em; color: var(--ink); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+  .product-link:hover { color: var(--warm); }
+  .product-cart-btn {
+    font-size: clamp(0.7rem, 0.95vw, 0.84rem);
+    letter-spacing: 0.08em;
+    border: none;
+    background: var(--warm);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .product-cart-btn:hover { background: var(--warm-lt); }
+
+  .quote-section {
+    position: relative;
+    min-height: clamp(320px, 40vw, 520px);
+    background-image: url('https://images.unsplash.com/photo-1609220136736-443140cffec6?w=1800&q=80');
+    background-size: cover;
+    background-position: center 40%;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  }
+  .quote-section::before { content: ''; position: absolute; inset: 0; background: rgba(15,10,6,0.62); }
+  .quote-inner { position: relative; z-index: 2; padding: clamp(40px, 6vw, 80px) clamp(30px, 8vw, 140px); max-width: 900px; }
+  .quote-mark { font-family: 'Libre Baskerville', serif; font-size: clamp(4rem, 8vw, 10rem); color: #E8C090; line-height: 0.6; margin-bottom: clamp(14px, 2vw, 24px); display: block; opacity: 0.6; }
+  .quote-text { font-family: 'Libre Baskerville', serif; font-size: clamp(1.4rem, 3vw, 3rem); font-weight: 400; font-style: italic; color: white; line-height: 1.45; margin-bottom: clamp(18px, 2.5vw, 30px); }
+  .quote-attr { font-size: clamp(0.72rem, 1vw, 0.88rem); letter-spacing: 0.18em; text-transform: uppercase; color: #E8C090; font-weight: 600; }
+
+  .story-section { display: grid; grid-template-columns: 1fr 1fr; }
+  .story-img {
+    position: relative;
+    min-height: clamp(400px, 55vw, 700px);
+    background-image: url('https://images.unsplash.com/photo-1543342384-1f1350e27861?w=900&q=80');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+  .story-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, transparent 70%, rgba(253,250,246,0.15) 100%); }
+  .story-text { background: var(--cream); padding: clamp(50px, 7vw, 100px) clamp(36px, 5vw, 80px); display: flex; flex-direction: column; justify-content: center; }
+  .story-text .h2 { margin-bottom: clamp(18px, 2.5vw, 28px); }
+  .story-text p { font-size: clamp(0.88rem, 1.2vw, 1.06rem); line-height: 1.9; color: #6B5A4A; margin-bottom: clamp(14px, 1.8vw, 22px); font-weight: 300; }
+  .story-pullquote { border-left: 3px solid var(--warm); padding: clamp(14px, 2vw, 22px) clamp(18px, 2.5vw, 30px); background: rgba(160,112,80,0.06); border-radius: 0 3px 3px 0; font-family: 'Libre Baskerville', serif; font-style: italic; font-size: clamp(1rem, 1.5vw, 1.3rem); color: var(--warm); line-height: 1.6; margin: clamp(20px, 3vw, 36px) 0; }
+
+  .hiw-section { padding: clamp(60px, 8vw, 110px) clamp(30px, 6vw, 100px); background: var(--ink); position: relative; overflow: hidden; }
+  .hiw-section::before { content: ''; position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1800&q=80'); background-size: cover; background-position: center 60%; opacity: 0.12; }
+  .hiw-section .eyebrow { color: #E8C090; }
+  .hiw-section .h2 { color: white; margin-bottom: clamp(36px, 5vw, 60px); }
+  .hiw-section .h2 em { color: #E8C090; }
+  .hiw-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(2px, 0.3vw, 4px); position: relative; z-index: 2; margin-bottom: clamp(36px, 5vw, 56px); }
+  .hiw-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); padding: clamp(28px, 3.5vw, 48px) clamp(22px, 2.8vw, 38px); transition: background 0.25s; }
+  .hiw-card:hover { background: rgba(255,255,255,0.1); }
+  .hiw-num { font-family: 'Libre Baskerville', serif; font-size: clamp(3rem, 5vw, 6rem); color: rgba(232,192,144,0.2); line-height: 1; margin-bottom: clamp(14px, 2vw, 22px); font-weight: 400; }
+  .hiw-card h3 { font-family: 'Libre Baskerville', serif; font-size: clamp(1.05rem, 1.6vw, 1.5rem); color: white; margin-bottom: clamp(10px, 1.3vw, 16px); font-weight: 400; }
+  .hiw-card p { font-size: clamp(0.82rem, 1.1vw, 1rem); line-height: 1.8; color: rgba(255,255,255,0.55); font-weight: 300; }
+  .hiw-card p em { color: #E8C090; font-style: italic; }
+  .hiw-cta { position: relative; z-index: 2; text-align: center; padding-top: clamp(8px, 1.5vw, 16px); }
+  .hiw-cta p { color: rgba(255,255,255,0.45); font-size: clamp(0.85rem, 1.1vw, 1rem); margin-bottom: 20px; font-weight: 300; font-style: italic; font-family: 'Libre Baskerville', serif; }
+
+  .faq-section { padding: clamp(60px, 8vw, 110px) clamp(30px, 6vw, 100px); background: var(--white); }
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(40px, 6vw, 100px); margin-top: clamp(36px, 5vw, 60px); }
+  .faq-item { padding: clamp(18px, 2.2vw, 28px) 0; border-bottom: 1px solid #E5DDD5; }
+  .faq-item:first-child { border-top: 1px solid #E5DDD5; }
+  .faq-col:last-child .faq-item:first-child { border-top: 1px solid #E5DDD5; }
+  .faq-q { font-family: 'Libre Baskerville', serif; font-size: clamp(0.95rem, 1.3vw, 1.15rem); color: var(--ink); margin-bottom: clamp(8px, 1vw, 12px); display: flex; gap: 12px; align-items: flex-start; line-height: 1.4; font-weight: 400; }
+  .faq-q::before { content: '-'; color: var(--warm); flex-shrink: 0; margin-top: 2px; }
+  .faq-a { font-size: clamp(0.82rem, 1.1vw, 1rem); line-height: 1.85; color: #7A6555; padding-left: clamp(18px, 2vw, 26px); font-weight: 300; }
+
+  .test-section { position: relative; padding: clamp(60px, 8vw, 110px) clamp(30px, 6vw, 100px); background-image: url('https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=1800&q=80'); background-size: cover; background-position: center; }
+  .test-section::before { content: ''; position: absolute; inset: 0; background: rgba(15,10,6,0.78); }
+  .test-inner { position: relative; z-index: 2; }
+  .test-section .eyebrow { color: #E8C090; }
+  .test-section .h2 { color: white; margin-bottom: clamp(36px, 5vw, 60px); }
+  .test-section .h2 em { color: #E8C090; }
+  .test-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2vw, 28px); }
+  .test-card { background: rgba(255,255,255,0.07); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: clamp(26px, 3.5vw, 44px) clamp(22px, 3vw, 38px); }
+  .test-stars { color: #E8C090; font-size: clamp(0.8rem, 1.1vw, 0.95rem); letter-spacing: 0.1em; margin-bottom: clamp(12px, 1.5vw, 18px); }
+  .test-body { font-family: 'Libre Baskerville', serif; font-style: italic; font-size: clamp(0.92rem, 1.3vw, 1.1rem); line-height: 1.75; color: rgba(255,255,255,0.85); margin-bottom: clamp(18px, 2.5vw, 28px); }
+  .test-author { font-size: clamp(0.7rem, 0.95vw, 0.82rem); letter-spacing: 0.14em; text-transform: uppercase; color: #E8C090; }
+
+  .occasions { padding: clamp(50px, 7vw, 90px) clamp(30px, 6vw, 100px); background: var(--cream); text-align: center; }
+  .occasions .h2 { margin-bottom: clamp(8px, 1.2vw, 14px); }
+  .occ-subtitle { font-size: clamp(0.88rem, 1.2vw, 1.05rem); color: #8A7060; font-style: italic; font-family: 'Libre Baskerville', serif; margin-bottom: clamp(24px, 3vw, 40px); }
+  .occ-tags { display: flex; flex-wrap: wrap; gap: clamp(8px, 1.2vw, 14px); justify-content: center; }
+  .occ-tag { border: 1px solid #D5C8B8; padding: clamp(9px, 1.2vw, 14px) clamp(18px, 2.5vw, 32px); font-size: clamp(0.8rem, 1.1vw, 1rem); color: #6B5A4A; background: white; transition: all 0.2s; cursor: default; border-radius: 2px; font-family: 'Libre Baskerville', serif; font-style: italic; }
+  .occ-tag:hover { background: var(--warm); color: white; border-color: var(--warm); }
+
+  .cta-section { position: relative; min-height: clamp(500px, 60vw, 750px); background-image: url('https://images.unsplash.com/photo-1531983412531-1f49a365ffed?w=1800&q=80'); background-size: cover; background-position: center 35%; display: flex; align-items: center; }
+  .cta-section::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,10,6,0.88) 0%, rgba(15,10,6,0.65) 50%, rgba(15,10,6,0.25) 100%); }
+  .cta-inner { position: relative; z-index: 2; padding: clamp(60px, 8vw, 110px) clamp(30px, 7vw, 120px); max-width: 700px; }
+  .cta-inner .eyebrow { color: #E8C090; }
+  .cta-h2 { font-family: 'Libre Baskerville', serif; font-size: clamp(2.4rem, 5vw, 5.5rem); font-weight: 400; color: white; line-height: 1.08; letter-spacing: -0.01em; margin-bottom: clamp(16px, 2vw, 24px); }
+  .cta-h2 em { font-style: italic; color: #E8C090; }
+  .cta-p { font-size: clamp(0.95rem, 1.4vw, 1.15rem); line-height: 1.8; color: rgba(255,255,255,0.65); margin-bottom: clamp(32px, 4vw, 50px); font-weight: 300; max-width: 480px; }
+  .cta-contacts { display: flex; flex-direction: column; gap: clamp(10px, 1.4vw, 16px); max-width: 440px; }
+  .contact-row { display: flex; align-items: center; gap: clamp(14px, 2vw, 20px); padding: clamp(16px, 2.2vw, 24px) clamp(18px, 2.5vw, 30px); background: rgba(255,255,255,0.08); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.15); border-radius: 3px; text-decoration: none; color: white; transition: background 0.2s; }
+  .contact-row:hover { background: rgba(255,255,255,0.14); }
+  .c-ico { width: clamp(36px, 4vw, 46px); height: clamp(36px, 4vw, 46px); background: rgba(232,192,144,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: clamp(0.9rem, 1.3vw, 1.1rem); flex-shrink: 0; color: #E8C090; }
+  .c-lbl { font-size: clamp(0.62rem, 0.85vw, 0.73rem); letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 3px; }
+  .c-val { font-size: clamp(0.88rem, 1.3vw, 1.1rem); font-family: 'Libre Baskerville', serif; font-style: italic; }
+  .cta-shop-btn { display: block; text-align: center; background: var(--warm); color: white; padding: clamp(14px, 1.8vw, 18px); font-size: clamp(0.82rem, 1.1vw, 0.96rem); letter-spacing: 0.1em; font-weight: 600; text-decoration: none; border-radius: 3px; transition: background 0.2s; margin-top: clamp(10px, 1.4vw, 16px); }
+  .cta-shop-btn:hover { background: var(--warm-lt); }
+  .cta-custom-btn { display: block; text-align: center; background: transparent; color: white; padding: clamp(14px, 1.8vw, 18px); font-size: clamp(0.82rem, 1.1vw, 0.96rem); letter-spacing: 0.1em; font-weight: 600; text-decoration: none; border-radius: 3px; border: 1.5px solid rgba(255,255,255,0.35); transition: all 0.2s; margin-top: clamp(6px, 1vw, 10px); }
+  .cta-custom-btn:hover { background: rgba(255,255,255,0.1); border-color: white; }
+
+  footer { background: #120E0A; padding: clamp(50px, 7vw, 80px) clamp(30px, 6vw, 100px) clamp(24px, 3.5vw, 38px); }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: clamp(30px, 5vw, 70px); margin-bottom: clamp(36px, 5vw, 56px); padding-bottom: clamp(36px, 5vw, 56px); border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .footer-logo { font-family: 'Libre Baskerville', serif; font-size: clamp(1.2rem, 2vw, 1.7rem); color: white; font-weight: 400; margin-bottom: clamp(12px, 1.6vw, 18px); display: block; text-decoration: none; }
+  .footer-logo em { font-style: italic; color: #E8C090; }
+  .footer-brand p { font-size: clamp(0.78rem, 1.05vw, 0.95rem); line-height: 1.78; color: rgba(255,255,255,0.32); max-width: 280px; font-weight: 300; }
+  .footer-col h4 { font-size: clamp(0.65rem, 0.9vw, 0.76rem); letter-spacing: 0.2em; text-transform: uppercase; color: #E8C090; margin-bottom: clamp(14px, 1.8vw, 22px); font-weight: 600; }
+  .footer-col a { display: block; color: rgba(255,255,255,0.32); text-decoration: none; font-size: clamp(0.78rem, 1.05vw, 0.95rem); margin-bottom: clamp(8px, 1.1vw, 14px); transition: color 0.2s; }
+  .footer-col a:hover { color: #E8C090; }
+  .footer-bottom { display: flex; justify-content: space-between; font-size: clamp(0.7rem, 0.95vw, 0.82rem); color: rgba(255,255,255,0.18); flex-wrap: wrap; gap: 10px; }
+
+  @media (max-width: 960px) {
+    .two-paths { grid-template-columns: 1fr; }
+    .products-grid { grid-template-columns: 1fr 1fr; }
+    .story-section { grid-template-columns: 1fr; }
+    .story-img { min-height: 300px; }
+    .hiw-grid { grid-template-columns: 1fr 1fr; }
+    .test-grid { grid-template-columns: 1fr; }
+    .faq-grid { grid-template-columns: 1fr; }
+    .faq-col:last-child .faq-item:first-child { border-top: none; }
+    .footer-top { grid-template-columns: 1fr; gap: 28px; }
+    .nav-links { display: none; }
+    .quote-section { background-attachment: scroll; }
+    .custom-band { flex-direction: column; text-align: center; }
+    .custom-band-features { justify-content: center; }
+  }
+</style>
 </head>
-
 <body>
 
-  <!-- Your existing page content would normally be here -->
-
-  <section id="checkout-section">
-    <div class="custom-band-text">
-      <div class="eyebrow">Secure Checkout</div>
-      <h2 class="custom-band-h2">
-        Complete Your <em>Soundwave</em> Order
-      </h2>
-      <p class="custom-band-p">
-        Enter your payment details below to securely complete your purchase. Your card will be processed by Square.
-      </p>
-
-      <div id="card-container"></div>
-      <button id="card-button" type="button">Pay Now</button>
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#" class="logo">The Soundwave <em>Booth</em></a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#shop">Shop</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#story">Our Story</a>
+      <a href="#faq">FAQ</a>
+      <a href="custom-order.html" class="nav-cta">Create Your Piece</a>
     </div>
-  </section>
+    <div class="cart-icon" onclick="window.location.href='cart.html'">
+      <span>Cart</span>
+      <span id="cart-count" class="cart-count">0</span>
+    </div>
+  </div>
+</nav>
 
-  <script>
-    const SQUARE_APP_ID = 'REPLACE_WITH_YOUR_SQUARE_APP_ID';
-    const SQUARE_LOCATION_ID = 'REPLACE_WITH_YOUR_LOCATION_ID';
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Handcrafted in the USA</div>
+    <h1>The voice<br>you love,<br><em>kept forever.</em></h1>
+    <p class="hero-sub">Record your own voice, upload a voicemail, or shop our ready-made collection - and we'll handcraft it into soundwave art that lasts a lifetime.</p>
+    <div class="hero-btns">
+      <a href="custom-order.html" class="btn-gold">Create Your Custom Piece</a>
+      <a href="#shop" class="btn-outline-white">Shop Ready-Made</a>
+    </div>
+    <div class="hero-chips">
+      <span class="hero-chip">Free shipping always</span>
+      <span class="hero-chip">From $16</span>
+      <span class="hero-chip">Record from your phone</span>
+    </div>
+  </div>
+</section>
 
-    async function initializeCard(payments) {
-      const card = await payments.card();
-      await card.attach('#card-container');
-      return card;
-    }
+<!-- TWO PATHS -->
+<div class="two-paths">
+  <div class="path-card path-card-1">
+    <div class="path-content">
+      <div class="path-label">Custom Online Order</div>
+      <div class="path-title">Your voice.<br><em>Shipped to you.</em></div>
+      <p class="path-desc">Record your phrase right from your phone or computer. We'll clean the audio, craft your piece, and ship it free to your door.</p>
+      <a href="custom-order.html" class="path-btn">Start Your Custom Order</a>
+    </div>
+  </div>
+  <div class="path-card path-card-2">
+    <div class="path-content">
+      <div class="path-label">Find Us at an Event</div>
+      <div class="path-title">Your voice.<br><em>Made on the spot.</em></div>
+      <p class="path-desc">Visit our booth at a local market or event. Walk up, speak into the mic, and we'll create a one-of-a-kind piece from your own words while you wait.</p>
+      <a href="#contact" class="path-btn path-btn-outline">Find Our Next Event</a>
+    </div>
+  </div>
+</div>
 
-    async function createPayment(token) {
-      const body = JSON.stringify({
-        sourceId: token
-      });
+<!-- CUSTOM ORDER BAND -->
+<div class="custom-band">
+  <div class="custom-band-text">
+    <span class="eyebrow">Now Available Online</span>
+    <h2 class="custom-band-h2">Submit your voice<br>from <em>anywhere.</em></h2>
+    <p class="custom-band-p">You no longer have to find us at an event to get a custom piece. Record a phrase, upload a voicemail, or send us any sound - we'll do the rest.</p>
+    <div class="custom-band-features">
+      <span class="custom-feat">Record from your phone</span>
+      <span class="custom-feat">Upload any audio file</span>
+      <span class="custom-feat">Ships free in 2 business days</span>
+    </div>
+  </div>
+  <div class="custom-band-action">
+    <a href="custom-order.html" class="btn-custom">Create Your Custom Piece →</a>
+  </div>
+</div>
 
-      const response = await fetch('/payments', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body
-      });
+<!-- PRODUCTS -->
+<section class="products-section" id="shop">
+  <div class="section-header">
+    <div>
+      <span class="eyebrow">The Collection</span>
+      <h2 class="h2">Shop ready-made <em>pieces.</em></h2>
+    </div>
+    <p style="color:#8A7060;font-size:clamp(0.82rem,1.1vw,1rem);max-width:320px;font-weight:300;font-style:italic;font-family:'Libre Baskerville',serif;">Every piece ships free. Want your own voice on it? <a href="custom-order.html" style="color:var(--warm);text-decoration:underline;">Order online</a> or find us at an event.</p>
+  </div>
+  <div class="products-grid">
+    <div class="product p1" data-product-id="tumbler">
+      <div class="product-img">
+        <div class="product-img-inner"></div>
+        <div class="product-img-overlay">
+          <svg class="wave-on-img" viewBox="0 0 220 55" xmlns="http://www.w3.org/2000/svg"><g stroke="white" stroke-linecap="round" fill="none"><line x1="6" y1="27" x2="6" y2="32" stroke-width="2"/><line x1="16" y1="20" x2="16" y2="40" stroke-width="2"/><line x1="26" y1="12" x2="26" y2="48" stroke-width="2.2"/><line x1="36" y1="7" x2="36" y2="53" stroke-width="2.5"/><line x1="46" y1="16" x2="46" y2="44" stroke-width="2"/><line x1="56" y1="5" x2="56" y2="55" stroke-width="2.8"/><line x1="66" y1="13" x2="66" y2="47" stroke-width="2.2"/><line x1="76" y1="8" x2="76" y2="52" stroke-width="2.5"/><line x1="86" y1="18" x2="86" y2="42" stroke-width="2"/><line x1="96" y1="10" x2="96" y2="50" stroke-width="2.5"/><line x1="106" y1="20" x2="106" y2="40" stroke-width="2"/><line x1="116" y1="25" x2="116" y2="35" stroke-width="2"/><line x1="126" y1="14" x2="126" y2="46" stroke-width="2.2"/><line x1="136" y1="9" x2="136" y2="51" stroke-width="2.5"/><line x1="146" y1="18" x2="146" y2="42" stroke-width="2"/><line x1="156" y1="22" x2="156" y2="38" stroke-width="2"/></g></svg>
+          <div class="wave-phrase-img">I love you forever</div>
+        </div>
+        <div class="product-badge">Best Seller</div>
+      </div>
+      <div class="product-body">
+        <h3>Soundwave Tumbler</h3>
+        <p>Premium engraved tumbler. An everyday reminder of someone you love.</p>
+        <div class="product-foot">
+          <span class="product-price" data-price-cents="2200">from $22</span>
+          <a href="custom-order.html" class="product-link">Custom Order →</a>
+          <button class="product-cart-btn" onclick="addToCartFromCard('tumbler')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product p2" data-product-id="frame">
+      <div class="product-img">
+        <div class="product-img-inner"></div>
+        <div class="product-img-overlay">
+          <svg class="wave-on-img" viewBox="0 0 220 55" xmlns="http://www.w3.org/2000/svg"><g stroke="white" stroke-linecap="round" fill="none"><line x1="6" y1="28" x2="6" y2="32" stroke-width="2"/><line x1="16" y1="22" x2="16" y2="38" stroke-width="2"/><line x1="26" y1="14" x2="26" y2="46" stroke-width="2.2"/><line x1="36" y1="9" x2="36" y2="51" stroke-width="2.5"/><line x1="46" y1="18" x2="46" y2="42" stroke-width="2"/><line x1="56" y1="7" x2="56" y2="53" stroke-width="2.8"/><line x1="66" y1="16" x2="66" y2="44" stroke-width="2.2"/><line x1="76" y1="10" x2="76" y2="50" stroke-width="2.5"/><line x1="86" y1="22" x2="86" y2="38" stroke-width="2"/><line x1="96" y1="12" x2="96" y2="48" stroke-width="2.5"/><line x1="106" y1="20" x2="106" y2="40" stroke-width="2"/><line x1="116" y1="26" x2="116" y2="34" stroke-width="2"/></g></svg>
+          <div class="wave-phrase-img">always in my heart</div>
+        </div>
+      </div>
+      <div class="product-body">
+        <h3>Framed Soundwaves</h3>
+        <p>A beautiful piece for any wall. A heartbeat, a vow, or a voice made visible.</p>
+        <div class="product-foot">
+          <span class="product-price" data-price-cents="2400">from $24</span>
+          <a href="custom-order.html" class="product-link">Custom Order →</a>
+          <button class="product-cart-btn" onclick="addToCartFromCard('frame')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product p3" data-product-id="magnet">
+      <div class="product-img">
+        <div class="product-img-inner"></div>
+        <div class="product-img-overlay">
+          <svg class="wave-on-img" viewBox="0 0 220 55" xmlns="http://www.w3.org/2000/svg"><g stroke="white" stroke-linecap="round" fill="none"><line x1="6" y1="27" x2="6" y2="31" stroke-width="2"/><line x1="16" y1="20" x2="16" y2="40" stroke-width="2"/><line x1="26" y1="12" x2="26" y2="48" stroke-width="2.2"/><line x1="36" y1="16" x2="36" y2="44" stroke-width="2"/><line x1="46" y1="6" x2="46" y2="54" stroke-width="2.8"/><line x1="56" y1="14" x2="56" y2="46" stroke-width="2.2"/><line x1="66" y1="8" x2="66" y2="52" stroke-width="2.5"/><line x1="76" y1="18" x2="76" y2="42" stroke-width="2"/><line x1="86" y1="6" x2="86" y2="54" stroke-width="2.8"/><line x1="96" y1="14" x2="96" y2="46" stroke-width="2"/><line x1="106" y1="22" x2="106" y2="38" stroke-width="2"/></g></svg>
+          <div class="wave-phrase-img">home is where you are</div>
+        </div>
+      </div>
+      <div class="product-body">
+        <h3>Magnets</h3>
+        <p>Put your soundwave on the fridge. Beautiful, meaningful, and made to last.</p>
+        <div class="product-foot">
+          <span class="product-price" data-price-cents="2800">from $28</span>
+          <a href="custom-order.html" class="product-link">Custom Order →</a>
+          <button class="product-cart-btn" onclick="addToCartFromCard('magnet')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product p4" data-product-id="beanie">
+      <div class="product-img">
+        <div class="product-img-inner"></div>
+        <div class="product-img-overlay">
+          <svg class="wave-on-img" viewBox="0 0 220 55" xmlns="http://www.w3.org/2000/svg"><g stroke="white" stroke-linecap="round" fill="none"><line x1="6" y1="27" x2="6" y2="30" stroke-width="2"/><line x1="16" y1="23" x2="16" y2="36" stroke-width="2"/><line x1="26" y1="16" x2="26" y2="44" stroke-width="2.2"/><line x1="36" y1="10" x2="36" y2="50" stroke-width="2.5"/><line x1="46" y1="18" x2="46" y2="42" stroke-width="2"/><line x1="56" y1="8" x2="56" y2="52" stroke-width="2.8"/><line x1="66" y1="16" x2="66" y2="44" stroke-width="2.2"/><line x1="76" y1="20" x2="76" y2="40" stroke-width="2"/><line x1="86" y1="12" x2="86" y2="48" stroke-width="2.5"/></g></svg>
+          <div class="wave-phrase-img">you are my sunshine</div>
+        </div>
+      </div>
+      <div class="product-body">
+        <h3>Baby Beanies</h3>
+        <p>The sweetest gift. A soundwave patch engraved in leather, on a cozy beanie they'll treasure forever.</p>
+        <div class="product-foot">
+          <span class="product-price" data-price-cents="1600">from $16</span>
+          <a href="custom-order.html" class="product-link">Custom Order →</a>
+          <button class="product-cart-btn" onclick="addToCartFromCard('beanie')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      if (!response.ok) {
-        const errorBody = await response.text();
-        throw new Error(errorBody);
-      }
+<!-- FULL BLEED QUOTE -->
+<section class="quote-section">
+  <div class="quote-inner">
+    <span class="quote-mark">"</span>
+    <p class="quote-text">The phrase beneath each image was spoken to create the soundwave above it. It's the audio, made visible.</p>
+    <div class="quote-attr">- The Soundwave Booth</div>
+  </div>
+</section>
 
-      return response.json();
-    }
+<!-- STORY -->
+<section class="story-section" id="story">
+  <div class="story-img"></div>
+  <div class="story-text">
+    <span class="eyebrow">Meet the Makers</span>
+    <h2 class="h2">Joel &amp; Cindy <em>Pendl</em></h2>
+    <p>We're a husband and wife team from Indiana. We started The Soundwave Booth because we believe the most precious things in life are the words we say to the people we love - and we wanted to find a way to make those words last.</p>
+    <p>You'll find us at local markets and events, set up with our booth and our microphone, ready to turn your voice into something you can take home the same day.</p>
+    <div class="story-pullquote">"Every piece we make is filled with faith, family, and love. No negativity - just the sounds worth keeping forever."</div>
+    <p>For custom pieces, <a href="custom-order.html" style="color:var(--warm);">order right from our website</a> and we'll ship free to your door. For something made in person, come find us at an event.</p>
+  </div>
+</section>
 
-    document.addEventListener('DOMContentLoaded', async () => {
-      if (!window.Square) {
-        console.error('Square Web Payments SDK failed to load.');
-        return;
-      }
+<!-- HOW IT WORKS -->
+<section class="hiw-section" id="how-it-works">
+  <span class="eyebrow">The Process</span>
+  <h2 class="h2">Two ways to get <em>your piece.</em></h2>
+  <div class="hiw-grid">
+    <div class="hiw-card">
+      <div class="hiw-num">01</div>
+      <h3>Order Online</h3>
+      <p>Record your phrase or upload a voicemail right from our website. We receive your audio, clean it up, and get to work crafting your custom piece.</p>
+    </div>
+    <div class="hiw-card">
+      <div class="hiw-num">02</div>
+      <h3>Find Us at an Event</h3>
+      <p>Want something made <em>on the spot?</em> Visit our booth at a local market or event. Walk up, speak into the mic, and we create your piece while you wait.</p>
+    </div>
+  </div>
+  <div class="hiw-cta">
+    <p>Ready to create something meaningful?</p>
+    <a href="custom-order.html" class="btn-custom">Start Your Custom Order →</a>
+  </div>
+</section>
 
-      try {
-        const payments = window.Square.payments(SQUARE_APP_ID, SQUARE_LOCATION_ID);
-        const card = await initializeCard(payments);
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <span class="eyebrow">Questions &amp; Answers</span>
+  <h2 class="h2">Everything you need <em>to know.</em></h2>
+  <div class="faq-grid">
+    <div class="faq-col">
+      <div class="faq-item"><div class="faq-q">Can I get a custom piece online?</div><div class="faq-a">Yes! You can now record your own voice or upload any audio file directly on our website. We'll craft your custom piece and ship it free within 2 business days of payment processing.</div></div>
+      <div class="faq-item"><div class="faq-q">How does the in-person booth work?</div><div class="faq-a">Just walk up, speak a phrase into our microphone, and we create a one-of-a-kind piece right there. You'll have your finished soundwave art in hand the same day. It's that simple.</div></div>
+      <div class="faq-item"><div class="faq-q">What is the QR code option?</div><div class="faq-a">We can add a small QR code to your piece. Scan it with any smartphone and it plays the actual audio that created the soundwave. The art literally speaks.</div></div>
+      <div class="faq-item"><div class="faq-q">Do your pre-made pieces ship fast?</div><div class="faq-a">Yes - pre-made items are ready to ship and typically go out within 1–3 business days. Every order ships free anywhere in the USA, no exceptions.</div></div>
+    </div>
+    <div class="faq-col">
+      <div class="faq-item"><div class="faq-q">How much does everything cost?</div><div class="faq-a">Our pieces start at $16 for baby beanies and go up to around $30 for frames and magnets. Every single order ships free - no minimums, no surprise fees.</div></div>
+      <div class="faq-item"><div class="faq-q">Where do you set up your booth?</div><div class="faq-a">We travel to local markets, craft fairs, and events across Indiana and surrounding areas. Follow us on Facebook or reach out to find out where we'll be next - or to invite us to your event.</div></div>
+      <div class="faq-item"><div class="faq-q">What phrases are on your pre-made pieces?</div><div class="faq-a">Our pre-made collection features faith-filled phrases, family expressions, and inspirational words - things like "I love you forever," "faith over fear," and "home is wherever you are."</div></div>
+      <div class="faq-item"><div class="faq-q">What occasions make the best gifts?</div><div class="faq-a">Mother's Day, Father's Day, Christmas, anniversaries, weddings, baby showers, memorials, and birthdays. Honestly - there's no wrong time to give someone something this meaningful.</div></div>
+    </div>
+  </div>
+</section>
 
-        const cardButton = document.getElementById('card-button');
-        cardButton.addEventListener('click', async (event) => {
-          event.preventDefault();
-          cardButton.disabled = true;
+<!-- TESTIMONIALS -->
+<section class="test-section" id="testimonials">
+  <div class="test-inner">
+    <span class="eyebrow">From Our Customers</span>
+    <h2 class="h2">Stories that <em>stay with us.</em></h2>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-body">I sent them my mom's last voicemail. Getting that soundwave on a tumbler was one of the most meaningful things I've ever done. I cry every time I hold it - in the best way.</p>
+        <div class="test-author">- Sarah M., Ohio</div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-body">Found them at a craft fair and walked up on a whim. Spoke a phrase into the mic, and walked away with the most beautiful thing I've ever owned. I've sent everyone I know to find their booth.</p>
+        <div class="test-author">- Jessica R., Indiana</div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-body">Joel and Cindy are genuinely wonderful people. Ordered a magnet online - it arrived beautifully packaged and faster than expected. Already ordered three more for Christmas.</p>
+        <div class="test-author">- Karen T., Michigan</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-          try {
-            const result = await card.tokenize();
-            if (result.status === 'OK') {
-              await createPayment(result.token);
-              alert('Payment successful.');
-            } else {
-              console.error(result);
-              alert('Payment failed. Please check your card details.');
-            }
-          } catch (err) {
-            console.error(err);
-            alert('An error occurred while processing your payment.');
-          } finally {
-            cardButton.disabled = false;
-          }
-        });
-      } catch (e) {
-        console.error('Error initializing Square Payments:', e);
-      }
-    });
-  </script>
+<!-- OCCASIONS -->
+<div class="occasions">
+  <span class="eyebrow">A Gift for Every Occasion</span>
+  <h2 class="h2">The gift that <em>means something.</em></h2>
+  <p class="occ-subtitle">There's never a wrong time to give someone a piece of their own voice.</p>
+  <div class="occ-tags">
+    <span class="occ-tag">Mother's Day</span>
+    <span class="occ-tag">Father's Day</span>
+    <span class="occ-tag">Christmas</span>
+    <span class="occ-tag">Anniversaries</span>
+    <span class="occ-tag">Weddings</span>
+    <span class="occ-tag">Baby Showers</span>
+    <span class="occ-tag">In Memoriam</span>
+    <span class="occ-tag">Birthdays</span>
+    <span class="occ-tag">Graduations</span>
+    <span class="occ-tag">Housewarming</span>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-inner">
+    <span class="eyebrow">Get Started</span>
+    <h2 class="cta-h2">That voice<br>deserves to<br>be <em>seen.</em></h2>
+    <p class="cta-p">Create a custom piece online, browse our ready-to-ship collection, or reach out to find us at an event near you. We're Joel and Cindy - real people who answer every message.</p>
+    <div class="cta-contacts">
+      <a href="mailto:thesoundwavebooth@gmail.com" class="contact-row">
+        <div class="c-ico">✉</div>
+        <div><div class="c-lbl">Email Us</div><div class="c-val">thesoundwavebooth@gmail.com</div></div>
+      </a>
+      <a href="tel:5749353995" class="contact-row">
+        <div class="c-ico">☎</div>
+        <div><div class="c-lbl">Call or Text</div><div class="c-val">574-935-3995</div></div>
+      </a>
+      <a href="custom-order.html" class="cta-shop-btn">Create Your Custom Piece →</a>
+      <a href="#shop" class="cta-custom-btn">Browse Ready-Made Collection</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="footer-logo">The Soundwave <em>Booth</em></a>
+      <p>Handcrafted soundwave art made from the sounds you love most. Made with care in Indiana, USA.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="#shop">Tumblers</a>
+      <a href="#shop">Framed Soundwaves</a>
+      <a href="#shop">Magnets</a>
+      <a href="#shop">Baby Beanies</a>
+      <a href="custom-order.html">Custom Order</a>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#faq">FAQ</a>
+      <a href="#story">About Us</a>
+      <a href="mailto:thesoundwavebooth@gmail.com">Email Us</a>
+      <a href="tel:5749353995">574-935-3995</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 The Soundwave Booth. All rights reserved.</span>
+    <span>Handmade with love in the USA 🇺🇸</span>
+  </div>
+</footer>
+
+<script src="cart.js"></script>
+<script>
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  const PRODUCTS = {
+    tumbler: { id: 'tumbler', name: 'Soundwave Tumbler', price: 2200 },
+    frame:   { id: 'frame',   name: 'Framed Soundwaves', price: 2400 },
+    magnet:  { id: 'magnet',  name: 'Magnets',           price: 2800 },
+    beanie:  { id: 'beanie',  name: 'Baby Beanies',      price: 1600 }
+  };
+
+  function addToCartFromCard(productId) {
+    const product = PRODUCTS[productId];
+    if (!product) return;
+    Cart.addItem(product);
+    updateCartCount();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    updateCartCount();
+  });
+</script>
 
 </body>
 </html>
