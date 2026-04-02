@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yard Game Rentals</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; background: #f7f7f7; }
+  h1 { text-align: center; }
+  .game { border: 1px solid #ccc; padding: 10px; margin: 10px 0; background: #fff; }
+  .calendar { margin-top: 10px; display: flex; flex-wrap: wrap; }
+  .day { width: 40px; height: 40px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; margin: 2px; cursor: pointer; }
+  .booked { background: #f66; color: #fff; cursor: not-allowed; }
+  .selected { background: #6f6; }
+  button { margin-top: 10px; padding: 10px; background: #007bff; color: #fff; border: none; cursor: pointer; }
+  button:disabled { background: #ccc; cursor: not-allowed; }
+</style>
+</head>
+<body>
+
+<h1>Yard Game Rentals</h1>
+
+<div id="games-container"></div>
+
+<h2>Your Selection</h2>
+<div id="selection"></div>
+<button id="submitBtn" disabled>Request Rental</button>
+
+<script>
+// Sample inventory JSON (update manually)
+const inventory = {
+  "cornhole": { quantity: 4, bookings: [{"start":"2026-04-03","end":"2026-04-04"}] },
+  "giant_jenga": { quantity: 2, bookings: [] },
+  "horseshoes": { quantity: 3, bookings: [{"start":"2026-04-05","end":"2026-04-06"}] }
+};
+
+// Utility to generate simple date array for a month
+function getMonthDates(year, month) {
+  const date = new Date(year, month, 1);
+  const dates = [];
+  while (date.getMonth() === month) {
+    dates.push(new Date(date));
+    date.setDate(date.getDate() + 1);
+  }
+  return dates;
+}
+
+// Check if a date is booked
+function isBooked(game, dateStr) {
+  return inventory[game].bookings.some(b => dateStr >= b.start && dateStr <= b.end);
+}
+
+// Render inventory and calendars
+function renderGames() {
+  const container = document.getElementById('games-container');
+  container.innerHTML = '';
+
+  const today = new Date();
+  const dates = getMonthDates(today.getFullYear(), today.getMonth());
+  const dateStrings = dates.map(d => d.toISOString().split('T')[0]);
+
+  Object.keys(inventory).forEach(game => {
+    const gameDiv = document.createElement('div');
+    gameDiv.className = 'game';
+    gameDiv.innerHTML = `<h3>${game} (Quantity: ${inventory[game].quantity})</h3>`;
+
+    const calendarDiv = document.createElement('div');
+    calendarDiv.className = 'calendar';
+
+    dateStrings.forEach(dateStr => {
+      const dayDiv = document.createElement('div');
+      dayDiv.className = 'day';
+      dayDiv.textContent = dateStr.split('-')[2]; // day number
+
+      if (isBooked(game, dateStr)) {
+        dayDiv.classList.add('booked');
+      }
+
+      dayDiv.addEventListener('click', () => {
+        if (dayDiv.classList.contains('booked')) return;
+        dayDiv.classList.toggle('selected');
+        updateSelection();
+      });
+
+      calendarDiv.appendChild(dayDiv);
+    });
+
+    gameDiv.appendChild(calendarDiv);
+    container.appendChild(gameDiv);
+  });
+}
+
+// Track selected dates
+function updateSelection() {
+  const selectedDiv = document.getElementById('selection');
+  const selected = [];
+  document.querySelectorAll('.calendar').forEach((cal, idx) => {
+    const game = Object.keys(inventory)[idx];
+    const selectedDays = Array.from(cal.querySelectorAll('.selected')).map(d => d.textContent);
+    if (selectedDays.length) selected.push({ game, days: selectedDays });
+  });
+
+  selectedDiv.textContent = selected.length ? JSON.stringify(selected, null, 2) : 'None';
+  document.getElementById('submitBtn').disabled = selected.length === 0;
+}
+
+// Submit button handler
+document.getElementById('submitBtn').addEventListener('click', () => {
+  alert('Rental request submitted! You will manually confirm and mark booked dates.');
+});
+
+renderGames();
+</script>
+
+</body>
+</html>
