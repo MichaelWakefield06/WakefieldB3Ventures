@@ -1,0 +1,5 @@
+{
+  "cornhole": { "quantity": 4, "bookings": [{"start":"2026-04-03","end":"2026-04-04"}] },
+  "giant_jenga": { "quantity": 2, "bookings": [] },
+  "horseshoes": { "quantity": 3, "bookings": [{"start":"2026-04-05","end":"2026-04-06"}] }
+}
