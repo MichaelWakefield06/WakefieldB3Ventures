@@ -3,168 +3,258 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Premium Yard Game Rentals</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<title>Backyard Game Rentals</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --grass:#2d6a2d;
+  --grass-light:#3d8b3d;
+  --cream:#fdf8f0;
+  --text:#1a1a1a;
+  --muted:#6b6b6b;
+  --white:#ffffff;
+  --border:#e0d8cc;
+  --selected:#2d6a2d;
+  --selected-light:#edf7ed;
+  --danger:#c0392b;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);min-height:100vh}
+.hero{background:linear-gradient(160deg,#1a4d1a 0%,#2d6a2d 45%,#4a9e4a 100%);padding:56px 32px 64px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:20px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(36px,6vw,64px);font-weight:900;color:#fff;line-height:1.05;margin-bottom:12px;letter-spacing:-1px}
+.hero p{color:rgba(255,255,255,0.8);font-size:17px;font-weight:300;max-width:480px;margin:0 auto}
+.hero-deco{position:absolute;bottom:-2px;left:0;right:0;height:40px;background:var(--cream);clip-path:ellipse(55% 100% at 50% 100%)}
+.main{max-width:1100px;margin:0 auto;padding:48px 24px}
+.section-label{font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.section-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--text);margin-bottom:24px}
+.games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:48px}
+.game-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:20px 16px 16px;cursor:pointer;transition:all 0.2s;user-select:none;position:relative;text-align:center}
+.game-card:hover{border-color:#aaa;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.08)}
+.game-card.selected{border-color:var(--selected);background:var(--selected-light);box-shadow:0 0 0 3px rgba(45,106,45,0.15)}
+.game-icon{font-size:40px;margin-bottom:10px;display:block;line-height:1}
+.game-name{font-weight:500;font-size:14px;color:var(--text);margin-bottom:4px}
+.game-price{font-size:13px;color:var(--muted)}
+.game-check{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:var(--selected);display:none;align-items:center;justify-content:center}
+.game-card.selected .game-check{display:flex}
+.game-check::after{content:'';width:6px;height:10px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg) translateY(-1px)}
+.cal-wrapper{background:var(--white);border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:48px}
+.cal-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border)}
+.cal-month{font-family:'Playfair Display',serif;font-size:20px;font-weight:700}
+.cal-nav{background:none;border:1.5px solid var(--border);border-radius:10px;width:36px;height:36px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;color:var(--text)}
+.cal-nav:hover{background:var(--selected);border-color:var(--selected);color:#fff}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr)}
+.cal-dow{text-align:center;font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--muted);padding:12px 4px}
+.cal-day{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;font-size:14px;transition:all 0.15s;border:1.5px solid transparent}
+.cal-day:hover:not(.unavailable):not(.past){background:var(--selected-light);border-color:var(--selected)}
+.cal-day.unavailable{color:#ccc;cursor:not-allowed;background:#fafafa}
+.cal-day.selected{background:var(--selected);color:#fff;border-color:var(--selected);font-weight:500}
+.cal-day.past{opacity:0.35;cursor:not-allowed}
+.day-num{font-size:14px;font-weight:500;line-height:1}
+.avail-dot{width:5px;height:5px;border-radius:50%;background:var(--grass-light);margin-top:3px}
+.cal-day.selected .avail-dot{background:rgba(255,255,255,0.6)}
+.cal-day.unavailable .avail-dot,.cal-day.past .avail-dot{display:none}
+.cal-legend{display:flex;gap:20px;padding:14px 24px;border-top:1px solid var(--border);background:#fafaf8;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)}
+.legend-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.summary-card{background:var(--white);border:1px solid var(--border);border-radius:20px;padding:28px;margin-bottom:24px}
+.summary-empty{color:var(--muted);font-size:15px;font-style:italic}
+.summary-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px}
+.summary-row:last-child{border-bottom:none}
+.summary-game{font-weight:500}
+.summary-date{color:var(--muted)}
+.summary-remove{background:none;border:none;color:#ccc;cursor:pointer;font-size:20px;line-height:1;padding:0 4px;transition:color 0.15s}
+.summary-remove:hover{color:var(--danger)}
+.btn-submit{width:100%;padding:16px;background:var(--selected);color:#fff;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;cursor:pointer;transition:all 0.2s}
+.btn-submit:hover:not(:disabled){background:#1f4f1f;transform:translateY(-1px)}
+.btn-submit:disabled{background:#c8d8c8;cursor:not-allowed;transform:none}
+.step-note{font-size:13px;color:var(--muted);margin-top:12px;text-align:center}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a1a;color:#fff;padding:12px 24px;border-radius:12px;font-size:14px;opacity:0;transition:all 0.3s;z-index:999;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:600px){
+  .hero{padding:40px 20px 52px}
+  .main{padding:32px 16px}
+  .games-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .cal-legend{gap:12px}
+}
+</style>
 </head>
-<body class="bg-gray-50">
+<body>
 
-<!-- Hero Section -->
-<header class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-20 text-center">
-  <h1 class="text-4xl md:text-5xl font-bold mb-4">Premium Yard Game Rentals</h1>
-  <p class="text-lg md:text-xl">Pick your games and select the dates for your next event!</p>
-</header>
+<div class="hero">
+  <div class="hero-badge">Greenville, SC</div>
+  <h1>Backyard Game<br>Rentals</h1>
+  <p>Premium lawn games delivered to your event. Pick your games, pick your dates.</p>
+  <div class="hero-deco"></div>
+</div>
 
-<div class="container mx-auto px-4 py-10">
+<div class="main">
 
-  <!-- Game Selection -->
-  <section class="mb-12">
-    <h2 class="text-2xl font-semibold mb-6 text-gray-700">Select Your Games</h2>
-    <div id="games-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      Loading games...
+  <div class="section-label">Step 1</div>
+  <div class="section-title">Choose your games</div>
+  <div class="games-grid" id="gamesGrid"></div>
+
+  <div class="section-label">Step 2</div>
+  <div class="section-title">Pick your date(s)</div>
+  <div class="cal-wrapper">
+    <div class="cal-header">
+      <button class="cal-nav" id="prevBtn">&#8592;</button>
+      <div class="cal-month" id="calMonth"></div>
+      <button class="cal-nav" id="nextBtn">&#8594;</button>
     </div>
-  </section>
-
-  <!-- Calendar Section -->
-  <section class="mb-12">
-    <div class="flex justify-between items-center mb-4">
-      <button id="prevMonth" class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition">Previous Month</button>
-      <h2 id="calendarMonth" class="text-xl font-semibold text-gray-700"></h2>
-      <button id="nextMonth" class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition">Next Month</button>
+    <div class="cal-grid">
+      <div class="cal-dow">Su</div><div class="cal-dow">Mo</div><div class="cal-dow">Tu</div>
+      <div class="cal-dow">We</div><div class="cal-dow">Th</div><div class="cal-dow">Fr</div><div class="cal-dow">Sa</div>
     </div>
-
-    <div class="grid grid-cols-7 text-center font-semibold text-gray-600 mb-2">
-      <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+    <div class="cal-grid" id="calBody"></div>
+    <div class="cal-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--selected-light);border:1px solid var(--selected)"></div> Available</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--selected)"></div> Selected</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f0f0f0;border:1px solid #e0e0e0"></div> Unavailable</div>
     </div>
-    <div id="calendar" class="grid grid-cols-7 gap-2"></div>
-  </section>
+  </div>
 
-  <!-- Selection Summary -->
-  <section>
-    <h2 class="text-2xl font-semibold mb-4 text-gray-700">Your Selection</h2>
-    <div id="selection" class="bg-white p-4 rounded shadow mb-4 whitespace-pre-wrap font-mono">None</div>
-    <button id="submitBtn" class="w-full max-w-xs mx-auto block bg-green-600 text-white py-3 rounded shadow hover:bg-green-700 transition disabled:bg-gray-300 disabled:cursor-not-allowed" disabled>Request Rental</button>
-  </section>
+  <div class="section-label">Step 3</div>
+  <div class="section-title">Review &amp; request</div>
+  <div class="summary-card">
+    <div class="summary-empty" id="summaryEmpty">Select a game and a date to get started.</div>
+    <div id="summaryList"></div>
+  </div>
+  <button class="btn-submit" id="submitBtn" disabled>Request Rental &rarr;</button>
+  <p class="step-note">We'll confirm availability and follow up within 24 hours.</p>
 
 </div>
 
+<div class="toast" id="toast"></div>
+
 <script>
-// --- Inventory & State ---
-let inventory = {};
-let selectedGames = {}; // key = game-date
-let currentMonth = new Date().getMonth();
-let currentYear = new Date().getFullYear();
+// -------------------------------------------------------
+// INVENTORY — edit this to match your real games & bookings
+// -------------------------------------------------------
+const GAMES = [
+  {id:'cornhole',  name:'Cornhole',    icon:'🎯', price:'$35/day', bookings:[{start:'2026-04-10',end:'2026-04-12'}]},
+  {id:'bocce',     name:'Bocce Ball',  icon:'⚪', price:'$25/day', bookings:[]},
+  {id:'spikeball', name:'Spikeball',   icon:'🏐', price:'$30/day', bookings:[{start:'2026-04-05',end:'2026-04-06'}]},
+  {id:'jenga',     name:'Giant Jenga', icon:'🧱', price:'$28/day', bookings:[]},
+  {id:'ladder',    name:'Ladder Toss', icon:'🪜', price:'$25/day', bookings:[]},
+  {id:'kanjam',    name:'Kan Jam',     icon:'🥏', price:'$22/day', bookings:[{start:'2026-04-15',end:'2026-04-18'}]},
+  {id:'washer',    name:'Washer Toss', icon:'🔩', price:'$20/day', bookings:[]},
+  {id:'lawnpong',  name:'Lawn Pong',   icon:'🟢', price:'$32/day', bookings:[]},
+];
+// -------------------------------------------------------
 
-// Fetch inventory.json
-fetch('inventory.json')
-  .then(res => res.json())
-  .then(data => {
-    inventory = data;
-    renderGames();
-    renderCalendar();
-  })
-  .catch(err => console.error(err));
+let selectedGames = new Set();
+let selectedDates = new Set();
+let currentMonth  = new Date().getMonth();
+let currentYear   = new Date().getFullYear();
+const today = new Date(); today.setHours(0,0,0,0);
 
-// --- Render Game Cards ---
-function renderGames(){
-  const container = document.getElementById('games-container');
-  container.innerHTML = '';
-  Object.keys(inventory).forEach(game=>{
-    const card = document.createElement('div');
-    card.className = 'bg-white rounded-lg shadow p-4 cursor-pointer hover:shadow-lg transition relative';
-    card.innerHTML = `
-      <img src="https://via.placeholder.com/250x150?text=${encodeURIComponent(game)}" class="rounded mb-2">
-      <h3 class="text-lg font-semibold text-gray-700">${game}</h3>
-    `;
-    card.addEventListener('click', () => {
-      card.classList.toggle('ring-4');
-      card.classList.toggle('ring-blue-500');
-    });
-    container.appendChild(card);
+function isBooked(game, ds){
+  return game.bookings.some(b => ds >= b.start && ds <= b.end);
+}
+function isDateFullyBooked(ds){
+  if(!selectedGames.size) return false;
+  return [...selectedGames].every(gid => {
+    const g = GAMES.find(x => x.id === gid);
+    return g && isBooked(g, ds);
   });
 }
 
-// --- Render Calendar ---
+// Render game cards
+const grid = document.getElementById('gamesGrid');
+GAMES.forEach(g => {
+  const card = document.createElement('div');
+  card.className = 'game-card';
+  card.innerHTML = `<div class="game-check"></div><span class="game-icon">${g.icon}</span><div class="game-name">${g.name}</div><div class="game-price">${g.price}</div>`;
+  card.addEventListener('click', () => {
+    if(selectedGames.has(g.id)) selectedGames.delete(g.id);
+    else selectedGames.add(g.id);
+    card.classList.toggle('selected', selectedGames.has(g.id));
+    renderCalendar(); renderSummary();
+  });
+  grid.appendChild(card);
+});
+
+// Calendar
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+function pad(n){ return String(n).padStart(2,'0'); }
+function ds(y,m,d){ return `${y}-${pad(m+1)}-${pad(d)}`; }
+
 function renderCalendar(){
-  const calendar = document.getElementById('calendar');
-  calendar.innerHTML = '';
-  const monthNames=["January","February","March","April","May","June","July","August","September","October","November","December"];
-  document.getElementById('calendarMonth').textContent = `${monthNames[currentMonth]} ${currentYear}`;
-
-  const firstDay = new Date(currentYear,currentMonth,1).getDay();
-  const daysInMonth = new Date(currentYear,currentMonth+1,0).getDate();
-
-  // Empty cells for alignment
-  for(let i=0;i<firstDay;i++){ calendar.appendChild(document.createElement('div')); }
-
-  for(let day=1;day<=daysInMonth;day++){
-    const dateStr=new Date(currentYear,currentMonth,day).toISOString().split('T')[0];
-    const dayDiv=document.createElement('div');
-    dayDiv.className='p-3 rounded cursor-pointer bg-white hover:bg-blue-50 shadow relative';
-    dayDiv.textContent=day;
-
-    // Check availability per game
-    let availableGames=[];
-    Object.keys(inventory).forEach(game=>{
-      const booked = inventory[game].bookings.filter(b=>dateStr>=b.start && dateStr<=b.end).length;
-      const avail = inventory[game].quantity - booked;
-      if(avail>0) availableGames.push(`${game}:${avail}`);
-    });
-
-    if(availableGames.length===0) dayDiv.classList.add('bg-red-400','text-white','cursor-not-allowed');
-    else{
-      const span=document.createElement('span');
-      span.className='absolute bottom-1 right-1 text-xs text-gray-700';
-      span.textContent = availableGames.join(' ');
-      dayDiv.appendChild(span);
-    }
-
-    // Click to select multiple games
-    dayDiv.addEventListener('click', ()=>{
-      if(dayDiv.classList.contains('cursor-not-allowed')) return;
-      document.querySelectorAll('.game-card.ring-4').forEach(card=>{
-        const game = card.querySelector('h3').textContent;
-        const key = `${game}-${dateStr}`;
-        if(selectedGames[key]) delete selectedGames[key];
-        else selectedGames[key]={game,date:dateStr};
+  document.getElementById('calMonth').textContent = `${MONTHS[currentMonth]} ${currentYear}`;
+  const body = document.getElementById('calBody');
+  body.innerHTML = '';
+  const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+  const daysIn   = new Date(currentYear, currentMonth+1, 0).getDate();
+  for(let i=0;i<firstDay;i++) body.appendChild(document.createElement('div'));
+  for(let d=1;d<=daysIn;d++){
+    const dateStr  = ds(currentYear, currentMonth, d);
+    const thisDate = new Date(currentYear, currentMonth, d);
+    const isPast   = thisDate < today;
+    const booked   = isDateFullyBooked(dateStr);
+    const cell = document.createElement('div');
+    cell.className = 'cal-day';
+    if(isPast) cell.classList.add('past');
+    else if(booked) cell.classList.add('unavailable');
+    else if(selectedDates.has(dateStr)) cell.classList.add('selected');
+    cell.innerHTML = `<span class="day-num">${d}</span><div class="avail-dot"></div>`;
+    if(!isPast && !booked){
+      cell.addEventListener('click', () => {
+        if(selectedDates.has(dateStr)) selectedDates.delete(dateStr);
+        else selectedDates.add(dateStr);
+        renderCalendar(); renderSummary();
       });
-      renderCalendar();
-      updateSelection();
-    });
-
-    // Highlight selected
-    Object.keys(selectedGames).forEach(k=>{
-      if(k.endsWith(dateStr)) dayDiv.classList.add('bg-green-400','text-white');
-    });
-
-    calendar.appendChild(dayDiv);
+    }
+    body.appendChild(cell);
   }
 }
 
-// --- Month Navigation ---
-document.getElementById('prevMonth').addEventListener('click',()=>{
-  currentMonth--;
-  if(currentMonth<0){currentMonth=11; currentYear--;}
-  renderCalendar();
-});
-document.getElementById('nextMonth').addEventListener('click',()=>{
-  currentMonth++;
-  if(currentMonth>11){currentMonth=0; currentYear++;}
-  renderCalendar();
-});
-
-// --- Update Selection ---
-function updateSelection(){
-  const selDiv=document.getElementById('selection');
-  const arr=Object.values(selectedGames).map(s=>`${s.game} on ${s.date}`);
-  selDiv.textContent = arr.length?arr.join('\n'):'None';
-  document.getElementById('submitBtn').disabled = arr.length===0;
+// Summary
+function renderSummary(){
+  const empty = document.getElementById('summaryEmpty');
+  const list  = document.getElementById('summaryList');
+  const btn   = document.getElementById('submitBtn');
+  list.innerHTML = '';
+  const combos = [];
+  selectedGames.forEach(gid => selectedDates.forEach(d => combos.push({gid,d})));
+  if(!combos.length){ empty.style.display=''; btn.disabled=true; return; }
+  empty.style.display = 'none';
+  combos.sort((a,b) => a.d.localeCompare(b.d) || a.gid.localeCompare(b.gid));
+  combos.forEach(({gid,d}) => {
+    const g = GAMES.find(x=>x.id===gid);
+    const [y,m,day] = d.split('-');
+    const label = new Date(+y,+m-1,+day).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+    const row = document.createElement('div');
+    row.className = 'summary-row';
+    row.innerHTML = `<span class="summary-game">${g.icon} ${g.name}</span><span class="summary-date">${label}</span><button class="summary-remove">&times;</button>`;
+    row.querySelector('.summary-remove').addEventListener('click', () => {
+      selectedDates.delete(d); renderCalendar(); renderSummary();
+    });
+    list.appendChild(row);
+  });
+  btn.disabled = false;
 }
 
-// --- Submit ---
-document.getElementById('submitBtn').addEventListener('click',()=>{
-  alert('Rental request submitted! Manually confirm and mark booked dates in inventory.json.');
+document.getElementById('prevBtn').addEventListener('click', () => {
+  if(--currentMonth < 0){ currentMonth=11; currentYear--; } renderCalendar();
 });
-</script>
+document.getElementById('nextBtn').addEventListener('click', () => {
+  if(++currentMonth > 11){ currentMonth=0; currentYear++; } renderCalendar();
+});
 
+document.getElementById('submitBtn').addEventListener('click', () => {
+  const t = document.getElementById('toast');
+  t.textContent = "✓ Request sent! We'll be in touch within 24 hours.";
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+  selectedGames.clear(); selectedDates.clear();
+  document.querySelectorAll('.game-card.selected').forEach(c=>c.classList.remove('selected'));
+  renderCalendar(); renderSummary();
+});
+
+renderCalendar();
+renderSummary();
+</script>
 </body>
 </html>
