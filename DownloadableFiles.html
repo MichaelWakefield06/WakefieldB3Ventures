@@ -1,96 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Download Your PDF</title>
-  <style>
-    /* Body & background */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #4f46e5, #3b82f6);
-      color: #fff;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<title>Catch the Download Button!</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #4f46e5, #3b82f6);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+  }
 
-    /* Container */
-    .container {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 50px 40px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-      backdrop-filter: blur(10px);
-      max-width: 500px;
-    }
+  #container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
 
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-    }
+  #downloadBtn {
+    position: absolute;
+    padding: 15px 30px;
+    font-size: 18px;
+    color: white;
+    background: linear-gradient(90deg, #10b981, #14b8a6);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+  }
 
-    p {
-      font-size: 1.1rem;
-      margin-bottom: 30px;
-      line-height: 1.5;
-    }
+  #downloadBtn:hover {
+    transform: scale(1.1);
+  }
 
-    /* Button styling */
-    .btn {
-      display: inline-block;
-      padding: 15px 30px;
-      font-size: 18px;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 10px;
-      background: linear-gradient(90deg, #10b981, #14b8a6);
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-      background: linear-gradient(90deg, #14b8a6, #10b981);
-    }
-
-    /* Subtle animation */
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-
-    .btn {
-      animation: float 3s ease-in-out infinite;
-    }
-
-    /* Responsive text */
-    @media(max-width: 600px){
-      .container {
-        padding: 40px 20px;
-      }
-      h1 {
-        font-size: 1.6rem;
-      }
-      .btn {
-        font-size: 16px;
-        padding: 12px 25px;
-      }
-    }
-  </style>
+  #message {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #fff;
+  }
+</style>
 </head>
 <body>
-
-<div class="container">
-  <h1>Download Your Copy</h1>
-  <p>Get your free PDF of the <strong>Beginner Fitness Habit Tracker</strong> and start building healthy habits today!</p>
-  <a class="btn" href="Files/BeginnerFitnessHabitTracker.pdf" download>
-    Download PDF
-  </a>
+<div id="container">
+  <div id="message">Click the button to download the Beginner Fitness Habit Tracker!</div>
+  <button id="downloadBtn">Click Me!</button>
 </div>
 
+<script>
+const btn = document.getElementById("downloadBtn");
+const container = document.getElementById("container");
+const message = document.getElementById("message");
+let clicks = 0;
+const maxClicks = 10;
+
+function moveButton() {
+  clicks++;
+  if (clicks >= maxClicks) {
+    // Stop moving, make it a download link
+    btn.innerText = "Download Now!";
+    btn.style.background = "linear-gradient(90deg, #f59e0b, #fbbf24)";
+    btn.onclick = () => {
+      window.location.href = "Files/BeginnerFitnessHabitTracker.pdf";
+    };
+    message.innerText = "You caught it! Click to download your PDF.";
+    return;
+  }
+
+  // Get container dimensions
+  const containerWidth = container.clientWidth - btn.offsetWidth;
+  const containerHeight = container.clientHeight - btn.offsetHeight;
+
+  // Generate random position within container
+  const randomX = Math.floor(Math.random() * containerWidth);
+  const randomY = Math.floor(Math.random() * containerHeight);
+
+  btn.style.left = randomX + "px";
+  btn.style.top = randomY + "px";
+}
+
+// Initialize button in center
+btn.style.left = (container.clientWidth / 2 - btn.offsetWidth / 2) + "px";
+btn.style.top = (container.clientHeight / 2 - btn.offsetHeight / 2) + "px";
+
+btn.addEventListener("click", moveButton);
+
+// Make responsive on window resize
+window.addEventListener("resize", () => {
+  if (clicks < maxClicks) moveButton();
+});
+</script>
 </body>
 </html>
