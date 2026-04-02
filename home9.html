@@ -3,123 +3,126 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Premium Yard Game Rentals</title>
+<title>Yard Game Rentals</title>
 <style>
-/* Base Styles */
-body { margin:0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f6f8; color:#333; }
-header { background:#1a73e8; color:#fff; padding: 40px 20px; text-align:center; }
-header h1 { margin:0; font-size:2.5em; }
-header p { margin-top:10px; font-size:1.2em; color:#cce0ff; }
-.container { max-width:1200px; margin:20px auto; padding:0 20px; }
+  /* --- Base Styles --- */
+  body { margin:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#f4f6f8; color:#333; }
+  header { background:#1a73e8; color:#fff; padding:60px 20px; text-align:center; }
+  header h1 { font-size:2.5em; margin-bottom:10px; }
+  header p { font-size:1.2em; color:#cce0ff; }
 
-/* Game Selection Cards */
-.games { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-bottom:40px; }
-.game-card { background:#fff; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.05); padding:20px; width:250px; transition: transform 0.2s; cursor:pointer; }
-.game-card:hover { transform:translateY(-5px); }
-.game-card.selected { border:2px solid #1a73e8; }
-.game-card h3 { margin-bottom:10px; }
-.game-card p { margin-bottom:5px; color:#555; font-weight:500; }
+  .container { max-width:1200px; margin:20px auto; padding:0 20px; }
 
-/* Calendar */
-.calendar-controls { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
-.calendar-controls button { background:#1a73e8; color:#fff; border:none; padding:8px 16px; border-radius:6px; cursor:pointer; transition:background 0.2s; }
-.calendar-controls button:hover { background:#155ab6; }
-.calendar { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
-.day { padding:10px; border-radius:6px; text-align:center; cursor:pointer; transition:all 0.2s; font-size:0.9em; position:relative; }
-.day.booked { background:#e57373; color:#fff; cursor:not-allowed; }
-.day.selected { background:#81c784; color:#fff; }
-.day span.units { position:absolute; bottom:2px; right:2px; font-size:0.7em; color:#333; font-weight:bold; }
+  /* --- Game Cards --- */
+  .games { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-bottom:40px; }
+  .game-card { background:#fff; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.05); padding:20px; width:250px; text-align:center; transition: transform 0.2s; cursor:pointer; }
+  .game-card:hover { transform:translateY(-5px); }
+  .game-card.selected { border:2px solid #1a73e8; }
 
-/* Selection & Submit */
-.selection { background:#fff; padding:15px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.05); margin-bottom:20px; white-space:pre-wrap; font-family:monospace; }
-button#submitBtn { display:block; width:100%; max-width:300px; margin:0 auto 50px; padding:12px 20px; font-size:16px; border:none; border-radius:8px; background:#1a73e8; color:#fff; cursor:pointer; transition:background 0.2s; }
-button#submitBtn:hover:not(:disabled) { background:#155ab6; }
-button#submitBtn:disabled { background:#ccc; cursor:not-allowed; }
+  .game-card h3 { margin-bottom:10px; }
+  .game-card img { width:100%; border-radius:8px; margin-bottom:10px; }
 
-/* Weekday headers */
-.weekdays { display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:4px; font-weight:bold; text-align:center; }
+  /* --- Calendar --- */
+  .calendar-controls { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+  .calendar-controls button { background:#1a73e8; color:#fff; border:none; padding:8px 16px; border-radius:6px; cursor:pointer; transition:background 0.2s; }
+  .calendar-controls button:hover { background:#155ab6; }
+  .weekdays, .calendar { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+  .weekdays div { font-weight:bold; text-align:center; padding:6px 0; }
+  .day { padding:12px; border-radius:6px; text-align:center; cursor:pointer; transition:all 0.2s; position:relative; }
+  .day:hover { transform:scale(1.05); }
+  .day.booked { background:#e57373; color:#fff; cursor:not-allowed; }
+  .day.selected { background:#81c784; color:#fff; }
 
-@media(max-width:768px){ .game-card{width:45%;} }
-@media(max-width:500px){ .game-card{width:90%;} }
+  .day span.units { position:absolute; bottom:2px; right:2px; font-size:0.7em; color:#333; font-weight:bold; }
+
+  /* --- Selection & Button --- */
+  .selection { background:#fff; padding:15px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.05); margin-bottom:20px; white-space:pre-wrap; font-family:monospace; }
+  #submitBtn { display:block; width:100%; max-width:300px; margin:0 auto 50px; padding:12px 20px; font-size:16px; border:none; border-radius:8px; background:#1a73e8; color:#fff; cursor:pointer; transition:background 0.2s; }
+  #submitBtn:hover:not(:disabled) { background:#155ab6; }
+  #submitBtn:disabled { background:#ccc; cursor:not-allowed; }
+
+  @media(max-width:768px){ .game-card{width:45%;} }
+  @media(max-width:500px){ .game-card{width:90%;} }
+
 </style>
 </head>
 <body>
 
 <header>
   <h1>Premium Yard Game Rentals</h1>
-  <p>Pick your games, select dates, and request your rental online!</p>
+  <p>Pick your games and select the dates for your next event!</p>
 </header>
 
 <div class="container">
+  <!-- Game Selection -->
   <div class="games" id="games-container">
     Loading games...
   </div>
 
+  <!-- Calendar Navigation -->
   <div class="calendar-controls">
     <button id="prevMonth">&lt; Previous Month</button>
     <h2 id="calendarMonth">Month</h2>
     <button id="nextMonth">Next Month &gt;</button>
   </div>
+
+  <!-- Weekdays -->
   <div class="weekdays">
     <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
   </div>
+
+  <!-- Calendar -->
   <div class="calendar" id="calendar"></div>
 
+  <!-- Selection Summary -->
   <h2>Your Selection</h2>
   <div class="selection" id="selection">None</div>
   <button id="submitBtn" disabled>Request Rental</button>
 </div>
 
 <script>
-// ---- Inventory & Selection ----
+// ----- Inventory & Selection -----
 let inventory = {};
-let selectedGames = {};
+let selectedGames = {}; // key = game-date, value = {game,date}
 let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
-let selectedGame = null;
 
 // Fetch inventory.json
 fetch('inventory.json')
-  .then(res=>res.json())
-  .then(data=>{
-    inventory=data;
+  .then(res => res.json())
+  .then(data => {
+    inventory = data;
     renderGames();
     renderCalendar();
   })
-  .catch(err=>console.error(err));
+  .catch(err => console.error(err));
 
-// ---- Game Cards ----
-function renderGames(){
-  const container=document.getElementById('games-container');
-  container.innerHTML='';
-  Object.keys(inventory).forEach(game=>{
-    const card=document.createElement('div');
-    card.className='game-card';
-    card.innerHTML=`<h3>${game}</h3><p>Quantity: ${inventory[game].quantity}</p>`;
-    card.addEventListener('click',()=>{
-      document.querySelectorAll('.game-card').forEach(c=>c.classList.remove('selected'));
-      card.classList.add('selected');
-      selectedGame=game;
+// ----- Game Cards -----
+function renderGames() {
+  const container = document.getElementById('games-container');
+  container.innerHTML = '';
+  Object.keys(inventory).forEach(game => {
+    const card = document.createElement('div');
+    card.className = 'game-card';
+    card.innerHTML = `<h3>${game}</h3>`;
+    card.addEventListener('click', () => {
+      card.classList.toggle('selected');
     });
     container.appendChild(card);
   });
 }
 
-// ---- Calendar Rendering ----
-function renderCalendar(){
-  const calendar=document.getElementById('calendar');
-  calendar.innerHTML='';
-  const monthNames=["January","February","March","April","May","June","July","August","September","October","November","December"];
-  document.getElementById('calendarMonth').textContent=`${monthNames[currentMonth]} ${currentYear}`;
+// ----- Calendar Rendering -----
+function renderCalendar() {
+  const calendar = document.getElementById('calendar');
+  calendar.innerHTML = '';
+  const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  document.getElementById('calendarMonth').textContent = `${monthNames[currentMonth]} ${currentYear}`;
 
-  const firstDay=new Date(currentYear,currentMonth,1).getDay();
-  const daysInMonth=new Date(currentYear,currentMonth+1,0).getDate();
+  const firstDay = new Date(currentYear,currentMonth,1).getDay();
+  const daysInMonth = new Date(currentYear,currentMonth+1,0).getDate();
 
-  // Add empty slots for first week alignment
-  for(let i=0;i<firstDay;i++){
-    const empty=document.createElement('div');
-    calendar.appendChild(empty);
-  }
+  for(let i=0;i<firstDay;i++){ calendar.appendChild(document.createElement('div')); }
 
   for(let day=1;day<=daysInMonth;day++){
     const dateStr=new Date(currentYear,currentMonth,day).toISOString().split('T')[0];
@@ -127,42 +130,51 @@ function renderCalendar(){
     dayDiv.className='day';
     dayDiv.textContent=day;
 
-    // Show quantity remaining
-    let remaining='';
-    Object.keys(inventory).forEach(game=>{
-      const booked=inventory[game].bookings.filter(b=>dateStr>=b.start&&dateStr<=b.end).length;
-      const avail=inventory[game].quantity-booked;
-      if(avail>0) remaining+=`${game}:${avail} `;
+    // Check availability per game
+    let availableGames = [];
+    Object.keys(inventory).forEach(game => {
+      const booked = inventory[game].bookings.filter(b=>dateStr>=b.start&&dateStr<=b.end).length;
+      const avail = inventory[game].quantity - booked;
+      if(avail>0) availableGames.push(`${game}:${avail}`);
     });
-    if(remaining==='') dayDiv.classList.add('booked');
-    const unitsSpan=document.createElement('span');
-    unitsSpan.className='units';
-    unitsSpan.textContent=remaining.trim();
-    dayDiv.appendChild(unitsSpan);
 
-    dayDiv.addEventListener('click',()=>{
-      if(dayDiv.classList.contains('booked')||!selectedGame) return;
-      const key=`${selectedGame}-${dateStr}`;
-      if(selectedGames[key]) {
-        delete selectedGames[key];
-        dayDiv.classList.remove('selected');
-      } else {
-        selectedGames[key]={game:selectedGame,date:dateStr};
-        dayDiv.classList.add('selected');
-      }
+    if(availableGames.length===0) dayDiv.classList.add('booked');
+    else{
+      const span=document.createElement('span');
+      span.className='units';
+      span.textContent = availableGames.join(' ');
+      dayDiv.appendChild(span);
+    }
+
+    // Select day for multiple games
+    dayDiv.addEventListener('click', () => {
+      if(dayDiv.classList.contains('booked')) return;
+      // Find selected games
+      document.querySelectorAll('.game-card.selected').forEach(card=>{
+        const game=card.querySelector('h3').textContent;
+        const key=`${game}-${dateStr}`;
+        if(selectedGames[key]){
+          delete selectedGames[key];
+        }else{
+          selectedGames[key]={game,date:dateStr};
+        }
+      });
+      renderCalendar();
       updateSelection();
     });
 
-    // Highlight already selected
+    // Highlight selected days
     Object.keys(selectedGames).forEach(k=>{
-      if(k.endsWith(dateStr)) dayDiv.classList.add('selected');
+      if(k.endsWith(dateStr)){
+        dayDiv.classList.add('selected');
+      }
     });
 
     calendar.appendChild(dayDiv);
   }
 }
 
-// ---- Month Navigation ----
+// ----- Month Navigation -----
 document.getElementById('prevMonth').addEventListener('click',()=>{
   currentMonth--;
   if(currentMonth<0){currentMonth=11;currentYear--;}
@@ -174,7 +186,7 @@ document.getElementById('nextMonth').addEventListener('click',()=>{
   renderCalendar();
 });
 
-// ---- Selection Panel ----
+// ----- Update Selection Panel -----
 function updateSelection(){
   const selDiv=document.getElementById('selection');
   const arr=Object.values(selectedGames).map(s=>`${s.game} on ${s.date}`);
@@ -182,11 +194,10 @@ function updateSelection(){
   document.getElementById('submitBtn').disabled=arr.length===0;
 }
 
-// ---- Submit ----
+// ----- Submit -----
 document.getElementById('submitBtn').addEventListener('click',()=>{
   alert('Rental request submitted! You will manually confirm and mark booked dates in inventory.json.');
 });
-
 </script>
 </body>
 </html>
