@@ -47,6 +47,13 @@
     width: 100%;
     font-size: 1.2rem;
   }
+
+  @media(max-width: 600px){
+    #downloadBtn {
+      padding: 12px 25px;
+      font-size: 16px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -75,11 +82,17 @@ function moveButton() {
     return;
   }
 
-  const containerWidth = container.clientWidth - btn.offsetWidth;
-  const containerHeight = container.clientHeight - btn.offsetHeight;
+  const containerWidth = container.clientWidth;
+  const containerHeight = container.clientHeight;
 
-  const randomX = Math.floor(Math.random() * containerWidth);
-  const randomY = Math.floor(Math.random() * containerHeight);
+  // Limit movement to middle 2/3 of screen
+  const minX = containerWidth / 6;
+  const maxX = containerWidth * 5 / 6 - btn.offsetWidth;
+  const minY = containerHeight / 6;
+  const maxY = containerHeight * 5 / 6 - btn.offsetHeight;
+
+  const randomX = Math.floor(Math.random() * (maxX - minX)) + minX;
+  const randomY = Math.floor(Math.random() * (maxY - minY)) + minY;
 
   btn.style.left = randomX + "px";
   btn.style.top = randomY + "px";
