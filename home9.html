@@ -3,87 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yard Game Rentals</title>
-<style>
-  /* --- Base Styles --- */
-  body { margin:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#f4f6f8; color:#333; }
-  header { background:#1a73e8; color:#fff; padding:60px 20px; text-align:center; }
-  header h1 { font-size:2.5em; margin-bottom:10px; }
-  header p { font-size:1.2em; color:#cce0ff; }
-
-  .container { max-width:1200px; margin:20px auto; padding:0 20px; }
-
-  /* --- Game Cards --- */
-  .games { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-bottom:40px; }
-  .game-card { background:#fff; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.05); padding:20px; width:250px; text-align:center; transition: transform 0.2s; cursor:pointer; }
-  .game-card:hover { transform:translateY(-5px); }
-  .game-card.selected { border:2px solid #1a73e8; }
-
-  .game-card h3 { margin-bottom:10px; }
-  .game-card img { width:100%; border-radius:8px; margin-bottom:10px; }
-
-  /* --- Calendar --- */
-  .calendar-controls { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
-  .calendar-controls button { background:#1a73e8; color:#fff; border:none; padding:8px 16px; border-radius:6px; cursor:pointer; transition:background 0.2s; }
-  .calendar-controls button:hover { background:#155ab6; }
-  .weekdays, .calendar { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
-  .weekdays div { font-weight:bold; text-align:center; padding:6px 0; }
-  .day { padding:12px; border-radius:6px; text-align:center; cursor:pointer; transition:all 0.2s; position:relative; }
-  .day:hover { transform:scale(1.05); }
-  .day.booked { background:#e57373; color:#fff; cursor:not-allowed; }
-  .day.selected { background:#81c784; color:#fff; }
-
-  .day span.units { position:absolute; bottom:2px; right:2px; font-size:0.7em; color:#333; font-weight:bold; }
-
-  /* --- Selection & Button --- */
-  .selection { background:#fff; padding:15px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.05); margin-bottom:20px; white-space:pre-wrap; font-family:monospace; }
-  #submitBtn { display:block; width:100%; max-width:300px; margin:0 auto 50px; padding:12px 20px; font-size:16px; border:none; border-radius:8px; background:#1a73e8; color:#fff; cursor:pointer; transition:background 0.2s; }
-  #submitBtn:hover:not(:disabled) { background:#155ab6; }
-  #submitBtn:disabled { background:#ccc; cursor:not-allowed; }
-
-  @media(max-width:768px){ .game-card{width:45%;} }
-  @media(max-width:500px){ .game-card{width:90%;} }
-
-</style>
+<title>Premium Yard Game Rentals</title>
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-50">
 
-<header>
-  <h1>Premium Yard Game Rentals</h1>
-  <p>Pick your games and select the dates for your next event!</p>
+<!-- Hero Section -->
+<header class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-20 text-center">
+  <h1 class="text-4xl md:text-5xl font-bold mb-4">Premium Yard Game Rentals</h1>
+  <p class="text-lg md:text-xl">Pick your games and select the dates for your next event!</p>
 </header>
 
-<div class="container">
+<div class="container mx-auto px-4 py-10">
+
   <!-- Game Selection -->
-  <div class="games" id="games-container">
-    Loading games...
-  </div>
+  <section class="mb-12">
+    <h2 class="text-2xl font-semibold mb-6 text-gray-700">Select Your Games</h2>
+    <div id="games-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      Loading games...
+    </div>
+  </section>
 
-  <!-- Calendar Navigation -->
-  <div class="calendar-controls">
-    <button id="prevMonth">&lt; Previous Month</button>
-    <h2 id="calendarMonth">Month</h2>
-    <button id="nextMonth">Next Month &gt;</button>
-  </div>
+  <!-- Calendar Section -->
+  <section class="mb-12">
+    <div class="flex justify-between items-center mb-4">
+      <button id="prevMonth" class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition">Previous Month</button>
+      <h2 id="calendarMonth" class="text-xl font-semibold text-gray-700"></h2>
+      <button id="nextMonth" class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition">Next Month</button>
+    </div>
 
-  <!-- Weekdays -->
-  <div class="weekdays">
-    <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
-  </div>
-
-  <!-- Calendar -->
-  <div class="calendar" id="calendar"></div>
+    <div class="grid grid-cols-7 text-center font-semibold text-gray-600 mb-2">
+      <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+    </div>
+    <div id="calendar" class="grid grid-cols-7 gap-2"></div>
+  </section>
 
   <!-- Selection Summary -->
-  <h2>Your Selection</h2>
-  <div class="selection" id="selection">None</div>
-  <button id="submitBtn" disabled>Request Rental</button>
+  <section>
+    <h2 class="text-2xl font-semibold mb-4 text-gray-700">Your Selection</h2>
+    <div id="selection" class="bg-white p-4 rounded shadow mb-4 whitespace-pre-wrap font-mono">None</div>
+    <button id="submitBtn" class="w-full max-w-xs mx-auto block bg-green-600 text-white py-3 rounded shadow hover:bg-green-700 transition disabled:bg-gray-300 disabled:cursor-not-allowed" disabled>Request Rental</button>
+  </section>
+
 </div>
 
 <script>
-// ----- Inventory & Selection -----
+// --- Inventory & State ---
 let inventory = {};
-let selectedGames = {}; // key = game-date, value = {game,date}
+let selectedGames = {}; // key = game-date
 let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
 
@@ -97,107 +64,107 @@ fetch('inventory.json')
   })
   .catch(err => console.error(err));
 
-// ----- Game Cards -----
-function renderGames() {
+// --- Render Game Cards ---
+function renderGames(){
   const container = document.getElementById('games-container');
   container.innerHTML = '';
-  Object.keys(inventory).forEach(game => {
+  Object.keys(inventory).forEach(game=>{
     const card = document.createElement('div');
-    card.className = 'game-card';
-    card.innerHTML = `<h3>${game}</h3>`;
+    card.className = 'bg-white rounded-lg shadow p-4 cursor-pointer hover:shadow-lg transition relative';
+    card.innerHTML = `
+      <img src="https://via.placeholder.com/250x150?text=${encodeURIComponent(game)}" class="rounded mb-2">
+      <h3 class="text-lg font-semibold text-gray-700">${game}</h3>
+    `;
     card.addEventListener('click', () => {
-      card.classList.toggle('selected');
+      card.classList.toggle('ring-4');
+      card.classList.toggle('ring-blue-500');
     });
     container.appendChild(card);
   });
 }
 
-// ----- Calendar Rendering -----
-function renderCalendar() {
+// --- Render Calendar ---
+function renderCalendar(){
   const calendar = document.getElementById('calendar');
   calendar.innerHTML = '';
-  const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const monthNames=["January","February","March","April","May","June","July","August","September","October","November","December"];
   document.getElementById('calendarMonth').textContent = `${monthNames[currentMonth]} ${currentYear}`;
 
   const firstDay = new Date(currentYear,currentMonth,1).getDay();
   const daysInMonth = new Date(currentYear,currentMonth+1,0).getDate();
 
+  // Empty cells for alignment
   for(let i=0;i<firstDay;i++){ calendar.appendChild(document.createElement('div')); }
 
   for(let day=1;day<=daysInMonth;day++){
     const dateStr=new Date(currentYear,currentMonth,day).toISOString().split('T')[0];
     const dayDiv=document.createElement('div');
-    dayDiv.className='day';
+    dayDiv.className='p-3 rounded cursor-pointer bg-white hover:bg-blue-50 shadow relative';
     dayDiv.textContent=day;
 
     // Check availability per game
-    let availableGames = [];
-    Object.keys(inventory).forEach(game => {
-      const booked = inventory[game].bookings.filter(b=>dateStr>=b.start&&dateStr<=b.end).length;
+    let availableGames=[];
+    Object.keys(inventory).forEach(game=>{
+      const booked = inventory[game].bookings.filter(b=>dateStr>=b.start && dateStr<=b.end).length;
       const avail = inventory[game].quantity - booked;
       if(avail>0) availableGames.push(`${game}:${avail}`);
     });
 
-    if(availableGames.length===0) dayDiv.classList.add('booked');
+    if(availableGames.length===0) dayDiv.classList.add('bg-red-400','text-white','cursor-not-allowed');
     else{
       const span=document.createElement('span');
-      span.className='units';
+      span.className='absolute bottom-1 right-1 text-xs text-gray-700';
       span.textContent = availableGames.join(' ');
       dayDiv.appendChild(span);
     }
 
-    // Select day for multiple games
-    dayDiv.addEventListener('click', () => {
-      if(dayDiv.classList.contains('booked')) return;
-      // Find selected games
-      document.querySelectorAll('.game-card.selected').forEach(card=>{
-        const game=card.querySelector('h3').textContent;
-        const key=`${game}-${dateStr}`;
-        if(selectedGames[key]){
-          delete selectedGames[key];
-        }else{
-          selectedGames[key]={game,date:dateStr};
-        }
+    // Click to select multiple games
+    dayDiv.addEventListener('click', ()=>{
+      if(dayDiv.classList.contains('cursor-not-allowed')) return;
+      document.querySelectorAll('.game-card.ring-4').forEach(card=>{
+        const game = card.querySelector('h3').textContent;
+        const key = `${game}-${dateStr}`;
+        if(selectedGames[key]) delete selectedGames[key];
+        else selectedGames[key]={game,date:dateStr};
       });
       renderCalendar();
       updateSelection();
     });
 
-    // Highlight selected days
+    // Highlight selected
     Object.keys(selectedGames).forEach(k=>{
-      if(k.endsWith(dateStr)){
-        dayDiv.classList.add('selected');
-      }
+      if(k.endsWith(dateStr)) dayDiv.classList.add('bg-green-400','text-white');
     });
 
     calendar.appendChild(dayDiv);
   }
 }
 
-// ----- Month Navigation -----
+// --- Month Navigation ---
 document.getElementById('prevMonth').addEventListener('click',()=>{
   currentMonth--;
-  if(currentMonth<0){currentMonth=11;currentYear--;}
+  if(currentMonth<0){currentMonth=11; currentYear--;}
   renderCalendar();
 });
 document.getElementById('nextMonth').addEventListener('click',()=>{
   currentMonth++;
-  if(currentMonth>11){currentMonth=0;currentYear++;}
+  if(currentMonth>11){currentMonth=0; currentYear++;}
   renderCalendar();
 });
 
-// ----- Update Selection Panel -----
+// --- Update Selection ---
 function updateSelection(){
   const selDiv=document.getElementById('selection');
   const arr=Object.values(selectedGames).map(s=>`${s.game} on ${s.date}`);
-  selDiv.textContent=arr.length?arr.join('\n'):'None';
-  document.getElementById('submitBtn').disabled=arr.length===0;
+  selDiv.textContent = arr.length?arr.join('\n'):'None';
+  document.getElementById('submitBtn').disabled = arr.length===0;
 }
 
-// ----- Submit -----
+// --- Submit ---
 document.getElementById('submitBtn').addEventListener('click',()=>{
-  alert('Rental request submitted! You will manually confirm and mark booked dates in inventory.json.');
+  alert('Rental request submitted! Manually confirm and mark booked dates in inventory.json.');
 });
 </script>
+
 </body>
 </html>
