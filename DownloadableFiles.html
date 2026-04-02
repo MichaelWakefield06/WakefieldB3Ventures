@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Catch the Download Button!</title>
+<title>Download the Beginner Fitness Habit Tracker</title>
 <style>
   body {
     margin: 0;
@@ -14,6 +14,8 @@
     background: linear-gradient(135deg, #4f46e5, #3b82f6);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow: hidden;
+    color: #fff;
+    text-align: center;
   }
 
   #container {
@@ -36,23 +38,21 @@
   }
 
   #downloadBtn:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 
   #message {
     position: absolute;
     top: 20px;
     width: 100%;
-    text-align: center;
     font-size: 1.2rem;
-    color: #fff;
   }
 </style>
 </head>
 <body>
 <div id="container">
-  <div id="message">Click the button to download the Beginner Fitness Habit Tracker!</div>
-  <button id="downloadBtn">Click Me!</button>
+  <div id="message">Click the button to download a copy of the Beginner Fitness Habit Tracker.</div>
+  <button id="downloadBtn">Click to Download</button>
 </div>
 
 <script>
@@ -65,21 +65,19 @@ const maxClicks = 10;
 function moveButton() {
   clicks++;
   if (clicks >= maxClicks) {
-    // Stop moving, make it a download link
-    btn.innerText = "Download Now!";
+    // Make it a permanent download link
+    btn.innerText = "Download Now";
     btn.style.background = "linear-gradient(90deg, #f59e0b, #fbbf24)";
     btn.onclick = () => {
       window.location.href = "Files/BeginnerFitnessHabitTracker.pdf";
     };
-    message.innerText = "You caught it! Click to download your PDF.";
+    message.innerText = "Click the button below to download your PDF.";
     return;
   }
 
-  // Get container dimensions
   const containerWidth = container.clientWidth - btn.offsetWidth;
   const containerHeight = container.clientHeight - btn.offsetHeight;
 
-  // Generate random position within container
   const randomX = Math.floor(Math.random() * containerWidth);
   const randomY = Math.floor(Math.random() * containerHeight);
 
@@ -93,7 +91,6 @@ btn.style.top = (container.clientHeight / 2 - btn.offsetHeight / 2) + "px";
 
 btn.addEventListener("click", moveButton);
 
-// Make responsive on window resize
 window.addEventListener("resize", () => {
   if (clicks < maxClicks) moveButton();
 });
