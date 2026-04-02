@@ -4,43 +4,89 @@
   <meta charset="UTF-8">
   <title>Download Your PDF</title>
   <style>
+    /* Body & background */
     body {
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    .container {
+      background: linear-gradient(135deg, #4f46e5, #3b82f6);
+      color: #fff;
       text-align: center;
     }
 
+    /* Container */
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 50px 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+      max-width: 500px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+
+    /* Button styling */
     .btn {
       display: inline-block;
-      padding: 15px 25px;
-      background: #3b82f6;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
+      padding: 15px 30px;
       font-size: 18px;
-      transition: 0.2s;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #10b981, #14b8a6);
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
     .btn:hover {
-      background: #2563eb;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      background: linear-gradient(90deg, #14b8a6, #10b981);
+    }
+
+    /* Subtle animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .btn {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* Responsive text */
+    @media(max-width: 600px){
+      .container {
+        padding: 40px 20px;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
+      .btn {
+        font-size: 16px;
+        padding: 12px 25px;
+      }
     }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>Your PDF Download</h1>
-  <p>Click the button below to download the tracker:</p>
-
+  <h1>Download Your Copy</h1>
+  <p>Get your free PDF of the <strong>Beginner Fitness Habit Tracker</strong> and start building healthy habits today!</p>
   <a class="btn" href="Files/BeginnerFitnessHabitTracker.pdf" download>
     Download PDF
   </a>
