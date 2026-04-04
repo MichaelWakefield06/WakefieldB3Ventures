@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rental Contract — Backyard Game Rentals</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#f0ede8;color:#1C1C1C;padding:32px 16px}
+.page{background:#fff;max-width:760px;margin:0 auto;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.1)}
+.contract-header{background:#2A7D4F;padding:32px 40px;display:flex;justify-content:space-between;align-items:flex-start}
+.contract-header h1{font-family:'Fraunces',serif;font-size:26px;color:#fff;font-weight:900;margin-bottom:4px}
+.contract-header p{color:rgba(255,255,255,0.75);font-size:13px;font-weight:500}
+.contract-num{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:8px;padding:10px 16px;text-align:right}
+.contract-num div{color:rgba(255,255,255,0.6);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px}
+.contract-num strong{color:#fff;font-size:16px;font-weight:700}
+
+.body{padding:36px 40px}
+
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:28px}
+.info-block{border:1.5px solid #E4E0D8;border-radius:10px;padding:16px}
+.info-block h3{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#6B7280;margin-bottom:10px}
+.field-row{margin-bottom:8px}
+.field-label{font-size:11px;font-weight:600;color:#6B7280;margin-bottom:2px}
+.field-val{border-bottom:1.5px solid #E4E0D8;padding:3px 0 5px;font-size:13px;min-height:24px;font-weight:500}
+
+.section-title{font-family:'Fraunces',serif;font-size:17px;font-weight:700;margin-bottom:12px;color:#1C1C1C;padding-bottom:6px;border-bottom:2px solid #E4E0D8}
+.section{margin-bottom:24px}
+
+/* GAMES TABLE */
+.games-table{width:100%;border-collapse:collapse;margin-bottom:8px;font-size:13px}
+.games-table th{background:#F8F7F3;text-align:left;padding:9px 12px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6B7280;border-bottom:1.5px solid #E4E0D8}
+.games-table td{padding:9px 12px;border-bottom:1px solid #F3F4F6;font-weight:500}
+.games-table tr:last-child td{border-bottom:none}
+.games-table .total-row td{font-weight:700;border-top:2px solid #E4E0D8;background:#F8F7F3}
+
+/* TERMS */
+.terms-list{counter-reset:terms}
+.term-item{counter-increment:terms;display:flex;gap:10px;margin-bottom:10px;font-size:12.5px;line-height:1.6;color:#374151}
+.term-num{background:#2A7D4F;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:2px}
+.term-text strong{color:#1C1C1C}
+
+/* REPLACEMENT TABLE */
+.replace-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:8px}
+.replace-table th{background:#FEF2F2;text-align:left;padding:7px 10px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#991B1B;border-bottom:1.5px solid #FECACA}
+.replace-table td{padding:7px 10px;border-bottom:1px solid #FEF2F2;font-weight:500}
+
+/* SIGNATURES */
+.sig-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px}
+.sig-block{border-top:2px solid #1C1C1C;padding-top:8px}
+.sig-label{font-size:11px;font-weight:700;color:#6B7280;margin-bottom:24px}
+.sig-name-line{border-bottom:1.5px solid #E4E0D8;margin-bottom:6px;height:28px}
+.sig-date-line{border-bottom:1.5px solid #E4E0D8;height:22px}
+.sig-name-label,.sig-date-label{font-size:10px;font-weight:600;color:#9CA3AF;letter-spacing:0.5px}
+
+.pickup-box{background:#EBF7F0;border:1.5px solid #2A7D4F;border-radius:10px;padding:14px 18px;margin-bottom:20px}
+.pickup-box h4{color:#1a5435;font-weight:700;font-size:13px;margin-bottom:6px}
+.pickup-box p{font-size:12px;color:#2A7D4F;font-weight:500;line-height:1.6}
+
+.print-btn{display:block;margin:24px auto 0;padding:12px 32px;background:#2A7D4F;color:#fff;border:none;border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background 0.15s}
+.print-btn:hover{background:#1a5435}
+.footer-note{text-align:center;font-size:11px;color:#9CA3AF;margin-top:16px;padding-bottom:32px;font-weight:500}
+
+@media print{
+  body{background:#fff;padding:0}
+  .page{box-shadow:none;border-radius:0;max-width:100%}
+  .print-btn,.footer-note{display:none}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="contract-header">
+    <div>
+      <h1>Rental Agreement</h1>
+      <p>Backyard Game Rentals · Greenville, SC</p>
+    </div>
+    <div class="contract-num">
+      <div>Contract No.</div>
+      <strong id="contractNum"></strong>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- PARTY INFO -->
+    <div class="info-grid">
+      <div class="info-block">
+        <h3>Renter Information</h3>
+        <div class="field-row"><div class="field-label">Full Name</div><div class="field-val"></div></div>
+        <div class="field-row"><div class="field-label">Phone Number</div><div class="field-val"></div></div>
+        <div class="field-row"><div class="field-label">Email Address</div><div class="field-val"></div></div>
+        <div class="field-row"><div class="field-label">Event Location</div><div class="field-val"></div></div>
+      </div>
+      <div class="info-block">
+        <h3>Rental Details</h3>
+        <div class="field-row"><div class="field-label">Pickup Date &amp; Time</div><div class="field-val"></div></div>
+        <div class="field-row"><div class="field-label">Return Date &amp; Time</div><div class="field-val"></div></div>
+        <div class="field-row"><div class="field-label">Event Type</div><div class="field-val"></div></div>
+        <div class="field-row"><div class="field-label">Payment Method</div><div class="field-val"></div></div>
+      </div>
+    </div>
+
+    <!-- GAMES RENTED -->
+    <div class="section">
+      <div class="section-title">Games Rented</div>
+      <table class="games-table">
+        <thead>
+          <tr><th>Game</th><th>Qty</th><th>Days</th><th>Rate/Day</th><th>Subtotal</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>&nbsp;</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>&nbsp;</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>&nbsp;</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>&nbsp;</td><td></td><td></td><td></td><td></td></tr>
+        </tbody>
+        <tfoot>
+          <tr class="total-row"><td colspan="4">Total Due</td><td>$</td></tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- PICKUP INFO -->
+    <div class="pickup-box">
+      <h4>📍 Pickup &amp; Return Information</h4>
+      <p>Pickup/return available <strong>Monday–Friday after 6:00 PM</strong> and <strong>Saturdays &amp; Sundays all day</strong>. Exact time will be coordinated by text. Address provided at confirmation. Renter is responsible for transporting all equipment safely.</p>
+    </div>
+
+    <!-- REPLACEMENT COSTS -->
+    <div class="section">
+      <div class="section-title">Replacement Cost Schedule</div>
+      <table class="replace-table">
+        <thead>
+          <tr><th>Game</th><th>Replacement Cost</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Cornhole (set)</td><td>$150</td><td>Includes boards &amp; bags</td></tr>
+          <tr><td>Bocce Ball (set)</td><td>$80</td><td>Full set of 8 balls</td></tr>
+          <tr><td>Spikeball</td><td>$60</td><td>Net, rim &amp; balls</td></tr>
+          <tr><td>Giant Jenga</td><td>$120</td><td>Full 54-block set</td></tr>
+          <tr><td>Ladder Toss</td><td>$70</td><td>2 frames + 6 bolas</td></tr>
+          <tr><td>Kan Jam</td><td>$50</td><td>2 cans + disc</td></tr>
+          <tr><td>Washer Toss</td><td>$40</td><td>2 boxes + 8 washers</td></tr>
+          <tr><td>Lawn Pong</td><td>$90</td><td>Rack + all balls</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:11px;color:#6B7280;margin-top:6px;font-weight:500">* Replacement costs apply to lost, stolen, or destroyed items. Damaged but repairable items assessed individually.</p>
+    </div>
+
+    <!-- TERMS -->
+    <div class="section">
+      <div class="section-title">Terms &amp; Conditions</div>
+      <div class="terms-list">
+        <div class="term-item"><div class="term-num">1</div><div class="term-text"><strong>Renter Responsibility:</strong> The renter assumes full responsibility for all rented equipment from the time of pickup until return. All risk of loss, theft, or damage during the rental period is the sole responsibility of the renter.</div></div>
+        <div class="term-item"><div class="term-num">2</div><div class="term-text"><strong>Damage &amp; Replacement:</strong> The renter agrees to pay the full replacement cost listed above for any item that is lost, stolen, or destroyed. Damage beyond normal wear and tear will be assessed and billed at the owner's discretion.</div></div>
+        <div class="term-item"><div class="term-num">3</div><div class="term-text"><strong>Cleaning:</strong> All equipment must be returned clean, dry, and free of debris. A <strong>$15 cleaning fee</strong> will be charged for equipment returned in unacceptable condition. Equipment left in water or mud damage is billed as damage.</div></div>
+        <div class="term-item"><div class="term-num">4</div><div class="term-text"><strong>Late Returns:</strong> Equipment not returned within the agreed return window may be charged an additional day's rental fee per day late without prior notice or approval from the owner.</div></div>
+        <div class="term-item"><div class="term-num">5</div><div class="term-text"><strong>Payment:</strong> Full payment is due at or before pickup. Accepted methods: Venmo, cash. The rental is not confirmed until payment is received. No refunds for cancellations within 24 hours of pickup.</div></div>
+        <div class="term-item"><div class="term-num">6</div><div class="term-text"><strong>Rescheduling &amp; Cancellations:</strong> Rescheduling is allowed with at least 48 hours' notice at no charge. Cancellations with less than 24 hours' notice forfeit the rental fee.</div></div>
+        <div class="term-item"><div class="term-num">7</div><div class="term-text"><strong>Use &amp; Care:</strong> Equipment must be used in a reasonable manner consistent with its intended purpose. Renter agrees not to expose equipment to rain, standing water, or other conditions likely to cause damage.</div></div>
+        <div class="term-item"><div class="term-num">8</div><div class="term-text"><strong>Liability:</strong> The owner is not liable for any injury, accident, or property damage occurring during use of the rented equipment. The renter assumes all liability for safe and appropriate use.</div></div>
+        <div class="term-item"><div class="term-num">9</div><div class="term-text"><strong>Age Requirement:</strong> Renter must be 18 years of age or older to enter into this agreement.</div></div>
+        <div class="term-item"><div class="term-num">10</div><div class="term-text"><strong>Agreement:</strong> By signing below, the renter acknowledges they have read, understand, and agree to all terms of this rental agreement.</div></div>
+      </div>
+    </div>
+
+    <!-- SIGNATURES -->
+    <div class="sig-grid">
+      <div class="sig-block">
+        <div class="sig-label">RENTER SIGNATURE</div>
+        <div class="sig-name-line"></div>
+        <div class="sig-name-label">PRINT NAME</div>
+        <div style="height:18px"></div>
+        <div class="sig-date-line"></div>
+        <div class="sig-date-label">DATE</div>
+      </div>
+      <div class="sig-block">
+        <div class="sig-label">OWNER SIGNATURE</div>
+        <div class="sig-name-line"></div>
+        <div class="sig-name-label">PRINT NAME</div>
+        <div style="height:18px"></div>
+        <div class="sig-date-line"></div>
+        <div class="sig-date-label">DATE</div>
+      </div>
+    </div>
+
+    <p style="font-size:11px;color:#9CA3AF;text-align:center;margin-top:20px;font-weight:500">Both parties retain a signed copy of this agreement. This contract is binding upon signature.</p>
+
+  </div>
+</div>
+
+<button class="print-btn" onclick="window.print()">🖨️ Print Contract</button>
+<p class="footer-note">Backyard Game Rentals · Greenville, SC · Print and bring to every pickup.</p>
+
+<script>
+// Auto-generate a contract number
+const num = 'YGR-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random()*9000)+1000);
+document.getElementById('contractNum').textContent = num;
+</script>
+</body>
+</html>
