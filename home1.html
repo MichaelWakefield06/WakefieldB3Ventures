@@ -1,217 +1,688 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
- <script async src="https://www.googletagmanager.com/gtag/js?id=G-NC1EY1BCFZ"></script>
- <script>
-   window.dataLayer = window.dataLayer || [];
-   function gtag(){dataLayer.push(arguments);}
-   gtag('js', new Date());
- 
-   gtag('config', 'G-NC1EY1BCFZ');
- </script>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=https://www.wakefieldb3ventures.com/home3.html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M. Wakefield</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Backyard Game Rentals – Greenville, SC</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#2A7D4F;--green-dark:#1a5435;--green-light:#EBF7F0;
+  --yellow:#F5C842;--orange:#F2784B;
+  --white:#fff;--bg:#F8F7F3;--text:#1C1C1C;--muted:#6B7280;
+  --border:#E4E0D8;--radius:16px;--radius-lg:24px;
+}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 
-        body {
-            background-color: #f4f1e1;
-            color: #333;
-        }
+/* HERO */
+.hero{position:relative;height:88vh;min-height:520px;max-height:760px;overflow:hidden;display:flex;align-items:flex-end}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,30,15,0.88) 0%,rgba(10,30,15,0.25) 55%,transparent 100%)}
+.hero-content{position:relative;z-index:2;padding:0 48px 56px;max-width:720px}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:var(--yellow);color:#1a1a1a;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:6px 14px;border-radius:30px;margin-bottom:20px}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(40px,6vw,72px);font-weight:900;color:#fff;line-height:1.0;margin-bottom:14px;letter-spacing:-1.5px}
+.hero h1 em{font-style:italic;color:var(--yellow)}
+.hero p{color:rgba(255,255,255,0.82);font-size:17px;font-weight:500;max-width:460px;line-height:1.65;margin-bottom:28px}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:50px;border:none;cursor:pointer;transition:all 0.2s}
+.hero-cta:hover{background:var(--green-dark);transform:translateY(-2px)}
 
-        header {
-            padding: 20px 50px;
-            background-color: #d1cfc7;
-        }
+/* LAYOUT */
+.main{max-width:1140px;margin:0 auto;padding:72px 24px 80px}
+.step-row{display:flex;align-items:flex-start;gap:14px;margin-bottom:8px}
+.step-num{width:38px;height:38px;border-radius:50%;background:var(--green);color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:5px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--green);margin-bottom:3px}
+.step-text h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;letter-spacing:-0.3px}
+.step-sub{font-size:14px;color:var(--muted);margin-bottom:24px;margin-left:52px;font-weight:500}
+.section-gap{margin-bottom:64px}
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+/* GAME CARDS */
+.games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}
+.game-card{background:var(--white);border:2px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;transition:all 0.22s;user-select:none;position:relative}
+.game-card:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(0,0,0,0.1);border-color:#bbb}
+.game-card.selected{border-color:var(--green);box-shadow:0 8px 28px rgba(42,125,79,0.22)}
+.game-photo-wrap{overflow:hidden;position:relative;height:155px}
+.game-photo{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s}
+.game-card:hover .game-photo{transform:scale(1.05)}
+.game-sel-badge{position:absolute;top:10px;left:10px;background:var(--green);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;opacity:0;transition:opacity 0.18s}
+.game-card.selected .game-sel-badge{opacity:1}
+.game-check{position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:50%;background:var(--green);display:none;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,0.2)}
+.game-check svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.game-card.selected .game-check{display:flex}
+.game-info{padding:13px 15px 15px}
+.game-name{font-weight:700;font-size:15px;margin-bottom:3px}
+.game-price{font-size:13px;color:var(--muted);font-weight:500}
+.game-avail{font-size:12px;font-weight:600;margin-top:5px;padding:3px 8px;border-radius:20px;display:inline-block}
+.game-avail.avail{background:var(--green-light);color:var(--green-dark)}
+.game-avail.none{background:#FEF2F2;color:#991B1B}
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
+/* AVAILABILITY CALENDAR */
+.cal-hint{background:var(--green-light);border:1.5px solid var(--green);border-radius:12px;padding:12px 18px;margin-bottom:20px;margin-left:0;font-size:14px;font-weight:600;color:var(--green-dark);display:none}
+.cal-hint.show{display:block}
+.cal-wrapper{background:var(--white);border:2px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.04)}
+.cal-header{display:flex;align-items:center;justify-content:space-between;padding:20px 26px;border-bottom:2px solid var(--border)}
+.cal-month{font-family:'Fraunces',serif;font-size:21px;font-weight:700;letter-spacing:-0.3px}
+.cal-nav{background:var(--bg);border:2px solid var(--border);border-radius:10px;width:37px;height:37px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;color:var(--text);font-weight:700}
+.cal-nav:hover{background:var(--green);border-color:var(--green);color:#fff}
+.cal-dow-row{display:grid;grid-template-columns:repeat(7,1fr);background:#fafaf8}
+.cal-dow{text-align:center;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:12px 4px}
+.cal-body{display:grid;grid-template-columns:repeat(7,1fr);padding:10px 12px 14px;gap:3px}
+.cal-day{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;border-radius:10px;transition:all 0.15s;border:2px solid transparent;position:relative;min-width:0}
+.cal-day:hover:not(.blocked):not(.past){background:var(--green-light);border-color:var(--green)}
+.cal-day.blocked{color:#D1D5DB;cursor:not-allowed;background:#FAFAFA}
+.cal-day.partial{background:#FFFBEB;border-color:#F5C842}
+.cal-day.partial:hover{background:#FEF3C7}
+.cal-day.selected{background:var(--green);color:#fff;font-weight:700}
+.cal-day.past{opacity:0.28;cursor:not-allowed}
+.cal-day.today-cell{border-color:var(--orange)}
+.day-num{font-size:13px;font-weight:600;line-height:1}
+.day-dot{width:4px;height:4px;border-radius:50%;margin-top:2px}
+.cal-day.selected .day-dot{background:rgba(255,255,255,0.65)}
+.cal-day.blocked .day-dot{display:none}
+.cal-day.past .day-dot{display:none}
+.cal-footer{display:flex;gap:20px;padding:14px 26px;border-top:2px solid var(--border);background:#fafaf8;flex-wrap:wrap}
+.leg{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);font-weight:600}
+.leg-sw{width:13px;height:13px;border-radius:4px;flex-shrink:0}
 
-        nav ul li a {
-            text-decoration: none;
-            color: #5a5a5a;
-            font-weight: 500;
-        }
+/* RULES SECTION */
+.rules-section{background:var(--white);border:2px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:64px}
+.rules-header{background:var(--green);padding:24px 32px}
+.rules-header h2{font-family:'Fraunces',serif;font-size:24px;font-weight:700;color:#fff}
+.rules-header p{color:rgba(255,255,255,0.8);font-size:14px;margin-top:4px;font-weight:500}
+.rules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0}
+.rule-block{padding:28px 32px;border-bottom:2px solid var(--border)}
+.rule-block:last-child{border-bottom:none}
+.rule-icon{font-size:28px;margin-bottom:10px}
+.rule-title{font-weight:700;font-size:16px;margin-bottom:8px;color:var(--text)}
+.rule-list{list-style:none;padding:0}
+.rule-list li{font-size:14px;color:var(--muted);padding:4px 0;padding-left:18px;position:relative;font-weight:500;line-height:1.5}
+.rule-list li::before{content:'→';position:absolute;left:0;color:var(--green);font-weight:700}
 
-        .resume-btn {
-            padding: 8px 12px;
-            border: 1px solid #a78b52;
-            border-radius: 5px;
-            text-decoration: none;
-            color: #a78b52;
-            transition: background 0.3s, color 0.3s;
-        }
+/* CONTACT FORM */
+.form-card{background:var(--white);border:2px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:20px}
+.form-header{padding:22px 28px;border-bottom:2px solid var(--border);background:#fafaf8}
+.form-header h3{font-family:'Fraunces',serif;font-size:20px;font-weight:700}
+.form-header p{font-size:13px;color:var(--muted);margin-top:3px;font-weight:500}
+.form-body{padding:24px 28px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-size:13px;font-weight:700;color:var(--text)}
+.form-group input,.form-group textarea,.form-group select{
+  padding:11px 14px;border:2px solid var(--border);border-radius:10px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--text);
+  background:var(--bg);transition:border-color 0.15s;outline:none;
+}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--green);background:#fff}
+.form-group textarea{resize:vertical;min-height:80px}
+.req{color:var(--orange)}
 
-        .resume-btn:hover {
-            background-color: #a78b52;
-            color: #f4f1e1;
-        }
+/* ORDER SUMMARY */
+.summary-wrap{background:var(--white);border:2px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:20px}
+.summary-top{padding:18px 24px;border-bottom:2px solid var(--border);background:#fafaf8;display:flex;align-items:center;justify-content:space-between}
+.summary-top h3{font-family:'Fraunces',serif;font-size:18px;font-weight:700}
+.summary-count{background:var(--green);color:#fff;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px}
+.summary-empty{padding:36px 24px;text-align:center;color:var(--muted)}
+.summary-empty-icon{font-size:34px;margin-bottom:8px}
+.summary-empty p{font-weight:600;font-size:14px}
+.summary-list{padding:6px 0}
+.sum-row{display:flex;align-items:center;gap:12px;padding:11px 24px;border-bottom:1px solid var(--border);font-size:14px}
+.sum-row:last-child{border-bottom:none}
+.sum-thumb{width:38px;height:38px;border-radius:8px;object-fit:cover;flex-shrink:0}
+.sum-info{flex:1;min-width:0}
+.sum-game{font-weight:700;font-size:13px}
+.sum-price{font-size:12px;color:var(--muted)}
+.sum-date{background:var(--green-light);color:var(--green-dark);font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;white-space:nowrap}
+.sum-rm{background:none;border:none;color:#D1D5DB;cursor:pointer;font-size:20px;padding:2px 6px;transition:color 0.15s;flex-shrink:0}
+.sum-rm:hover{color:var(--orange)}
+.summary-total{padding:14px 24px;border-top:2px solid var(--border);background:#fafaf8;display:flex;justify-content:space-between;align-items:center}
+.summary-total span{font-weight:700;font-size:15px}
+.summary-total strong{font-family:'Fraunces',serif;font-size:22px;color:var(--green)}
 
-        .profile {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 20px;
-        }
+/* SUBMIT */
+.btn-submit{width:100%;padding:17px;background:var(--green);color:#fff;border:none;border-radius:13px;font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn-submit:hover:not(:disabled){background:var(--green-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(42,125,79,0.3)}
+.btn-submit:disabled{background:#D1D5DB;color:#9CA3AF;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-submit svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.submit-note{font-size:12px;color:var(--muted);text-align:center;margin-top:10px;font-weight:500;line-height:1.6}
 
-        .text {
-            max-width: 50%;
-        }
+/* PAYMENT INFO */
+.payment-banner{background:var(--yellow);border-radius:13px;padding:18px 22px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start}
+.payment-banner .pay-icon{font-size:28px;flex-shrink:0}
+.payment-banner h4{font-weight:700;font-size:15px;margin-bottom:4px}
+.payment-banner p{font-size:13px;font-weight:500;color:#333;line-height:1.5}
 
-        .text h3 {
-            font-size: 1.2em;
-            color: #6e6a57;
-        }
+/* TOAST */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--green-dark);color:#fff;padding:13px 26px;border-radius:13px;font-size:14px;font-weight:700;opacity:0;transition:all 0.3s;z-index:999;pointer-events:none;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,0.2)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-        .text h1 {
-            font-size: 2em;
-            margin: 5px 0;
-            color: #5a5a5a;
-        }
-
-        .text p {
-            margin: 10px 0;
-            font-size: 1.1em;
-            color: #666;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #a78b52;
-            color: #f4f1e1;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 10px;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        .btn:hover {
-            background-color: #6e6a57;
-            color: #f4f1e1;
-        }
-
-        .profile-img img {
-            width: 250px;
-            height: auto;
-            border-radius: 10px;
-            border: 3px solid #a78b52;
-        }
-
-        @media (max-width: 768px) {
-            .profile {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .text {
-                max-width: 100%;
-                margin-bottom: 20px;
-            }
-        }
-    </style>
+@media(max-width:720px){
+  .hero{height:72vh}.hero-content{padding:0 22px 40px}.hero h1{font-size:38px}
+  .main{padding:48px 16px 60px}
+  .games-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .step-sub{margin-left:0}
+  .form-body{grid-template-columns:1fr}
+  .form-group.full{grid-column:1}
+  .rules-grid{grid-template-columns:1fr}
+  .rule-block{border-right:none}
+}
+</style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">M. Wakefield</div>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Portfolio</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#" class="resume-btn">Resume</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <section class="profile">
-            <div class="text">
-                 <h3>Daily Log - I guess</h3>
-                <p>4/13/2025</p>
-                <p>Had an episode last night - this morning really (12:10). T got it on video so we are trying to send it to the doctor to see if it will provide any more help to them.</p>
-                <p>I feel like there is so much up in the air in life. Losing friend, losing health, losing jobs I wanted and liked. I need some good new soon.</p>
-                <p>Just finished my schoolwork for the week. It's getting a bit daunting and I'm finding it hard to focus. I'll keep moving because that is what I do... but life is hard - sometimes lonely but definitely hard.</p>
-                <p>I need to build out more of this site tonight... not sure what I need to do. Maybe I'll add a health journey section...so folks can track that...</p>
-                <p> </p>
-                <p> </p>
-                <p> </p>
-                <p> </p>
-                <p>---------------------------------------------------------------------</p>                
-                <p>4/12/2025</p>
-                <p>10:30 - just got finished with work. Only a few small hiccups with the backend. Got it figured out pretty quickly and gave the green light on the project</p>
-                <p>I'm lost, on Teams you said you knew what was behind my mask. If that is the case - why do you want to be friends? Maybe that is just a need for reassurance, maybe it is a feeling of not being deserving of it. I don't know. I know I'm probably overthinking this. I again think I'm so afraid of losing such a good friend because I've not seen this before. idk. On to schoolwork.</p>
-                <p>No wonder my cortisol is non existant. I'm constantly living in fight or flight waiting for the next bad thing to happen. Anything good thing I have I'm already waiting for it to be over, not out of hope it will be over but trying to brace myself for when it does happen. How does one get past that? How do I enjoy what I have right now and stop worrying about when it will end? hmm...</p>
-                <p>7:00P - Today was a lot of schoolwork. It was nice taking a break for a minute. I'll probably be up late tonight. This last push is hard. I have almost no motivation to finish this today. I keep pushing forward cause that is what I do</p>
-                <p> 12:04A(4/13) - Maybe it doesn't have to end. Not following. If there is a way, I don't know what it is. Help me out here.</p>
-                <p> </p>
-                <p> </p>
-                <p> </p>
-                <p>---------------------------------------------------------------------</p>
-                <p>4/11/2025</p>
-                <p>It's 12:47AM. I'm still up. I finished writing this response to your last email. Somehow I fear it will be the last email. I don't dare say that but there is a part of me that thinks that. I'll send the email I have for you in the morning when I wake up. Maybe I should just start getting up when I wake up at 4 and go running. It needs to be a little warmer in the morning and I'll go run up and down this main road... hopefully no one is driving dangerously at that time of the morning ;). Good night. I'll post more later in the morning.</p>
-                <p>Sent you the email. On morning standup. Feel better than I did on Tuesday morning so that is a win. I know there are so many things I would tell you this morning but I either hold it back or put some things here. sigh...</p>
-                <p>Your last email...what are you trying to do to me :). I can't work if I can't see. Very sweetly worded email. Thank you.</p>
-                <p>Alright, it happened. I just broke down. I won't tell you this in email and I'm not confident you even remember this page but...I won't reach out to you again until you reach out first. Take all the time and space you need. I will miss our connection in whatever time it takes to come back. Thank you again for everything.</p>
-                <p>Trying to keep myself from more loss...Losing friends, and losing friends, losing jobs that I like, losing health, losing myself. Everything within me wants to hold on tightly to everything...I don't know how to process it all the right way. Letting go is the only thing I know to do. It hurts, I think mostly because I don't know if I will ever get it back.</p>
-                <p>I need to reformat this page...If I do come in here every day, this could get ugly. Standby</p>
-                <p>I guess I'm going to try to run again tonight. Might as well.</p>
-                <p>Praying for you and hoping you have a good weekend!</p>
-                <p>How is your proposal for a new role coming? I want to know so bad...Were you able to get an answer on what J is looking for? Have you submitted a followup proposal? Can't wait to hear about htis in 6 months... sorry - too soon...</p>
-                <p>hmmm, well, i'm not sure how to respond to that... :'(. I just want this to be over. I just don't know anymore. </p>
-                <p>I almost didn't do an internship...this gut punch wouldn't be here right now if that was the case... Do I ever choose right? </p>
-                <p>I don't know if it is too late to run or not but I don't know if I'll get any sleep. I'm in the middle of a stressful week to begin with. Mounds of schoolwork and these classes are ones I have to pass. How does one know they made the right decisions? I know I need to work on getting my schoolwork done so tomorrow afternoon isn't a mad dash to the finish line but I'm tired. Physically and emotionally.</p>
-                <p>---------------------------------------------------------------------</p>
-                <p>4/10/2025</p>
-                <p>It's been a morning already. Today is the day I have this termination. I felt disingenuous saying "Let's have a good day" on our morning standup. 
-                <p>I didn't wake up with that gut punch feeling this morning but there is still a hole. It's obvious, I don't know if that is because I was able to get that email out on what I needed to say or not.</p>
-                <p>A lot more I wanted to say in that email. I wanted to tell you all the happenings in life and what we decided for next steps on my condition. I wanted to let you know what happened at life group, in regards to the condition. I wanted to let you know I was thinking and praying for your because it was Wednesday and I know those aren't easy for you.</p>
-                <p>Ran last night, got about 3 miles in before it got too late and cold. Running seems to wear my body out so I can sleep. A lot of time to think and process things</p>
-                <p>I figured out how to redirect the different links I sent you to all come to one page. it's easier to maintain this way. :) Always learning - or trying to anyways</p>
-                <p>Meetings meetings everywhere</p>
-                <p>I feel dumb just throwing this out here. I don't know if it will ever be seen. I guess I write here instead of opening up teams. I deleted the history of our chat so I wouldn't go back and think about it. I guess that helps.</p>
-                <p>I'm still curious what part of your story you were unhappy with or wanted changed. Also, why did you want to know about the 10 questions. You said you were questioning everything...I'm sorry you are questioning everything. What are you questioning?</p>
-                <p>Going out with the team to lunch. Kind of feels pointless putting this here. I would tell you about how life group was good and what we talked about. How it felt directly applicable at this moment. Losing careers and friends. Both seem to be where I'm at. Trying to see where I'm supposed to go from here because I would sprint there...</p>
-                <p>Tried to limit the sad music yesterday. Found some new stuff. Got some suggestions from peeps at work, although - some of it was weird - not gonna lie. Some group called Surfaces. I can't get into it. They maybe had one track worth listening to..</p>
-                <p>Got 2 miles in tonight. Running is starting to feel normal and is a good relaxer. It's helping me move towards the goal of losing that 50 before graduation. I'm just over 20 down and might have to double down to get the full 50. But it helps with processing things.</p>
-                <p>I got your email today. I know you meant it to be hopeful. I see it as lacing my shoes for a long uphill run. I would love to stop and think about 6 months from now. But like in the email I'll send in the morning, I'm still putting one foot in front of the other for now. Never too hopeful. Cautious of being dissapointed.</p>
-                <p>---------------------------------------------------------------------</p>
-                <p> </p>
-                <p> </p>
-                <p>4/9/2025</p>
-                <p>I figured you'd get back here eventually. This sucks. I appreciated everything you've done. You won't be forgotten. Thank you, again, for everything. Reach out when you can...</p>
-                <p>Day 1 was hard. This morning feels like a punch in the gut. I don't know why it is so hard, but it is. I want to tell this to someone, but I'm not allowed to talk to them. I'm sorry.</p>
-                <p>So I go on, pretending to not be affected, pulling out the old masks and acting as if nothing is wrong.</p>
-                <p>I know it is Wed. and those aren't the best. Praying for you! 4/9 12.00</p>
-                <p>So many questions still race through my head. What happened on Monday or over the weekend. I hope you didn't think I wanted this. I know it was inevitable but it wasn't what I wanted. You never even said...was it something I said or did? I don't know why I keep writing. I guess it helps oddly. You probably won't even think to look here. You have a stronger will than I do and I know you made that promise to yourself... Work can only distract me so long. </p>
-                <p>I don't know why I'm writing here. This is dumb but I feel like at some point you'll remember this site and check it out. Maybe I'll have taken all this down already. Words used to flow so easy, talking. Having someone that at least acted like they tolerated my whirlwind thoughts. I don't know why I'm putting this out there. I need to find something to fill my time, this is going to drive me mad</p>
-                <p>I decided to stay home today because I can't be around people. My office is dark and lonely. the recent terminations have soured the mood. My team has been broken up. Morale is low. What am I even doing. This isn't getting me anywhere close to where I want to be... HELLLOOOOO!!!</p>
-                <p>I just read your email...I know this isn't fun for either of us, I'm sorry if I came across as if it was only hard for me... Yes, I'm also resisting the urge to reply immediately - or even at all...it's probably better to wait some time and try to heal the wound :(. Hang in there, you got this...</p>
-                <p>Made it through the first work day. I have things to occupy me tonight. Schoolwork (gotta try to at least pass this class with a C), then I might double up on the miles tonight again. I came home last night and completely crashed after my shower. Trade one pain for another... Have a good night!</p><a href="#" class="btn">My Projects</a>
-            </div>
-            <div class="profile-img">
-            </div>
-        </section>
-    </main>
+<!-- HERO -->
+<div class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1600&q=80&auto=format&fit=crop" alt="Friends playing yard games">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">📍 Greenville, SC</div>
+    <h1>Bring the <em>games</em><br>to your party.</h1>
+    <p>Premium yard game rentals for backyard parties, weddings, tailgates &amp; more. Pick up from us — fun guaranteed.</p>
+    <button class="hero-cta" onclick="document.querySelector('.main').scrollIntoView({behavior:'smooth'})">
+      Reserve your games ↓
+    </button>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- STEP 1: GAMES -->
+  <div class="section-gap">
+    <div class="step-row">
+      <div class="step-num">1</div>
+      <div class="step-text">
+        <div class="eyebrow">Step One</div>
+        <h2>Choose your games</h2>
+      </div>
+    </div>
+    <p class="step-sub">Select the games you want — availability updates on the calendar below.</p>
+    <div class="games-grid" id="gamesGrid"></div>
+  </div>
+
+  <!-- STEP 2: CALENDAR -->
+  <div class="section-gap">
+    <div class="step-row">
+      <div class="step-num">2</div>
+      <div class="step-text">
+        <div class="eyebrow">Step Two</div>
+        <h2>Pick your date(s)</h2>
+      </div>
+    </div>
+    <p class="step-sub">The calendar shows availability for your selected games. Yellow = limited availability.</p>
+    <div class="cal-hint" id="calHint"></div>
+    <div class="cal-wrapper">
+      <div class="cal-header">
+        <button class="cal-nav" id="prevBtn">&#8592;</button>
+        <div class="cal-month" id="calMonth"></div>
+        <button class="cal-nav" id="nextBtn">&#8594;</button>
+      </div>
+      <div class="cal-dow-row">
+        <div class="cal-dow">Sun</div><div class="cal-dow">Mon</div><div class="cal-dow">Tue</div>
+        <div class="cal-dow">Wed</div><div class="cal-dow">Thu</div><div class="cal-dow">Fri</div><div class="cal-dow">Sat</div>
+      </div>
+      <div class="cal-body" id="calBody"></div>
+      <div class="cal-footer">
+        <div class="leg"><div class="leg-sw" style="background:var(--green-light);border:2px solid var(--green)"></div>Available</div>
+        <div class="leg"><div class="leg-sw" style="background:#FFFBEB;border:2px solid #F5C842"></div>Limited</div>
+        <div class="leg"><div class="leg-sw" style="background:var(--green)"></div>Selected</div>
+        <div class="leg"><div class="leg-sw" style="background:#FAFAFA;border:2px solid #E5E7EB"></div>Unavailable</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RULES -->
+  <div class="section-gap">
+    <div class="step-row">
+      <div class="step-num" style="background:var(--orange)">!</div>
+      <div class="step-text">
+        <div class="eyebrow">Before You Book</div>
+        <h2>Rental Rules &amp; Info</h2>
+      </div>
+    </div>
+    <p class="step-sub">Please read before submitting your request.</p>
+    <div class="rules-section">
+      <div class="rules-header">
+        <h2>Everything You Need to Know</h2>
+        <p>By submitting a rental request, you agree to these terms.</p>
+      </div>
+      <div class="rules-grid">
+        <div class="rule-block">
+          <div class="rule-icon">🕐</div>
+          <div class="rule-title">Pickup &amp; Return Times</div>
+          <ul class="rule-list">
+            <li>Pickup available <strong>Monday–Friday after 6:00 PM</strong></li>
+            <li>Pickup available <strong>Saturdays &amp; Sundays all day</strong></li>
+            <li>Return must happen within the same time windows</li>
+            <li>Exact time coordinated via text after booking confirmed</li>
+            <li>Late returns may incur an additional day charge</li>
+          </ul>
+        </div>
+        <div class="rule-block">
+          <div class="rule-icon">🧹</div>
+          <div class="rule-title">Cleaning Requirements</div>
+          <ul class="rule-list">
+            <li>All games must be returned clean and dry</li>
+            <li>Wipe down all surfaces before return</li>
+            <li>Remove any mud, grass, or debris</li>
+            <li>Bags &amp; equipment must be returned in original bags</li>
+            <li>A $15 cleaning fee applies if returned dirty</li>
+          </ul>
+        </div>
+        <div class="rule-block">
+          <div class="rule-icon">⚠️</div>
+          <div class="rule-title">Damage &amp; Replacement</div>
+          <ul class="rule-list">
+            <li>Renter is responsible for all damage during rental period</li>
+            <li>Lost or destroyed items charged at full replacement cost</li>
+            <li>Damage assessed at return — no exceptions</li>
+            <li>Replacement costs listed in rental contract signed at pickup</li>
+            <li>Normal wear and tear is expected and accepted</li>
+          </ul>
+        </div>
+        <div class="rule-block">
+          <div class="rule-icon">💰</div>
+          <div class="rule-title">Payment</div>
+          <ul class="rule-list">
+            <li>Payment due at or before pickup</li>
+            <li>Accepted: Venmo, cash</li>
+            <li>Rental is not confirmed until payment received</li>
+            <li>No refunds for cancellations within 24 hours of pickup</li>
+            <li>Rescheduling allowed with 48+ hours notice</li>
+          </ul>
+        </div>
+        <div class="rule-block">
+          <div class="rule-icon">📋</div>
+          <div class="rule-title">Rental Contract</div>
+          <ul class="rule-list">
+            <li>A rental agreement is signed at time of pickup</li>
+            <li>Contract covers damage, cleaning, and replacement terms</li>
+            <li>Both parties receive a copy at signing</li>
+            <li>Renter must be 18 years or older</li>
+            <li>Renter assumes all liability during rental period</li>
+          </ul>
+        </div>
+        <div class="rule-block">
+          <div class="rule-icon">🎮</div>
+          <div class="rule-title">General Rules</div>
+          <ul class="rule-list">
+            <li>Games are for outdoor use unless noted</li>
+            <li>Do not leave equipment in rain or standing water</li>
+            <li>Keep all components together — report missing pieces immediately</li>
+            <li>Owner reserves the right to refuse rental to anyone</li>
+            <li>Contact us anytime — we want your event to be a success!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: CONTACT + ORDER -->
+  <div class="section-gap">
+    <div class="step-row">
+      <div class="step-num">3</div>
+      <div class="step-text">
+        <div class="eyebrow">Step Three</div>
+        <h2>Your Info &amp; Request</h2>
+      </div>
+    </div>
+    <p class="step-sub">Fill out your contact info and we'll confirm your reservation within 24 hours.</p>
+
+    <div class="form-card">
+      <div class="form-header">
+        <h3>Contact Information</h3>
+        <p>How we'll reach you to confirm your reservation.</p>
+      </div>
+      <div class="form-body">
+        <div class="form-group">
+          <label>First &amp; Last Name <span class="req">*</span></label>
+          <input type="text" id="fName" placeholder="Jane Smith" required>
+        </div>
+        <div class="form-group">
+          <label>Phone Number <span class="req">*</span></label>
+          <input type="tel" id="fPhone" placeholder="(864) 555-0123" required>
+        </div>
+        <div class="form-group">
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" id="fEmail" placeholder="jane@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>Event Location / Address</label>
+          <input type="text" id="fLocation" placeholder="123 Main St, Greenville SC">
+        </div>
+        <div class="form-group">
+          <label>Type of Event</label>
+          <select id="fEventType">
+            <option value="">— Select one —</option>
+            <option>Backyard Party</option>
+            <option>Birthday Party</option>
+            <option>Wedding / Reception</option>
+            <option>Corporate Event</option>
+            <option>Tailgate</option>
+            <option>Graduation Party</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Estimated # of Guests</label>
+          <input type="number" id="fGuests" placeholder="e.g. 30" min="1">
+        </div>
+        <div class="form-group full">
+          <label>Additional Notes or Questions</label>
+          <textarea id="fNotes" placeholder="Anything else we should know..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORDER SUMMARY -->
+    <div class="summary-wrap">
+      <div class="summary-top">
+        <h3>Order Summary</h3>
+        <span class="summary-count" id="summaryCount" style="display:none">0 items</span>
+      </div>
+      <div id="summaryEmpty" class="summary-empty">
+        <div class="summary-empty-icon">🏡</div>
+        <p>Select a game and date above to build your order.</p>
+      </div>
+      <div class="summary-list" id="summaryList"></div>
+      <div class="summary-total" id="summaryTotal" style="display:none">
+        <span>Estimated Total</span>
+        <strong id="totalAmt"></strong>
+      </div>
+    </div>
+
+    <!-- PAYMENT INFO -->
+    <div class="payment-banner">
+      <div class="pay-icon">💵</div>
+      <div>
+        <h4>Payment at Pickup</h4>
+        <p>No payment needed now. Once we confirm your reservation, payment is due at pickup via <strong>Venmo or cash</strong>. We'll include payment details in your confirmation.</p>
+      </div>
+    </div>
+
+    <button class="btn-submit" id="submitBtn" disabled>
+      <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+      Send Rental Request
+    </button>
+    <p class="submit-note">No payment now · We'll confirm within 24 hours · Contract signed at pickup</p>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const FORMSPREE_URL = 'https://formspree.io/f/xdaplvwd';
+
+// Load inventory from localStorage (managed by dashboard)
+function getInventory() {
+  try {
+    const s = localStorage.getItem('ygr_inventory');
+    if(s) return JSON.parse(s);
+  } catch(e){}
+  return DEFAULT_INVENTORY();
+}
+
+function DEFAULT_INVENTORY() {
+  return [
+    {id:'cornhole', name:'Cornhole', price:35, quantity:2, replacementCost:150,
+     photo:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75&auto=format&fit=crop', bookings:[]},
+    {id:'bocce', name:'Bocce Ball', price:25, quantity:1, replacementCost:80,
+     photo:'https://images.unsplash.com/photo-1630175860108-6b8b0de7f2e5?w=600&q=75&auto=format&fit=crop', bookings:[]},
+    {id:'spikeball', name:'Spikeball', price:30, quantity:1, replacementCost:60,
+     photo:'https://images.unsplash.com/photo-1554068865-24ceec8c5e73?w=600&q=75&auto=format&fit=crop', bookings:[]},
+    {id:'jenga', name:'Giant Jenga', price:28, quantity:1, replacementCost:120,
+     photo:'https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=600&q=75&auto=format&fit=crop', bookings:[]},
+    {id:'ladder', name:'Ladder Toss', price:25, quantity:2, replacementCost:70,
+     photo:'https://images.unsplash.com/photo-1567599672391-17b31d92e431?w=600&q=75&auto=format&fit=crop', bookings:[]},
+    {id:'kanjam', name:'Kan Jam', price:22, quantity:1, replacementCost:50,
+     photo:'https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=600&q=75&auto=format&fit=crop', bookings:[]},
+    {id:'washer', name:'Washer Toss', price:20, quantity:2, replacementCost:40,
+     photo:'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=75&auto=format&fit=crop', bookings:[]},
+    {id:'lawnpong', name:'Lawn Pong', price:32, quantity:1, replacementCost:90,
+     photo:'https://images.unsplash.com/photo-1541534401786-2077eed87a74?w=600&q=75&auto=format&fit=crop', bookings:[]},
+  ];
+}
+
+let GAMES = getInventory();
+let selectedGames = new Set();
+let selectedDates = new Set();
+let currentMonth = new Date().getMonth();
+let currentYear  = new Date().getFullYear();
+const today = new Date(); today.setHours(0,0,0,0);
+
+// ── AVAILABILITY LOGIC ──
+function bookedCountOnDate(game, ds) {
+  return game.bookings.filter(b => ds >= b.start && ds <= b.end).length;
+}
+function availableOnDate(game, ds) {
+  return Math.max(0, game.quantity - bookedCountOnDate(game, ds));
+}
+// For selected games: what's the min available across all selected games on this date?
+function minAvailForSelected(ds) {
+  if(!selectedGames.size) return 999;
+  let min = 999;
+  for(const gid of selectedGames) {
+    const g = GAMES.find(x=>x.id===gid);
+    if(!g) continue;
+    min = Math.min(min, availableOnDate(g, ds));
+  }
+  return min;
+}
+
+// ── GAME CARDS ──
+function renderGames() {
+  const grid = document.getElementById('gamesGrid');
+  grid.innerHTML = '';
+  GAMES.forEach(g => {
+    const card = document.createElement('div');
+    card.className = 'game-card';
+    card.dataset.id = g.id;
+    card.innerHTML = `
+      <div class="game-photo-wrap">
+        <img class="game-photo" src="${g.photo}" alt="${g.name}" loading="lazy">
+        <div class="game-sel-badge">✓ Selected</div>
+      </div>
+      <div class="game-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="game-info">
+        <div class="game-name">${g.name}</div>
+        <div class="game-price">$${g.price}/day</div>
+        <div class="game-avail avail" id="avail-${g.id}">${g.quantity} available</div>
+      </div>`;
+    card.addEventListener('click', () => {
+      if(selectedGames.has(g.id)) selectedGames.delete(g.id);
+      else selectedGames.add(g.id);
+      card.classList.toggle('selected', selectedGames.has(g.id));
+      updateCalHint();
+      renderCalendar();
+      renderSummary();
+    });
+    grid.appendChild(card);
+  });
+}
+
+function updateCalHint() {
+  const hint = document.getElementById('calHint');
+  if(selectedGames.size === 0) {
+    hint.classList.remove('show');
+    return;
+  }
+  const names = [...selectedGames].map(id => GAMES.find(g=>g.id===id)?.name).filter(Boolean);
+  hint.textContent = `Showing availability for: ${names.join(', ')}. Green = all selected games available. Yellow = limited.`;
+  hint.classList.add('show');
+}
+
+// ── CALENDAR ──
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+function pad(n){ return String(n).padStart(2,'0'); }
+function makeDateStr(y,m,d){ return `${y}-${pad(m+1)}-${pad(d)}`; }
+
+function renderCalendar() {
+  document.getElementById('calMonth').textContent = `${MONTHS[currentMonth]} ${currentYear}`;
+  const body = document.getElementById('calBody');
+  body.innerHTML = '';
+  const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+  const daysIn   = new Date(currentYear, currentMonth+1, 0).getDate();
+  const todayStr = makeDateStr(today.getFullYear(), today.getMonth(), today.getDate());
+
+  for(let i=0;i<firstDay;i++) body.appendChild(document.createElement('div'));
+
+  for(let d=1; d<=daysIn; d++) {
+    const ds = makeDateStr(currentYear, currentMonth, d);
+    const isPast = new Date(currentYear, currentMonth, d) < today;
+    const avail  = selectedGames.size > 0 ? minAvailForSelected(ds) : 999;
+    const isSelected = selectedDates.has(ds);
+
+    const cell = document.createElement('div');
+    cell.className = 'cal-day';
+
+    if(isPast) {
+      cell.classList.add('past');
+    } else if(selectedGames.size > 0 && avail === 0) {
+      cell.classList.add('blocked');
+    } else if(selectedGames.size > 0 && avail === 1) {
+      cell.classList.add('partial');
+    }
+    if(isSelected) { cell.classList.add('selected'); cell.classList.remove('partial','blocked'); }
+    if(ds === todayStr && !isPast) cell.classList.add('today-cell');
+
+    // dot color
+    let dotColor = 'var(--green)';
+    if(cell.classList.contains('partial')) dotColor = '#D97706';
+    cell.innerHTML = `<span class="day-num">${d}</span><div class="day-dot" style="background:${dotColor}"></div>`;
+
+    if(!isPast && avail > 0) {
+      cell.addEventListener('click', () => {
+        if(selectedDates.has(ds)) selectedDates.delete(ds);
+        else selectedDates.add(ds);
+        renderCalendar();
+        renderSummary();
+      });
+    }
+    body.appendChild(cell);
+  }
+}
+
+// ── SUMMARY ──
+function renderSummary() {
+  const empty   = document.getElementById('summaryEmpty');
+  const list    = document.getElementById('summaryList');
+  const btn     = document.getElementById('submitBtn');
+  const total   = document.getElementById('summaryTotal');
+  const count   = document.getElementById('summaryCount');
+  const totalAmt= document.getElementById('totalAmt');
+  list.innerHTML = '';
+
+  const combos = [];
+  selectedGames.forEach(gid => selectedDates.forEach(d => combos.push({gid,d})));
+
+  if(!combos.length) {
+    empty.style.display=''; total.style.display='none'; count.style.display='none';
+    btn.disabled = true; return;
+  }
+  empty.style.display = 'none';
+  combos.sort((a,b)=>a.d.localeCompare(b.d)||a.gid.localeCompare(b.gid));
+
+  let grandTotal = 0;
+  combos.forEach(({gid,d}) => {
+    const g = GAMES.find(x=>x.id===gid);
+    const [y,m,day] = d.split('-');
+    const label = new Date(+y,+m-1,+day).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+    grandTotal += g.price;
+    const row = document.createElement('div');
+    row.className = 'sum-row';
+    row.innerHTML = `
+      <img class="sum-thumb" src="${g.photo}" alt="${g.name}">
+      <div class="sum-info"><div class="sum-game">${g.name}</div><div class="sum-price">$${g.price}/day</div></div>
+      <span class="sum-date">${label}</span>
+      <button class="sum-rm" title="Remove">&times;</button>`;
+    row.querySelector('.sum-rm').addEventListener('click', () => {
+      selectedDates.delete(d); renderCalendar(); renderSummary();
+    });
+    list.appendChild(row);
+  });
+
+  total.style.display='flex';
+  totalAmt.textContent = `$${grandTotal}`;
+  count.textContent = `${combos.length} item${combos.length>1?'s':''}`;
+  count.style.display='inline';
+  btn.disabled = false;
+}
+
+// ── NAV ──
+document.getElementById('prevBtn').addEventListener('click', ()=>{
+  if(--currentMonth<0){currentMonth=11;currentYear--;} renderCalendar();
+});
+document.getElementById('nextBtn').addEventListener('click', ()=>{
+  if(++currentMonth>11){currentMonth=0;currentYear++;} renderCalendar();
+});
+
+// ── SUBMIT ──
+document.getElementById('submitBtn').addEventListener('click', async () => {
+  const name     = document.getElementById('fName').value.trim();
+  const phone    = document.getElementById('fPhone').value.trim();
+  const email    = document.getElementById('fEmail').value.trim();
+  const location = document.getElementById('fLocation').value.trim();
+  const evType   = document.getElementById('fEventType').value;
+  const guests   = document.getElementById('fGuests').value.trim();
+  const notes    = document.getElementById('fNotes').value.trim();
+
+  if(!name || !phone || !email) {
+    alert('Please fill in your name, phone number, and email before submitting.'); return;
+  }
+
+  const combos = [];
+  selectedGames.forEach(gid => selectedDates.forEach(d => combos.push({gid,d})));
+  if(!combos.length) { alert('Please select at least one game and date.'); return; }
+
+  const lines = combos.sort((a,b)=>a.d.localeCompare(b.d)).map(({gid,d}) => {
+    const g = GAMES.find(x=>x.id===gid);
+    const [y,m,day] = d.split('-');
+    const label = new Date(+y,+m-1,+day).toLocaleDateString('en-US',{weekday:'short',month:'long',day:'numeric',year:'numeric'});
+    return `• ${g.name} — ${label} ($${g.price}/day)`;
+  });
+  const totalAmt = combos.reduce((s,{gid})=>s+(GAMES.find(x=>x.id===gid)?.price||0),0);
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.textContent = 'Sending...';
+
+  try {
+    const res = await fetch(FORMSPREE_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({
+        subject: `New Rental Request — ${name}`,
+        '--- CONTACT INFO ---': '---',
+        name, phone, email,
+        event_location: location || 'Not provided',
+        event_type: evType || 'Not specified',
+        estimated_guests: guests || 'Not provided',
+        '--- ORDER ---': '---',
+        order: lines.join('\n'),
+        estimated_total: `$${totalAmt}`,
+        notes: notes || 'None',
+      })
+    });
+    if(res.ok) {
+      const t = document.getElementById('toast');
+      t.textContent = '✅ Request sent! We\'ll text or email you within 24 hours.';
+      t.classList.add('show');
+      setTimeout(()=>t.classList.remove('show'), 5000);
+      selectedGames.clear(); selectedDates.clear();
+      document.querySelectorAll('.game-card.selected').forEach(c=>c.classList.remove('selected'));
+      ['fName','fPhone','fEmail','fLocation','fGuests','fNotes'].forEach(id=>document.getElementById(id).value='');
+      document.getElementById('fEventType').value='';
+      updateCalHint(); renderCalendar(); renderSummary();
+    } else { throw new Error(); }
+  } catch(e) {
+    alert('Something went wrong. Please try again or reach out directly.');
+  }
+  btn.innerHTML = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg> Send Rental Request';
+  btn.disabled = false;
+});
+
+// ── INIT ──
+renderGames();
+renderCalendar();
+renderSummary();
+</script>
 </body>
 </html>
