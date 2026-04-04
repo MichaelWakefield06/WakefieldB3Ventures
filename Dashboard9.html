@@ -158,11 +158,44 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
     <div style="font-size:40px;margin-bottom:12px">🎯</div>
     <h1>Owner Dashboard</h1>
     <p>Backyard Game Rentals — Greenville, SC</p>
-    <input type="password" id="pwInput" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
+    
+    <!-- PIN input -->
+    <input 
+      type="password" 
+      id="pwInput" 
+      placeholder="Enter PIN" 
+      inputmode="numeric" 
+      pattern="[0-9]*"
+      maxlength="6"
+      onkeydown="if(event.key==='Enter') doLogin()"
+    >
+
     <button onclick="doLogin()">Sign In</button>
-    <div class="login-err" id="loginErr">Incorrect password. Try again.</div>
+
+    <!-- Error message, hidden by default -->
+    <div class="login-err" id="loginErr" style="display:none;color:red;margin-top:8px;">
+      Incorrect PIN. Try again.
+    </div>
   </div>
 </div>
+
+<script>
+function doLogin() {
+  const input = document.getElementById("pwInput").value;
+  const correctPIN = "110406";
+
+  if(input === correctPIN) {
+    // Hide login screen
+    document.getElementById("loginScreen").style.display = "none";
+
+    // Optional: show dashboard div if you have one
+    // document.getElementById("dashboard").style.display = "block";
+  } else {
+    // Show error message
+    document.getElementById("loginErr").style.display = "block";
+  }
+}
+</script>
 
 <!-- APP -->
 <div id="appScreen">
