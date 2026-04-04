@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Yard Game Rentals</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#2A7D4F;--green-dark:#1a5435;--green-light:#EBF7F0;
+  --orange:#F2784B;--yellow:#F5C842;--red:#EF4444;--red-light:#FEF2F2;
+  --white:#fff;--bg:#F1F0EB;--sidebar:#1C2B22;
+  --text:#1C1C1C;--muted:#6B7280;--border:#E4E0D8;
+  --radius:12px;--radius-lg:18px;
+}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* LOGIN */
+#loginScreen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--sidebar)}
+.login-box{background:var(--white);border-radius:var(--radius-lg);padding:48px 40px;width:100%;max-width:400px;text-align:center}
+.login-box h1{font-family:'Fraunces',serif;font-size:28px;margin-bottom:6px}
+.login-box p{color:var(--muted);font-size:14px;margin-bottom:28px}
+.login-box input{width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;margin-bottom:12px;outline:none;transition:border-color 0.15s}
+.login-box input:focus{border-color:var(--green)}
+.login-box button{width:100%;padding:13px;background:var(--green);color:#fff;border:none;border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:background 0.15s}
+.login-box button:hover{background:var(--green-dark)}
+.login-err{color:var(--red);font-size:13px;margin-top:8px;display:none}
+
+/* LAYOUT */
+#appScreen{display:none;min-height:100vh}
+.layout{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{background:var(--sidebar);padding:32px 20px;display:flex;flex-direction:column}
+.sidebar-logo{font-family:'Fraunces',serif;font-size:20px;color:#fff;margin-bottom:8px}
+.sidebar-sub{font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:36px;font-weight:500}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;cursor:pointer;color:rgba(255,255,255,0.6);font-size:14px;font-weight:600;margin-bottom:4px;transition:all 0.15s}
+.nav-item:hover{background:rgba(255,255,255,0.08);color:#fff}
+.nav-item.active{background:var(--green);color:#fff}
+.nav-icon{font-size:17px;width:20px;text-align:center}
+.sidebar-bottom{margin-top:auto}
+.logout-btn{width:100%;padding:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:rgba(255,255,255,0.6);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.logout-btn:hover{background:rgba(255,255,255,0.12);color:#fff}
+
+/* MAIN */
+.main-content{padding:36px 40px;overflow-y:auto}
+.page-header{margin-bottom:32px}
+.page-title{font-family:'Fraunces',serif;font-size:30px;font-weight:700;margin-bottom:4px}
+.page-sub{font-size:14px;color:var(--muted);font-weight:500}
+
+/* TABS */
+.tab-content{display:none}.tab-content.active{display:block}
+
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:32px}
+.stat-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:20px;display:flex;flex-direction:column;gap:6px}
+.stat-label{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+.stat-val{font-family:'Fraunces',serif;font-size:32px;font-weight:700;line-height:1}
+.stat-note{font-size:12px;color:var(--muted);font-weight:500}
+
+/* GAME MANAGEMENT */
+.games-manage{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.gm-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.gm-photo{width:100%;height:130px;object-fit:cover;display:block}
+.gm-body{padding:16px}
+.gm-name{font-weight:700;font-size:15px;margin-bottom:12px}
+.gm-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-size:13px}
+.gm-label{color:var(--muted);font-weight:600}
+.gm-ctrl{display:flex;align-items:center;gap:8px}
+.qty-btn{width:28px;height:28px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg);cursor:pointer;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:all 0.12s;color:var(--text)}
+.qty-btn:hover{background:var(--green);border-color:var(--green);color:#fff}
+.qty-val{font-weight:700;font-size:15px;min-width:20px;text-align:center}
+.price-input{width:80px;padding:6px 10px;border:1.5px solid var(--border);border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;text-align:right;outline:none;transition:border-color 0.12s}
+.price-input:focus{border-color:var(--green)}
+.gm-save{width:100%;padding:9px;background:var(--green);color:#fff;border:none;border-radius:9px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;margin-top:6px;transition:background 0.15s}
+.gm-save:hover{background:var(--green-dark)}
+.gm-saved{background:var(--green-light);color:var(--green-dark);border:none;border-radius:9px;width:100%;padding:9px;font-size:13px;font-weight:700;text-align:center;margin-top:6px;display:none}
+
+/* BOOKING CALENDAR */
+.booking-layout{display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start}
+.cal-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.cal-card-header{padding:18px 22px;border-bottom:1.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.cal-card-header h3{font-family:'Fraunces',serif;font-size:18px;font-weight:700}
+.cal-nav-row{display:flex;gap:8px;align-items:center}
+.cal-nav-btn{background:var(--bg);border:1.5px solid var(--border);border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;font-weight:700;transition:all 0.12s}
+.cal-nav-btn:hover{background:var(--green);border-color:var(--green);color:#fff}
+.cal-month-lbl{font-weight:700;font-size:14px;min-width:130px;text-align:center}
+.d-cal-dow{display:grid;grid-template-columns:repeat(7,1fr);background:#fafaf8}
+.d-cal-dow div{text-align:center;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);padding:10px 4px}
+.d-cal-body{display:grid;grid-template-columns:repeat(7,1fr);padding:10px;gap:3px}
+.d-day{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:9px;cursor:pointer;font-size:13px;font-weight:600;transition:all 0.12s;border:1.5px solid transparent;position:relative}
+.d-day:hover:not(.d-past){background:var(--green-light);border-color:var(--green)}
+.d-day.d-past{opacity:0.3;cursor:default}
+.d-day.d-selected{background:var(--green);color:#fff;border-color:var(--green)}
+.d-day.d-booked{background:#FEF2F2;border-color:#FECACA}
+.d-day.d-partial{background:#FFFBEB;border-color:#FDE68A}
+.d-day.d-today{border-color:var(--orange)}
+.d-day-num{font-size:12px;line-height:1}
+.d-day-dot{width:4px;height:4px;border-radius:50%;margin-top:2px}
+
+/* BOOKING PANEL */
+.booking-panel{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.bp-header{padding:16px 20px;border-bottom:1.5px solid var(--border);background:#fafaf8}
+.bp-header h3{font-family:'Fraunces',serif;font-size:17px;font-weight:700;margin-bottom:2px}
+.bp-header p{font-size:12px;color:var(--muted);font-weight:500}
+.bp-body{padding:16px 20px}
+.bp-date-sel{font-size:13px;color:var(--muted);text-align:center;padding:20px 0;font-weight:500}
+.game-book-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);gap:10px}
+.game-book-row:last-child{border-bottom:none}
+.gbr-left{display:flex;align-items:center;gap:10px}
+.gbr-thumb{width:34px;height:34px;border-radius:7px;object-fit:cover}
+.gbr-name{font-weight:700;font-size:13px}
+.gbr-avail{font-size:11px;color:var(--muted);font-weight:500}
+.gbr-actions{display:flex;align-items:center;gap:6px}
+.book-toggle{padding:5px 12px;border-radius:7px;border:1.5px solid;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.12s;font-family:'Plus Jakarta Sans',sans-serif}
+.book-toggle.free{border-color:var(--green);background:var(--green-light);color:var(--green-dark)}
+.book-toggle.free:hover{background:var(--green);color:#fff}
+.book-toggle.booked{border-color:var(--red);background:var(--red-light);color:var(--red)}
+.book-toggle.booked:hover{background:var(--red);color:#fff}
+.add-booking-form{margin-top:16px;padding-top:16px;border-top:1.5px solid var(--border)}
+.add-booking-form h4{font-size:13px;font-weight:700;margin-bottom:10px}
+.abf-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.abf-input{padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;outline:none;width:100%;transition:border-color 0.12s}
+.abf-input:focus{border-color:var(--green)}
+.abf-label{font-size:11px;font-weight:700;color:var(--muted);margin-bottom:3px}
+.abf-btn{width:100%;padding:8px;background:var(--orange);color:#fff;border:none;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:background 0.12s}
+.abf-btn:hover{background:#d4633a}
+
+/* BOOKINGS LIST */
+.bookings-list{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.bk-item{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 18px;display:flex;align-items:center;gap:14px}
+.bk-date{background:var(--green);color:#fff;border-radius:10px;padding:8px 12px;text-align:center;min-width:52px;flex-shrink:0}
+.bk-date-d{font-family:'Fraunces',serif;font-size:22px;font-weight:700;line-height:1}
+.bk-date-m{font-size:10px;font-weight:700;letter-spacing:1px;opacity:0.85}
+.bk-info{flex:1;min-width:0}
+.bk-game{font-weight:700;font-size:14px}
+.bk-meta{font-size:12px;color:var(--muted);margin-top:2px}
+.bk-del{background:none;border:none;color:#D1D5DB;cursor:pointer;font-size:18px;padding:4px;transition:color 0.12s;flex-shrink:0}
+.bk-del:hover{color:var(--red)}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--green-dark);color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:700;opacity:0;transition:all 0.25s;pointer-events:none;z-index:999}
+.toast.show{opacity:1}
+
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .booking-layout{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div style="font-size:40px;margin-bottom:12px">🎯</div>
+    <h1>Owner Dashboard</h1>
+    <p>Backyard Game Rentals — Greenville, SC</p>
+    <input type="password" id="pwInput" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">Sign In</button>
+    <div class="login-err" id="loginErr">Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="appScreen">
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-logo">🎯 YGR Admin</div>
+      <div class="sidebar-sub">Greenville, SC</div>
+      <div class="nav-item active" onclick="showTab('overview',this)"><span class="nav-icon">📊</span>Overview</div>
+      <div class="nav-item" onclick="showTab('games',this)"><span class="nav-icon">🎮</span>Manage Games</div>
+      <div class="nav-item" onclick="showTab('calendar',this)"><span class="nav-icon">📅</span>Bookings Calendar</div>
+      <div class="nav-item" onclick="showTab('allbookings',this)"><span class="nav-icon">📋</span>All Bookings</div>
+      <div class="sidebar-bottom">
+        <a href="index.html" target="_blank" style="display:block;text-align:center;color:rgba(255,255,255,0.45);font-size:12px;font-weight:600;margin-bottom:10px;text-decoration:none">↗ View Customer Site</a>
+        <button class="logout-btn" onclick="doLogout()">Sign Out</button>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main-content">
+
+      <!-- OVERVIEW -->
+      <div class="tab-content active" id="tab-overview">
+        <div class="page-header">
+          <div class="page-title">Good to see you! 👋</div>
+          <div class="page-sub">Here's a snapshot of your rental business.</div>
+        </div>
+        <div class="stats-row" id="statsRow"></div>
+        <h3 style="font-family:'Fraunces',serif;font-size:18px;margin-bottom:14px">Upcoming Bookings</h3>
+        <div id="upcomingList" class="bookings-list"></div>
+      </div>
+
+      <!-- MANAGE GAMES -->
+      <div class="tab-content" id="tab-games">
+        <div class="page-header">
+          <div class="page-title">Manage Games</div>
+          <div class="page-sub">Update quantities, prices, and replacement costs.</div>
+        </div>
+        <div class="games-manage" id="gamesManage"></div>
+      </div>
+
+      <!-- BOOKINGS CALENDAR -->
+      <div class="tab-content" id="tab-calendar">
+        <div class="page-header">
+          <div class="page-title">Bookings Calendar</div>
+          <div class="page-sub">Click a date to view and manage bookings for that day.</div>
+        </div>
+        <div class="booking-layout">
+          <div class="cal-card">
+            <div class="cal-card-header">
+              <h3 id="dCalMonth"></h3>
+              <div class="cal-nav-row">
+                <button class="cal-nav-btn" id="dPrevBtn">&#8592;</button>
+                <button class="cal-nav-btn" id="dNextBtn">&#8594;</button>
+              </div>
+            </div>
+            <div class="d-cal-dow">
+              <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+            </div>
+            <div class="d-cal-body" id="dCalBody"></div>
+          </div>
+          <div class="booking-panel">
+            <div class="bp-header">
+              <h3 id="bpTitle">Select a Date</h3>
+              <p id="bpSub">Click any date to manage bookings</p>
+            </div>
+            <div class="bp-body" id="bpBody">
+              <div class="bp-date-sel">Click a date on the calendar to see availability and manage bookings.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ALL BOOKINGS -->
+      <div class="tab-content" id="tab-allbookings">
+        <div class="page-header">
+          <div class="page-title">All Bookings</div>
+          <div class="page-sub">Every booked date across all games.</div>
+        </div>
+        <div id="allBookingsList" class="bookings-list"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── AUTH ──
+const PASS = 'ygr2024'; // Change this password!
+
+function doLogin() {
+  if(document.getElementById('pwInput').value === PASS) {
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('appScreen').style.display='block';
+    initApp();
+  } else {
+    document.getElementById('loginErr').style.display='block';
+    document.getElementById('pwInput').value='';
+    document.getElementById('pwInput').focus();
+  }
+}
+function doLogout() {
+  document.getElementById('loginScreen').style.display='flex';
+  document.getElementById('appScreen').style.display='none';
+  document.getElementById('pwInput').value='';
+}
+document.getElementById('pwInput').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
+
+// ── INVENTORY ──
+function getInventory() {
+  try { const s=localStorage.getItem('ygr_inventory'); if(s) return JSON.parse(s); } catch(e){}
+  return defaultInventory();
+}
+function saveInventory(inv) { localStorage.setItem('ygr_inventory', JSON.stringify(inv)); }
+function defaultInventory() {
+  return [
+    {id:'cornhole', name:'Cornhole', price:35, quantity:2, replacementCost:150, bookings:[],
+     photo:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75&auto=format&fit=crop'},
+    {id:'bocce', name:'Bocce Ball', price:25, quantity:1, replacementCost:80, bookings:[],
+     photo:'https://images.unsplash.com/photo-1630175860108-6b8b0de7f2e5?w=600&q=75&auto=format&fit=crop'},
+    {id:'spikeball', name:'Spikeball', price:30, quantity:1, replacementCost:60, bookings:[],
+     photo:'https://images.unsplash.com/photo-1554068865-24ceec8c5e73?w=600&q=75&auto=format&fit=crop'},
+    {id:'jenga', name:'Giant Jenga', price:28, quantity:1, replacementCost:120, bookings:[],
+     photo:'https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=600&q=75&auto=format&fit=crop'},
+    {id:'ladder', name:'Ladder Toss', price:25, quantity:2, replacementCost:70, bookings:[],
+     photo:'https://images.unsplash.com/photo-1567599672391-17b31d92e431?w=600&q=75&auto=format&fit=crop'},
+    {id:'kanjam', name:'Kan Jam', price:22, quantity:1, replacementCost:50, bookings:[],
+     photo:'https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=600&q=75&auto=format&fit=crop'},
+    {id:'washer', name:'Washer Toss', price:20, quantity:2, replacementCost:40, bookings:[],
+     photo:'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=75&auto=format&fit=crop'},
+    {id:'lawnpong', name:'Lawn Pong', price:32, quantity:1, replacementCost:90, bookings:[],
+     photo:'https://images.unsplash.com/photo-1541534401786-2077eed87a74?w=600&q=75&auto=format&fit=crop'},
+  ];
+}
+
+let GAMES = [];
+let dMonth = new Date().getMonth();
+let dYear  = new Date().getFullYear();
+let selectedDate = null;
+const today = new Date(); today.setHours(0,0,0,0);
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const MONTHS_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function pad(n){ return String(n).padStart(2,'0'); }
+function makeDateStr(y,m,d){ return `${y}-${pad(m+1)}-${pad(d)}`; }
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2500);
+}
+
+// ── TABS ──
+function showTab(name, el) {
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  if(el) el.classList.add('active');
+  if(name==='overview') renderOverview();
+  if(name==='games') renderGamesManage();
+  if(name==='calendar') renderDashCal();
+  if(name==='allbookings') renderAllBookings();
+}
+
+// ── OVERVIEW ──
+function renderOverview() {
+  GAMES = getInventory();
+  const allBookings = [];
+  GAMES.forEach(g => g.bookings.forEach(b => {
+    let d = new Date(b.start);
+    const end = new Date(b.end);
+    while(d <= end) {
+      allBookings.push({game:g.name, date:d.toISOString().split('T')[0], renter:b.renter||''});
+      d = new Date(d.getTime()+86400000);
+    }
+  }));
+  const upcoming = allBookings.filter(b=>b.date >= makeDateStr(today.getFullYear(),today.getMonth(),today.getDate())).sort((a,b)=>a.date.localeCompare(b.date));
+  const todayStr = makeDateStr(today.getFullYear(), today.getMonth(), today.getDate());
+  const todayCount = allBookings.filter(b=>b.date===todayStr).length;
+
+  document.getElementById('statsRow').innerHTML = `
+    <div class="stat-card"><div class="stat-label">Total Games</div><div class="stat-val">${GAMES.length}</div><div class="stat-note">in inventory</div></div>
+    <div class="stat-card"><div class="stat-label">Booked Today</div><div class="stat-val">${todayCount}</div><div class="stat-note">game-days</div></div>
+    <div class="stat-card"><div class="stat-label">Upcoming</div><div class="stat-val">${upcoming.length}</div><div class="stat-note">reservations</div></div>
+    <div class="stat-card"><div class="stat-label">Total Units</div><div class="stat-val">${GAMES.reduce((s,g)=>s+g.quantity,0)}</div><div class="stat-note">across all games</div></div>`;
+
+  const ul = document.getElementById('upcomingList');
+  if(!upcoming.length) { ul.innerHTML='<div style="color:var(--muted);font-size:14px;font-weight:600;padding:20px 0">No upcoming bookings yet.</div>'; return; }
+  ul.innerHTML = '';
+  upcoming.slice(0,10).forEach(b=>{
+    const [y,m,d] = b.date.split('-');
+    const item = document.createElement('div');
+    item.className='bk-item';
+    item.innerHTML=`<div class="bk-date"><div class="bk-date-d">${+d}</div><div class="bk-date-m">${MONTHS_SHORT[+m-1]}</div></div><div class="bk-info"><div class="bk-game">${b.game}</div><div class="bk-meta">${b.renter ? 'Renter: '+b.renter : 'No renter info'} · ${b.date}</div></div>`;
+    ul.appendChild(item);
+  });
+}
+
+// ── GAMES MANAGE ──
+function renderGamesManage() {
+  GAMES = getInventory();
+  const c = document.getElementById('gamesManage');
+  c.innerHTML = '';
+  GAMES.forEach((g,i) => {
+    const card = document.createElement('div');
+    card.className='gm-card';
+    card.innerHTML=`
+      <img class="gm-photo" src="${g.photo}" alt="${g.name}">
+      <div class="gm-body">
+        <div class="gm-name">${g.name}</div>
+        <div class="gm-row">
+          <span class="gm-label">Quantity</span>
+          <div class="gm-ctrl">
+            <button class="qty-btn" onclick="changeQty(${i},-1)">−</button>
+            <span class="qty-val" id="qty-${i}">${g.quantity}</span>
+            <button class="qty-btn" onclick="changeQty(${i},1)">+</button>
+          </div>
+        </div>
+        <div class="gm-row">
+          <span class="gm-label">Price/day</span>
+          <div class="gm-ctrl">
+            <span style="color:var(--muted);font-size:13px">$</span>
+            <input class="price-input" id="price-${i}" type="number" value="${g.price}" min="1">
+          </div>
+        </div>
+        <div class="gm-row">
+          <span class="gm-label">Replacement $</span>
+          <div class="gm-ctrl">
+            <span style="color:var(--muted);font-size:13px">$</span>
+            <input class="price-input" id="replace-${i}" type="number" value="${g.replacementCost}" min="1">
+          </div>
+        </div>
+        <button class="gm-save" onclick="saveGame(${i})">Save Changes</button>
+        <div class="gm-saved" id="saved-${i}">✓ Saved!</div>
+      </div>`;
+    c.appendChild(card);
+  });
+}
+
+function changeQty(i, delta) {
+  GAMES = getInventory();
+  GAMES[i].quantity = Math.max(0, GAMES[i].quantity + delta);
+  document.getElementById('qty-'+i).textContent = GAMES[i].quantity;
+}
+
+function saveGame(i) {
+  GAMES = getInventory();
+  GAMES[i].price = parseInt(document.getElementById('price-'+i).value)||GAMES[i].price;
+  GAMES[i].replacementCost = parseInt(document.getElementById('replace-'+i).value)||GAMES[i].replacementCost;
+  GAMES[i].quantity = parseInt(document.getElementById('qty-'+i).textContent)||0;
+  saveInventory(GAMES);
+  const savedEl = document.getElementById('saved-'+i);
+  savedEl.style.display='block';
+  setTimeout(()=>savedEl.style.display='none', 2000);
+  showToast(`✓ ${GAMES[i].name} updated`);
+}
+
+// ── DASHBOARD CALENDAR ──
+function renderDashCal() {
+  GAMES = getInventory();
+  document.getElementById('dCalMonth').textContent = `${MONTHS[dMonth]} ${dYear}`;
+  const body = document.getElementById('dCalBody');
+  body.innerHTML='';
+  const firstDay = new Date(dYear,dMonth,1).getDay();
+  const daysIn = new Date(dYear,dMonth+1,0).getDate();
+  const todayStr = makeDateStr(today.getFullYear(),today.getMonth(),today.getDate());
+
+  for(let i=0;i<firstDay;i++) body.appendChild(document.createElement('div'));
+
+  for(let d=1;d<=daysIn;d++){
+    const ds = makeDateStr(dYear,dMonth,d);
+    const isPast = new Date(dYear,dMonth,d)<today;
+    // count how many game-units are booked vs total
+    const totalUnits = GAMES.reduce((s,g)=>s+g.quantity,0);
+    const bookedUnits = GAMES.reduce((s,g)=>{
+      const cnt = g.bookings.filter(b=>ds>=b.start&&ds<=b.end).length;
+      return s+Math.min(cnt,g.quantity);
+    },0);
+
+    const cell = document.createElement('div');
+    cell.className='d-day';
+    if(isPast) cell.classList.add('d-past');
+    else if(bookedUnits===totalUnits&&totalUnits>0) cell.classList.add('d-booked');
+    else if(bookedUnits>0) cell.classList.add('d-partial');
+    if(ds===selectedDate) cell.classList.add('d-selected');
+    if(ds===todayStr&&!isPast) cell.classList.add('d-today');
+
+    let dotColor='var(--green)';
+    if(cell.classList.contains('d-booked')) dotColor='var(--red)';
+    else if(cell.classList.contains('d-partial')) dotColor='#D97706';
+    cell.innerHTML=`<span class="d-day-num">${d}</span><div class="d-day-dot" style="background:${isPast?'#ccc':dotColor}"></div>`;
+
+    if(!isPast){
+      cell.addEventListener('click',()=>{ selectedDate=ds; renderDashCal(); renderBookingPanel(ds); });
+    }
+    body.appendChild(cell);
+  }
+}
+
+function renderBookingPanel(ds) {
+  GAMES = getInventory();
+  const [y,m,d] = ds.split('-');
+  const label = new Date(+y,+m-1,+d).toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  document.getElementById('bpTitle').textContent = label;
+  document.getElementById('bpSub').textContent = 'Manage bookings for this date';
+
+  const body = document.getElementById('bpBody');
+  body.innerHTML='';
+
+  GAMES.forEach((g,gi) => {
+    const bookedCount = g.bookings.filter(b=>ds>=b.start&&ds<=b.end).length;
+    const avail = Math.max(0, g.quantity - bookedCount);
+    const row = document.createElement('div');
+    row.className='game-book-row';
+    row.innerHTML=`
+      <div class="gbr-left">
+        <img class="gbr-thumb" src="${g.photo}" alt="${g.name}">
+        <div>
+          <div class="gbr-name">${g.name}</div>
+          <div class="gbr-avail">${avail}/${g.quantity} available</div>
+        </div>
+      </div>
+      <div class="gbr-actions">
+        ${avail>0
+          ? `<button class="book-toggle free" onclick="addBookingForDate('${g.id}','${ds}')">+ Book</button>`
+          : `<button class="book-toggle booked" onclick="removeBookingForDate('${g.id}','${ds}')">Unbook</button>`
+        }
+      </div>`;
+    body.appendChild(row);
+  });
+
+  // Add booking form
+  const form = document.createElement('div');
+  form.className='add-booking-form';
+  form.innerHTML=`
+    <h4>Add Multi-Day Booking</h4>
+    <div class="abf-row">
+      <div><div class="abf-label">Game</div>
+        <select class="abf-input" id="abfGame">${GAMES.map(g=>`<option value="${g.id}">${g.name}</option>`).join('')}</select>
+      </div>
+      <div><div class="abf-label">Renter Name</div><input class="abf-input" id="abfRenter" placeholder="Jane Smith"></div>
+    </div>
+    <div class="abf-row">
+      <div><div class="abf-label">Start Date</div><input class="abf-input" type="date" id="abfStart" value="${ds}"></div>
+      <div><div class="abf-label">End Date</div><input class="abf-input" type="date" id="abfEnd" value="${ds}"></div>
+    </div>
+    <button class="abf-btn" onclick="addMultiDayBooking()">Add Booking</button>`;
+  body.appendChild(form);
+}
+
+function addBookingForDate(gameId, ds) {
+  GAMES = getInventory();
+  const g = GAMES.find(x=>x.id===gameId);
+  if(!g) return;
+  const renter = prompt('Renter name (optional):') || '';
+  g.bookings.push({start:ds, end:ds, renter});
+  saveInventory(GAMES);
+  showToast(`✓ ${g.name} booked for ${ds}`);
+  renderDashCal(); renderBookingPanel(ds);
+}
+
+function removeBookingForDate(gameId, ds) {
+  GAMES = getInventory();
+  const g = GAMES.find(x=>x.id===gameId);
+  if(!g) return;
+  // Remove first booking that covers this date
+  const idx = g.bookings.findIndex(b=>ds>=b.start&&ds<=b.end);
+  if(idx>=0) g.bookings.splice(idx,1);
+  saveInventory(GAMES);
+  showToast(`✓ Booking removed for ${g.name}`);
+  renderDashCal(); renderBookingPanel(ds);
+}
+
+function addMultiDayBooking() {
+  GAMES = getInventory();
+  const gameId = document.getElementById('abfGame').value;
+  const start = document.getElementById('abfStart').value;
+  const end = document.getElementById('abfEnd').value;
+  const renter = document.getElementById('abfRenter').value.trim();
+  if(!start||!end||start>end) { alert('Please enter valid start and end dates.'); return; }
+  const g = GAMES.find(x=>x.id===gameId);
+  if(!g) return;
+  g.bookings.push({start,end,renter});
+  saveInventory(GAMES);
+  showToast(`✓ ${g.name} booked ${start} → ${end}`);
+  renderDashCal();
+  if(selectedDate) renderBookingPanel(selectedDate);
+}
+
+// Nav buttons
+document.getElementById('dPrevBtn').addEventListener('click',()=>{
+  if(--dMonth<0){dMonth=11;dYear--;} renderDashCal();
+});
+document.getElementById('dNextBtn').addEventListener('click',()=>{
+  if(++dMonth>11){dMonth=0;dYear++;} renderDashCal();
+});
+
+// ── ALL BOOKINGS ──
+function renderAllBookings() {
+  GAMES = getInventory();
+  const all = [];
+  GAMES.forEach(g=>g.bookings.forEach(b=>all.push({...b,game:g.name,photo:g.photo})));
+  all.sort((a,b)=>a.start.localeCompare(b.start));
+  const list = document.getElementById('allBookingsList');
+  if(!all.length){ list.innerHTML='<div style="color:var(--muted);font-size:14px;font-weight:600;padding:20px 0">No bookings yet.</div>'; return; }
+  list.innerHTML='';
+  all.forEach(b=>{
+    const [y,m,d]=b.start.split('-');
+    const item=document.createElement('div');
+    item.className='bk-item';
+    const range = b.start===b.end ? b.start : `${b.start} → ${b.end}`;
+    item.innerHTML=`<div class="bk-date"><div class="bk-date-d">${+d}</div><div class="bk-date-m">${MONTHS_SHORT[+m-1]}</div></div><img style="width:40px;height:40px;border-radius:8px;object-fit:cover;flex-shrink:0" src="${b.photo}"><div class="bk-info"><div class="bk-game">${b.game}</div><div class="bk-meta">${range}${b.renter?' · '+b.renter:''}</div></div>`;
+    list.appendChild(item);
+  });
+}
+
+// ── INIT ──
+function initApp() {
+  GAMES = getInventory();
+  renderOverview();
+  renderDashCal();
+}
+</script>
+</body>
+</html>
