@@ -155,6 +155,35 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--green-dark);color:#fff;padding:13px 26px;border-radius:13px;font-size:14px;font-weight:700;opacity:0;transition:all 0.3s;z-index:999;pointer-events:none;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,0.2)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
+/* DATE CHECKER */
+.date-checker{background:var(--white);border:2px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:64px}
+.dc-header{background:var(--green);padding:22px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.dc-header-text h3{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:3px}
+.dc-header-text p{color:rgba(255,255,255,0.75);font-size:13px;font-weight:500}
+.dc-input-wrap{display:flex;align-items:center;gap:10px}
+.dc-input{padding:10px 16px;border:2px solid rgba(255,255,255,0.3);border-radius:10px;background:rgba(255,255,255,0.15);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;outline:none;transition:border-color 0.15s;cursor:pointer}
+.dc-input::-webkit-calendar-picker-indicator{filter:invert(1);cursor:pointer}
+.dc-input:focus{border-color:rgba(255,255,255,0.7)}
+.dc-body{padding:24px 28px}
+.dc-prompt{color:var(--muted);font-size:15px;font-weight:600;text-align:center;padding:20px 0}
+.dc-results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
+.dc-game-tile{border-radius:var(--radius);overflow:hidden;border:2px solid var(--border);background:var(--white);position:relative;cursor:pointer;transition:all 0.18s}
+.dc-game-tile:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.1)}
+.dc-game-tile.avail{border-color:var(--green)}
+.dc-game-tile.unavail{opacity:0.55;cursor:default;filter:grayscale(30%)}
+.dc-game-tile:hover.unavail{transform:none;box-shadow:none}
+.dc-game-tile img{width:100%;height:110px;object-fit:cover;display:block}
+.dc-tile-info{padding:10px 12px}
+.dc-tile-name{font-weight:700;font-size:13px;margin-bottom:3px}
+.dc-tile-status{font-size:11px;font-weight:700;padding:3px 8px;border-radius:20px;display:inline-block}
+.dc-tile-status.yes{background:var(--green-light);color:var(--green-dark)}
+.dc-tile-status.no{background:#FEF2F2;color:#991B1B}
+.dc-tile-price{font-size:12px;color:var(--muted);margin-top:3px;font-weight:500}
+.dc-tile-check{position:absolute;top:7px;right:7px;background:var(--green);border-radius:50%;width:22px;height:22px;display:none;align-items:center;justify-content:center}
+.dc-game-tile.avail.selected-from-checker .dc-tile-check{display:flex}
+.dc-tile-check svg{width:11px;height:11px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.dc-add-note{font-size:12px;color:var(--muted);margin-top:14px;text-align:center;font-weight:500}
+
 @media(max-width:720px){
   .hero{height:72vh}.hero-content{padding:0 22px 40px}.hero h1{font-size:38px}
   .main{padding:48px 16px 60px}
@@ -164,6 +193,9 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
   .form-group.full{grid-column:1}
   .rules-grid{grid-template-columns:1fr}
   .rule-block{border-right:none}
+  .dc-header{flex-direction:column;align-items:flex-start}
+  .dc-input-wrap{width:100%}
+  .dc-input{flex:1}
 }
 </style>
 </head>
@@ -196,6 +228,34 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
     </div>
     <p class="step-sub">Select the games you want — availability updates on the calendar below.</p>
     <div class="games-grid" id="gamesGrid"></div>
+  </div>
+
+  <!-- DATE CHECKER -->
+  <div class="section-gap">
+    <div class="step-row">
+      <div class="step-num" style="background:var(--orange)">?</div>
+      <div class="step-text">
+        <div class="eyebrow">Quick Lookup</div>
+        <h2>What's available on my date?</h2>
+      </div>
+    </div>
+    <p class="step-sub">Pick a date to instantly see every game available that day — then add them to your order.</p>
+    <div class="date-checker">
+      <div class="dc-header">
+        <div class="dc-header-text">
+          <h3>Check a Date</h3>
+          <p>See all available games in one click</p>
+        </div>
+        <div class="dc-input-wrap">
+          <input class="dc-input" type="date" id="dcDateInput" onchange="runDateCheck()">
+        </div>
+      </div>
+      <div class="dc-body">
+        <div class="dc-prompt" id="dcPrompt">👆 Pick a date above to see what's available</div>
+        <div class="dc-results-grid" id="dcResults" style="display:none"></div>
+        <p class="dc-add-note" id="dcNote" style="display:none">Tap any available game to add it to your order ↓</p>
+      </div>
+    </div>
   </div>
 
   <!-- STEP 2: CALENDAR -->
@@ -450,7 +510,18 @@ let currentYear  = new Date().getFullYear();
 const today = new Date(); today.setHours(0,0,0,0);
 
 // ── AVAILABILITY LOGIC ──
+// Only count a booking as "blocking" if it falls within the next 14 days.
+// Beyond 14 days, assume we can reorder stock in time.
+const TWO_WEEKS_MS = 14 * 24 * 60 * 60 * 1000;
+
+function isWithinTwoWeeks(ds) {
+  const d = new Date(ds + 'T00:00:00');
+  return (d - today) <= TWO_WEEKS_MS;
+}
+
 function bookedCountOnDate(game, ds) {
+  // Only respect bookings if the date is within 2 weeks from today
+  if(!isWithinTwoWeeks(ds)) return 0;
   return game.bookings.filter(b => ds >= b.start && ds <= b.end).length;
 }
 function availableOnDate(game, ds) {
@@ -679,7 +750,90 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
   btn.disabled = false;
 });
 
+// ── DATE CHECKER ──
+function runDateCheck() {
+  GAMES = getInventory();
+  const ds = document.getElementById('dcDateInput').value;
+  const prompt = document.getElementById('dcPrompt');
+  const results = document.getElementById('dcResults');
+  const note = document.getElementById('dcNote');
+
+  if(!ds) { prompt.style.display=''; results.style.display='none'; note.style.display='none'; return; }
+
+  const dateObj = new Date(ds + 'T00:00:00');
+  if(dateObj < today) {
+    prompt.textContent = "That date has already passed — pick a future date.";
+    prompt.style.display=''; results.style.display='none'; note.style.display='none'; return;
+  }
+
+  prompt.style.display='none';
+  results.style.display='grid';
+  note.style.display='block';
+  results.innerHTML='';
+
+  const anyAvail = GAMES.some(g => availableOnDate(g, ds) > 0);
+  if(!anyAvail) {
+    results.style.display='none';
+    prompt.textContent = "No games available on that date — try another day!";
+    prompt.style.display='';
+    note.style.display='none';
+    return;
+  }
+
+  // Sort: available first
+  const sorted = [...GAMES].sort((a,b) => availableOnDate(b,ds) - availableOnDate(a,ds));
+
+  sorted.forEach(g => {
+    const avail = availableOnDate(g, ds);
+    const isAvail = avail > 0;
+    const isChecked = selectedGames.has(g.id);
+
+    const tile = document.createElement('div');
+    tile.className = 'dc-game-tile ' + (isAvail ? 'avail' : 'unavail') + (isChecked ? ' selected-from-checker' : '');
+    tile.innerHTML = `
+      <div class="dc-tile-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <img src="${g.photo}" alt="${g.name}" loading="lazy">
+      <div class="dc-tile-info">
+        <div class="dc-tile-name">${g.name}</div>
+        <div class="dc-tile-status ${isAvail?'yes':'no'}">${isAvail ? avail+' available' : 'Not available'}</div>
+        <div class="dc-tile-price">$${g.price}/day</div>
+      </div>`;
+
+    if(isAvail) {
+      tile.addEventListener('click', () => {
+        // Toggle selection and also add the date
+        if(selectedGames.has(g.id)) {
+          selectedGames.delete(g.id);
+          tile.classList.remove('selected-from-checker');
+        } else {
+          selectedGames.add(g.id);
+          tile.classList.add('selected-from-checker');
+          // Also select this date on the main calendar
+          selectedDates.add(ds);
+          // Sync main calendar to show the right month
+          const d = new Date(ds + 'T00:00:00');
+          currentMonth = d.getMonth();
+          currentYear  = d.getFullYear();
+        }
+        // Sync game card selected state in main grid
+        document.querySelectorAll('.game-card').forEach(card => {
+          card.classList.toggle('selected', selectedGames.has(card.dataset.id));
+        });
+        updateCalHint();
+        renderCalendar();
+        renderSummary();
+      });
+    }
+    results.appendChild(tile);
+  });
+}
+
 // ── INIT ──
+// Pre-fill date checker with today
+const todayInput = makeDateStr(today.getFullYear(), today.getMonth(), today.getDate());
+document.getElementById('dcDateInput').value = todayInput;
+runDateCheck();
+
 renderGames();
 renderCalendar();
 renderSummary();
