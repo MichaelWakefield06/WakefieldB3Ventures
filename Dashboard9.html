@@ -93,6 +93,9 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .d-day:hover:not(.d-past){background:var(--green-light);border-color:var(--green)}
 .d-day.d-past{opacity:0.3;cursor:default}
 .d-day.d-selected{background:var(--green);color:#fff;border-color:var(--green)}
+.d-day.d-in-range{background:var(--green-light);border-color:var(--green)}
+.d-day.d-range-start{background:var(--green);color:#fff;border-color:var(--green);border-radius:9px 0 0 9px}
+.d-day.d-range-end{background:var(--green);color:#fff;border-color:var(--green);border-radius:0 9px 9px 0}
 .d-day.d-booked{background:#FEF2F2;border-color:#FECACA}
 .d-day.d-partial{background:#FFFBEB;border-color:#FDE68A}
 .d-day.d-today{border-color:var(--orange)}
@@ -106,6 +109,22 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .bp-header p{font-size:12px;color:var(--muted);font-weight:500}
 .bp-body{padding:16px 20px}
 .bp-date-sel{font-size:13px;color:var(--muted);text-align:center;padding:20px 0;font-weight:500}
+.bp-game-select{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:9px;font-family:Plus Jakarta Sans,sans-serif;font-size:13px;font-weight:600;outline:none;background:var(--bg);margin-bottom:12px;transition:border-color 0.12s;cursor:pointer}
+.bp-game-select:focus{border-color:var(--green)}
+.bp-renter-input{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:9px;font-family:Plus Jakarta Sans,sans-serif;font-size:13px;outline:none;background:var(--bg);margin-bottom:12px;transition:border-color 0.12s}
+.bp-renter-input:focus{border-color:var(--green)}
+.bp-selected-dates{background:var(--green-light);border:1.5px solid var(--green);border-radius:9px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:var(--green-dark);font-weight:600;min-height:38px}
+.bp-book-btn{width:100%;padding:11px;background:var(--green);color:#fff;border:none;border-radius:9px;font-family:Plus Jakarta Sans,sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background 0.12s;margin-bottom:8px}
+.bp-book-btn:hover{background:var(--green-dark)}
+.bp-book-btn:disabled{background:#D1D5DB;color:#9CA3AF;cursor:not-allowed}
+.bp-clear-btn{width:100%;padding:9px;background:none;color:var(--muted);border:1.5px solid var(--border);border-radius:9px;font-family:Plus Jakarta Sans,sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.12s}
+.bp-clear-btn:hover{border-color:var(--red);color:var(--red)}
+.bp-section-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.bp-existing{margin-top:16px;padding-top:14px;border-top:1.5px solid var(--border)}
+.bp-existing-item{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px}
+.bp-existing-item:last-child{border-bottom:none}
+.bp-del-btn{background:none;border:none;color:#D1D5DB;cursor:pointer;font-size:16px;padding:2px 4px;transition:color 0.12s}
+.bp-del-btn:hover{color:var(--red)}
 .game-book-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);gap:10px}
 .game-book-row:last-child{border-bottom:none}
 .gbr-left{display:flex;align-items:center;gap:10px}
@@ -244,11 +263,11 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
           </div>
           <div class="booking-panel">
             <div class="bp-header">
-              <h3 id="bpTitle">Select a Date</h3>
-              <p id="bpSub">Click any date to manage bookings</p>
+              <h3 id="bpTitle">Select Dates</h3>
+              <p id="bpSub">Click dates on the calendar to select them</p>
             </div>
             <div class="bp-body" id="bpBody">
-              <div class="bp-date-sel">Click a date on the calendar to see availability and manage bookings.</div>
+              <div class="bp-date-sel">Click one or more dates on the calendar to get started.</div>
             </div>
           </div>
         </div>
@@ -478,6 +497,8 @@ function saveGame(i) {
 }
 
 // ── DASHBOARD CALENDAR ──
+let calSelectedDates = new Set(); // multi-select set
+
 function renderDashCal() {
   GAMES = getInventory();
   document.getElementById('dCalMonth').textContent = `${MONTHS[dMonth]} ${dYear}`;
@@ -492,7 +513,6 @@ function renderDashCal() {
   for(let d=1;d<=daysIn;d++){
     const ds = makeDateStr(dYear,dMonth,d);
     const isPast = new Date(dYear,dMonth,d)<today;
-    // count how many game-units are booked vs total
     const totalUnits = GAMES.reduce((s,g)=>s+g.quantity,0);
     const bookedUnits = GAMES.reduce((s,g)=>{
       const cnt = g.bookings.filter(b=>ds>=b.start&&ds<=b.end).length;
@@ -504,109 +524,141 @@ function renderDashCal() {
     if(isPast) cell.classList.add('d-past');
     else if(bookedUnits===totalUnits&&totalUnits>0) cell.classList.add('d-booked');
     else if(bookedUnits>0) cell.classList.add('d-partial');
-    if(ds===selectedDate) cell.classList.add('d-selected');
+    if(calSelectedDates.has(ds)) cell.classList.add('d-selected');
     if(ds===todayStr&&!isPast) cell.classList.add('d-today');
 
     let dotColor='var(--green)';
     if(cell.classList.contains('d-booked')) dotColor='var(--red)';
     else if(cell.classList.contains('d-partial')) dotColor='#D97706';
+    if(calSelectedDates.has(ds)) dotColor='rgba(255,255,255,0.7)';
     cell.innerHTML=`<span class="d-day-num">${d}</span><div class="d-day-dot" style="background:${isPast?'#ccc':dotColor}"></div>`;
 
     if(!isPast){
-      cell.addEventListener('click',()=>{ selectedDate=ds; renderDashCal(); renderBookingPanel(ds); });
+      cell.addEventListener('click',()=>{
+        if(calSelectedDates.has(ds)) calSelectedDates.delete(ds);
+        else calSelectedDates.add(ds);
+        renderDashCal();
+        renderBookingPanel();
+      });
     }
     body.appendChild(cell);
   }
 }
 
-function renderBookingPanel(ds) {
+function renderBookingPanel() {
   GAMES = getInventory();
-  const [y,m,d] = ds.split('-');
-  const label = new Date(+y,+m-1,+d).toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-  document.getElementById('bpTitle').textContent = label;
-  document.getElementById('bpSub').textContent = 'Manage bookings for this date';
+  const sortedDates = [...calSelectedDates].sort();
+  const title = document.getElementById('bpTitle');
+  const sub   = document.getElementById('bpSub');
+  const body  = document.getElementById('bpBody');
+  body.innerHTML = '';
 
-  const body = document.getElementById('bpBody');
-  body.innerHTML='';
+  if(sortedDates.length === 0) {
+    title.textContent = 'Select Dates';
+    sub.textContent = 'Click dates on the calendar to select them';
+    body.innerHTML = '<div class="bp-date-sel">Click one or more dates on the calendar to get started.</div>';
+    return;
+  }
 
-  GAMES.forEach((g,gi) => {
-    const bookedCount = g.bookings.filter(b=>ds>=b.start&&ds<=b.end).length;
-    const avail = Math.max(0, g.quantity - bookedCount);
-    const row = document.createElement('div');
-    row.className='game-book-row';
-    row.innerHTML=`
-      <div class="gbr-left">
-        <img class="gbr-thumb" src="${g.photo}" alt="${g.name}">
-        <div>
-          <div class="gbr-name">${g.name}</div>
-          <div class="gbr-avail">${avail}/${g.quantity} available</div>
-        </div>
-      </div>
-      <div class="gbr-actions">
-        ${avail>0
-          ? `<button class="book-toggle free" onclick="addBookingForDate('${g.id}','${ds}')">+ Book</button>`
-          : `<button class="book-toggle booked" onclick="removeBookingForDate('${g.id}','${ds}')">Unbook</button>`
+  const count = sortedDates.length;
+  title.textContent = count === 1 ? formatDate(sortedDates[0]) : `${count} dates selected`;
+  sub.textContent = count === 1 ? 'Choose a game and book it' : `${sortedDates[0]} → ${sortedDates[count-1]}`;
+
+  // ── BOOK NEW section ──
+  const bookDiv = document.createElement('div');
+  bookDiv.innerHTML = `
+    <div class="bp-section-label">Book a Game</div>
+    <select class="bp-game-select" id="bpGameSel">
+      <option value="">— Choose a game —</option>
+      ${GAMES.map(g=>`<option value="${g.id}">${g.name} ($${g.price}/day)</option>`).join('')}
+    </select>
+    <input class="bp-renter-input" id="bpRenter" type="text" placeholder="Renter name (optional)">
+    <div class="bp-section-label">Selected Dates (${count})</div>
+    <div class="bp-selected-dates" id="bpDateList">${sortedDates.map(d=>`<span style="display:inline-block;background:#fff;border:1px solid #aad4bc;border-radius:5px;padding:2px 8px;margin:2px;font-size:11px">${formatDateShort(d)}</span>`).join('')}</div>
+    <button class="bp-book-btn" id="bpBookBtn" onclick="commitBooking()">Book ${count} date${count>1?'s':''} →</button>
+    <button class="bp-clear-btn" onclick="clearCalSelection()">✕ Clear selection</button>`;
+  body.appendChild(bookDiv);
+
+  // ── EXISTING bookings on selected dates ──
+  const existing = [];
+  GAMES.forEach(g => {
+    sortedDates.forEach(ds => {
+      g.bookings.forEach((b,bi) => {
+        if(ds >= b.start && ds <= b.end) {
+          existing.push({game:g.name, gameId:g.id, date:ds, renter:b.renter||'', bookingIdx:bi, photo:g.photo});
         }
-      </div>`;
-    body.appendChild(row);
+      });
+    });
   });
 
-  // Add booking form
-  const form = document.createElement('div');
-  form.className='add-booking-form';
-  form.innerHTML=`
-    <h4>Add Multi-Day Booking</h4>
-    <div class="abf-row">
-      <div><div class="abf-label">Game</div>
-        <select class="abf-input" id="abfGame">${GAMES.map(g=>`<option value="${g.id}">${g.name}</option>`).join('')}</select>
-      </div>
-      <div><div class="abf-label">Renter Name</div><input class="abf-input" id="abfRenter" placeholder="Jane Smith"></div>
-    </div>
-    <div class="abf-row">
-      <div><div class="abf-label">Start Date</div><input class="abf-input" type="date" id="abfStart" value="${ds}"></div>
-      <div><div class="abf-label">End Date</div><input class="abf-input" type="date" id="abfEnd" value="${ds}"></div>
-    </div>
-    <button class="abf-btn" onclick="addMultiDayBooking()">Add Booking</button>`;
-  body.appendChild(form);
+  if(existing.length) {
+    const existDiv = document.createElement('div');
+    existDiv.className = 'bp-existing';
+    existDiv.innerHTML = `<div class="bp-section-label" style="margin-bottom:10px">Existing Bookings on These Dates</div>`;
+    existing.forEach(e => {
+      const row = document.createElement('div');
+      row.className = 'bp-existing-item';
+      row.innerHTML = `
+        <div style="display:flex;align-items:center;gap:8px">
+          <img src="${e.photo}" style="width:28px;height:28px;border-radius:6px;object-fit:cover">
+          <div>
+            <div style="font-weight:700;font-size:12px">${e.game}</div>
+            <div style="color:var(--muted);font-size:11px">${formatDateShort(e.date)}${e.renter?' · '+e.renter:''}</div>
+          </div>
+        </div>
+        <button class="bp-del-btn" onclick="removeBookingByIdx('${e.gameId}',${e.bookingIdx})" title="Remove booking">✕</button>`;
+      existDiv.appendChild(row);
+    });
+    body.appendChild(existDiv);
+  }
 }
 
-function addBookingForDate(gameId, ds) {
-  GAMES = getInventory();
-  const g = GAMES.find(x=>x.id===gameId);
-  if(!g) return;
-  const renter = prompt('Renter name (optional):') || '';
-  g.bookings.push({start:ds, end:ds, renter});
-  saveInventory(GAMES);
-  showToast(`✓ ${g.name} booked for ${ds}`);
-  renderDashCal(); renderBookingPanel(ds);
+function formatDate(ds) {
+  const [y,m,d] = ds.split('-');
+  return new Date(+y,+m-1,+d).toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+}
+function formatDateShort(ds) {
+  const [y,m,d] = ds.split('-');
+  return new Date(+y,+m-1,+d).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
 }
 
-function removeBookingForDate(gameId, ds) {
-  GAMES = getInventory();
-  const g = GAMES.find(x=>x.id===gameId);
-  if(!g) return;
-  // Remove first booking that covers this date
-  const idx = g.bookings.findIndex(b=>ds>=b.start&&ds<=b.end);
-  if(idx>=0) g.bookings.splice(idx,1);
-  saveInventory(GAMES);
-  showToast(`✓ Booking removed for ${g.name}`);
-  renderDashCal(); renderBookingPanel(ds);
-}
-
-function addMultiDayBooking() {
-  GAMES = getInventory();
-  const gameId = document.getElementById('abfGame').value;
-  const start = document.getElementById('abfStart').value;
-  const end = document.getElementById('abfEnd').value;
-  const renter = document.getElementById('abfRenter').value.trim();
-  if(!start||!end||start>end) { alert('Please enter valid start and end dates.'); return; }
-  const g = GAMES.find(x=>x.id===gameId);
-  if(!g) return;
-  g.bookings.push({start,end,renter});
-  saveInventory(GAMES);
-  showToast(`✓ ${g.name} booked ${start} → ${end}`);
+function clearCalSelection() {
+  calSelectedDates.clear();
   renderDashCal();
-  if(selectedDate) renderBookingPanel(selectedDate);
+  renderBookingPanel();
+}
+
+function commitBooking() {
+  GAMES = getInventory();
+  const gameId = document.getElementById('bpGameSel').value;
+  const renter = document.getElementById('bpRenter').value.trim();
+  if(!gameId) { alert('Please choose a game first.'); return; }
+  const sortedDates = [...calSelectedDates].sort();
+  if(!sortedDates.length) return;
+  const g = GAMES.find(x=>x.id===gameId);
+  if(!g) return;
+
+  // Book each selected date as an individual entry (allows non-contiguous dates)
+  sortedDates.forEach(ds => {
+    g.bookings.push({start:ds, end:ds, renter});
+  });
+  saveInventory(GAMES);
+  const count = sortedDates.length;
+  showToast(`✓ ${g.name} booked for ${count} date${count>1?'s':''}!`);
+  calSelectedDates.clear();
+  renderDashCal();
+  renderBookingPanel();
+}
+
+function removeBookingByIdx(gameId, idx) {
+  GAMES = getInventory();
+  const g = GAMES.find(x=>x.id===gameId);
+  if(!g) return;
+  g.bookings.splice(idx, 1);
+  saveInventory(GAMES);
+  showToast(`✓ Booking removed`);
+  renderDashCal();
+  renderBookingPanel();
 }
 
 // Nav buttons
