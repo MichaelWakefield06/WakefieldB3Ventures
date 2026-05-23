@@ -1,1 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Greenville Realtor | Hannah Labadorf | Keller Williams</title>
+  <meta name="description" content="Hannah Labadorf — Greenville, SC realtor with Keller Williams. Local. Licensed. The realtor who does the homework so you don't have to." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
 
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="/" class="nav__logo">Hannah Labadorf</a>
+    <ul class="nav__links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Greenville</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact" class="nav__cta">Work with me</a></li>
+    </ul>
+    <button class="nav__hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav__mobile" id="mobileMenu">
+    <ul>
+      <li><a href="#about" onclick="closeMobile()">About</a></li>
+      <li><a href="#services" onclick="closeMobile()">Services</a></li>
+      <li><a href="#gallery" onclick="closeMobile()">Greenville</a></li>
+      <li><a href="#faq" onclick="closeMobile()">FAQ</a></li>
+      <li><a href="#contact" onclick="closeMobile()">Work with me</a></li>
+    </ul>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__content">
+      <p class="hero__eyebrow">Local. KW Licensed. Greenville, South Carolina.</p>
+      <h1 class="hero__heading">Buying or selling a home is one of the biggest financial decisions you will ever make.<em> You deserve to feel confident.</em></h1>
+      <p class="hero__sub">Whether you are brand new to this or burned by someone who did it wrong — I get it. I have been there. And I am going to make sure you understand every step before we take it.</p>
+      <a href="#contact" class="btn btn--primary">Work with me</a>
+    </div>
+    <div class="hero__scroll">scroll</div>
+  </section>
+
+  <!-- NEWSLETTER BANNER -->
+  <section class="banner">
+    <div class="container">
+      <div class="banner__inner">
+        <div class="banner__text">
+          <h2>The kind of market intel people usually pay for. Free. Every week.</h2>
+          <p>You are on Zillow at midnight, seventeen tabs open, Googling words you have never heard before. It does not have to be that hard. Every week I break it all down — the market, the numbers, the stuff nobody explains — and send it straight to your inbox.</p>
+        </div>
+        <div class="banner__action">
+          <a href="https://hannah-labadorf-realtor.kit.com/e551679830" target="_blank" rel="noopener" class="btn btn--outline">Send me the homework.</a>
+          <p class="banner__fine">Free. Once a week. Worst case scenario you know more about the real estate market.</p>
+          <p class="banner__tags">Greenville real estate · Buyers · Sellers · Relocations</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="services__intro">
+        <h2>What if you actually knew what you were walking into<br/><em>before you walked into it.</em></h2>
+        <p>Every week I send out the thing that makes you the most informed person at the dinner table. You did not even have to try. You just read your emails. You're welcome.</p>
+      </div>
+      <div class="services__grid">
+        <div class="service-card">
+          <span class="service-card__num">01</span>
+          <h3>Buying</h3>
+          <p>You have been scrolling Zillow at midnight and now you have a lot of feelings and approximately seventeen questions. Same. Let's channel that energy into actually finding your home. I cannot wait.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-card__num">02</span>
+          <h3>Selling</h3>
+          <p>You are ready to find out what your home is actually worth right now. Not what Zillow thinks. Not what your neighbor got three years ago. The real number, backed by real data. Let's get you there.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-card__num">03</span>
+          <h3>Relocating</h3>
+          <p>You are moving to Greenville and you need someone who genuinely knows this city. My husband grew up here and I have been paying obsessive attention for fifteen years. Welcome, by the way. You are making a good decision.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-card__num">04</span>
+          <h3>Not sure yet</h3>
+          <p>You are not ready to do anything yet but something brought you here and that is enough. Let's just talk. No pressure, no agenda, just a real conversation about where things stand. That is my favorite kind of call honestly.</p>
+        </div>
+      </div>
+      <div class="services__cta">
+        <a href="#contact" class="btn btn--primary">Work with me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER INLINE -->
+  <section class="newsletter-inline">
+    <div class="container">
+      <div class="newsletter-inline__inner">
+        <div class="newsletter-inline__stats">
+          <span>10+ years as an analyst</span>
+          <span>·</span>
+          <span>15 years in Greenville</span>
+          <span>·</span>
+          <span>Real data. Plain language.</span>
+          <span>·</span>
+          <span>Zero fluff. Zero pitch.</span>
+          <span>·</span>
+          <span>Strong coffee opinions.</span>
+        </div>
+        <a href="https://hannah-labadorf-realtor.kit.com/e551679830" target="_blank" rel="noopener" class="btn btn--outline">Send me the homework.</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about__grid">
+        <div class="about__image-wrap">
+          <img
+            src="https://static.websitebuilder-cdn.com/9f402af0ff489fa3/media/img/hannah-portrait.ad4dc29724544fcfa51d0293fc7064e4.24840d900b0136577ca799385c118bdc9dd0c54e0e0aa6b8dbc11cdbac2dc1f9.jpeg"
+            alt="Hannah Labadorf, Greenville Realtor"
+            class="about__photo"
+          />
+          <div class="about__stats">
+            <div class="about__stat"><strong>10+ Years</strong><span>As an analyst</span></div>
+            <div class="about__stat"><strong>15 Years</strong><span>In Greenville</span></div>
+            <div class="about__stat"><strong>Always</strong><span>On her second pour-over</span></div>
+          </div>
+        </div>
+        <div class="about__content">
+          <p class="about__label">About Hannah</p>
+          <h2>Fifteen years in Greenville and just getting started.</h2>
+          <blockquote>I have been in Greenville for fifteen years. I spent a decade as an analyst before this. I do not guess, I do not rush, and I do not let you walk into something you do not fully understand. My husband will tell you I take this a little too seriously and that he has heard enough about data charts. He is right on both counts. That is exactly why you should work with me.</blockquote>
+          <p>I started The Greenville Insider because nodding along and Googling it later is not a strategy. Every week I do the homework so you do not have to. You just get to show up knowing things. I am here for it.</p>
+          <p>And when you are ready to actually do this, I am ready. I am a licensed Greenville realtor and there is no part of this job I do not love. We look at the data, walk the neighborhoods, talk through what actually makes sense, and find you the one. Buying, selling, both at the same time somehow? All of it. Let's go.</p>
+          <a href="#contact" class="btn btn--primary">Work with me</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="gallery">
+    <div class="container">
+      <p class="gallery__label">Greenville Moments.</p>
+      <h2>You picked the right city.<br/><em>Now let's find the right house.</em></h2>
+      <p class="gallery__sub">The homes I cannot stop thinking about and the neighborhoods they belong in. Updated when something worth showing up.</p>
+    </div>
+    <div class="gallery__grid">
+      <div class="gallery__item">
+        <img src="https://static.websitebuilder-cdn.com/9f402af0ff489fa3/media/img/greenville-weekly-porch.393c5a1886bb4be5b7ef6a1989dfe659.27cf8c724ffbf817.386c1541.png" alt="Sunlit Greenville home exterior with wide porch on North Main" />
+        <div class="gallery__caption"><em>Porchlight evenings</em><span>North Main</span></div>
+      </div>
+      <div class="gallery__item">
+        <img src="https://static.websitebuilder-cdn.com/9f402af0ff489fa3/media/img/greenville-weekly-kitchen.393c5a1886bb4be5b7ef6a1989dfe659.906fdf252b5e98c5.386c1541.png" alt="Bright kitchen with marble island on Augusta Road" />
+        <div class="gallery__caption"><em>Bright kitchen calm</em><span>Augusta Road</span></div>
+      </div>
+      <div class="gallery__item">
+        <img src="https://static.websitebuilder-cdn.com/9f402af0ff489fa3/media/img/greenville-weekly-living.393c5a1886bb4be5b7ef6a1989dfe659.a0ec7be136f94601.386c1541.png" alt="Sun-washed living room in Overbrook" />
+        <div class="gallery__caption"><em>Sun-washed living</em><span>Overbrook</span></div>
+      </div>
+      <div class="gallery__item">
+        <img src="https://static.websitebuilder-cdn.com/9f402af0ff489fa3/media/img/greenville-weekly-garden.393c5a1886bb4be5b7ef6a1989dfe659.55bae98ae3e408f0.386c1541.png" alt="Garden terrace home in Alta Vista" />
+        <div class="gallery__caption"><em>Garden terrace mornings</em><span>Alta Vista</span></div>
+      </div>
+      <div class="gallery__item">
+        <img src="https://static.websitebuilder-cdn.com/9f402af0ff489fa3/media/img/greenville-weekly-bungalow.393c5a1886bb4be5b7ef6a1989dfe659.3d805358ed7225cf.386c1541.png" alt="Modern bungalow in Hampton Heights" />
+        <div class="gallery__caption"><em>Modern bungalow charm</em><span>Hampton Heights</span></div>
+      </div>
+      <div class="gallery__item">
+        <img src="https://static.websitebuilder-cdn.com/9f402af0ff489fa3/media/img/greenville-weekly-riverside.393c5a1886bb4be5b7ef6a1989dfe659.390426984ca3129d.386c1541.png" alt="Riverside home in West End overlooking Reedy River" />
+        <div class="gallery__caption"><em>Riverside retreat</em><span>West End</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW I HELP -->
+  <section class="how" id="how">
+    <div class="container">
+      <p class="how__label">Greenville guidance with a personal touch</p>
+      <h2>How I help buyers and sellers.<em> Really.</em></h2>
+      <p class="how__sub">I am not going to promise you perfect. I am going to promise you that I will lose sleep thinking through every angle so you do not have to. You will never wonder if I did the work. My husband can confirm. He has been living with it for fifteen years.</p>
+      <div class="how__grid">
+        <div class="how-card">
+          <span class="how-card__num">01</span>
+          <h3>Buyers</h3>
+          <h4>Walk in knowing exactly what you are doing.</h4>
+          <p>Finding your home should feel exciting because it is! My job is to make sure the data backs up the feeling so you can say yes with complete confidence. You fall in love with the house. I handle everything else.</p>
+        </div>
+        <div class="how-card">
+          <span class="how-card__num">02</span>
+          <h3>Sellers</h3>
+          <h4>We are going to make your home impossible to scroll past.</h4>
+          <p>You built something here and I want the market to know it. My pricing strategy is backed by comparable sales, not gut feelings, because you deserve a number you can trust. Strong presentation, honest strategy, and someone who is all in on getting this right for you.</p>
+        </div>
+        <div class="how-card">
+          <span class="how-card__num">03</span>
+          <h3>Buy + Sell</h3>
+          <h4>Buying and selling at the same time? Yes. We can do that.</h4>
+          <p>Buying and selling at the same time sounds like a lot. It is, honestly. But that is exactly what I am here for. I keep the moving pieces moving, the timeline honest, and your sanity mostly intact. You focus on the exciting part. I handle everything else.</p>
+        </div>
+      </div>
+      <p class="how__tagline">Local strategy, not just listings. Fifteen years in Greenville. And I know which questions to ask before you fall in love with the wrong house.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="faq__grid">
+        <div class="faq__left">
+          <p class="faq__label">Greenville FAQ</p>
+          <h2>The questions you had but didn't know who to ask. I've got you.</h2>
+          <div class="faq__newsletter">
+            <h3>The Greenville Insider</h3>
+            <p>Every Monday I go through the data, find the thing most people miss, and send it straight to your inbox. The homework is done. You just get to show up smarter.</p>
+            <a href="https://hannah-labadorf-realtor.kit.com/e551679830" target="_blank" rel="noopener" class="btn btn--outline">Send me the homework.</a>
+          </div>
+        </div>
+        <div class="faq__right">
+          <div class="faq__items">
+            <div class="faq__item">
+              <button class="faq__q" aria-expanded="false">How is the Greenville market feeling right now?</button>
+              <div class="faq__a">
+                <p>Inventory is growing and buyers have more room to negotiate, but well-priced homes still move. The market is balanced, not stalled, which makes strategy more important than ever.</p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button class="faq__q" aria-expanded="false">When is the best time to buy in Greenville?</button>
+              <div class="faq__a">
+                <p>When your finances are ready and your timeline is steady. Greenville's long-term growth favors thoughtful decisions over perfect timing, especially if you plan to stay a few years.</p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button class="faq__q" aria-expanded="false">What should I do before listing my home?</button>
+              <div class="faq__a">
+                <p>Start with accurate pricing, then focus on preparation: light repairs, clean staging, and professional photos. The right first impression still wins in Greenville.</p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button class="faq__q" aria-expanded="false">How long does the buying process take?</button>
+              <div class="faq__a">
+                <p>Once you're under contract, closings typically land in 30 to 45 days. The faster piece is getting pre-approved and ready to make a clean offer.</p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button class="faq__q" aria-expanded="false">What will I receive with The Greenville Insider?</button>
+              <div class="faq__a">
+                <p>One clear email every Monday: market shifts, neighborhood notes, and practical guidance you can actually use. Free, concise, and made for Greenville.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="why">
+    <div class="container">
+      <p class="why__label">why this exists</p>
+      <h2>You are about to make one of the biggest decisions of your life.</h2>
+      <p>You know that moment when a lender says something like "your DTI is affecting your LTV and you may need PMI" and you just... nod? And smile? And write it down to Google later like a completely normal person? Yeah. That feeling is not your fault. The real estate industry loves its acronyms and assumes you speak fluent closing table. Most people don't.</p>
+      <p>That is exactly why this exists. Once something clicks for me, I really get it. And once I get it, I cannot stop explaining it to people. Real estate clicked. Greenville clicked. Fifteen years of watching this city, more than a decade of analytical work, and one very strong opinion about natural light in listing photos later, here we are.</p>
+      <blockquote>I was the person reading every line of every closing document like it was going to save my life. It kind of felt like it might. Now I make sure you never have to feel that way. You will know what everything means before it is ever in front of you.</blockquote>
+      <cite>— Greenville Insider Editorial</cite>
+      <p>I spent over ten years as an analyst across medical, legal, and business operations. Three very different fields, one consistent obsession: I was always the person who looked at the numbers everyone else was summarizing and thought "wait, that's not actually what this says."</p>
+      <p>My husband is a Greenville native which means I had a very good tour guide when I arrived fifteen years ago. I stayed because obviously. Since then I have watched this city transform from the inside, and developed opinions about all the neighborhoods and I am not shy about sharing.</p>
+      <p>Honestly? I just love helping people. The Greenville Insider is how I do that before you ever need me. So that when the moment comes, you already feel ready.</p>
+      <div class="why__newsletter">
+        <h3>Join the Greenville Insider</h3>
+        <p>Weekly notes on the Greenville market, new listings, and the kind of guidance nobody gives you until you're already confused at the closing table. Consider this your head start.</p>
+        <a href="https://hannah-labadorf-realtor.kit.com/e551679830" target="_blank" rel="noopener" class="btn btn--primary">Send me the homework.</a>
+        <p class="why__fine">Free. Once a week. The worst thing that happens is you learn something about the Greenville market.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact__grid">
+        <div class="contact__left">
+          <p class="contact__label">Work with me</p>
+          <h2>You have questions. Let's talk about what is going on and figure out what makes sense for you.</h2>
+          <blockquote>Fill in a few details and I will come back to you with something actually useful. This is the part where things start to feel less overwhelming. I promise it is a good call.</blockquote>
+          <p class="contact__note">Prefer a quick call or text? Add the best number and I'll reach out personally.</p>
+          <p class="contact__note">I respond within one business day.</p>
+        </div>
+        <div class="contact__right">
+          <form class="contact__form" id="contactForm" novalidate>
+            <div class="form-group">
+              <label for="name">Full name</label>
+              <input type="text" id="name" name="name" required placeholder="Your name" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required placeholder="your@email.com" />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" placeholder="(864) 000-0000" />
+            </div>
+            <div class="form-group">
+              <label for="interest">I'm looking to</label>
+              <select id="interest" name="interest">
+                <option value="">Select one</option>
+                <option value="buy">Buy in Greenville</option>
+                <option value="sell">Sell my home</option>
+                <option value="relocate">Relocate to Greenville</option>
+                <option value="unsure">Not sure yet</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="timeline">Timeline</label>
+              <select id="timeline" name="timeline">
+                <option value="">When are you hoping to move?</option>
+                <option value="0-3">Immediately (0–3 months)</option>
+                <option value="3-6">3–6 months</option>
+                <option value="6-12">6–12 months</option>
+                <option value="12+">12+ months</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Tell me a bit more</label>
+              <textarea id="message" name="message" rows="4" placeholder="Anything you'd like me to know..."></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary btn--full">Send my details</button>
+            <p class="form__legal">By submitting, you agree to receive updates from me about Greenville market insights. You can unsubscribe anytime.</p>
+            <div class="form__success" id="formSuccess" hidden>Thanks! You're on the list, and Hannah will follow up with next steps.</div>
+            <div class="form__error" id="formError" hidden>Something went wrong. Please try again or email me directly at <a href="mailto:hannah@hannahlabadorf.com">hannah@hannahlabadorf.com</a>.</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <strong>Hannah Labadorf</strong>
+          <span>Keller Williams · The Greenville Insider</span>
+          <span>Greenville, South Carolina</span>
+        </div>
+        <nav class="footer__nav">
+          <a href="https://hannah-labadorf-realtor.kit.com/e551679830" target="_blank" rel="noopener">Subscribe</a>
+          <a href="#contact">Contact</a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+        </nav>
+        <a href="#contact" class="footer__cta">Let's talk.</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
