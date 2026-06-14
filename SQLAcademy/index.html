@@ -3,183 +3,717 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SQL Academy — Learn SQL by Querying a Fantasy World</title>
+<title>The SQL Atelier — A Course in the Craft of Querying</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js"></script>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #0d1117;
-    color: #e6edf3;
-    line-height: 1.6;
+  :root {
+    --slate-900: #14201F;
+    --slate-800: #1B2A2E;
+    --slate-700: #243639;
+    --slate-600: #2E4549;
+    --slate-500: #3D5559;
+    --cream-100: #F2EBD8;
+    --cream-200: #E8E1D1;
+    --cream-300: #D4CCB8;
+    --cream-400: #B8B0A0;
+    --cream-500: #8A8273;
+    --brass: #C9A86A;
+    --brass-dim: #9F8552;
+    --brass-bright: #E2C285;
+    --oxblood: #B5454D;
+    --moss: #6F9072;
+    --hairline: rgba(232, 225, 209, 0.12);
+    --hairline-strong: rgba(232, 225, 209, 0.22);
   }
-  .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
-  header {
-    border-bottom: 1px solid #30363d;
-    padding-bottom: 16px;
-    margin-bottom: 24px;
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Newsreader', Georgia, serif;
+    font-optical-sizing: auto;
+    font-size: 17px;
+    line-height: 1.65;
+    background: var(--slate-800);
+    color: var(--cream-200);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .serif-display { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; }
+  .sans { font-family: 'Inter', system-ui, sans-serif; }
+  .mono { font-family: 'JetBrains Mono', 'SF Mono', Monaco, monospace; }
+  .label {
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--brass);
+  }
+  /* ============ LAYOUT ============ */
+  .masthead {
+    border-bottom: 1px solid var(--hairline-strong);
+    background: var(--slate-900);
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(8px);
+  }
+  .masthead-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 14px 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
+    gap: 24px;
   }
-  h1 { font-size: 24px; color: #d2a8ff; }
-  .header-right { display: flex; gap: 12px; align-items: center; }
-  .tab-switch { display: flex; gap: 4px; background: #161b22; padding: 4px; border-radius: 6px; border: 1px solid #30363d; }
-  .tab-switch button {
-    background: transparent; color: #8b949e; border: none;
-    padding: 6px 14px; border-radius: 4px; cursor: pointer; font-size: 13px;
+  .brand {
+    display: flex; align-items: baseline; gap: 12px;
   }
-  .tab-switch button.active { background: #1f6feb; color: white; }
-  .progress { font-size: 14px; color: #8b949e; }
-  .layout { display: grid; grid-template-columns: 280px 1fr; gap: 24px; }
-  @media (max-width: 800px) { .layout { grid-template-columns: 1fr; } }
-  .sidebar {
-    background: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 8px;
-    padding: 16px;
-    height: fit-content;
-    max-height: 80vh;
-    overflow-y: auto;
+  .brand .mark {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 26px;
+    color: var(--cream-100);
+    letter-spacing: -0.01em;
   }
-  .sidebar h3 { font-size: 11px; text-transform: uppercase; color: #8b949e; margin: 12px 0 8px; letter-spacing: 0.5px; }
-  .sidebar h3:first-child { margin-top: 0; }
-  .lesson-item {
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-bottom: 2px;
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  .brand .mark .amp { color: var(--brass); }
+  .brand .tagline {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--cream-500);
   }
-  .lesson-item:hover { background: #21262d; }
-  .lesson-item.active { background: #1f6feb; color: white; }
-  .lesson-item.done .check { color: #3fb950; }
-  .check { width: 14px; display: inline-block; font-weight: bold; }
-  .panel {
-    background: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 8px;
-    padding: 24px;
+  .tabs {
+    display: flex; gap: 0;
+    border: 1px solid var(--hairline-strong);
+    border-radius: 2px;
   }
-  .panel h2 { margin-bottom: 12px; color: #d2a8ff; }
-  .panel h3 { margin: 16px 0 8px; color: #58a6ff; font-size: 16px; }
-  .panel p { margin-bottom: 12px; }
-  .panel ul { margin: 0 0 12px 24px; }
-  .panel code {
-    background: #0d1117;
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
-    font-size: 13px;
-    color: #ff7b72;
-  }
-  pre {
-    background: #0d1117;
-    border: 1px solid #30363d;
-    border-radius: 6px;
-    padding: 12px;
-    overflow-x: auto;
-    margin: 8px 0 16px;
-    font-family: 'SF Mono', Monaco, monospace;
-    font-size: 13px;
-    color: #e6edf3;
-  }
-  pre code { background: transparent; padding: 0; color: inherit; }
-  .challenge {
-    background: #1c2128;
-    border-left: 3px solid #d29922;
-    padding: 14px 16px;
-    margin: 20px 0;
-    border-radius: 4px;
-  }
-  .challenge strong { color: #d29922; }
-  textarea {
-    width: 100%;
-    min-height: 140px;
-    background: #0d1117;
-    border: 1px solid #30363d;
-    border-radius: 6px;
-    padding: 12px;
-    color: #e6edf3;
-    font-family: 'SF Mono', Monaco, monospace;
-    font-size: 13px;
-    resize: vertical;
-    margin-top: 12px;
-    line-height: 1.5;
-    tab-size: 2;
-  }
-  textarea:focus { outline: none; border-color: #58a6ff; }
-  .buttons { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-  button.btn {
-    background: #238636;
-    color: white;
+  .tabs button {
+    background: transparent;
+    color: var(--cream-400);
     border: none;
     padding: 8px 16px;
-    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    border-right: 1px solid var(--hairline-strong);
+    transition: all 0.15s;
+  }
+  .tabs button:last-child { border-right: none; }
+  .tabs button:hover { color: var(--cream-100); background: var(--slate-700); }
+  .tabs button.active { color: var(--slate-900); background: var(--brass); }
+  .progress-meter {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--cream-400);
+  }
+  .meter-bar {
+    width: 80px; height: 3px; background: var(--slate-600); position: relative; overflow: hidden;
+  }
+  .meter-fill { position: absolute; left: 0; top: 0; height: 100%; background: var(--brass); transition: width 0.4s; }
+
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 56px;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; gap: 32px; }
+    .masthead-inner { padding: 12px 18px; flex-wrap: wrap; }
+    .container { padding: 24px 18px 60px; }
+  }
+
+  /* ============ TOC SIDEBAR ============ */
+  .toc { position: sticky; top: 80px; align-self: start; max-height: calc(100vh - 100px); overflow-y: auto; padding-right: 8px; }
+  .toc::-webkit-scrollbar { width: 4px; }
+  .toc::-webkit-scrollbar-thumb { background: var(--slate-600); }
+  .toc-module { margin-bottom: 24px; }
+  .toc-module-header {
+    display: flex; align-items: baseline; gap: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--hairline);
+    margin-bottom: 8px;
+  }
+  .toc-module-num {
+    font-family: 'Instrument Serif', serif; font-style: italic;
+    color: var(--brass); font-size: 18px;
+  }
+  .toc-module-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--cream-500);
+    font-weight: 600;
+  }
+  .toc-lesson {
+    display: flex; align-items: baseline; gap: 10px;
+    padding: 7px 0 7px 4px;
     cursor: pointer;
     font-size: 14px;
-    font-weight: 500;
+    color: var(--cream-300);
+    border-left: 2px solid transparent;
+    padding-left: 12px;
+    transition: all 0.15s;
+    font-family: 'Newsreader', serif;
   }
-  button.btn:hover { background: #2ea043; }
-  button.btn.secondary { background: #21262d; border: 1px solid #30363d; color: #e6edf3; }
-  button.btn.secondary:hover { background: #30363d; }
-  button.btn:disabled { opacity: 0.4; cursor: not-allowed; }
-  .result {
-    margin-top: 16px;
-    padding: 12px;
-    border-radius: 6px;
-    background: #0d1117;
-    border: 1px solid #30363d;
+  .toc-lesson:hover { color: var(--cream-100); border-left-color: var(--brass-dim); }
+  .toc-lesson.active { color: var(--cream-100); border-left-color: var(--brass); }
+  .toc-lesson.done { color: var(--cream-400); }
+  .toc-lesson.done .toc-check { color: var(--moss); }
+  .toc-lesson-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--cream-500); width: 24px; flex-shrink: 0; }
+  .toc-check { font-family: 'Inter', sans-serif; font-size: 12px; opacity: 0; transition: opacity 0.2s; margin-left: auto; }
+  .toc-lesson.done .toc-check { opacity: 1; }
+
+  /* ============ LESSON ============ */
+  .lesson-header {
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .lesson-eyebrow {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px;
+  }
+  .lesson-eyebrow .divider {
+    flex: 1; height: 1px; background: var(--hairline-strong); max-width: 60px;
+  }
+  .lesson-number {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 80px;
+    line-height: 0.9;
+    color: var(--brass);
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+  .lesson-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 44px;
+    line-height: 1.1;
+    color: var(--cream-100);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  .lesson-subtitle {
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--cream-400);
+    margin-top: 8px;
+  }
+  @media (max-width: 600px) {
+    .lesson-number { font-size: 56px; }
+    .lesson-title { font-size: 32px; }
+  }
+
+  .section { margin-bottom: 40px; }
+  .section h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--brass);
+    font-weight: 600;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .prose p { margin-bottom: 16px; max-width: 70ch; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88em;
+    background: var(--slate-900);
+    color: var(--brass-bright);
+    padding: 2px 6px;
+    border-radius: 2px;
+  }
+  .prose ul, .prose ol { margin: 0 0 16px 24px; max-width: 70ch; }
+  .prose li { margin-bottom: 6px; }
+  .prose strong { color: var(--cream-100); font-weight: 600; }
+  .prose em { font-style: italic; color: var(--cream-100); }
+  .prose a { color: var(--brass); }
+
+  .pull-quote {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--cream-100);
+    border-left: 2px solid var(--brass);
+    padding: 4px 0 4px 20px;
+    margin: 24px 0;
+    max-width: 60ch;
+  }
+
+  /* ============ CODE BLOCKS ============ */
+  pre.code {
+    background: var(--slate-900);
+    border: 1px solid var(--hairline);
+    border-left: 2px solid var(--brass-dim);
+    padding: 16px 18px;
+    margin: 14px 0 20px;
     overflow-x: auto;
-    max-height: 400px;
-    overflow-y: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--cream-200);
+    border-radius: 2px;
   }
-  .result.error { border-color: #f85149; color: #f85149; padding: 12px; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #21262d; }
-  th { background: #161b22; color: #58a6ff; position: sticky; top: 0; }
-  .feedback { margin-top: 12px; padding: 10px 14px; border-radius: 6px; font-size: 14px; }
-  .feedback.correct { background: rgba(63, 185, 80, 0.15); color: #3fb950; border: 1px solid rgba(63, 185, 80, 0.3); }
-  .feedback.incorrect { background: rgba(248, 81, 73, 0.15); color: #f85149; border: 1px solid rgba(248, 81, 73, 0.3); }
-  .nav { display: flex; justify-content: space-between; margin-top: 24px; gap: 8px; }
-  .loading { text-align: center; padding: 40px; color: #8b949e; }
-  .schema-block { background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 12px; margin-bottom: 12px; font-size: 12px; }
-  .schema-block strong { color: #d2a8ff; }
-  .schema-block .col { color: #8b949e; }
-  .row-count { color: #8b949e; font-size: 12px; margin-bottom: 8px; }
-  .meter { height: 4px; background: #21262d; border-radius: 2px; margin-top: 8px; overflow: hidden; }
-  .meter-fill { height: 100%; background: linear-gradient(90deg, #3fb950, #58a6ff); transition: width 0.3s; }
+  pre.code .kw { color: var(--brass-bright); font-weight: 500; }
+  pre.code .str { color: #C9D6A8; }
+  pre.code .num { color: #E2C285; }
+  pre.code .cmt { color: var(--cream-500); font-style: italic; }
+  pre.code .fn { color: #D8A8C9; }
+
+  .example-caption {
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--cream-400);
+    margin-top: -12px;
+    margin-bottom: 24px;
+    padding-left: 12px;
+    border-left: 1px solid var(--hairline);
+  }
+  .example-caption strong { font-style: normal; color: var(--brass); font-family: 'Inter', sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; margin-right: 8px; }
+
+  /* ============ PITFALLS BOX ============ */
+  .pitfalls {
+    background: var(--slate-700);
+    border: 1px solid var(--hairline-strong);
+    padding: 18px 22px;
+    margin: 24px 0;
+    border-radius: 2px;
+    position: relative;
+  }
+  .pitfalls::before {
+    content: '⚠';
+    position: absolute;
+    top: -10px; left: 18px;
+    background: var(--slate-800);
+    color: var(--oxblood);
+    padding: 0 6px;
+    font-size: 14px;
+  }
+  .pitfalls .pitfalls-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--oxblood);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .pitfalls ul { margin: 0 0 0 20px; max-width: none; }
+  .pitfalls li { margin-bottom: 8px; font-size: 15px; }
+  .pitfalls code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--slate-900);
+    padding: 1px 5px;
+    font-size: 0.85em;
+    color: var(--brass-bright);
+    border-radius: 2px;
+  }
+
+  /* ============ CHALLENGES ============ */
+  .challenge {
+    background: var(--slate-700);
+    border: 1px solid var(--hairline-strong);
+    border-radius: 2px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .challenge-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 12px; gap: 12px; flex-wrap: wrap;
+  }
+  .challenge-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 24px;
+    color: var(--cream-100);
+  }
+  .challenge-difficulty {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    padding: 3px 10px;
+    border: 1px solid var(--hairline-strong);
+    color: var(--cream-400);
+    border-radius: 2px;
+  }
+  .challenge-difficulty.beginner { color: var(--moss); border-color: var(--moss); }
+  .challenge-difficulty.intermediate { color: var(--brass); border-color: var(--brass-dim); }
+  .challenge-difficulty.advanced { color: var(--oxblood); border-color: var(--oxblood); }
+  .challenge-prompt {
+    font-family: 'Newsreader', serif;
+    font-size: 16px;
+    color: var(--cream-200);
+    margin-bottom: 16px;
+    line-height: 1.55;
+  }
+  .challenge-prompt code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--slate-900);
+    color: var(--brass-bright);
+    padding: 1px 5px;
+    font-size: 0.85em;
+    border-radius: 2px;
+  }
+  textarea.editor {
+    width: 100%;
+    min-height: 130px;
+    background: var(--slate-900);
+    border: 1px solid var(--hairline-strong);
+    border-radius: 2px;
+    padding: 14px;
+    color: var(--cream-100);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.65;
+    resize: vertical;
+    tab-size: 2;
+  }
+  textarea.editor:focus { outline: none; border-color: var(--brass); }
+
+  .actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .btn {
+    background: var(--brass);
+    color: var(--slate-900);
+    border: none;
+    padding: 8px 18px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s;
+  }
+  .btn:hover { background: var(--brass-bright); }
+  .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .btn.ghost { background: transparent; color: var(--cream-300); border: 1px solid var(--hairline-strong); }
+  .btn.ghost:hover { color: var(--cream-100); border-color: var(--brass-dim); background: var(--slate-600); }
+  .btn.subtle { background: transparent; color: var(--cream-400); border: none; padding: 8px 12px; }
+  .btn.subtle:hover { color: var(--brass); }
+
+  /* ============ RESULTS ============ */
+  .result-block { margin-top: 16px; }
+  .result-caption {
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--cream-400);
+    margin-bottom: 8px;
+    padding-left: 12px;
+    border-left: 1px solid var(--hairline);
+  }
+  .result-caption strong { font-style: normal; color: var(--brass); font-family: 'Inter', sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; margin-right: 8px; }
+  .result-table-wrap {
+    background: var(--slate-900);
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+    overflow: auto;
+    max-height: 360px;
+  }
+  table.results {
+    width: 100%; border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+  }
+  table.results thead { position: sticky; top: 0; }
+  table.results th {
+    background: var(--slate-800);
+    color: var(--brass);
+    font-weight: 600;
+    text-align: left;
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--hairline-strong);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  table.results td {
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--hairline);
+    color: var(--cream-200);
+  }
+  table.results tr:last-child td { border-bottom: none; }
+  table.results .null { color: var(--cream-500); font-style: italic; }
+  .result-error {
+    padding: 14px 18px;
+    background: rgba(181, 69, 77, 0.08);
+    border: 1px solid var(--oxblood);
+    color: #E89098;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    border-radius: 2px;
+    border-left-width: 3px;
+  }
+
+  .feedback {
+    margin-top: 14px;
+    padding: 12px 16px;
+    font-family: 'Newsreader', serif;
+    font-size: 15px;
+    border-radius: 2px;
+  }
+  .feedback.correct {
+    background: rgba(111, 144, 114, 0.12);
+    border-left: 3px solid var(--moss);
+    color: #B5D6B7;
+  }
+  .feedback.correct .label { color: var(--moss); }
+  .feedback.incorrect {
+    background: rgba(181, 69, 77, 0.08);
+    border-left: 3px solid var(--oxblood);
+    color: #E89098;
+  }
+  .feedback em { color: inherit; }
+
+  .reveal {
+    margin-top: 14px;
+    padding: 14px 18px;
+    background: var(--slate-900);
+    border: 1px solid var(--hairline);
+    border-left: 2px solid var(--brass-dim);
+    border-radius: 2px;
+    font-size: 15px;
+    color: var(--cream-200);
+  }
+  .reveal-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--brass);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .reveal pre.code { margin: 8px 0 0; border-left-width: 1px; }
+
+  /* ============ NAV ============ */
+  .lesson-nav {
+    display: flex; justify-content: space-between; gap: 16px;
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--hairline);
+  }
+  .nav-link {
+    display: flex; flex-direction: column;
+    text-decoration: none; color: var(--cream-300);
+    padding: 14px 18px;
+    border: 1px solid var(--hairline-strong);
+    border-radius: 2px;
+    min-width: 220px;
+    cursor: pointer;
+    background: transparent;
+    text-align: left;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .nav-link:hover { border-color: var(--brass); color: var(--cream-100); }
+  .nav-link:disabled { opacity: 0.3; cursor: not-allowed; }
+  .nav-link .label-small {
+    font-family: 'Inter', sans-serif; font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    color: var(--cream-500); margin-bottom: 4px;
+  }
+  .nav-link .nav-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 18px; color: var(--cream-100);
+  }
+  .nav-link.next { text-align: right; align-items: flex-end; }
+
+  /* ============ SANDBOX & SCHEMA ============ */
+  .sandbox-panel, .schema-panel { max-width: 980px; margin: 0 auto; }
+  .schema-tables { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-top: 24px; }
+  .schema-card {
+    background: var(--slate-700);
+    border: 1px solid var(--hairline-strong);
+    padding: 16px 18px;
+    border-radius: 2px;
+  }
+  .schema-card-name {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--brass);
+    margin-bottom: 4px;
+  }
+  .schema-card-rows {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--cream-500);
+    margin-bottom: 12px;
+  }
+  .schema-col {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--cream-200);
+    padding: 4px 0;
+    border-bottom: 1px solid var(--hairline);
+    display: flex; justify-content: space-between;
+  }
+  .schema-col:last-child { border-bottom: none; }
+  .schema-col .type { color: var(--cream-500); font-size: 11px; }
+  .schema-col .pk { color: var(--brass); font-size: 10px; }
+
+  /* ============ HOME ============ */
+  .home-hero {
+    padding: 60px 0 80px;
+    text-align: left;
+    max-width: 800px;
+  }
+  .home-hero .label { margin-bottom: 24px; display: inline-block; }
+  .home-hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(48px, 7vw, 92px);
+    line-height: 1.0;
+    color: var(--cream-100);
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+  }
+  .home-hero h1 em { color: var(--brass); }
+  .home-hero .lede {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--cream-300);
+    margin-bottom: 36px;
+    max-width: 600px;
+  }
+  .home-modules {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px; background: var(--hairline-strong);
+    border: 1px solid var(--hairline-strong);
+    margin-top: 48px;
+  }
+  .home-module {
+    background: var(--slate-800);
+    padding: 28px 26px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .home-module:hover { background: var(--slate-700); }
+  .home-module-num {
+    font-family: 'Instrument Serif', serif; font-style: italic;
+    color: var(--brass); font-size: 18px;
+    margin-bottom: 4px;
+  }
+  .home-module-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    color: var(--cream-100);
+    margin-bottom: 8px;
+    line-height: 1.15;
+  }
+  .home-module-desc {
+    font-size: 15px;
+    color: var(--cream-400);
+    line-height: 1.5;
+  }
+  .home-module-lessons {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--cream-500);
+    margin-top: 14px;
+  }
+  .home-section { margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--hairline); }
+  .home-section h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 36px;
+    color: var(--cream-100);
+    margin-bottom: 20px;
+  }
+  .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; margin-top: 32px; }
+  .feature h3 {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--brass);
+    margin-bottom: 8px;
+    border: none; padding: 0; text-transform: none; letter-spacing: 0;
+  }
+  .feature p { font-size: 15px; color: var(--cream-300); }
+
+  .loading-screen {
+    min-height: 60vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 12px;
+  }
+  .loading-screen .label { color: var(--brass); }
+  .loading-screen .ticking {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 28px;
+    color: var(--cream-300);
+  }
+
+  /* small-screen TOC becomes accordion-y */
+  @media (max-width: 900px) {
+    .toc { position: static; max-height: none; }
+  }
 </style>
 </head>
 <body>
-<div class="container">
-  <header>
-    <h1>⚔️ SQL Academy</h1>
-    <div class="header-right">
-      <div class="tab-switch">
-        <button id="tab-learn" class="active" onclick="setMode('learn')">Learn</button>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="brand">
+      <div class="mark">The SQL Atelier</div>
+      <div class="tagline">A Course in the Craft of Querying</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <div class="progress-meter" id="progress-meter" style="display:none;">
+        <span id="progress-text">0 of 16</span>
+        <div class="meter-bar"><div class="meter-fill" id="meter-fill" style="width: 0%;"></div></div>
+      </div>
+      <div class="tabs">
+        <button id="tab-home" class="active" onclick="setMode('home')">Course</button>
         <button id="tab-sandbox" onclick="setMode('sandbox')">Sandbox</button>
         <button id="tab-schema" onclick="setMode('schema')">Schema</button>
       </div>
-      <div class="progress" id="progress">Loading…</div>
     </div>
-  </header>
-  <div id="app" class="loading">Initializing SQLite engine…</div>
+  </div>
+</header>
+
+<div class="container">
+  <div id="app" class="loading-screen">
+    <div class="label">Initializing</div>
+    <div class="ticking">Setting the type, polishing the brass…</div>
+  </div>
 </div>
 
 <script>
-// ============== DATABASE SETUP ==============
+// =====================================================================
+// SCHEMA + SEED DATA — a small fantasy guild ledger
+// =====================================================================
 const SCHEMA_SQL = `
 CREATE TABLE guilds (
   id INTEGER PRIMARY KEY,
   name TEXT NOT NULL,
   founded_year INTEGER,
-  headquarters TEXT
+  headquarters TEXT,
+  treasury INTEGER
 );
 
 CREATE TABLE heroes (
@@ -189,6 +723,7 @@ CREATE TABLE heroes (
   level INTEGER NOT NULL,
   xp INTEGER NOT NULL,
   guild_id INTEGER,
+  joined_on TEXT,
   FOREIGN KEY (guild_id) REFERENCES guilds(id)
 );
 
@@ -197,14 +732,15 @@ CREATE TABLE quests (
   name TEXT NOT NULL,
   difficulty TEXT NOT NULL,
   reward_gold INTEGER NOT NULL,
-  min_level INTEGER NOT NULL
+  min_level INTEGER NOT NULL,
+  region TEXT
 );
 
 CREATE TABLE hero_quests (
   hero_id INTEGER,
   quest_id INTEGER,
-  completed_date TEXT,
-  PRIMARY KEY (hero_id, quest_id),
+  completed_on TEXT,
+  PRIMARY KEY (hero_id, quest_id, completed_on),
   FOREIGN KEY (hero_id) REFERENCES heroes(id),
   FOREIGN KEY (quest_id) REFERENCES quests(id)
 );
@@ -226,337 +762,1070 @@ CREATE TABLE hero_items (
   FOREIGN KEY (item_id) REFERENCES items(id)
 );
 
+CREATE TABLE battles (
+  id INTEGER PRIMARY KEY,
+  attacker_id INTEGER NOT NULL,
+  defender_id INTEGER NOT NULL,
+  winner_id INTEGER,
+  fought_on TEXT NOT NULL,
+  FOREIGN KEY (attacker_id) REFERENCES heroes(id),
+  FOREIGN KEY (defender_id) REFERENCES heroes(id),
+  FOREIGN KEY (winner_id) REFERENCES heroes(id)
+);
+
 INSERT INTO guilds VALUES
-  (1, 'Order of the Silver Dawn', 1247, 'Eldwood Keep'),
-  (2, 'The Crimson Blades', 1289, 'Ashford'),
-  (3, 'Wanderers Lodge', 1301, 'Misthaven'),
-  (4, 'Arcane Conclave', 1198, 'Stormspire Tower');
+  (1, 'Order of the Silver Dawn',  1247, 'Eldwood Keep',     48000),
+  (2, 'The Crimson Blades',        1289, 'Ashford',          22500),
+  (3, 'Wanderers Lodge',           1301, 'Misthaven',        15800),
+  (4, 'Arcane Conclave',           1198, 'Stormspire Tower', 92400);
 
 INSERT INTO heroes VALUES
-  (1, 'Aelar Moonshadow', 'Ranger', 28, 14500, 3),
-  (2, 'Borin Ironfist', 'Warrior', 35, 22000, 2),
-  (3, 'Celestine Vale', 'Mage', 31, 18900, 4),
-  (4, 'Drogath the Bold', 'Warrior', 22, 9800, 2),
-  (5, 'Elyndra Stormwhisper', 'Mage', 40, 31200, 4),
-  (6, 'Finnegan Quickfoot', 'Rogue', 18, 6400, 3),
-  (7, 'Gwendolyn Brightblade', 'Paladin', 33, 20100, 1),
-  (8, 'Haldir Swiftarrow', 'Ranger', 25, 11800, 3),
-  (9, 'Ivanna Shadowmend', 'Rogue', 29, 15300, NULL),
-  (10, 'Joran Lightbringer', 'Paladin', 27, 13700, 1),
-  (11, 'Kira Frostweaver', 'Mage', 15, 4200, 4),
-  (12, 'Lothar Grimaxe', 'Warrior', 42, 35800, 2),
-  (13, 'Mira Starseeker', 'Ranger', 20, 7900, NULL),
-  (14, 'Nyx Whisperwind', 'Rogue', 38, 27600, 3),
-  (15, 'Orin Steelheart', 'Paladin', 12, 3100, 1);
+  (1,  'Aelar Moonshadow',     'Ranger',  28, 14500, 3,    '2022-06-12'),
+  (2,  'Borin Ironfist',       'Warrior', 35, 22000, 2,    '2020-03-04'),
+  (3,  'Celestine Vale',       'Mage',    31, 18900, 4,    '2021-11-18'),
+  (4,  'Drogath the Bold',     'Warrior', 22,  9800, 2,    '2023-01-22'),
+  (5,  'Elyndra Stormwhisper', 'Mage',    40, 31200, 4,    '2019-07-08'),
+  (6,  'Finnegan Quickfoot',   'Rogue',   18,  6400, 3,    '2023-04-15'),
+  (7,  'Gwendolyn Brightblade','Paladin', 33, 20100, 1,    '2021-02-09'),
+  (8,  'Haldir Swiftarrow',    'Ranger',  25, 11800, 3,    '2022-09-30'),
+  (9,  'Ivanna Shadowmend',    'Rogue',   29, 15300, NULL, '2022-12-05'),
+  (10, 'Joran Lightbringer',   'Paladin', 27, 13700, 1,    '2022-08-17'),
+  (11, 'Kira Frostweaver',     'Mage',    15,  4200, 4,    '2024-01-10'),
+  (12, 'Lothar Grimaxe',       'Warrior', 42, 35800, 2,    '2018-05-25'),
+  (13, 'Mira Starseeker',      'Ranger',  20,  7900, NULL, '2023-08-03'),
+  (14, 'Nyx Whisperwind',      'Rogue',   38, 27600, 3,    '2020-10-14'),
+  (15, 'Orin Steelheart',      'Paladin', 12,  3100, 1,    '2024-05-29'),
+  (16, 'Petra Goldhand',       'Warrior', 30, 17500, 2,    '2021-06-20'),
+  (17, 'Quill Silvermoon',     'Mage',    22,  9100, 4,    '2023-03-11'),
+  (18, 'Rowan Bramblefoot',    'Ranger',  17,  5400, 3,    '2024-02-28'),
+  (19, 'Sable Nightveil',      'Rogue',   24, 11200, NULL, '2023-11-07'),
+  (20, 'Talia Ashenheart',     'Paladin', 36, 24300, 1,    '2019-12-01');
 
 INSERT INTO quests VALUES
-  (1, 'Slay the Goblin King', 'Easy', 250, 10),
-  (2, 'Recover the Lost Amulet', 'Medium', 600, 18),
-  (3, 'Defend Eldwood Keep', 'Hard', 1200, 25),
-  (4, 'Investigate the Haunted Mine', 'Medium', 750, 20),
-  (5, 'Negotiate with the Dragon', 'Legendary', 5000, 35),
-  (6, 'Clear the Bandit Camp', 'Easy', 300, 12),
-  (7, 'Escort the Royal Caravan', 'Medium', 500, 15),
-  (8, 'Banish the Lich', 'Hard', 1800, 30),
-  (9, 'Find the Druid Hermit', 'Easy', 200, 8),
-  (10, 'Reclaim the Sunken Temple', 'Legendary', 4500, 32);
+  (1,  'Slay the Goblin King',          'Easy',       250, 10, 'Greenfell'),
+  (2,  'Recover the Lost Amulet',       'Medium',     600, 18, 'Stormspire'),
+  (3,  'Defend Eldwood Keep',           'Hard',      1200, 25, 'Eldwood'),
+  (4,  'Investigate the Haunted Mine',  'Medium',     750, 20, 'Ashford'),
+  (5,  'Negotiate with the Dragon',     'Legendary', 5000, 35, 'The Crags'),
+  (6,  'Clear the Bandit Camp',         'Easy',       300, 12, 'Greenfell'),
+  (7,  'Escort the Royal Caravan',      'Medium',     500, 15, 'Ashford'),
+  (8,  'Banish the Lich',               'Hard',      1800, 30, 'Misthaven'),
+  (9,  'Find the Druid Hermit',         'Easy',       200,  8, 'Eldwood'),
+  (10, 'Reclaim the Sunken Temple',     'Legendary', 4500, 32, 'The Crags'),
+  (11, 'Cleanse the Cursed Grove',      'Medium',     650, 16, 'Eldwood'),
+  (12, 'Survey the Frozen Pass',        'Hard',      1400, 28, 'Stormspire');
 
 INSERT INTO hero_quests VALUES
-  (1, 1, '2024-03-12'),(1, 6, '2024-04-22'),(1, 7, '2024-06-18'),
-  (2, 2, '2024-02-08'),(2, 3, '2024-05-14'),(2, 8, '2024-07-30'),(2, 6, '2024-01-19'),
-  (3, 4, '2024-03-25'),(3, 8, '2024-06-11'),(3, 2, '2024-04-09'),
-  (4, 1, '2024-05-03'),(4, 6, '2024-06-21'),
-  (5, 3, '2024-02-15'),(5, 5, '2024-08-04'),(5, 8, '2024-04-28'),(5, 10, '2024-09-12'),
-  (6, 9, '2024-07-07'),(6, 1, '2024-08-19'),
-  (7, 2, '2024-03-30'),(7, 3, '2024-05-22'),(7, 7, '2024-06-14'),
-  (8, 1, '2024-04-11'),(8, 4, '2024-07-25'),
-  (9, 4, '2024-05-08'),(9, 2, '2024-06-30'),
-  (10, 7, '2024-03-17'),(10, 4, '2024-08-22'),
-  (11, 9, '2024-06-05'),
-  (12, 3, '2024-01-28'),(12, 5, '2024-09-30'),(12, 8, '2024-04-15'),(12, 10, '2024-10-18'),
-  (13, 1, '2024-07-12'),(13, 6, '2024-08-25'),
-  (14, 4, '2024-05-19'),(14, 8, '2024-07-02'),(14, 2, '2024-06-28');
+  (1,1,'2024-03-12'),(1,6,'2024-04-22'),(1,7,'2024-06-18'),(1,9,'2024-08-11'),
+  (2,2,'2024-02-08'),(2,3,'2024-05-14'),(2,8,'2024-07-30'),(2,6,'2024-01-19'),(2,12,'2024-09-22'),
+  (3,4,'2024-03-25'),(3,8,'2024-06-11'),(3,2,'2024-04-09'),(3,11,'2024-07-17'),
+  (4,1,'2024-05-03'),(4,6,'2024-06-21'),(4,9,'2024-08-05'),
+  (5,3,'2024-02-15'),(5,5,'2024-08-04'),(5,8,'2024-04-28'),(5,10,'2024-09-12'),(5,12,'2024-06-30'),
+  (6,9,'2024-07-07'),(6,1,'2024-08-19'),
+  (7,2,'2024-03-30'),(7,3,'2024-05-22'),(7,7,'2024-06-14'),(7,11,'2024-08-08'),
+  (8,1,'2024-04-11'),(8,4,'2024-07-25'),(8,6,'2024-09-02'),
+  (9,4,'2024-05-08'),(9,2,'2024-06-30'),(9,11,'2024-08-14'),
+  (10,7,'2024-03-17'),(10,4,'2024-08-22'),(10,9,'2024-05-30'),
+  (11,9,'2024-06-05'),
+  (12,3,'2024-01-28'),(12,5,'2024-09-30'),(12,8,'2024-04-15'),(12,10,'2024-10-18'),(12,12,'2024-07-22'),
+  (13,1,'2024-07-12'),(13,6,'2024-08-25'),(13,9,'2024-09-15'),
+  (14,4,'2024-05-19'),(14,8,'2024-07-02'),(14,2,'2024-06-28'),(14,11,'2024-08-30'),
+  (16,2,'2024-03-08'),(16,7,'2024-05-25'),(16,11,'2024-07-19'),
+  (17,9,'2024-06-22'),(17,11,'2024-08-04'),
+  (18,1,'2024-07-30'),(18,9,'2024-09-08'),
+  (19,4,'2024-05-12'),(19,6,'2024-08-01'),
+  (20,3,'2024-02-25'),(20,7,'2024-04-18'),(20,8,'2024-09-11'),(20,12,'2024-06-09');
 
 INSERT INTO items VALUES
-  (1, 'Iron Sword', 'Weapon', 'Common', 50),
-  (2, 'Steel Longbow', 'Weapon', 'Uncommon', 180),
-  (3, 'Staff of Embers', 'Weapon', 'Rare', 850),
-  (4, 'Leather Armor', 'Armor', 'Common', 75),
-  (5, 'Chainmail Hauberk', 'Armor', 'Uncommon', 320),
-  (6, 'Dragonscale Cuirass', 'Armor', 'Legendary', 12000),
-  (7, 'Healing Potion', 'Consumable', 'Common', 25),
-  (8, 'Elixir of Giant Strength', 'Consumable', 'Rare', 400),
-  (9, 'Amulet of Warding', 'Accessory', 'Uncommon', 600),
-  (10, 'Ring of the Archmage', 'Accessory', 'Legendary', 18000);
+  (1,  'Iron Sword',              'Weapon',     'Common',      50),
+  (2,  'Steel Longbow',            'Weapon',     'Uncommon',    180),
+  (3,  'Staff of Embers',          'Weapon',     'Rare',        850),
+  (4,  'Leather Armor',            'Armor',      'Common',       75),
+  (5,  'Chainmail Hauberk',        'Armor',      'Uncommon',    320),
+  (6,  'Dragonscale Cuirass',     'Armor',      'Legendary',  12000),
+  (7,  'Healing Potion',           'Consumable', 'Common',       25),
+  (8,  'Elixir of Giant Strength', 'Consumable', 'Rare',        400),
+  (9,  'Amulet of Warding',        'Accessory',  'Uncommon',    600),
+  (10, 'Ring of the Archmage',     'Accessory',  'Legendary', 18000),
+  (11, 'Shadowsilk Cloak',         'Armor',      'Rare',        980),
+  (12, 'Mithril Dagger',           'Weapon',     'Rare',       1100);
 
 INSERT INTO hero_items VALUES
-  (1, 2, 1),(1, 4, 1),(1, 7, 5),
-  (2, 1, 1),(2, 5, 1),(2, 7, 3),(2, 8, 1),
-  (3, 3, 1),(3, 9, 1),(3, 7, 2),
-  (4, 1, 1),(4, 4, 1),
-  (5, 3, 1),(5, 10, 1),(5, 8, 2),
-  (6, 1, 1),(6, 7, 4),
-  (7, 1, 1),(7, 6, 1),(7, 9, 1),
-  (8, 2, 1),(8, 4, 1),
-  (9, 1, 1),(9, 7, 6),
-  (10, 1, 1),(10, 5, 1),
-  (11, 3, 1),(11, 7, 1),
-  (12, 1, 1),(12, 6, 1),(12, 8, 3),
-  (13, 2, 1),
-  (14, 1, 1),(14, 9, 1),(14, 7, 8);
+  (1,2,1),(1,4,1),(1,7,5),(1,11,1),
+  (2,1,1),(2,5,1),(2,7,3),(2,8,1),
+  (3,3,1),(3,9,1),(3,7,2),
+  (4,1,1),(4,4,1),
+  (5,3,1),(5,10,1),(5,8,2),(5,11,1),
+  (6,12,1),(6,7,4),
+  (7,1,1),(7,6,1),(7,9,1),
+  (8,2,1),(8,4,1),
+  (9,12,1),(9,7,6),
+  (10,1,1),(10,5,1),
+  (11,3,1),(11,7,1),
+  (12,1,1),(12,6,1),(12,8,3),
+  (13,2,1),
+  (14,12,1),(14,9,1),(14,7,8),(14,11,1),
+  (16,1,1),(16,5,1),(16,8,1),
+  (17,3,1),(17,7,2),
+  (18,2,1),(18,4,1),
+  (19,12,1),(19,7,3),
+  (20,1,1),(20,6,1),(20,9,1);
+
+INSERT INTO battles VALUES
+  (1,  2,  4,  2,  '2024-02-14'),
+  (2,  12, 7,  12, '2024-03-02'),
+  (3,  5,  3,  5,  '2024-03-18'),
+  (4,  14, 9,  14, '2024-04-05'),
+  (5,  2,  16, 2,  '2024-04-20'),
+  (6,  20, 7,  20, '2024-05-08'),
+  (7,  12, 2,  12, '2024-05-25'),
+  (8,  5,  14, 5,  '2024-06-10'),
+  (9,  14, 6,  14, '2024-06-28'),
+  (10, 20, 10, 20, '2024-07-14'),
+  (11, 5,  12, 5,  '2024-07-30'),
+  (12, 14, 19, 14, '2024-08-12'),
+  (13, 12, 16, 12, '2024-08-29'),
+  (14, 2,  20, 20, '2024-09-15'),
+  (15, 14, 9,  14, '2024-09-30'),
+  (16, 5,  3,  5,  '2024-10-12'),
+  (17, 20, 7,  20, '2024-10-28'),
+  (18, 12, 14, NULL, '2024-11-10'),
+  (19, 2,  16, 2,  '2024-11-25'),
+  (20, 5,  17, 5,  '2024-12-08');
 `;
 
-// ============== LESSONS ==============
-const lessons = [
-  {
-    title: "1. SELECT basics",
-    content: `
-      <h2>SELECT basics</h2>
-      <p>SQL is how we talk to databases. The most common command is <code>SELECT</code>, which retrieves rows from a table.</p>
-      <p>Basic shape:</p>
-      <pre>SELECT column1, column2 FROM table_name;</pre>
-      <p>Use <code>*</code> to grab every column:</p>
-      <pre>SELECT * FROM heroes;</pre>
-      <p>We have a <code>heroes</code> table with these columns: <code>id</code>, <code>name</code>, <code>class</code>, <code>level</code>, <code>xp</code>, <code>guild_id</code>.</p>
-      <div class="challenge"><strong>🎯 Challenge:</strong> Return the <code>name</code> and <code>class</code> of every hero.</div>
-    `,
-    starter: "SELECT  FROM heroes;",
-    check: (rows, cols) => cols.length === 2 && cols.includes("name") && cols.includes("class") && rows.length === 15
-  },
-  {
-    title: "2. Filtering with WHERE",
-    content: `
-      <h2>Filtering with WHERE</h2>
-      <p>The <code>WHERE</code> clause filters rows. Only rows where the condition is true are returned.</p>
-      <pre>SELECT * FROM heroes WHERE class = 'Mage';</pre>
-      <p>Operators: <code>=</code>, <code>!=</code> (or <code>&lt;&gt;</code>), <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>.</p>
-      <p>Strings go in single quotes. Numbers don't.</p>
-      <div class="challenge"><strong>🎯 Challenge:</strong> Return all heroes with a <code>level</code> greater than 25.</div>
-    `,
-    starter: "SELECT * FROM heroes WHERE ",
-    check: (rows) => rows.length > 0 && rows.every(r => r.level > 25) && rows.length === 9
-  },
-  {
-    title: "3. AND, OR, NOT",
-    content: `
-      <h2>Combining conditions</h2>
-      <p>Combine conditions with <code>AND</code>, <code>OR</code>, and <code>NOT</code>. Use parentheses to control precedence.</p>
-      <pre>SELECT * FROM heroes
-WHERE class = 'Warrior' AND level &gt;= 30;</pre>
-      <pre>SELECT * FROM heroes
-WHERE class = 'Mage' OR class = 'Paladin';</pre>
-      <div class="challenge"><strong>🎯 Challenge:</strong> Return all <code>Rogue</code> heroes whose <code>level</code> is at least 20.</div>
-    `,
-    starter: "SELECT * FROM heroes\nWHERE ",
-    check: (rows) => rows.length === 3 && rows.every(r => r.class === 'Rogue' && r.level >= 20)
-  },
-  {
-    title: "4. ORDER BY & LIMIT",
-    content: `
-      <h2>Sorting and limiting</h2>
-      <p><code>ORDER BY</code> sorts results. Default is ascending; add <code>DESC</code> for descending.</p>
-      <pre>SELECT * FROM heroes ORDER BY level DESC;</pre>
-      <p><code>LIMIT</code> caps the number of rows. Combine them to get top-N queries:</p>
-      <pre>SELECT * FROM heroes ORDER BY xp DESC LIMIT 3;</pre>
-      <div class="challenge"><strong>🎯 Challenge:</strong> Return the top 5 heroes by <code>xp</code>, highest first. Include <code>name</code> and <code>xp</code>.</div>
-    `,
-    starter: "SELECT name, xp FROM heroes\nORDER BY ",
-    check: (rows, cols) => rows.length === 5 && cols.includes("name") && cols.includes("xp") && rows[0].xp === 35800
-  },
-  {
-    title: "5. DISTINCT",
-    content: `
-      <h2>Unique values with DISTINCT</h2>
-      <p><code>DISTINCT</code> removes duplicate rows from the result.</p>
-      <pre>SELECT DISTINCT class FROM heroes;</pre>
-      <p>Useful for quickly seeing what unique values exist in a column.</p>
-      <div class="challenge"><strong>🎯 Challenge:</strong> Return every unique <code>difficulty</code> from the <code>quests</code> table.</div>
-    `,
-    starter: "SELECT DISTINCT  FROM quests;",
-    check: (rows, cols) => cols.length === 1 && cols[0] === "difficulty" && rows.length === 4
-  },
-  {
-    title: "6. LIKE & pattern matching",
-    content: `
-      <h2>Pattern matching with LIKE</h2>
-      <p><code>LIKE</code> matches text patterns. Use <code>%</code> for any number of characters and <code>_</code> for a single character.</p>
-      <pre>SELECT * FROM heroes WHERE name LIKE 'A%';      -- starts with A
-SELECT * FROM heroes WHERE name LIKE '%shadow%'; -- contains "shadow"
-SELECT * FROM heroes WHERE name LIKE '_orin%';   -- second letter o, starts "_orin"</pre>
-      <div class="challenge"><strong>🎯 Challenge:</strong> Return all heroes whose <code>name</code> ends with the letter <code>r</code>.</div>
-    `,
-    starter: "SELECT * FROM heroes\nWHERE name LIKE ",
-    check: (rows) => rows.length > 0 && rows.every(r => r.name.endsWith('r'))
-  },
-  {
-    title: "7. Aggregate functions",
-    content: `
-      <h2>Aggregate functions</h2>
-      <p>Aggregates compute a single value across many rows:</p>
-      <ul>
-        <li><code>COUNT(*)</code> — number of rows</li>
-        <li><code>SUM(col)</code> — total</li>
-        <li><code>AVG(col)</code> — average</li>
-        <li><code>MIN(col)</code> / <code>MAX(col)</code> — smallest / largest</li>
-      </ul>
-      <pre>SELECT COUNT(*), AVG(level), MAX(xp) FROM heroes;</pre>
-      <p>Use <code>AS</code> to name the result column:</p>
-      <pre>SELECT AVG(level) AS avg_level FROM heroes;</pre>
-      <div class="challenge"><strong>🎯 Challenge:</strong> Return the total <code>reward_gold</code> across all quests as a column named <code>total_gold</code>.</div>
-    `,
-    starter: "SELECT  AS total_gold FROM quests;",
-    check: (rows, cols) => cols.includes("total_gold") && rows[0].total_gold === 15100
-  },
-  {
-    title: "8. GROUP BY",
-    content: `
-      <h2>Grouping rows</h2>
-      <p><code>GROUP BY</code> collapses rows that share a value, then runs aggregates per group.</p>
-      <pre>SELECT class, COUNT(*) AS hero_count
-FROM heroes
-GROUP BY class;</pre>
-      <p>Rule: every column in <code>SELECT</code> that isn't aggregated must appear in <code>GROUP BY</code>.</p>
-      <div class="challenge"><strong>🎯 Challenge:</strong> For each <code>class</code>, return the class name and the average level as <code>avg_level</code>.</div>
-    `,
-    starter: "SELECT class, AVG(level) AS avg_level\nFROM heroes\nGROUP BY ",
-    check: (rows, cols) => cols.includes("class") && cols.includes("avg_level") && rows.length === 5
-  },
-  {
-    title: "9. HAVING",
-    content: `
-      <h2>Filtering groups with HAVING</h2>
-      <p><code>WHERE</code> filters rows <em>before</em> grouping. <code>HAVING</code> filters groups <em>after</em>.</p>
-      <pre>SELECT class, COUNT(*) AS n
-FROM heroes
-GROUP BY class
-HAVING COUNT(*) &gt;= 3;</pre>
-      <p>If you want to filter on an aggregate (like <code>COUNT</code> or <code>AVG</code>), it has to live in <code>HAVING</code>.</p>
-      <div class="challenge"><strong>🎯 Challenge:</strong> Return each <code>class</code> and its average level (as <code>avg_level</code>), but only for classes whose average level is greater than 25.</div>
-    `,
-    starter: "SELECT class, AVG(level) AS avg_level\nFROM heroes\nGROUP BY class\nHAVING ",
-    check: (rows, cols) => cols.includes("class") && cols.includes("avg_level") && rows.every(r => r.avg_level > 25) && rows.length > 0
-  },
-  {
-    title: "10. INNER JOIN",
-    content: `
-      <h2>Combining tables with INNER JOIN</h2>
-      <p>A <code>JOIN</code> stitches rows from two tables together based on a matching condition. <code>INNER JOIN</code> returns only rows that match on both sides.</p>
-      <pre>SELECT heroes.name, guilds.name AS guild_name
-FROM heroes
-INNER JOIN guilds ON heroes.guild_id = guilds.id;</pre>
-      <p>Heroes without a guild (<code>guild_id IS NULL</code>) are excluded — that's what "inner" means.</p>
-      <div class="challenge"><strong>🎯 Challenge:</strong> Return each hero's <code>name</code> alongside their guild's <code>name</code> (alias the guild column as <code>guild_name</code>). Heroes without a guild should be excluded.</div>
-    `,
-    starter: "SELECT heroes.name, guilds.name AS guild_name\nFROM heroes\nINNER JOIN guilds ON ",
-    check: (rows, cols) => cols.includes("name") && cols.includes("guild_name") && rows.length === 13 && rows.every(r => r.guild_name)
-  },
-  {
-    title: "11. LEFT JOIN",
-    content: `
-      <h2>Keeping unmatched rows with LEFT JOIN</h2>
-      <p><code>LEFT JOIN</code> keeps every row from the left table, even if no match exists on the right. Missing matches show up as <code>NULL</code>.</p>
-      <pre>SELECT heroes.name, guilds.name AS guild_name
-FROM heroes
-LEFT JOIN guilds ON heroes.guild_id = guilds.id;</pre>
-      <p>Use this when you want "all X, plus their Y if any."</p>
-      <div class="challenge"><strong>🎯 Challenge:</strong> Return every hero's <code>name</code> and their guild's <code>name</code> as <code>guild_name</code>. Heroes without a guild should still appear (with NULL).</div>
-    `,
-    starter: "SELECT heroes.name, guilds.name AS guild_name\nFROM heroes\nLEFT JOIN ",
-    check: (rows, cols) => cols.includes("name") && cols.includes("guild_name") && rows.length === 15 && rows.some(r => r.guild_name === null)
-  },
-  {
-    title: "12. Multi-table joins",
-    content: `
-      <h2>Joining multiple tables</h2>
-      <p>You can chain joins to walk relationships. Here we link heroes → hero_quests → quests:</p>
-      <pre>SELECT h.name, q.name AS quest_name
-FROM heroes h
-INNER JOIN hero_quests hq ON h.id = hq.hero_id
-INNER JOIN quests q ON hq.quest_id = q.id;</pre>
-      <p>Notice the <strong>table aliases</strong> (<code>h</code>, <code>hq</code>, <code>q</code>) — they keep the query readable.</p>
-      <div class="challenge"><strong>🎯 Challenge:</strong> Return each hero's <code>name</code> and the total <code>reward_gold</code> they've earned from completed quests, as <code>total_gold</code>. Sort highest first.</div>
-    `,
-    starter: "SELECT h.name, SUM(q.reward_gold) AS total_gold\nFROM heroes h\nINNER JOIN hero_quests hq ON h.id = hq.hero_id\nINNER JOIN quests q ON hq.quest_id = q.id\nGROUP BY h.id\nORDER BY ",
-    check: (rows, cols) => cols.includes("name") && cols.includes("total_gold") && rows[0].total_gold >= rows[rows.length-1].total_gold && rows.length > 5
-  },
-  {
-    title: "13. Subqueries",
-    content: `
-      <h2>Subqueries</h2>
-      <p>A subquery is a query inside another query. The most common use: comparing to an aggregate.</p>
-      <pre>SELECT name, level
-FROM heroes
-WHERE level &gt; (SELECT AVG(level) FROM heroes);</pre>
-      <p>The inner query runs first, produces a value, then the outer query uses it.</p>
-      <div class="challenge"><strong>🎯 Challenge:</strong> Return the <code>name</code> and <code>xp</code> of all heroes whose <code>xp</code> is greater than the average <code>xp</code> across all heroes.</div>
-    `,
-    starter: "SELECT name, xp\nFROM heroes\nWHERE xp > (SELECT  FROM heroes);",
-    check: (rows, cols) => cols.includes("name") && cols.includes("xp") && rows.length === 7 && rows.every(r => r.xp > 15553)
-  },
-  {
-    title: "14. IN, NOT IN, EXISTS",
-    content: `
-      <h2>Set membership</h2>
-      <p><code>IN</code> checks whether a value is in a list (or a subquery's results).</p>
-      <pre>SELECT * FROM heroes WHERE class IN ('Mage', 'Paladin');
-
-SELECT name FROM heroes
-WHERE id IN (SELECT hero_id FROM hero_quests WHERE quest_id = 5);</pre>
-      <p><code>NOT IN</code> is the inverse. <code>EXISTS</code> is similar but checks whether a subquery returns any rows at all.</p>
-      <div class="challenge"><strong>🎯 Challenge:</strong> Return the <code>name</code> of every hero who has <strong>never</strong> completed any quest. (Hint: their id won't appear in <code>hero_quests</code>.)</div>
-    `,
-    starter: "SELECT name\nFROM heroes\nWHERE id NOT IN (SELECT  FROM hero_quests);",
-    check: (rows, cols) => cols.length === 1 && cols[0] === "name" && rows.length === 1 && rows[0].name === "Orin Steelheart"
-  },
-  {
-    title: "15. CTEs (WITH)",
-    content: `
-      <h2>Common Table Expressions</h2>
-      <p>A CTE lets you name a subquery and use it like a temporary table. It makes complex queries readable.</p>
-      <pre>WITH class_stats AS (
-  SELECT class, AVG(level) AS avg_lvl
-  FROM heroes
-  GROUP BY class
-)
-SELECT * FROM class_stats WHERE avg_lvl &gt; 25;</pre>
-      <p>You can define multiple CTEs separated by commas, and they can reference each other.</p>
-      <div class="challenge"><strong>🎯 Challenge:</strong> Using a CTE called <code>quest_counts</code>, compute how many quests each hero has completed. Then return the <code>name</code> and the count (as <code>quests_done</code>) of heroes who've completed more than 3 quests.</div>
-    `,
-    starter: "WITH quest_counts AS (\n  SELECT hero_id, COUNT(*) AS quests_done\n  FROM hero_quests\n  GROUP BY hero_id\n)\nSELECT h.name, qc.quests_done\nFROM heroes h\nINNER JOIN quest_counts qc ON h.id = qc.hero_id\nWHERE ",
-    check: (rows, cols) => cols.includes("name") && cols.includes("quests_done") && rows.every(r => r.quests_done > 3) && rows.length >= 2
-  },
-  {
-    title: "16. Window functions",
-    content: `
-      <h2>Window functions</h2>
-      <p>Window functions compute values across a "window" of rows <em>without</em> collapsing the rows like <code>GROUP BY</code> does.</p>
-      <pre>SELECT name, class, xp,
-       RANK() OVER (PARTITION BY class ORDER BY xp DESC) AS class_rank
-FROM heroes;</pre>
-      <p>Common windows: <code>ROW_NUMBER()</code>, <code>RANK()</code>, <code>DENSE_RANK()</code>, <code>LAG()</code>, <code>LEAD()</code>, plus the aggregates (<code>SUM</code>, <code>AVG</code>) as windows.</p>
-      <p><code>PARTITION BY</code> divides rows into groups; <code>ORDER BY</code> orders within each group.</p>
-      <div class="challenge"><strong>🎯 Challenge:</strong> For every hero, return their <code>name</code>, <code>class</code>, <code>xp</code>, and their rank within their class by <code>xp</code> descending. Name the rank column <code>class_rank</code>. The top hero in each class should be rank 1.</div>
-    `,
-    starter: "SELECT name, class, xp,\n  RANK() OVER (PARTITION BY  ORDER BY  ) AS class_rank\nFROM heroes;",
-    check: (rows, cols) => {
-      if (!cols.includes("class_rank") || rows.length !== 15) return false;
-      const byClass = {};
-      rows.forEach(r => { byClass[r.class] = byClass[r.class] || []; byClass[r.class].push(r); });
-      return Object.values(byClass).every(cls => {
-        const sorted = [...cls].sort((a,b) => b.xp - a.xp);
-        return sorted[0].class_rank === 1;
-      });
-    }
-  }
+// =====================================================================
+// COURSE STRUCTURE — 5 modules, 16 lessons
+// =====================================================================
+const MODULES = [
+  { num: 'I',   name: 'Foundations',             desc: 'How SQL thinks, and how to read its sentences.' },
+  { num: 'II',  name: 'Sets & Selection',        desc: 'Filtering, sorting, and the nature of duplicates.' },
+  { num: 'III', name: 'Aggregation',             desc: 'Compressing many rows into one meaningful number.' },
+  { num: 'IV',  name: 'Joining Tables',          desc: 'Stitching relationships back together.' },
+  { num: 'V',   name: 'Advanced Composition',    desc: 'Subqueries, CTEs, and window functions.' },
 ];
 
-// ============== STATE ==============
-let db, currentLesson = 0, mode = 'learn';
+const lessons = [
+  // ============== MODULE I: FOUNDATIONS ==============
+  {
+    module: 0, number: 'I', title: 'The Shape of SQL',
+    subtitle: 'Declarative thinking, and the simplest possible query.',
+    content: `
+      <div class="section">
+        <h3>The Concept</h3>
+        <div class="prose">
+          <p>Most programming languages ask you <em>how</em>: how to walk the array, how to update the counter, how to construct the loop. SQL asks you <em>what</em>: what rows would you like back? The database figures out the how.</p>
+          <p>This is called <strong>declarative</strong> programming, and it's the first mental shift to make. You don't iterate over rows; you describe a set of them, and the database materializes that set on your behalf. A skilled SQL writer thinks in sets, not in loops.</p>
+          <div class="pull-quote">A query is a description of a set. The database's job is to find it.</div>
+          <p>The smallest legal query has two clauses: <code>SELECT</code>, which lists the columns you want, and <code>FROM</code>, which names the table they live in. Together they form a complete sentence.</p>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Worked Examples</h3>
+        <pre class="code"><span class="kw">SELECT</span> name <span class="kw">FROM</span> heroes;</pre>
+        <div class="example-caption"><strong>Read aloud</strong> "Show me the name of every hero." The result is a single-column table.</div>
+        <pre class="code"><span class="kw">SELECT</span> name, level, class <span class="kw">FROM</span> heroes;</pre>
+        <div class="example-caption"><strong>Multiple columns</strong> Listed in the order you'd like them displayed. Commas separate them.</div>
+        <pre class="code"><span class="kw">SELECT</span> * <span class="kw">FROM</span> heroes;</pre>
+        <div class="example-caption"><strong>The wildcard</strong> An asterisk means "every column." Useful for exploring an unfamiliar table, but in production code, prefer naming columns explicitly.</div>
+      </div>
+      <div class="pitfalls">
+        <div class="pitfalls-label">Common Pitfalls</div>
+        <ul>
+          <li>Reversing the clauses. The order is always <code>SELECT ... FROM ...</code>, never the other way around.</li>
+          <li>Forgetting that SQL is case-insensitive for keywords (<code>SELECT</code> and <code>select</code> both work) but typically case-sensitive for string values (<code>'Mage'</code> ≠ <code>'mage'</code>).</li>
+          <li>Using <code>*</code> in saved queries or application code. It hides intent and breaks silently when columns are added.</li>
+        </ul>
+      </div>
+    `,
+    challenges: [
+      {
+        prompt: "Return only the <code>name</code> column from the <code>heroes</code> table.",
+        difficulty: 'beginner',
+        starter: "SELECT  FROM heroes;",
+        hint: "You only need one column listed between SELECT and FROM.",
+        solution: "SELECT name FROM heroes;",
+        check: (rows, cols) => cols.length === 1 && cols[0] === 'name' && rows.length === 20
+      },
+      {
+        prompt: "Return three columns from <code>heroes</code>: <code>name</code>, <code>level</code>, and <code>xp</code>, in that order.",
+        difficulty: 'beginner',
+        starter: "SELECT  FROM heroes;",
+        hint: "Separate the column names with commas. Order matters — list them name, level, xp.",
+        solution: "SELECT name, level, xp FROM heroes;",
+        check: (rows, cols) => cols.length === 3 && cols[0] === 'name' && cols[1] === 'level' && cols[2] === 'xp'
+      }
+    ]
+  },
+  {
+    module: 0, number: 'II', title: 'Filtering with WHERE',
+    subtitle: 'Asking the database to be selective.',
+    content: `
+      <div class="section">
+        <h3>The Concept</h3>
+        <div class="prose">
+          <p>So far every query has returned every row. That's rarely what you want. The <code>WHERE</code> clause acts as a sieve: only rows whose condition evaluates to <em>true</em> pass through.</p>
+          <p>Conceptually, you can imagine the database walking each row and asking "does this one satisfy the condition?" Rows for which the answer is yes appear in the result. Rows for which the answer is no, or unknown (more on that shortly), are silently dropped.</p>
+          <p>The comparison operators are mostly what you'd expect: <code>=</code>, <code>!=</code> (or <code>&lt;&gt;</code>), <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>. String literals go in single quotes; numbers do not.</p>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Worked Examples</h3>
+        <pre class="code"><span class="kw">SELECT</span> * <span class="kw">FROM</span> heroes <span class="kw">WHERE</span> class = <span class="str">'Mage'</span>;</pre>
+        <div class="example-caption"><strong>Equality on a string</strong> Single quotes are mandatory for text. Double quotes mean something different (they refer to identifiers in standard SQL).</div>
+        <pre class="code"><span class="kw">SELECT</span> name, level <span class="kw">FROM</span> heroes <span class="kw">WHERE</span> level &gt;= <span class="num">30</span>;</pre>
+        <div class="example-caption"><strong>Numeric comparison</strong> No quotes around numbers. Use <code>&gt;=</code> when the boundary value should be included.</div>
+        <pre class="code"><span class="kw">SELECT</span> * <span class="kw">FROM</span> heroes <span class="kw">WHERE</span> guild_id <span class="kw">IS NULL</span>;</pre>
+        <div class="example-caption"><strong>The NULL exception</strong> <code>NULL</code> means "unknown." It is not equal to anything — not even another <code>NULL</code>. Test for it with <code>IS NULL</code> or <code>IS NOT NULL</code>, never with <code>= NULL</code>.</div>
+      </div>
+      <div class="pitfalls">
+        <div class="pitfalls-label">Common Pitfalls</div>
+        <ul>
+          <li>Using double quotes around string values. <code>WHERE class = "Mage"</code> is wrong in standard SQL — it tries to refer to a column named <em>Mage</em>.</li>
+          <li>Writing <code>WHERE column = NULL</code>. This silently returns nothing. Use <code>IS NULL</code>.</li>
+          <li>Assuming string comparisons ignore case. <code>'mage' = 'Mage'</code> is typically <em>false</em> in SQLite (and in most databases by default).</li>
+        </ul>
+      </div>
+    `,
+    challenges: [
+      {
+        prompt: "Return all heroes whose <code>level</code> is greater than 30.",
+        difficulty: 'beginner',
+        starter: "SELECT * FROM heroes\nWHERE ",
+        hint: "Use the > operator. No quotes around the number.",
+        solution: "SELECT * FROM heroes WHERE level > 30;",
+        check: (rows) => rows.length > 0 && rows.every(r => r.level > 30) && rows.length === 6
+      },
+      {
+        prompt: "Return the <code>name</code> of every hero who is <strong>not</strong> in any guild (their <code>guild_id</code> is unknown).",
+        difficulty: 'intermediate',
+        starter: "SELECT name FROM heroes\nWHERE ",
+        hint: "NULL means \"unknown.\" Test for it with IS NULL, not = NULL.",
+        solution: "SELECT name FROM heroes WHERE guild_id IS NULL;",
+        check: (rows, cols) => cols.length === 1 && cols[0] === 'name' && rows.length === 3
+      }
+    ]
+  },
+  {
+    module: 0, number: 'III', title: 'Combining Conditions',
+    subtitle: 'AND, OR, NOT, and the importance of parentheses.',
+    content: `
+      <div class="section">
+        <h3>The Concept</h3>
+        <div class="prose">
+          <p>A single condition is often not enough. SQL's three boolean operators — <code>AND</code>, <code>OR</code>, <code>NOT</code> — let you compose richer questions.</p>
+          <p>The mental model is logical: a row passes the filter if the overall expression evaluates to true. <code>AND</code> requires both sides true. <code>OR</code> requires at least one side true. <code>NOT</code> inverts.</p>
+          <p>One source of bugs is precedence. <code>AND</code> binds more tightly than <code>OR</code> — meaning <code>A OR B AND C</code> is parsed as <code>A OR (B AND C)</code>, not as <code>(A OR B) AND C</code>. When in doubt, parenthesize. Clarity beats cleverness.</p>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Worked Examples</h3>
+        <pre class="code"><span class="kw">SELECT</span> name <span class="kw">FROM</span> heroes
+<span class="kw">WHERE</span> class = <span class="str">'Warrior'</span> <span class="kw">AND</span> level &gt;= <span class="num">30</span>;</pre>
+        <div class="example-caption"><strong>Both must hold</strong> A warrior whose level is below 30 is excluded. A non-warrior at level 50 is excluded.</div>
+        <pre class="code"><span class="kw">SELECT</span> name <span class="kw">FROM</span> heroes
+<span class="kw">WHERE</span> class = <span class="str">'Mage'</span> <span class="kw">OR</span> class = <span class="str">'Paladin'</span>;</pre>
+        <div class="example-caption"><strong>Either suffices</strong> A common pattern. You'll soon meet <code>IN</code>, which says the same thing more succinctly.</div>
+        <pre class="code"><span class="kw">SELECT</span> name <span class="kw">FROM</span> heroes
+<span class="kw">WHERE</span> (class = <span class="str">'Mage'</span> <span class="kw">OR</span> class = <span class="str">'Paladin'</span>)
+  <span class="kw">AND</span> level &gt;= <span class="num">25</span>;</pre>
+        <div class="example-caption"><strong>Parentheses for clarity</strong> Without them this would mean "any Mage, plus Paladins of level 25+." With them: "Mages or Paladins, of level 25+."</div>
+      </div>
+      <div class="pitfalls">
+        <div class="pitfalls-label">Common Pitfalls</div>
+        <ul>
+          <li>Trusting precedence over readability. Even when parentheses are technically unnecessary, they document intent.</li>
+          <li>Using <code>NOT</code> around <code>NULL</code> comparisons. <code>NOT (x = NULL)</code> still gives unknown. Use <code>IS NOT NULL</code>.</li>
+        </ul>
+      </div>
+    `,
+    challenges: [
+      {
+        prompt: "Return all <code>Rogue</code> heroes whose <code>level</code> is at least 25.",
+        difficulty: 'beginner',
+        starter: "SELECT * FROM heroes\nWHERE ",
+        hint: "Two conditions joined by AND. Strings in single quotes; the level comparison uses >=.",
+        solution: "SELECT * FROM heroes WHERE class = 'Rogue' AND level >= 25;",
+        check: (rows) => rows.length > 0 && rows.every(r => r.class === 'Rogue' && r.level >= 25) && rows.length === 2
+      },
+      {
+        prompt: "Return the <code>name</code> and <code>class</code> of all heroes who are either Warriors of any level, <strong>or</strong> Paladins of level 30 and above. Pay attention to precedence.",
+        difficulty: 'intermediate',
+        starter: "SELECT name, class FROM heroes\nWHERE ",
+        hint: "Use parentheses to make the grouping explicit: (Warriors of any level) OR (Paladins meeting the level requirement).",
+        solution: "SELECT name, class FROM heroes WHERE class = 'Warrior' OR (class = 'Paladin' AND level >= 30);",
+        check: (rows) => rows.every(r => r.class === 'Warrior' || (r.class === 'Paladin' && r.level >= 30)) && rows.length === 7
+      }
+    ]
+  },
+
+  // ============== MODULE II: SETS & SELECTION ==============
+  {
+    module: 1, number: 'IV', title: 'Sorting & Limiting',
+    subtitle: 'Imposing order on an inherently unordered set.',
+    content: `
+      <div class="section">
+        <h3>The Concept</h3>
+        <div class="prose">
+          <p>By default, a SQL result has no guaranteed order. The database is free to return rows in whatever sequence it finds convenient — and that sequence can change between query runs. If you need a particular order, you must request it.</p>
+          <p><code>ORDER BY</code> sorts the result. The default direction is ascending (<code>ASC</code>); add <code>DESC</code> for descending. You can sort by multiple columns, with the first being the primary key and subsequent columns breaking ties.</p>
+          <p><code>LIMIT</code> caps the row count. Combined with <code>ORDER BY</code>, it's how you ask top-N questions: "the 5 most experienced heroes," "the cheapest 10 items," and so on.</p>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Worked Examples</h3>
+        <pre class="code"><span class="kw">SELECT</span> name, level <span class="kw">FROM</span> heroes
+<span class="kw">ORDER BY</span> level <span class="kw">DESC</span>;</pre>
+        <div class="example-caption"><strong>Descending sort</strong> Highest levels first. Ties are broken in unspecified order unless you add a second sort key.</div>
+        <pre class="code"><span class="kw">SELECT</span> name, class, level <span class="kw">FROM</span> heroes
+<span class="kw">ORDER BY</span> class <span class="kw">ASC</span>, level <span class="kw">DESC</span>;</pre>
+        <div class="example-caption"><strong>Multi-column sort</strong> Heroes are grouped by class alphabetically; within each class, the highest level appears first.</div>
+        <pre class="code"><span class="kw">SELECT</span> name, xp <span class="kw">FROM</span> heroes
+<span class="kw">ORDER BY</span> xp <span class="kw">DESC</span>
+<span class="kw">LIMIT</span> <span class="num">3</span>;</pre>
+        <div class="example-caption"><strong>The top-N pattern</strong> Sort, then take the first few. This is the most common use of <code>LIMIT</code>.</div>
+      </div>
+      <div class="pitfalls">
+        <div class="pitfalls-label">Common Pitfalls</div>
+        <ul>
+          <li>Assuming a default ordering. Without <code>ORDER BY</code>, order is undefined — even if today's results look sorted.</li>
+          <li>Putting <code>LIMIT</code> before <code>ORDER BY</code>. The order is always <code>SELECT … FROM … WHERE … ORDER BY … LIMIT …</code>.</li>
+          <li>Using <code>LIMIT</code> on its own to get "the first 5" without sorting. You'll get 5 arbitrary rows, not the first 5 of anything in particular.</li>
+        </ul>
+      </div>
+    `,
+    challenges: [
+      {
+        prompt: "Return the five heroes with the most <code>xp</code>, highest first. Show <code>name</code> and <code>xp</code> only.",
+        difficulty: 'beginner',
+        starter: "SELECT name, xp FROM heroes\nORDER BY  DESC\nLIMIT ",
+        hint: "Sort by xp descending, then limit to 5 rows.",
+        solution: "SELECT name, xp FROM heroes ORDER BY xp DESC LIMIT 5;",
+        check: (rows, cols) => rows.length === 5 && cols.includes('name') && cols.includes('xp') && rows[0].xp === 35800 && rows[4].xp === 22000
+      },
+      {
+        prompt: "Sort heroes alphabetically by <code>class</code>, and within each class, list the highest-level heroes first. Return <code>name</code>, <code>class</code>, and <code>level</code>.",
+        difficulty: 'intermediate',
+        starter: "SELECT name, class, level FROM heroes\nORDER BY ",
+        hint: "Two sort keys, separated by a comma. The first is class ascending; the second is level descending.",
+        solution: "SELECT name, class, level FROM heroes ORDER BY class ASC, level DESC;",
+        check: (rows) => {
+          if (rows.length !== 20) return false;
+          for (let i = 1; i < rows.length; i++) {
+            if (rows[i].class < rows[i-1].class) return false;
+            if (rows[i].class === rows[i-1].class && rows[i].level > rows[i-1].level) return false;
+          }
+          return true;
+        }
+      }
+    ]
+  },
+  {
+    module: 1, number: 'V', title: 'DISTINCT & Set Semantics',
+    subtitle: 'Why SQL keeps duplicates by default, and how to remove them.',
+    content: `
+      <div class="section">
+        <h3>The Concept</h3>
+        <div class="prose">
+          <p>A subtle thing about SQL: by default, query results are <em>multisets</em>, not sets. Duplicates are preserved. If three heroes have the same class, asking for "every class" returns that value three times.</p>
+          <p>This trips up newcomers, but the choice is intentional: deduplication is expensive, and you'd rather opt in to it than pay the cost on every query. <code>DISTINCT</code> is the opt-in.</p>
+          <p>When applied to multiple columns, <code>DISTINCT</code> deduplicates the entire <em>combination</em> — so <code>DISTINCT class, guild_id</code> returns each unique (class, guild_id) pair exactly once.</p>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Worked Examples</h3>
+        <pre class="code"><span class="cmt">-- Without DISTINCT: 20 rows, one per hero</span>
+<span class="kw">SELECT</span> class <span class="kw">FROM</span> heroes;
+
+<span class="cmt">-- With DISTINCT: 5 rows, one per unique class</span>
+<span class="kw">SELECT DISTINCT</span> class <span class="kw">FROM</span> heroes;</pre>
+        <div class="example-caption"><strong>Single column</strong> The classic use: quickly answering "what unique values exist?"</div>
+        <pre class="code"><span class="kw">SELECT DISTINCT</span> class, guild_id <span class="kw">FROM</span> heroes
+<span class="kw">ORDER BY</span> class;</pre>
+        <div class="example-caption"><strong>Multi-column</strong> Each unique pair of (class, guild_id) is returned once. Useful for understanding the shape of a dataset.</div>
+      </div>
+      <div class="pitfalls">
+        <div class="pitfalls-label">Common Pitfalls</div>
+        <ul>
+          <li>Adding <code>DISTINCT</code> reflexively to "clean up" results without understanding what duplicates exist. They might be telling you something.</li>
+          <li>Expecting <code>DISTINCT</code> to apply to one column when you've selected several. It always applies to the entire row of selected columns.</li>
+          <li>Treating <code>DISTINCT</code> as free. On large tables it requires sorting or hashing — meaningful cost.</li>
+        </ul>
+      </div>
+    `,
+    challenges: [
+      {
+        prompt: "Return every unique <code>difficulty</code> value from the <code>quests</code> table.",
+        difficulty: 'beginner',
+        starter: "SELECT  FROM quests;",
+        hint: "DISTINCT goes immediately after SELECT.",
+        solution: "SELECT DISTINCT difficulty FROM quests;",
+        check: (rows, cols) => cols.length === 1 && cols[0] === 'difficulty' && rows.length === 4
+      },
+      {
+        prompt: "Return each unique combination of <code>rarity</code> and <code>type</code> from the <code>items</code> table, sorted by rarity.",
+        difficulty: 'intermediate',
+        starter: "SELECT DISTINCT  FROM items\nORDER BY ",
+        hint: "List both columns after DISTINCT. Then ORDER BY rarity.",
+        solution: "SELECT DISTINCT rarity, type FROM items ORDER BY rarity;",
+        check: (rows, cols) => cols.includes('rarity') && cols.includes('type') && rows.length >= 6
+      }
+    ]
+  },
+  {
+    module: 1, number: 'VI', title: 'Pattern Matching & Set Membership',
+    subtitle: 'LIKE, IN, and BETWEEN — three concise forms.',
+    content: `
+      <div class="section">
+        <h3>The Concept</h3>
+        <div class="prose">
+          <p>Three small operators tighten common <code>WHERE</code> patterns considerably.</p>
+          <p><code>LIKE</code> performs simple pattern matching against strings, using two wildcards: <code>%</code> matches any sequence of characters (including none), and <code>_</code> matches exactly one character. It is, by default, case-sensitive in SQLite.</p>
+          <p><code>IN</code> tests whether a value appears in an explicit list. It's syntactic sugar for a chain of <code>OR</code> equalities. The list can also be a subquery, which is where <code>IN</code> becomes truly powerful (we'll revisit this later).</p>
+          <p><code>BETWEEN x AND y</code> is shorthand for <code>&gt;= x AND &lt;= y</code> — inclusive on both ends. Useful for ranges (dates, numeric bounds), but read it carefully: that inclusivity often surprises people.</p>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Worked Examples</h3>
+        <pre class="code"><span class="kw">SELECT</span> name <span class="kw">FROM</span> heroes <span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="str">'A%'</span>;</pre>
+        <div class="example-caption"><strong>Starts with</strong> Any name beginning with capital A.</div>
+        <pre class="code"><span class="kw">SELECT</span> name <span class="kw">FROM</span> heroes <span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="str">'%shadow%'</span>;</pre>
+        <div class="example-caption"><strong>Contains</strong> <code>%</code> on both ends. Useful but expensive: it can't use a standard index.</div>
+        <pre class="code"><span class="kw">SELECT</span> * <span class="kw">FROM</span> heroes <span class="kw">WHERE</span> class <span class="kw">IN</span> (<span class="str">'Mage'</span>, <span class="str">'Paladin'</span>, <span class="str">'Rogue'</span>);</pre>
+        <div class="example-caption"><strong>IN list</strong> Equivalent to three OR'd equalities, but easier to read and edit.</div>
+        <pre class="code"><span class="kw">SELECT</span> * <span class="kw">FROM</span> heroes <span class="kw">WHERE</span> level <span class="kw">BETWEEN</span> <span class="num">20</span> <span class="kw">AND</span> <span class="num">30</span>;</pre>
+        <div class="example-caption"><strong>Inclusive range</strong> Catches level 20 and level 30 — and everything in between.</div>
+      </div>
+      <div class="pitfalls">
+        <div class="pitfalls-label">Common Pitfalls</div>
+        <ul>
+          <li>Forgetting <code>BETWEEN</code> is inclusive on both ends. <code>BETWEEN 1 AND 10</code> includes 1 and 10.</li>
+          <li>Using <code>LIKE 'shadow'</code> when you meant <code>LIKE '%shadow%'</code> — without wildcards, <code>LIKE</code> behaves like equality.</li>
+          <li>Putting <code>NULL</code> in an <code>IN</code> list. <code>x IN (1, 2, NULL)</code> can return unknown instead of false, with surprising results.</li>
+        </ul>
+      </div>
+    `,
+    challenges: [
+      {
+        prompt: "Return all heroes whose <code>name</code> ends in the letter <code>r</code>.",
+        difficulty: 'beginner',
+        starter: "SELECT name FROM heroes\nWHERE name LIKE ",
+        hint: "Use % at the start of the pattern, then the letter you want at the end.",
+        solution: "SELECT name FROM heroes WHERE name LIKE '%r';",
+        check: (rows) => rows.length > 0 && rows.every(r => r.name.endsWith('r'))
+      },
+      {
+        prompt: "Return all quests whose <code>difficulty</code> is either <code>Medium</code> or <code>Hard</code>, <strong>and</strong> whose <code>reward_gold</code> is between 500 and 1500 inclusive.",
+        difficulty: 'intermediate',
+        starter: "SELECT * FROM quests\nWHERE difficulty IN ( )\n  AND reward_gold BETWEEN  AND ;",
+        hint: "Use IN for the difficulty list, and BETWEEN for the gold range.",
+        solution: "SELECT * FROM quests WHERE difficulty IN ('Medium','Hard') AND reward_gold BETWEEN 500 AND 1500;",
+        check: (rows) => rows.length > 0 && rows.every(r => ['Medium','Hard'].includes(r.difficulty) && r.reward_gold >= 500 && r.reward_gold <= 1500)
+      }
+    ]
+  },
+
+  // ============== MODULE III: AGGREGATION ==============
+  {
+    module: 2, number: 'VII', title: 'Aggregate Functions',
+    subtitle: 'Compressing many rows into a single value.',
+    content: `
+      <div class="section">
+        <h3>The Concept</h3>
+        <div class="prose">
+          <p>An <strong>aggregate function</strong> collapses a column of values into a single result. The five canonical ones are <code>COUNT</code>, <code>SUM</code>, <code>AVG</code>, <code>MIN</code>, and <code>MAX</code>.</p>
+          <p>A subtle but important rule: aggregates <em>ignore <code>NULL</code></em>. <code>COUNT(column)</code> counts non-null values; <code>AVG(column)</code> averages non-null values; and so on. The one exception is <code>COUNT(*)</code>, which counts rows regardless of any column's nullness.</p>
+          <p>You can give a result column a friendlier name with <code>AS</code> — called an <em>alias</em>. Aliases are mandatory when an aggregate's auto-generated name would be unwieldy.</p>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Worked Examples</h3>
+        <pre class="code"><span class="kw">SELECT</span> <span class="fn">COUNT</span>(*) <span class="kw">AS</span> hero_count <span class="kw">FROM</span> heroes;</pre>
+        <div class="example-caption"><strong>Counting rows</strong> Returns a single row with a single column.</div>
+        <pre class="code"><span class="kw">SELECT</span>
+  <span class="fn">COUNT</span>(*) <span class="kw">AS</span> total,
+  <span class="fn">COUNT</span>(guild_id) <span class="kw">AS</span> with_guild,
+  <span class="fn">AVG</span>(level) <span class="kw">AS</span> avg_level,
+  <span class="fn">MAX</span>(xp) <span class="kw">AS</span> highest_xp
+<span class="kw">FROM</span> heroes;</pre>
+        <div class="example-caption"><strong>Multiple aggregates</strong> Notice <code>COUNT(*)</code> vs <code>COUNT(guild_id)</code> — the latter skips heroes with no guild.</div>
+        <pre class="code"><span class="kw">SELECT</span> <span class="fn">SUM</span>(reward_gold) <span class="kw">AS</span> total_purse
+<span class="kw">FROM</span> quests
+<span class="kw">WHERE</span> difficulty = <span class="str">'Legendary'</span>;</pre>
+        <div class="example-caption"><strong>Aggregating filtered rows</strong> <code>WHERE</code> runs first; the aggregate sees only the matching rows.</div>
+      </div>
+      <div class="pitfalls">
+        <div class="pitfalls-label">Common Pitfalls</div>
+        <ul>
+          <li>Confusing <code>COUNT(*)</code> with <code>COUNT(column)</code>. They differ whenever the column can be null.</li>
+          <li>Mixing aggregates and non-aggregated columns without a <code>GROUP BY</code>. The database will object, sometimes loudly, sometimes silently with confusing results.</li>
+          <li>Forgetting that <code>AVG</code> of an integer column may itself be a decimal — and that integer division in some dialects truncates.</li>
+        </ul>
+      </div>
+    `,
+    challenges: [
+      {
+        prompt: "Return the total <code>reward_gold</code> across all quests as a single column named <code>total_gold</code>.",
+        difficulty: 'beginner',
+        starter: "SELECT  AS total_gold FROM quests;",
+        hint: "Use SUM() around the reward_gold column.",
+        solution: "SELECT SUM(reward_gold) AS total_gold FROM quests;",
+        check: (rows, cols) => cols.includes('total_gold') && rows[0].total_gold === 17150
+      },
+      {
+        prompt: "Return three values: the number of heroes (<code>hero_count</code>), the average level (<code>avg_level</code>), and the maximum xp (<code>max_xp</code>). All in a single row.",
+        difficulty: 'intermediate',
+        starter: "SELECT\n  COUNT(*) AS hero_count,\n   AS avg_level,\n   AS max_xp\nFROM heroes;",
+        hint: "Three aggregates, each with its own alias. They all share one FROM clause.",
+        solution: "SELECT COUNT(*) AS hero_count, AVG(level) AS avg_level, MAX(xp) AS max_xp FROM heroes;",
+        check: (rows, cols) => cols.includes('hero_count') && cols.includes('avg_level') && cols.includes('max_xp') && rows[0].hero_count === 20 && rows[0].max_xp === 35800
+      }
+    ]
+  },
+  {
+    module: 2, number: 'VIII', title: 'GROUP BY',
+    subtitle: 'Aggregating per category.',
+    content: `
+      <div class="section">
+        <h3>The Concept</h3>
+        <div class="prose">
+          <p>Aggregates over an entire table answer questions like "how many heroes are there?" But more often you want per-category answers: "how many heroes <em>per class</em>?" That's what <code>GROUP BY</code> is for.</p>
+          <p>The mental model: imagine the database collecting rows into buckets, one per distinct value of your grouping column. Then it runs your aggregates inside each bucket independently. The result has one row per bucket.</p>
+          <div class="pull-quote">GROUP BY turns a table of rows into a table of buckets.</div>
+          <p>One firm rule: every column in your <code>SELECT</code> list must either appear in <code>GROUP BY</code>, or be wrapped in an aggregate function. Selecting a non-grouped column directly is meaningless — which row's value would the database pick?</p>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Worked Examples</h3>
+        <pre class="code"><span class="kw">SELECT</span> class, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> n
+<span class="kw">FROM</span> heroes
+<span class="kw">GROUP BY</span> class;</pre>
+        <div class="example-caption"><strong>Count per group</strong> One row per class, with that class's hero count.</div>
+        <pre class="code"><span class="kw">SELECT</span> class,
+       <span class="fn">AVG</span>(level) <span class="kw">AS</span> avg_lvl,
+       <span class="fn">SUM</span>(xp) <span class="kw">AS</span> total_xp
+<span class="kw">FROM</span> heroes
+<span class="kw">GROUP BY</span> class
+<span class="kw">ORDER BY</span> total_xp <span class="kw">DESC</span>;</pre>
+        <div class="example-caption"><strong>Multiple aggregates per group</strong> The classes are ranked by total xp. Notice <code>ORDER BY</code> runs after grouping.</div>
+        <pre class="code"><span class="kw">SELECT</span> guild_id, class, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> n
+<span class="kw">FROM</span> heroes
+<span class="kw">GROUP BY</span> guild_id, class;</pre>
+        <div class="example-caption"><strong>Grouping by multiple columns</strong> One bucket per unique (guild_id, class) combination.</div>
+      </div>
+      <div class="pitfalls">
+        <div class="pitfalls-label">Common Pitfalls</div>
+        <ul>
+          <li>Selecting a column that isn't grouped or aggregated. Some databases will reject this; SQLite quietly returns an arbitrary value from the group.</li>
+          <li>Confusing <code>GROUP BY</code> with <code>ORDER BY</code>. Grouping collapses rows; ordering rearranges them.</li>
+          <li>Trying to filter on an aggregate inside <code>WHERE</code>. That's what <code>HAVING</code> is for — coming next.</li>
+        </ul>
+      </div>
+    `,
+    challenges: [
+      {
+        prompt: "Return each <code>class</code> and the average <code>level</code> of heroes in it, as <code>avg_level</code>.",
+        difficulty: 'beginner',
+        starter: "SELECT class, AVG(level) AS avg_level\nFROM heroes\nGROUP BY ",
+        hint: "Group by the column you're aggregating against — class.",
+        solution: "SELECT class, AVG(level) AS avg_level FROM heroes GROUP BY class;",
+        check: (rows, cols) => cols.includes('class') && cols.includes('avg_level') && rows.length === 5
+      },
+      {
+        prompt: "For each <code>region</code> in the <code>quests</code> table, return the region name, the count of quests there (as <code>quest_count</code>), and the highest reward (as <code>top_reward</code>). Sort by region.",
+        difficulty: 'intermediate',
+        starter: "SELECT region,  AS quest_count,  AS top_reward\nFROM quests\nGROUP BY \nORDER BY ",
+        hint: "Two aggregates: COUNT(*) and MAX(reward_gold). Group by region; order by region.",
+        solution: "SELECT region, COUNT(*) AS quest_count, MAX(reward_gold) AS top_reward FROM quests GROUP BY region ORDER BY region;",
+        check: (rows, cols) => cols.includes('region') && cols.includes('quest_count') && cols.includes('top_reward') && rows.length === 5
+      }
+    ]
+  },
+  {
+    module: 2, number: 'IX', title: 'HAVING',
+    subtitle: 'Filtering after grouping.',
+    content: `
+      <div class="section">
+        <h3>The Concept</h3>
+        <div class="prose">
+          <p><code>WHERE</code> filters individual rows. <code>HAVING</code> filters groups. The distinction matters because aggregates don't exist until after grouping has happened — so they can't appear in <code>WHERE</code>.</p>
+          <p>The execution order is fixed and worth memorizing: <code>FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT</code>. Each stage feeds the next. <code>WHERE</code> happens before grouping; <code>HAVING</code> happens after.</p>
+          <p>If you find yourself reaching for <code>HAVING</code> on a non-aggregate condition, you almost certainly want <code>WHERE</code> instead — it's faster, because it eliminates rows before the expensive grouping step.</p>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Worked Examples</h3>
+        <pre class="code"><span class="kw">SELECT</span> class, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> n
+<span class="kw">FROM</span> heroes
+<span class="kw">GROUP BY</span> class
+<span class="kw">HAVING</span> <span class="fn">COUNT</span>(*) &gt;= <span class="num">4</span>;</pre>
+        <div class="example-caption"><strong>Filter on an aggregate</strong> Only classes with four or more heroes appear. <code>WHERE</code> can't express this.</div>
+        <pre class="code"><span class="kw">SELECT</span> guild_id, <span class="fn">AVG</span>(level) <span class="kw">AS</span> avg_lvl
+<span class="kw">FROM</span> heroes
+<span class="kw">WHERE</span> guild_id <span class="kw">IS NOT NULL</span>
+<span class="kw">GROUP BY</span> guild_id
+<span class="kw">HAVING</span> <span class="fn">AVG</span>(level) &gt; <span class="num">25</span>;</pre>
+        <div class="example-caption"><strong>WHERE and HAVING together</strong> <code>WHERE</code> removes guildless heroes <em>first</em>; then groups form; then <code>HAVING</code> keeps the higher-level guilds.</div>
+      </div>
+      <div class="pitfalls">
+        <div class="pitfalls-label">Common Pitfalls</div>
+        <ul>
+          <li>Using <code>HAVING</code> when <code>WHERE</code> would do. <code>HAVING level &gt; 20</code> works in many engines but it's slower and signals confusion.</li>
+          <li>Referencing a <code>SELECT</code> alias in <code>HAVING</code>. Some engines allow it, but in standard SQL you should repeat the aggregate expression: <code>HAVING COUNT(*) &gt; 4</code>, not <code>HAVING n &gt; 4</code>.</li>
+        </ul>
+      </div>
+    `,
+    challenges: [
+      {
+        prompt: "Return each <code>class</code> and its average <code>level</code> (aliased <code>avg_level</code>), but only for classes whose average level is greater than 25.",
+        difficulty: 'beginner',
+        starter: "SELECT class, AVG(level) AS avg_level\nFROM heroes\nGROUP BY class\nHAVING ",
+        hint: "Repeat the aggregate in HAVING: HAVING AVG(level) > 25.",
+        solution: "SELECT class, AVG(level) AS avg_level FROM heroes GROUP BY class HAVING AVG(level) > 25;",
+        check: (rows) => rows.every(r => r.avg_level > 25) && rows.length > 0 && rows.length < 5
+      },
+      {
+        prompt: "For each <code>region</code>, return its name and the count of quests there as <code>quest_count</code>. Show only regions with two or more quests, and within those, only consider quests with <code>min_level</code> at most 25.",
+        difficulty: 'advanced',
+        starter: "SELECT region, COUNT(*) AS quest_count\nFROM quests\nWHERE \nGROUP BY region\nHAVING ",
+        hint: "WHERE filters quests by min_level before grouping. HAVING filters regions by count after.",
+        solution: "SELECT region, COUNT(*) AS quest_count FROM quests WHERE min_level <= 25 GROUP BY region HAVING COUNT(*) >= 2;",
+        check: (rows) => rows.every(r => r.quest_count >= 2) && rows.length >= 2
+      }
+    ]
+  },
+
+  // ============== MODULE IV: JOINS ==============
+  {
+    module: 3, number: 'X', title: 'INNER JOIN',
+    subtitle: 'Stitching two tables together where they match.',
+    content: `
+      <div class="section">
+        <h3>The Concept</h3>
+        <div class="prose">
+          <p>In a well-designed database, related information lives in separate tables connected by IDs. Heroes have a <code>guild_id</code>; guild details live in the <code>guilds</code> table. To answer "what guild does each hero belong to, by name?" you must combine the two — that's a <em>join</em>.</p>
+          <p>The mental model: imagine putting two tables side by side and producing every row from the left paired with every row from the right where the join condition is true. Rows on either side with no match are dropped. That's <em>inner</em>: the result contains only the intersection.</p>
+          <div class="pull-quote">Inner join: keep the matches, drop the rest.</div>
+          <p>Table aliases (<code>heroes h</code>, <code>guilds g</code>) keep queries readable as joins grow more complex. They are not just stylistic — they're often necessary when both tables have columns of the same name.</p>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Worked Examples</h3>
+        <pre class="code"><span class="kw">SELECT</span> h.name, g.name <span class="kw">AS</span> guild_name
+<span class="kw">FROM</span> heroes h
+<span class="kw">INNER JOIN</span> guilds g <span class="kw">ON</span> h.guild_id = g.id;</pre>
+        <div class="example-caption"><strong>The canonical join</strong> Heroes paired with their guilds. Heroes whose <code>guild_id</code> is null are absent from the result — that's the "inner" behavior.</div>
+        <pre class="code"><span class="kw">SELECT</span> h.name, q.name <span class="kw">AS</span> quest, q.reward_gold
+<span class="kw">FROM</span> heroes h
+<span class="kw">INNER JOIN</span> hero_quests hq <span class="kw">ON</span> h.id = hq.hero_id
+<span class="kw">INNER JOIN</span> quests q       <span class="kw">ON</span> hq.quest_id = q.id
+<span class="kw">WHERE</span> h.class = <span class="str">'Mage'</span>
+<span class="kw">ORDER BY</span> q.reward_gold <span class="kw">DESC</span>;</pre>
+        <div class="example-caption"><strong>Three-table join</strong> Walking a many-to-many relationship through a junction table (<code>hero_quests</code>). Each completed quest by a Mage becomes one row in the result.</div>
+      </div>
+      <div class="pitfalls">
+        <div class="pitfalls-label">Common Pitfalls</div>
+        <ul>
+          <li>Omitting the <code>ON</code> clause. Without it, the database returns the <em>cartesian product</em> — every row from one table paired with every row from the other. Usually catastrophic.</li>
+          <li>Forgetting that inner joins drop unmatched rows on <em>both</em> sides. If you need to keep one side intact, you want <code>LEFT JOIN</code>, coming next.</li>
+          <li>Writing <code>FROM heroes, guilds WHERE ...</code> (the old comma syntax). It works, but modern <code>JOIN ... ON</code> syntax separates the join logic from the filter logic — much clearer.</li>
+        </ul>
+      </div>
+    `,
+    challenges: [
+      {
+        prompt: "Return each hero's <code>name</code> and their guild's <code>name</code> (aliased as <code>guild_name</code>). Heroes without a guild should be excluded.",
+        difficulty: 'beginner',
+        starter: "SELECT h.name, g.name AS guild_name\nFROM heroes h\nINNER JOIN guilds g ON ",
+        hint: "Join on h.guild_id = g.id.",
+        solution: "SELECT h.name, g.name AS guild_name FROM heroes h INNER JOIN guilds g ON h.guild_id = g.id;",
+        check: (rows, cols) => cols.includes('name') && cols.includes('guild_name') && rows.length === 17 && rows.every(r => r.guild_name)
+      },
+      {
+        prompt: "Return every quest <strong>completion</strong> as a row showing the hero's <code>name</code>, the quest's <code>name</code> (aliased <code>quest_name</code>), and the <code>completed_on</code> date. Sort by date, newest first.",
+        difficulty: 'intermediate',
+        starter: "SELECT h.name, q.name AS quest_name, hq.completed_on\nFROM heroes h\nINNER JOIN hero_quests hq ON \nINNER JOIN quests q ON \nORDER BY ",
+        hint: "Two joins. heroes-to-hero_quests on h.id = hq.hero_id; hero_quests-to-quests on hq.quest_id = q.id. Then ORDER BY hq.completed_on DESC.",
+        solution: "SELECT h.name, q.name AS quest_name, hq.completed_on FROM heroes h INNER JOIN hero_quests hq ON h.id = hq.hero_id INNER JOIN quests q ON hq.quest_id = q.id ORDER BY hq.completed_on DESC;",
+        check: (rows, cols) => cols.includes('name') && cols.includes('quest_name') && cols.includes('completed_on') && rows.length > 50 && rows[0].completed_on >= rows[rows.length-1].completed_on
+      }
+    ]
+  },
+  {
+    module: 3, number: 'XI', title: 'LEFT JOIN',
+    subtitle: 'Preserving the unmatched.',
+    content: `
+      <div class="section">
+        <h3>The Concept</h3>
+        <div class="prose">
+          <p>An inner join is symmetric: unmatched rows on either side are dropped. But often you don't want symmetry. "List every hero, alongside their guild <em>if any</em>" requires keeping every hero, even guildless ones. That's what a <code>LEFT JOIN</code> does.</p>
+          <p>The left table is preserved in full. For each of its rows, the database finds matches in the right table. If there are none, the right-side columns come back as <code>NULL</code> rather than the row being dropped.</p>
+          <p><code>RIGHT JOIN</code> exists too — the mirror image — but it's rare in practice. By convention, put your "kept" table on the left and use <code>LEFT JOIN</code>. Most engineers go entire careers without writing a <code>RIGHT JOIN</code>.</p>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Worked Examples</h3>
+        <pre class="code"><span class="kw">SELECT</span> h.name, g.name <span class="kw">AS</span> guild_name
+<span class="kw">FROM</span> heroes h
+<span class="kw">LEFT JOIN</span> guilds g <span class="kw">ON</span> h.guild_id = g.id;</pre>
+        <div class="example-caption"><strong>All heroes</strong> Compare to the inner join — this returns three additional rows, one for each guildless hero, with <code>guild_name</code> as <code>NULL</code>.</div>
+        <pre class="code"><span class="kw">SELECT</span> g.name <span class="kw">AS</span> guild_name, <span class="fn">COUNT</span>(h.id) <span class="kw">AS</span> hero_count
+<span class="kw">FROM</span> guilds g
+<span class="kw">LEFT JOIN</span> heroes h <span class="kw">ON</span> g.id = h.guild_id
+<span class="kw">GROUP BY</span> g.id;</pre>
+        <div class="example-caption"><strong>Counts that include zero</strong> An inner join would silently omit any guild with no heroes. <code>LEFT JOIN</code> keeps them — and <code>COUNT(h.id)</code> correctly returns 0 for those, because <code>COUNT</code> of a column ignores nulls.</div>
+      </div>
+      <div class="pitfalls">
+        <div class="pitfalls-label">Common Pitfalls</div>
+        <ul>
+          <li>Filtering on the right-side table in <code>WHERE</code>. Doing so turns your <code>LEFT JOIN</code> back into an inner join, because the nulls fail the filter. To preserve unmatched rows, put the condition in the <code>ON</code> clause instead.</li>
+          <li>Using <code>COUNT(*)</code> after a <code>LEFT JOIN</code> when you wanted to count only matches. <code>COUNT(*)</code> counts every row including the null-padded ones (giving 1, not 0, per unmatched left row).</li>
+        </ul>
+      </div>
+    `,
+    challenges: [
+      {
+        prompt: "Return every hero's <code>name</code> and their guild's <code>name</code> as <code>guild_name</code>. Heroes without a guild should still appear, with <code>NULL</code> in the guild column.",
+        difficulty: 'beginner',
+        starter: "SELECT h.name, g.name AS guild_name\nFROM heroes h\nLEFT JOIN guilds g ON ",
+        hint: "Same join condition as INNER JOIN — h.guild_id = g.id. Only the JOIN keyword changes.",
+        solution: "SELECT h.name, g.name AS guild_name FROM heroes h LEFT JOIN guilds g ON h.guild_id = g.id;",
+        check: (rows, cols) => cols.includes('name') && cols.includes('guild_name') && rows.length === 20 && rows.some(r => r.guild_name === null)
+      },
+      {
+        prompt: "For each guild, return the guild's <code>name</code> (as <code>guild_name</code>) and the count of heroes in it (as <code>hero_count</code>). Include guilds with zero heroes if any exist. Sort by hero count descending.",
+        difficulty: 'advanced',
+        starter: "SELECT g.name AS guild_name, COUNT(h.id) AS hero_count\nFROM guilds g\nLEFT JOIN heroes h ON \nGROUP BY g.id\nORDER BY ",
+        hint: "Start FROM guilds (the table you want to preserve). LEFT JOIN heroes on g.id = h.guild_id. Use COUNT(h.id) so unmatched rows contribute 0.",
+        solution: "SELECT g.name AS guild_name, COUNT(h.id) AS hero_count FROM guilds g LEFT JOIN heroes h ON g.id = h.guild_id GROUP BY g.id ORDER BY hero_count DESC;",
+        check: (rows, cols) => cols.includes('guild_name') && cols.includes('hero_count') && rows.length === 4 && rows[0].hero_count >= rows[rows.length-1].hero_count
+      }
+    ]
+  },
+  {
+    module: 3, number: 'XII', title: 'Self Joins & Complex Chains',
+    subtitle: 'Joining a table to itself, and walking longer paths.',
+    content: `
+      <div class="section">
+        <h3>The Concept</h3>
+        <div class="prose">
+          <p>A table can be joined to itself. This sounds odd at first — until you notice that some relationships are between rows of the <em>same</em> kind. Our <code>battles</code> table records duels between heroes: an attacker and a defender, both referenced by <code>heroes.id</code>.</p>
+          <p>To get a row like "Borin defeated Drogath," you join <code>battles</code> to <code>heroes</code> twice — once for the attacker, once for the defender. Aliases become essential, not optional, because the table appears in the query under two roles.</p>
+          <p>This pattern generalizes: any time you walk a graph (an employee's manager, a comment's parent, a hero's mentor), you'll reach for a self-join.</p>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Worked Examples</h3>
+        <pre class="code"><span class="kw">SELECT</span>
+  a.name <span class="kw">AS</span> attacker,
+  d.name <span class="kw">AS</span> defender,
+  w.name <span class="kw">AS</span> winner,
+  b.fought_on
+<span class="kw">FROM</span> battles b
+<span class="kw">INNER JOIN</span> heroes a <span class="kw">ON</span> b.attacker_id = a.id
+<span class="kw">INNER JOIN</span> heroes d <span class="kw">ON</span> b.defender_id = d.id
+<span class="kw">LEFT JOIN</span>  heroes w <span class="kw">ON</span> b.winner_id   = w.id;</pre>
+        <div class="example-caption"><strong>Three roles, one table</strong> The <code>heroes</code> table appears three times in this query — aliased as <code>a</code>, <code>d</code>, <code>w</code>. The winner join is a <code>LEFT JOIN</code> because some battles end in draws (<code>winner_id IS NULL</code>).</div>
+        <pre class="code"><span class="kw">SELECT</span>
+  h.name,
+  <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> q.region) <span class="kw">AS</span> regions_visited
+<span class="kw">FROM</span> heroes h
+<span class="kw">INNER JOIN</span> hero_quests hq <span class="kw">ON</span> h.id = hq.hero_id
+<span class="kw">INNER JOIN</span> quests q       <span class="kw">ON</span> hq.quest_id = q.id
+<span class="kw">GROUP BY</span> h.id
+<span class="kw">ORDER BY</span> regions_visited <span class="kw">DESC</span>;</pre>
+        <div class="example-caption"><strong>Joins feeding aggregates</strong> Each hero appears once per completed quest; <code>COUNT(DISTINCT q.region)</code> counts the unique regions visited. The combination of join + group + distinct is a workhorse pattern.</div>
+      </div>
+      <div class="pitfalls">
+        <div class="pitfalls-label">Common Pitfalls</div>
+        <ul>
+          <li>Forgetting aliases on a self-join. Without them, you literally cannot tell the database which copy of the column you mean.</li>
+          <li>Joining without considering row multiplication. If a hero has 5 quests and 3 items, joining all three tables gives 15 rows per hero. Wrap with <code>DISTINCT</code> or use subqueries to keep counts honest.</li>
+        </ul>
+      </div>
+    `,
+    challenges: [
+      {
+        prompt: "Return one row per battle showing the attacker's name (as <code>attacker</code>), defender's name (as <code>defender</code>), and the battle date (<code>fought_on</code>).",
+        difficulty: 'intermediate',
+        starter: "SELECT a.name AS attacker, d.name AS defender, b.fought_on\nFROM battles b\nINNER JOIN heroes a ON \nINNER JOIN heroes d ON ",
+        hint: "Join battles to heroes twice — once aliased as a (attacker_id), once as d (defender_id).",
+        solution: "SELECT a.name AS attacker, d.name AS defender, b.fought_on FROM battles b INNER JOIN heroes a ON b.attacker_id = a.id INNER JOIN heroes d ON b.defender_id = d.id;",
+        check: (rows, cols) => cols.includes('attacker') && cols.includes('defender') && cols.includes('fought_on') && rows.length === 20
+      },
+      {
+        prompt: "For each hero who has won at least one battle, return their <code>name</code> and their number of victories as <code>wins</code>. Sort highest first.",
+        difficulty: 'advanced',
+        starter: "SELECT h.name, COUNT(*) AS wins\nFROM heroes h\nINNER JOIN battles b ON \nGROUP BY \nORDER BY ",
+        hint: "Join heroes to battles on h.id = b.winner_id. GROUP BY h.id. ORDER BY wins DESC.",
+        solution: "SELECT h.name, COUNT(*) AS wins FROM heroes h INNER JOIN battles b ON h.id = b.winner_id GROUP BY h.id ORDER BY wins DESC;",
+        check: (rows, cols) => cols.includes('name') && cols.includes('wins') && rows.every(r => r.wins >= 1) && rows[0].wins >= rows[rows.length-1].wins
+      }
+    ]
+  },
+
+  // ============== MODULE V: ADVANCED ==============
+  {
+    module: 4, number: 'XIII', title: 'Subqueries',
+    subtitle: 'A query whose result becomes part of another query.',
+    content: `
+      <div class="section">
+        <h3>The Concept</h3>
+        <div class="prose">
+          <p>A <em>subquery</em> is a query nested inside another query — usually in <code>WHERE</code>, sometimes in <code>FROM</code> or <code>SELECT</code>. The inner query runs first, produces a result, and the outer query uses that result as if it were a literal value.</p>
+          <p>Three flavors are common. A <strong>scalar subquery</strong> returns a single value, useful for comparisons: <code>WHERE level &gt; (SELECT AVG(level) FROM heroes)</code>. A <strong>list subquery</strong> returns a single column of values, paired with <code>IN</code> or <code>NOT IN</code>. A <strong>table subquery</strong> returns a full result that you treat as a derived table in <code>FROM</code>.</p>
+          <p>Subqueries are how you express ideas that can't be flattened into a single query. They're powerful, but they can become hard to read — which is why CTEs (next lesson) often supplant them.</p>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Worked Examples</h3>
+        <pre class="code"><span class="cmt">-- Scalar subquery: compare to an aggregate</span>
+<span class="kw">SELECT</span> name, level
+<span class="kw">FROM</span> heroes
+<span class="kw">WHERE</span> level &gt; (<span class="kw">SELECT</span> <span class="fn">AVG</span>(level) <span class="kw">FROM</span> heroes);</pre>
+        <div class="example-caption"><strong>Above-average heroes</strong> The inner query computes the average; the outer compares each row to it.</div>
+        <pre class="code"><span class="cmt">-- List subquery: membership</span>
+<span class="kw">SELECT</span> name
+<span class="kw">FROM</span> heroes
+<span class="kw">WHERE</span> id <span class="kw">IN</span> (
+  <span class="kw">SELECT</span> winner_id <span class="kw">FROM</span> battles <span class="kw">WHERE</span> winner_id <span class="kw">IS NOT NULL</span>
+);</pre>
+        <div class="example-caption"><strong>Heroes who have ever won</strong> The inner query produces a list of winner IDs; the outer keeps heroes whose <code>id</code> is in that list.</div>
+      </div>
+      <div class="pitfalls">
+        <div class="pitfalls-label">Common Pitfalls</div>
+        <ul>
+          <li><code>NOT IN</code> with a list that contains <code>NULL</code> returns no rows. This is one of SQL's nastiest surprises. Either filter nulls out of the subquery, or use <code>NOT EXISTS</code> instead.</li>
+          <li>Scalar subqueries that return more than one row will error at runtime. Make sure your inner query is guaranteed to produce exactly one value.</li>
+          <li>Deeply nested subqueries are hard to read and harder to debug. If you find yourself nesting more than two levels, restructure with CTEs.</li>
+        </ul>
+      </div>
+    `,
+    challenges: [
+      {
+        prompt: "Return the <code>name</code> and <code>xp</code> of every hero whose <code>xp</code> is greater than the average <code>xp</code> across all heroes.",
+        difficulty: 'beginner',
+        starter: "SELECT name, xp\nFROM heroes\nWHERE xp > (SELECT  FROM heroes);",
+        hint: "The inner query is SELECT AVG(xp) FROM heroes.",
+        solution: "SELECT name, xp FROM heroes WHERE xp > (SELECT AVG(xp) FROM heroes);",
+        check: (rows, cols) => cols.includes('name') && cols.includes('xp') && rows.length >= 7 && rows.every(r => r.xp > 14497)
+      },
+      {
+        prompt: "Return the <code>name</code> of every hero who has <strong>never</strong> completed any quest. Hint: their id won't appear in <code>hero_quests</code>.",
+        difficulty: 'advanced',
+        starter: "SELECT name\nFROM heroes\nWHERE id NOT IN (\n  SELECT  FROM hero_quests\n);",
+        hint: "The inner query lists every hero_id that has completed a quest. The outer query keeps heroes not in that list.",
+        solution: "SELECT name FROM heroes WHERE id NOT IN (SELECT hero_id FROM hero_quests);",
+        check: (rows, cols) => cols.length === 1 && cols[0] === 'name' && rows.length === 1 && rows[0].name === 'Orin Steelheart'
+      }
+    ]
+  },
+  {
+    module: 4, number: 'XIV', title: 'CTEs — WITH',
+    subtitle: 'Naming your thoughts.',
+    content: `
+      <div class="section">
+        <h3>The Concept</h3>
+        <div class="prose">
+          <p>A <strong>Common Table Expression</strong>, or CTE, is a named subquery defined at the top of a query with the <code>WITH</code> keyword. It behaves like a temporary table that exists only for the duration of the surrounding query.</p>
+          <p>CTEs are not more powerful than subqueries — anything a CTE does, a subquery can do. But they are dramatically more <em>readable</em>. A query reads top-to-bottom: "first compute X, then compute Y using X, then use both to answer the real question." Subqueries, by contrast, read inside-out.</p>
+          <div class="pull-quote">A CTE turns an inside-out subquery into a top-down narrative.</div>
+          <p>You can chain multiple CTEs, separated by commas, and later CTEs can reference earlier ones. This is the standard way to express any non-trivial analytical query in modern SQL.</p>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Worked Examples</h3>
+        <pre class="code"><span class="kw">WITH</span> class_stats <span class="kw">AS</span> (
+  <span class="kw">SELECT</span> class, <span class="fn">AVG</span>(level) <span class="kw">AS</span> avg_lvl
+  <span class="kw">FROM</span> heroes
+  <span class="kw">GROUP BY</span> class
+)
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> class_stats
+<span class="kw">WHERE</span> avg_lvl &gt; <span class="num">25</span>;</pre>
+        <div class="example-caption"><strong>Single CTE</strong> The CTE produces per-class averages; the outer query filters them. Could be a subquery — but as written, the intent is plain.</div>
+        <pre class="code"><span class="kw">WITH</span>
+  wins <span class="kw">AS</span> (
+    <span class="kw">SELECT</span> winner_id <span class="kw">AS</span> hero_id, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> w
+    <span class="kw">FROM</span> battles <span class="kw">WHERE</span> winner_id <span class="kw">IS NOT NULL</span>
+    <span class="kw">GROUP BY</span> winner_id
+  ),
+  losses <span class="kw">AS</span> (
+    <span class="kw">SELECT</span> hero_id, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> l <span class="kw">FROM</span> (
+      <span class="kw">SELECT</span> attacker_id <span class="kw">AS</span> hero_id <span class="kw">FROM</span> battles <span class="kw">WHERE</span> winner_id != attacker_id
+      <span class="kw">UNION ALL</span>
+      <span class="kw">SELECT</span> defender_id <span class="kw">FROM</span> battles <span class="kw">WHERE</span> winner_id != defender_id
+    ) <span class="kw">GROUP BY</span> hero_id
+  )
+<span class="kw">SELECT</span> h.name, <span class="fn">COALESCE</span>(w.w, <span class="num">0</span>) <span class="kw">AS</span> wins, <span class="fn">COALESCE</span>(l.l, <span class="num">0</span>) <span class="kw">AS</span> losses
+<span class="kw">FROM</span> heroes h
+<span class="kw">LEFT JOIN</span> wins   w <span class="kw">ON</span> h.id = w.hero_id
+<span class="kw">LEFT JOIN</span> losses l <span class="kw">ON</span> h.id = l.hero_id
+<span class="kw">WHERE</span> w.w <span class="kw">IS NOT NULL</span> <span class="kw">OR</span> l.l <span class="kw">IS NOT NULL</span>;</pre>
+        <div class="example-caption"><strong>Multiple CTEs composed</strong> Two named intermediate results, joined together in the final SELECT. Expressed as nested subqueries this would be almost unreadable.</div>
+      </div>
+      <div class="pitfalls">
+        <div class="pitfalls-label">Common Pitfalls</div>
+        <ul>
+          <li>Treating CTEs as performance optimization. In some engines they're materialized; in others they're inlined. Use them for clarity first, performance second.</li>
+          <li>Forgetting the comma between multiple CTEs. The keyword <code>WITH</code> appears once; subsequent CTEs follow with just commas.</li>
+        </ul>
+      </div>
+    `,
+    challenges: [
+      {
+        prompt: "Using a CTE named <code>quest_counts</code>, compute how many quests each hero has completed. Then return the <code>name</code> and count (as <code>quests_done</code>) of heroes who have completed more than 3 quests.",
+        difficulty: 'intermediate',
+        starter: "WITH quest_counts AS (\n  SELECT hero_id, COUNT(*) AS quests_done\n  FROM hero_quests\n  GROUP BY hero_id\n)\nSELECT h.name, qc.quests_done\nFROM heroes h\nINNER JOIN quest_counts qc ON h.id = qc.hero_id\nWHERE ",
+        hint: "Add WHERE qc.quests_done > 3 at the end.",
+        solution: "WITH quest_counts AS (SELECT hero_id, COUNT(*) AS quests_done FROM hero_quests GROUP BY hero_id) SELECT h.name, qc.quests_done FROM heroes h INNER JOIN quest_counts qc ON h.id = qc.hero_id WHERE qc.quests_done > 3;",
+        check: (rows, cols) => cols.includes('name') && cols.includes('quests_done') && rows.every(r => r.quests_done > 3) && rows.length >= 2
+      },
+      {
+        prompt: "Using two CTEs — <code>class_avg</code> (each class's average level) and <code>guild_size</code> (each guild's hero count) — return each hero's <code>name</code>, <code>class</code>, the class's average level (<code>class_avg</code>), and the guild's size (<code>guild_size</code>). Exclude guildless heroes.",
+        difficulty: 'advanced',
+        starter: "WITH \n  class_avg AS (\n    SELECT class, AVG(level) AS class_avg FROM heroes GROUP BY class\n  ),\n  guild_size AS (\n    SELECT guild_id,  AS guild_size FROM heroes WHERE guild_id IS NOT NULL GROUP BY guild_id\n  )\nSELECT h.name, h.class, ca.class_avg, gs.guild_size\nFROM heroes h\nINNER JOIN class_avg ca ON \nINNER JOIN guild_size gs ON ",
+        hint: "guild_size uses COUNT(*). Join class_avg on class; join guild_size on guild_id.",
+        solution: "WITH class_avg AS (SELECT class, AVG(level) AS class_avg FROM heroes GROUP BY class), guild_size AS (SELECT guild_id, COUNT(*) AS guild_size FROM heroes WHERE guild_id IS NOT NULL GROUP BY guild_id) SELECT h.name, h.class, ca.class_avg, gs.guild_size FROM heroes h INNER JOIN class_avg ca ON h.class = ca.class INNER JOIN guild_size gs ON h.guild_id = gs.guild_id;",
+        check: (rows, cols) => cols.includes('name') && cols.includes('class') && cols.includes('class_avg') && cols.includes('guild_size') && rows.length === 17
+      }
+    ]
+  },
+  {
+    module: 4, number: 'XV', title: 'Window Functions',
+    subtitle: 'Computing across rows without collapsing them.',
+    content: `
+      <div class="section">
+        <h3>The Concept</h3>
+        <div class="prose">
+          <p><code>GROUP BY</code> collapses rows. If you want per-class averages alongside the raw rows — keeping all 20 heroes visible but showing their class average next to each — <code>GROUP BY</code> can't help you. <strong>Window functions</strong> can.</p>
+          <p>A window function computes a value across a "window" of related rows for each input row, without collapsing them. The query keeps its row count; you just gain additional columns.</p>
+          <p>The window is defined by an <code>OVER</code> clause. <code>PARTITION BY</code> divides rows into groups (like <code>GROUP BY</code>, but non-collapsing). <code>ORDER BY</code> within the <code>OVER</code> imposes an order, which matters for ranking and running totals.</p>
+          <div class="pull-quote">Window functions are the single biggest leap from "writing SQL" to "thinking in SQL."</div>
+          <p>The common ones: <code>ROW_NUMBER()</code> assigns 1, 2, 3 with no ties. <code>RANK()</code> ties get the same rank, then skip. <code>DENSE_RANK()</code> ties get the same rank, no skip. <code>LAG()</code> and <code>LEAD()</code> peek at previous and next rows. The familiar aggregates (<code>SUM</code>, <code>AVG</code>) also work as windows, giving you running totals and moving averages.</p>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Worked Examples</h3>
+        <pre class="code"><span class="kw">SELECT</span> name, class, xp,
+       <span class="fn">RANK</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> class <span class="kw">ORDER BY</span> xp <span class="kw">DESC</span>) <span class="kw">AS</span> class_rank
+<span class="kw">FROM</span> heroes;</pre>
+        <div class="example-caption"><strong>Ranking within groups</strong> Every hero is returned, but each now carries their rank within their class. The top mage gets <code>class_rank = 1</code>, second mage <code>= 2</code>, and so on.</div>
+        <pre class="code"><span class="kw">SELECT</span> name, xp,
+       <span class="fn">AVG</span>(xp) <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> class) <span class="kw">AS</span> class_avg_xp,
+       xp - <span class="fn">AVG</span>(xp) <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> class) <span class="kw">AS</span> vs_class_avg
+<span class="kw">FROM</span> heroes;</pre>
+        <div class="example-caption"><strong>Aggregates as windows</strong> Each row shows its own xp, the class average, and the difference. Three numbers per hero — and the table still has all 20 rows.</div>
+      </div>
+      <div class="pitfalls">
+        <div class="pitfalls-label">Common Pitfalls</div>
+        <ul>
+          <li>Putting <code>ORDER BY</code> in the wrong place. The <code>ORDER BY</code> inside <code>OVER()</code> orders the window; the trailing <code>ORDER BY</code> orders the final output. They serve different jobs.</li>
+          <li>Trying to filter on a window function in <code>WHERE</code>. They aren't available there. Wrap the query in a CTE or subquery and filter outside.</li>
+          <li>Confusing <code>RANK</code> and <code>ROW_NUMBER</code>. With ties, they produce different results. Pick deliberately.</li>
+        </ul>
+      </div>
+    `,
+    challenges: [
+      {
+        prompt: "For every hero, return <code>name</code>, <code>class</code>, <code>xp</code>, and a column <code>class_rank</code> giving their rank within their class by <code>xp</code> descending (the highest-xp hero in each class is rank 1).",
+        difficulty: 'intermediate',
+        starter: "SELECT name, class, xp,\n  RANK() OVER (PARTITION BY  ORDER BY  ) AS class_rank\nFROM heroes;",
+        hint: "PARTITION BY class, ORDER BY xp DESC.",
+        solution: "SELECT name, class, xp, RANK() OVER (PARTITION BY class ORDER BY xp DESC) AS class_rank FROM heroes;",
+        check: (rows, cols) => {
+          if (!cols.includes('class_rank') || rows.length !== 20) return false;
+          const byClass = {};
+          rows.forEach(r => { byClass[r.class] = byClass[r.class] || []; byClass[r.class].push(r); });
+          return Object.values(byClass).every(cls => {
+            const sorted = [...cls].sort((a,b) => b.xp - a.xp);
+            return sorted[0].class_rank === 1;
+          });
+        }
+      },
+      {
+        prompt: "Return each hero's <code>name</code>, <code>level</code>, and a column <code>level_diff_from_class_max</code> showing how far below their class's top level each hero is (top hero in each class shows 0).",
+        difficulty: 'advanced',
+        starter: "SELECT name, level,\n  MAX(level) OVER ( ) - level AS level_diff_from_class_max\nFROM heroes;",
+        hint: "MAX(level) OVER (PARTITION BY class) gives each class's max; subtract level from it.",
+        solution: "SELECT name, level, MAX(level) OVER (PARTITION BY class) - level AS level_diff_from_class_max FROM heroes;",
+        check: (rows, cols) => cols.includes('level_diff_from_class_max') && rows.length === 20 && rows.some(r => r.level_diff_from_class_max === 0) && rows.every(r => r.level_diff_from_class_max >= 0)
+      }
+    ]
+  },
+  {
+    module: 4, number: 'XVI', title: 'Putting It Together',
+    subtitle: 'A real analytical query, end to end.',
+    content: `
+      <div class="section">
+        <h3>The Concept</h3>
+        <div class="prose">
+          <p>Every lesson so far has introduced one tool. The final test is composition: using several together to answer a question worth asking. This is what working analysts and engineers do all day.</p>
+          <p>A well-structured analytical query usually has shape: CTEs at the top to compute intermediate results, joins in the middle to combine them, aggregates and windows to shape the answer, and an <code>ORDER BY</code> at the end to present it. Reading top-to-bottom, the query tells the story of how it was derived.</p>
+          <p>The challenge below is the kind of question someone would actually pose: <em>who are our most valuable heroes, weighted by both their experience and their contribution?</em> No single clause answers it. You'll compose three or four together.</p>
+          <div class="pull-quote">The query is the question, written carefully enough that a machine can answer it.</div>
+        </div>
+      </div>
+      <div class="section">
+        <h3>A Worked Walkthrough</h3>
+        <div class="prose">
+          <p>Question: <em>Show the top three heroes per class by total quest reward gold earned, with their xp and rank within class.</em></p>
+        </div>
+        <pre class="code"><span class="kw">WITH</span> earnings <span class="kw">AS</span> (
+  <span class="kw">SELECT</span>
+    h.id, h.name, h.class, h.xp,
+    <span class="fn">SUM</span>(q.reward_gold) <span class="kw">AS</span> gold_earned
+  <span class="kw">FROM</span> heroes h
+  <span class="kw">INNER JOIN</span> hero_quests hq <span class="kw">ON</span> h.id = hq.hero_id
+  <span class="kw">INNER JOIN</span> quests q       <span class="kw">ON</span> hq.quest_id = q.id
+  <span class="kw">GROUP BY</span> h.id
+),
+ranked <span class="kw">AS</span> (
+  <span class="kw">SELECT</span> *,
+    <span class="fn">RANK</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> class <span class="kw">ORDER BY</span> gold_earned <span class="kw">DESC</span>) <span class="kw">AS</span> class_rank
+  <span class="kw">FROM</span> earnings
+)
+<span class="kw">SELECT</span> name, class, xp, gold_earned, class_rank
+<span class="kw">FROM</span> ranked
+<span class="kw">WHERE</span> class_rank &lt;= <span class="num">3</span>
+<span class="kw">ORDER BY</span> class, class_rank;</pre>
+        <div class="example-caption"><strong>Anatomy</strong> First CTE: join through to aggregate gold per hero. Second CTE: rank within class. Final SELECT: filter to top 3 and present. Reads like an essay: setup, analysis, conclusion.</div>
+      </div>
+    `,
+    challenges: [
+      {
+        prompt: "Find each <strong>guild</strong>'s total quest earnings — the sum of <code>reward_gold</code> across all quests completed by all heroes belonging to that guild. Return guild <code>name</code> (as <code>guild_name</code>) and <code>total_gold</code>, sorted highest first.",
+        difficulty: 'advanced',
+        starter: "SELECT g.name AS guild_name, SUM(q.reward_gold) AS total_gold\nFROM guilds g\nINNER JOIN heroes h ON \nINNER JOIN hero_quests hq ON \nINNER JOIN quests q ON \nGROUP BY \nORDER BY ",
+        hint: "Three joins: guilds→heroes→hero_quests→quests. GROUP BY g.id. ORDER BY total_gold DESC.",
+        solution: "SELECT g.name AS guild_name, SUM(q.reward_gold) AS total_gold FROM guilds g INNER JOIN heroes h ON g.id = h.guild_id INNER JOIN hero_quests hq ON h.id = hq.hero_id INNER JOIN quests q ON hq.quest_id = q.id GROUP BY g.id ORDER BY total_gold DESC;",
+        check: (rows, cols) => cols.includes('guild_name') && cols.includes('total_gold') && rows.length === 4 && rows[0].total_gold >= rows[rows.length-1].total_gold
+      },
+      {
+        prompt: "Using a CTE, find each class's <strong>champion</strong>: the hero with the most quest completions in that class. Return <code>class</code>, <code>name</code>, and <code>quest_count</code>. (If there's a tie, returning either is fine.)",
+        difficulty: 'advanced',
+        starter: "WITH counts AS (\n  SELECT h.id, h.name, h.class, COUNT(hq.quest_id) AS quest_count,\n    RANK() OVER (PARTITION BY h.class ORDER BY COUNT(hq.quest_id) DESC) AS rk\n  FROM heroes h\n  LEFT JOIN hero_quests hq ON h.id = hq.hero_id\n  GROUP BY h.id\n)\nSELECT class, name, quest_count\nFROM counts\nWHERE ",
+        hint: "Filter the CTE to rk = 1.",
+        solution: "WITH counts AS (SELECT h.id, h.name, h.class, COUNT(hq.quest_id) AS quest_count, RANK() OVER (PARTITION BY h.class ORDER BY COUNT(hq.quest_id) DESC) AS rk FROM heroes h LEFT JOIN hero_quests hq ON h.id = hq.hero_id GROUP BY h.id) SELECT class, name, quest_count FROM counts WHERE rk = 1;",
+        check: (rows, cols) => cols.includes('class') && cols.includes('name') && cols.includes('quest_count') && rows.length >= 5
+      }
+    ]
+  },
+];
+
+// =====================================================================
+// APP STATE
+// =====================================================================
+let db, mode = 'home', currentLesson = null;
 let completed = new Set();
 let savedEditors = {};
-let sandboxQuery = "-- Free-form SQL sandbox\n-- Try anything! Tables: heroes, guilds, quests, hero_quests, items, hero_items\n\nSELECT * FROM heroes LIMIT 5;";
+let revealedHints = new Set();
+let revealedSolutions = new Set();
+let sandboxQuery = `-- Welcome to the sandbox.
+-- Query any of: heroes, guilds, quests, hero_quests, items, hero_items, battles.
 
-const STORAGE_KEY = 'sql-academy-progress-v2';
+SELECT name, class, level FROM heroes ORDER BY level DESC LIMIT 5;`;
+
+const STORAGE_KEY = 'sql-atelier-v3';
 
 function loadProgress() {
   try {
@@ -564,25 +1833,22 @@ function loadProgress() {
     if (raw) {
       const data = JSON.parse(raw);
       completed = new Set(data.completed || []);
-      currentLesson = data.currentLesson || 0;
       savedEditors = data.savedEditors || {};
       sandboxQuery = data.sandboxQuery || sandboxQuery;
     }
-  } catch(e) { console.warn('Could not load progress', e); }
+  } catch(e) {}
 }
-
 function saveProgress() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      completed: [...completed],
-      currentLesson,
-      savedEditors,
-      sandboxQuery
+      completed: [...completed], savedEditors, sandboxQuery
     }));
   } catch(e) {}
 }
 
-// ============== INIT ==============
+// =====================================================================
+// INIT
+// =====================================================================
 async function init() {
   const SQL = await initSqlJs({ locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${f}` });
   db = new SQL.Database();
@@ -591,184 +1857,364 @@ async function init() {
   render();
 }
 
-// ============== RENDER ==============
-function setMode(m) {
+function updateProgressMeter() {
+  const meter = document.getElementById('progress-meter');
+  if (mode === 'home') { meter.style.display = 'none'; return; }
+  meter.style.display = 'flex';
+  document.getElementById('progress-text').textContent = `${completed.size} of ${lessons.length}`;
+  document.getElementById('meter-fill').style.width = `${100 * completed.size / lessons.length}%`;
+}
+
+function setMode(m, lessonIdx) {
   mode = m;
-  document.querySelectorAll('.tab-switch button').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + m).classList.add('active');
+  if (lessonIdx !== undefined) currentLesson = lessonIdx;
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+  if (m === 'home' || m === 'lesson') document.getElementById('tab-home').classList.add('active');
+  else document.getElementById('tab-' + m).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   render();
 }
 
 function render() {
+  updateProgressMeter();
   const app = document.getElementById('app');
   app.className = '';
-  const pct = Math.round(100 * completed.size / lessons.length);
-  document.getElementById('progress').innerHTML = `${completed.size} / ${lessons.length} complete<div class="meter"><div class="meter-fill" style="width:${pct}%"></div></div>`;
-  if (mode === 'sandbox') return renderSandbox(app);
-  if (mode === 'schema') return renderSchema(app);
-  renderLearn(app);
+  if (mode === 'home') renderHome(app);
+  else if (mode === 'lesson') renderLesson(app);
+  else if (mode === 'sandbox') renderSandbox(app);
+  else if (mode === 'schema') renderSchema(app);
 }
 
-function renderLearn(app) {
-  const lesson = lessons[currentLesson];
-  const savedCode = savedEditors[currentLesson] !== undefined ? savedEditors[currentLesson] : lesson.starter;
-  app.innerHTML = `
-    <div class="layout">
-      <div class="sidebar">
-        <h3>Curriculum</h3>
-        ${lessons.map((l, i) => `
-          <div class="lesson-item ${i === currentLesson ? 'active' : ''} ${completed.has(i) ? 'done' : ''}" onclick="jumpTo(${i})">
-            <span class="check">${completed.has(i) ? '✓' : ''}</span>
-            <span>${l.title}</span>
-          </div>
-        `).join('')}
+// =====================================================================
+// HOME PAGE
+// =====================================================================
+function renderHome(app) {
+  const modulesHtml = MODULES.map((m, idx) => {
+    const lessonsInModule = lessons.filter(l => l.module === idx);
+    const doneInModule = lessonsInModule.filter((l, i) => completed.has(lessons.indexOf(l))).length;
+    const firstLessonIdx = lessons.findIndex(l => l.module === idx);
+    return `
+      <div class="home-module" onclick="setMode('lesson', ${firstLessonIdx})">
+        <div class="home-module-num">Module ${m.num}</div>
+        <div class="home-module-name">${m.name}</div>
+        <div class="home-module-desc">${m.desc}</div>
+        <div class="home-module-lessons">${doneInModule} / ${lessonsInModule.length} lessons</div>
       </div>
-      <div class="panel">
-        ${lesson.content}
-        <textarea id="editor" spellcheck="false" oninput="onEditorInput()">${escapeHtml(savedCode)}</textarea>
-        <div class="buttons">
-          <button class="btn" onclick="runQuery()">▶ Run Query</button>
-          <button class="btn secondary" onclick="resetEditor()">Reset</button>
-        </div>
-        <div id="output"></div>
-        <div class="nav">
-          <button class="btn secondary" onclick="prev()" ${currentLesson === 0 ? 'disabled' : ''}>← Previous</button>
-          <button class="btn secondary" onclick="next()" ${currentLesson === lessons.length - 1 ? 'disabled' : ''}>Next →</button>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-function renderSandbox(app) {
-  app.innerHTML = `
-    <div class="panel">
-      <h2>🧪 Sandbox</h2>
-      <p>Run any SQL against the database. Nothing's checked — explore freely. Your query is saved automatically.</p>
-      <p style="font-size: 13px; color: #8b949e;">Tables available: <code>heroes</code>, <code>guilds</code>, <code>quests</code>, <code>hero_quests</code>, <code>items</code>, <code>hero_items</code>. Switch to the <strong>Schema</strong> tab to see the columns.</p>
-      <textarea id="editor" spellcheck="false" oninput="onSandboxInput()" style="min-height: 220px;">${escapeHtml(sandboxQuery)}</textarea>
-      <div class="buttons">
-        <button class="btn" onclick="runSandbox()">▶ Run Query</button>
-        <button class="btn secondary" onclick="resetDatabase()">↻ Reset Database</button>
-      </div>
-      <div id="output"></div>
-    </div>
-  `;
-}
-
-function renderSchema(app) {
-  const tables = ['heroes', 'guilds', 'quests', 'hero_quests', 'items', 'hero_items'];
-  const blocks = tables.map(t => {
-    const info = db.exec(`PRAGMA table_info(${t});`)[0];
-    const count = db.exec(`SELECT COUNT(*) FROM ${t};`)[0].values[0][0];
-    const cols = info.values.map(r => `<div class="col">• <strong style="color:#e6edf3">${r[1]}</strong> <span style="opacity:.7">${r[2]}</span>${r[5] ? ' <span style="color:#d29922">PK</span>' : ''}</div>`).join('');
-    return `<div class="schema-block">
-      <div style="margin-bottom: 6px;"><strong>${t}</strong> <span class="row-count">— ${count} rows</span></div>
-      ${cols}
-    </div>`;
+    `;
   }).join('');
+
+  const startIdx = completed.size === 0 ? 0 : (completed.size < lessons.length ? Math.max(...[...completed]) + 1 : 0);
+  const startLabel = completed.size === 0 ? 'Begin the course' : (completed.size < lessons.length ? 'Continue where you left off' : 'Review the course');
+
   app.innerHTML = `
-    <div class="panel">
-      <h2>📋 Database Schema</h2>
-      <p>This is the fantasy-world database you're querying. Click <strong>Sandbox</strong> to explore it freely.</p>
-      ${blocks}
-      <h3 style="margin-top: 20px;">Relationships</h3>
-      <p style="font-size: 13px; color: #8b949e;">
-        <code>heroes.guild_id</code> → <code>guilds.id</code><br>
-        <code>hero_quests.hero_id</code> → <code>heroes.id</code><br>
-        <code>hero_quests.quest_id</code> → <code>quests.id</code><br>
-        <code>hero_items.hero_id</code> → <code>heroes.id</code><br>
-        <code>hero_items.item_id</code> → <code>items.id</code>
-      </p>
+    <div class="home-hero">
+      <span class="label">A self-paced course · 16 lessons</span>
+      <h1>The craft of <em>asking</em><br>the database.</h1>
+      <p class="lede">A thorough, practical course in SQL — from the smallest <code style="font-family:'JetBrains Mono',monospace;font-size:.85em;background:var(--slate-900);color:var(--brass-bright);padding:2px 5px;border-radius:2px;">SELECT</code> to window functions and analytical composition. Every lesson runs against a real SQLite database in your browser. Nothing to install. Nothing to sign up for.</p>
+      <button class="btn" style="font-size:13px;padding:12px 28px;" onclick="setMode('lesson', ${startIdx})">${startLabel} →</button>
+    </div>
+
+    <div class="home-modules">${modulesHtml}</div>
+
+    <div class="home-section">
+      <span class="label">What's inside</span>
+      <h2>Built like a real reference, not a checklist.</h2>
+      <div class="feature-grid">
+        <div class="feature">
+          <h3>Real explanations</h3>
+          <p>Each lesson opens with the <em>why</em> — the concept behind the syntax, the mental model that makes it stick — before moving to examples.</p>
+        </div>
+        <div class="feature">
+          <h3>A live database</h3>
+          <p>Queries run against an actual SQLite instance compiled to WebAssembly in your browser. Every example is genuinely executable.</p>
+        </div>
+        <div class="feature">
+          <h3>Pitfalls called out</h3>
+          <p>The mistakes that trip up newcomers — <code>= NULL</code>, double quotes around strings, the precedence of <code>AND</code> and <code>OR</code> — each gets explicit attention.</p>
+        </div>
+        <div class="feature">
+          <h3>Practice with feedback</h3>
+          <p>Every lesson ends with two challenges of escalating difficulty. Hints and full solutions are available — but only on request.</p>
+        </div>
+      </div>
     </div>
   `;
 }
 
-// ============== ACTIONS ==============
-function onEditorInput() {
-  savedEditors[currentLesson] = document.getElementById('editor').value;
-  saveProgress();
+// =====================================================================
+// LESSON PAGE
+// =====================================================================
+function renderLesson(app) {
+  const lesson = lessons[currentLesson];
+  const module = MODULES[lesson.module];
+
+  // Sidebar TOC
+  let tocHtml = '';
+  MODULES.forEach((m, mi) => {
+    const moduleLessons = lessons.map((l, i) => ({l, i})).filter(x => x.l.module === mi);
+    tocHtml += `<div class="toc-module">
+      <div class="toc-module-header">
+        <span class="toc-module-num">${m.num}.</span>
+        <span class="toc-module-name">${m.name}</span>
+      </div>
+      ${moduleLessons.map(({l, i}) => `
+        <div class="toc-lesson ${i === currentLesson ? 'active' : ''} ${completed.has(i) ? 'done' : ''}" onclick="setMode('lesson', ${i})">
+          <span class="toc-lesson-num">${l.number}.</span>
+          <span style="flex:1;">${l.title}</span>
+          <span class="toc-check">✓</span>
+        </div>
+      `).join('')}
+    </div>`;
+  });
+
+  // Challenges
+  const challengesHtml = lesson.challenges.map((ch, ci) => {
+    const key = `${currentLesson}-${ci}`;
+    const savedCode = savedEditors[key] !== undefined ? savedEditors[key] : ch.starter;
+    return `
+      <div class="challenge">
+        <div class="challenge-header">
+          <div class="challenge-title">Challenge ${ci + 1}</div>
+          <div class="challenge-difficulty ${ch.difficulty}">${ch.difficulty}</div>
+        </div>
+        <div class="challenge-prompt">${ch.prompt}</div>
+        <textarea class="editor" id="editor-${ci}" spellcheck="false" oninput="onEditorInput(${ci})">${escapeHtml(savedCode)}</textarea>
+        <div class="actions">
+          <button class="btn" onclick="runChallenge(${ci})">▶ Run</button>
+          <button class="btn ghost" onclick="resetChallenge(${ci})">Reset</button>
+          <button class="btn subtle" onclick="toggleHint(${ci})">Hint</button>
+          <button class="btn subtle" onclick="toggleSolution(${ci})">Solution</button>
+        </div>
+        <div id="hint-${ci}"></div>
+        <div id="solution-${ci}"></div>
+        <div id="output-${ci}"></div>
+      </div>
+    `;
+  }).join('');
+
+  const prevIdx = currentLesson > 0 ? currentLesson - 1 : null;
+  const nextIdx = currentLesson < lessons.length - 1 ? currentLesson + 1 : null;
+
+  app.innerHTML = `
+    <div class="grid">
+      <aside class="toc">${tocHtml}</aside>
+      <main>
+        <div class="lesson-header">
+          <div class="lesson-eyebrow">
+            <span class="label">Module ${module.num} · ${module.name}</span>
+            <div class="divider"></div>
+          </div>
+          <div class="lesson-number">${lesson.number}</div>
+          <div class="lesson-title">${lesson.title}</div>
+          <div class="lesson-subtitle">${lesson.subtitle}</div>
+        </div>
+
+        ${lesson.content}
+
+        <div class="section">
+          <h3>Practice</h3>
+          ${challengesHtml}
+        </div>
+
+        <div class="lesson-nav">
+          ${prevIdx !== null ? `<button class="nav-link" onclick="setMode('lesson', ${prevIdx})">
+            <span class="label-small">Previous</span>
+            <span class="nav-title">${lessons[prevIdx].title}</span>
+          </button>` : '<div></div>'}
+          ${nextIdx !== null ? `<button class="nav-link next" onclick="setMode('lesson', ${nextIdx})">
+            <span class="label-small">Next</span>
+            <span class="nav-title">${lessons[nextIdx].title}</span>
+          </button>` : `<button class="nav-link next" onclick="setMode('home')">
+            <span class="label-small">Course complete</span>
+            <span class="nav-title">Back to overview</span>
+          </button>`}
+        </div>
+      </main>
+    </div>
+  `;
 }
-function onSandboxInput() {
-  sandboxQuery = document.getElementById('editor').value;
+
+function onEditorInput(ci) {
+  const key = `${currentLesson}-${ci}`;
+  savedEditors[key] = document.getElementById(`editor-${ci}`).value;
   saveProgress();
 }
 
-function runQuery() {
-  const sql = document.getElementById('editor').value;
-  const output = document.getElementById('output');
+function resetChallenge(ci) {
+  const key = `${currentLesson}-${ci}`;
+  delete savedEditors[key];
+  saveProgress();
+  document.getElementById(`editor-${ci}`).value = lessons[currentLesson].challenges[ci].starter;
+  document.getElementById(`output-${ci}`).innerHTML = '';
+}
+
+function toggleHint(ci) {
+  const box = document.getElementById(`hint-${ci}`);
+  if (box.innerHTML) { box.innerHTML = ''; return; }
+  const ch = lessons[currentLesson].challenges[ci];
+  box.innerHTML = `<div class="reveal"><div class="reveal-label">Hint</div>${ch.hint}</div>`;
+}
+
+function toggleSolution(ci) {
+  const box = document.getElementById(`solution-${ci}`);
+  if (box.innerHTML) { box.innerHTML = ''; return; }
+  const ch = lessons[currentLesson].challenges[ci];
+  box.innerHTML = `<div class="reveal"><div class="reveal-label">Reference solution</div><pre class="code">${highlightSql(ch.solution)}</pre></div>`;
+}
+
+function runChallenge(ci) {
+  const sql = document.getElementById(`editor-${ci}`).value;
+  const output = document.getElementById(`output-${ci}`);
   try {
     const results = db.exec(sql);
     if (results.length === 0) {
-      output.innerHTML = '<div class="result">Query ran successfully (no rows returned).</div>';
+      output.innerHTML = `<div class="result-block"><div class="result-caption"><strong>Fig.</strong> Query ran. No rows returned.</div></div>`;
       return;
     }
     const { columns, values } = results[0];
     const rows = values.map(row => Object.fromEntries(columns.map((c, i) => [c, row[i]])));
-    let html = renderTable(columns, values);
+    let html = renderResultTable(columns, values, `${currentLesson + 1}.${ci + 1}`);
     let ok = false;
-    try { ok = lessons[currentLesson].check(rows, columns); } catch(e) { ok = false; }
+    try { ok = lessons[currentLesson].challenges[ci].check(rows, columns); } catch(e) { ok = false; }
     if (ok) {
       if (!completed.has(currentLesson)) {
         completed.add(currentLesson);
         saveProgress();
+        updateProgressMeter();
+        // re-mark sidebar
+        document.querySelectorAll('.toc-lesson').forEach((el, idx) => {
+          if (idx === currentLesson) el.classList.add('done');
+        });
       }
-      html += '<div class="feedback correct">✓ Correct! Nicely done. Click <strong>Next →</strong> to continue.</div>';
-      const pct = Math.round(100 * completed.size / lessons.length);
-      document.getElementById('progress').innerHTML = `${completed.size} / ${lessons.length} complete<div class="meter"><div class="meter-fill" style="width:${pct}%"></div></div>`;
-      document.querySelectorAll('.lesson-item')[currentLesson].classList.add('done');
-      document.querySelectorAll('.lesson-item')[currentLesson].querySelector('.check').textContent = '✓';
+      html += `<div class="feedback correct"><span class="label">Correct</span> &nbsp;Well reasoned. The result matches the expected set.</div>`;
     } else {
-      html += '<div class="feedback incorrect">Query ran, but the result doesn\'t match the challenge. Take another look.</div>';
+      html += `<div class="feedback incorrect"><span class="label">Not quite</span> &nbsp;The query ran without errors, but the result doesn't match what the challenge asked for. Try again, or reveal a hint.</div>`;
     }
     output.innerHTML = html;
   } catch (e) {
-    output.innerHTML = `<div class="result error"><strong>Error:</strong> ${escapeHtml(e.message)}</div>`;
+    output.innerHTML = `<div class="result-block"><div class="result-error">${escapeHtml(e.message)}</div></div>`;
   }
 }
 
+// =====================================================================
+// SANDBOX
+// =====================================================================
+function renderSandbox(app) {
+  app.innerHTML = `
+    <div class="sandbox-panel">
+      <div class="lesson-header">
+        <div class="lesson-eyebrow"><span class="label">The Workshop</span><div class="divider"></div></div>
+        <div class="lesson-title">Sandbox</div>
+        <div class="lesson-subtitle">Free-form queries against the full database. Nothing is checked; explore as you like.</div>
+      </div>
+      <div class="prose">
+        <p>Tables available: <code>heroes</code>, <code>guilds</code>, <code>quests</code>, <code>hero_quests</code>, <code>items</code>, <code>hero_items</code>, <code>battles</code>. Switch to the <strong>Schema</strong> tab to see columns and relationships.</p>
+      </div>
+      <textarea class="editor" id="sandbox-editor" spellcheck="false" style="min-height: 220px; margin-top: 16px;" oninput="onSandboxInput()">${escapeHtml(sandboxQuery)}</textarea>
+      <div class="actions">
+        <button class="btn" onclick="runSandbox()">▶ Run</button>
+        <button class="btn ghost" onclick="resetDatabase()">↻ Reset Database</button>
+      </div>
+      <div id="sandbox-output"></div>
+    </div>
+  `;
+}
+function onSandboxInput() {
+  sandboxQuery = document.getElementById('sandbox-editor').value;
+  saveProgress();
+}
 function runSandbox() {
-  const sql = document.getElementById('editor').value;
-  const output = document.getElementById('output');
+  const sql = document.getElementById('sandbox-editor').value;
+  const output = document.getElementById('sandbox-output');
   try {
     const results = db.exec(sql);
     if (results.length === 0) {
-      output.innerHTML = '<div class="result">Query ran successfully (no rows returned).</div>';
+      output.innerHTML = `<div class="result-block"><div class="result-caption"><strong>Fig.</strong> Query ran. No rows returned.</div></div>`;
       return;
     }
-    // Show all result sets
-    output.innerHTML = results.map(r => renderTable(r.columns, r.values)).join('');
+    output.innerHTML = results.map((r, i) => renderResultTable(r.columns, r.values, `S.${i + 1}`)).join('');
   } catch (e) {
-    output.innerHTML = `<div class="result error"><strong>Error:</strong> ${escapeHtml(e.message)}</div>`;
+    output.innerHTML = `<div class="result-block"><div class="result-error">${escapeHtml(e.message)}</div></div>`;
   }
 }
-
-function renderTable(columns, values) {
-  return `<div class="result"><div class="row-count">${values.length} row${values.length===1?'':'s'}</div>
-    <table><thead><tr>${columns.map(c => `<th>${escapeHtml(c)}</th>`).join('')}</tr></thead>
-    <tbody>${values.map(r => '<tr>' + r.map(v => `<td>${v === null ? '<em style="color:#6e7681">NULL</em>' : escapeHtml(String(v))}</td>`).join('') + '</tr>').join('')}</tbody>
-    </table></div>`;
-}
-
 async function resetDatabase() {
   const SQL = await initSqlJs({ locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${f}` });
   db = new SQL.Database();
   db.exec(SCHEMA_SQL);
-  document.getElementById('output').innerHTML = '<div class="result">Database reset to original state.</div>';
+  document.getElementById('sandbox-output').innerHTML = `<div class="result-block"><div class="result-caption"><strong>Notice</strong> Database reset to its initial state.</div></div>`;
 }
 
-function resetEditor() {
-  delete savedEditors[currentLesson];
-  saveProgress();
-  document.getElementById('editor').value = lessons[currentLesson].starter;
-  document.getElementById('output').innerHTML = '';
+// =====================================================================
+// SCHEMA
+// =====================================================================
+function renderSchema(app) {
+  const tableNames = ['heroes', 'guilds', 'quests', 'hero_quests', 'items', 'hero_items', 'battles'];
+  const cardsHtml = tableNames.map(t => {
+    const info = db.exec(`PRAGMA table_info(${t});`)[0];
+    const count = db.exec(`SELECT COUNT(*) FROM ${t};`)[0].values[0][0];
+    const cols = info.values.map(r => `
+      <div class="schema-col">
+        <span>${r[1]} ${r[5] ? '<span class="pk">PK</span>' : ''}</span>
+        <span class="type">${r[2].toLowerCase()}</span>
+      </div>
+    `).join('');
+    return `<div class="schema-card">
+      <div class="schema-card-name">${t}</div>
+      <div class="schema-card-rows">${count} rows</div>
+      ${cols}
+    </div>`;
+  }).join('');
+
+  app.innerHTML = `
+    <div class="schema-panel">
+      <div class="lesson-header">
+        <div class="lesson-eyebrow"><span class="label">The Database</span><div class="divider"></div></div>
+        <div class="lesson-title">Schema</div>
+        <div class="lesson-subtitle">The fantasy-world ledger you're querying throughout the course.</div>
+      </div>
+      <div class="schema-tables">${cardsHtml}</div>
+      <div class="section" style="margin-top: 40px;">
+        <h3>Foreign-key relationships</h3>
+        <div class="prose">
+          <p><code>heroes.guild_id</code> &rarr; <code>guilds.id</code></p>
+          <p><code>hero_quests.hero_id</code> &rarr; <code>heroes.id</code> &nbsp;·&nbsp; <code>hero_quests.quest_id</code> &rarr; <code>quests.id</code></p>
+          <p><code>hero_items.hero_id</code> &rarr; <code>heroes.id</code> &nbsp;·&nbsp; <code>hero_items.item_id</code> &rarr; <code>items.id</code></p>
+          <p><code>battles.attacker_id</code>, <code>battles.defender_id</code>, <code>battles.winner_id</code> &rarr; <code>heroes.id</code></p>
+        </div>
+      </div>
+    </div>
+  `;
 }
 
-function jumpTo(i) { currentLesson = i; saveProgress(); render(); }
-function next() { if (currentLesson < lessons.length - 1) { currentLesson++; saveProgress(); render(); } }
-function prev() { if (currentLesson > 0) { currentLesson--; saveProgress(); render(); } }
+// =====================================================================
+// SHARED UTILITIES
+// =====================================================================
+function renderResultTable(columns, values, figNum) {
+  return `<div class="result-block">
+    <div class="result-caption"><strong>Fig. ${figNum}</strong> ${values.length} row${values.length === 1 ? '' : 's'} returned.</div>
+    <div class="result-table-wrap"><table class="results">
+      <thead><tr>${columns.map(c => `<th>${escapeHtml(c)}</th>`).join('')}</tr></thead>
+      <tbody>${values.map(r => '<tr>' + r.map(v =>
+        v === null ? '<td class="null">NULL</td>' : `<td>${escapeHtml(String(v))}</td>`
+      ).join('') + '</tr>').join('')}</tbody>
+    </table></div>
+  </div>`;
+}
 
-function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function highlightSql(sql) {
+  const keywords = /\b(SELECT|FROM|WHERE|AND|OR|NOT|IN|LIKE|BETWEEN|IS|NULL|GROUP BY|HAVING|ORDER BY|LIMIT|JOIN|INNER|LEFT|RIGHT|OUTER|ON|AS|DISTINCT|WITH|UNION|ALL|ASC|DESC|PARTITION BY|OVER|CASE|WHEN|THEN|ELSE|END)\b/gi;
+  const funcs = /\b(COUNT|SUM|AVG|MIN|MAX|RANK|ROW_NUMBER|DENSE_RANK|LAG|LEAD|COALESCE|NULLIF)\b/gi;
+  return escapeHtml(sql)
+    .replace(/--[^\n]*/g, m => `<span class="cmt">${m}</span>`)
+    .replace(/'([^']*)'/g, (m, s) => `<span class="str">'${s}'</span>`)
+    .replace(/\b(\d+)\b/g, '<span class="num">$1</span>')
+    .replace(funcs, '<span class="fn">$1</span>')
+    .replace(keywords, '<span class="kw">$1</span>');
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
 
 init();
 </script>
