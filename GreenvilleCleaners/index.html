@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Greenville SC House Cleaning | Free Quote in 60 Seconds</title>
+<meta name="description" content="Local house cleaning in Greenville, South Carolina. Deep cleans, recurring service, move-outs, and Airbnb turnovers. Get a free quote — no obligation.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,600;9..144,0,700;9..144,0,800;9..144,1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #f7f3ec;
+    --bg-card: #ffffff;
+    --ink: #1a2a2e;
+    --ink-soft: #4a5d63;
+    --accent: #0f6b5c;
+    --accent-hover: #0a5448;
+    --accent-soft: #e6f1ee;
+    --gold: #c8843a;
+    --gold-soft: #f9efd9;
+    --border: #e3dcce;
+    --shadow: 0 1px 2px rgba(26,42,46,0.04), 0 8px 24px rgba(26,42,46,0.06);
+    --shadow-lg: 0 4px 12px rgba(26,42,46,0.08), 0 24px 48px rgba(26,42,46,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 19px;
+    line-height: 1.65;
+    color: var(--ink);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Fraunces', Georgia, serif; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; }
+  em { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 600; }
+
+  img { display: block; max-width: 100%; height: auto; }
+
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+
+  /* HEADER */
+  header {
+    background: var(--ink);
+    color: #f7f3ec;
+    padding: 16px 0;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  .logo { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 700; }
+  .logo .dot { color: var(--gold); }
+  .nav-right { display: flex; align-items: center; gap: 20px; }
+  .nav-phone {
+    color: #f7f3ec; text-decoration: none; font-size: 17px; font-weight: 600;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-phone:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold); color: var(--ink);
+    padding: 10px 20px; border-radius: 8px;
+    font-weight: 600; text-decoration: none; font-size: 16px;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: #b8742a; color: white; }
+
+  /* HERO */
+  .hero {
+    padding: 72px 0 96px;
+    background: linear-gradient(180deg, var(--bg) 0%, #f0eadf 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 14px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); background: var(--accent-soft);
+    padding: 8px 16px; border-radius: 999px;
+    margin-bottom: 24px;
+  }
+  .eyebrow .pulse {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .hero h1 {
+    font-size: clamp(40px, 5.5vw, 68px);
+    margin-bottom: 24px;
+  }
+  .hero h1 em { color: var(--accent); }
+  .hero .lede {
+    font-size: 21px;
+    color: var(--ink-soft);
+    margin-bottom: 32px;
+    max-width: 520px;
+  }
+  .trust-row { display: flex; gap: 28px; margin-bottom: 36px; flex-wrap: wrap; }
+  .trust-item { display: flex; align-items: center; gap: 10px; font-size: 16px; }
+  .trust-item .check {
+    width: 24px; height: 24px;
+    background: var(--accent); color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 18px 30px; border-radius: 10px;
+    font-size: 18px; font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+    border: none; cursor: pointer;
+    font-family: inherit;
+  }
+  .btn-primary { background: var(--accent); color: white; }
+  .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+  .btn-call { background: white; color: var(--ink); border: 2px solid var(--ink); }
+  .btn-call:hover { background: var(--ink); color: white; }
+
+  /* HERO FORM CARD */
+  .quote-card {
+    background: white;
+    border-radius: 20px;
+    padding: 36px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .quote-card .ribbon {
+    position: absolute;
+    top: -14px; right: 24px;
+    background: var(--gold);
+    color: var(--ink);
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .quote-card h3 { font-size: 28px; margin-bottom: 6px; }
+  .quote-card .sub { color: var(--ink-soft); margin-bottom: 24px; font-size: 16px; }
+
+  .field { margin-bottom: 16px; }
+  .field label {
+    display: block; font-size: 14px; font-weight: 600;
+    margin-bottom: 6px; color: var(--ink);
+  }
+  .field input, .field select, .field textarea {
+    width: 100%; padding: 13px 15px;
+    font-size: 16px; font-family: inherit;
+    border: 1.5px solid var(--border); border-radius: 9px;
+    background: var(--bg); color: var(--ink);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--accent); background: white;
+  }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .submit-btn {
+    width: 100%; background: var(--accent);
+    color: white; border: none;
+    padding: 18px; border-radius: 10px;
+    font-size: 18px; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 8px;
+  }
+  .submit-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+  .form-note {
+    font-size: 13px; color: var(--ink-soft);
+    margin-top: 12px; text-align: center;
+  }
+  .form-note .lock { color: var(--accent); }
+  .success-msg {
+    display: none;
+    background: var(--accent-soft); color: var(--accent);
+    padding: 16px; border-radius: 10px;
+    margin-bottom: 16px; font-weight: 500;
+    text-align: center;
+  }
+
+  /* PHOTO STRIP */
+  .photo-strip {
+    padding: 0;
+    background: var(--ink);
+  }
+  .strip-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .strip-img {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    position: relative;
+  }
+  .strip-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s;
+  }
+  .strip-img:hover img { transform: scale(1.05); }
+  .strip-img .overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(26,42,46,0.85) 100%);
+    display: flex; align-items: flex-end;
+    padding: 20px;
+    color: white;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 19px;
+  }
+
+  /* SECTIONS */
+  section { padding: 96px 0; }
+  .section-head { text-align: center; margin-bottom: 64px; max-width: 720px; margin-left: auto; margin-right: auto; }
+  .section-head .eyebrow { margin-bottom: 20px; }
+  .section-head h2 { font-size: clamp(34px, 4.5vw, 52px); margin-bottom: 16px; }
+  .section-head p { font-size: 20px; color: var(--ink-soft); }
+
+  /* SERVICES */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+  }
+  .service-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .service-photo {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+  .service-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .service-card:hover .service-photo img { transform: scale(1.04); }
+  .service-body { padding: 28px; }
+  .service-body h3 { font-size: 23px; margin-bottom: 10px; }
+  .service-body p { color: var(--ink-soft); font-size: 17px; line-height: 1.6; }
+
+  /* WHY US (with photo) */
+  .why { background: linear-gradient(180deg, #f0eadf 0%, var(--bg) 100%); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .why-photo {
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    box-shadow: var(--shadow-lg);
+  }
+  .why-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .why-list { list-style: none; }
+  .why-list li {
+    display: flex; gap: 20px;
+    margin-bottom: 32px;
+    align-items: flex-start;
+  }
+  .why-icon {
+    width: 48px; height: 48px;
+    background: var(--accent); color: white;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .why-list h4 { font-size: 22px; margin-bottom: 6px; }
+  .why-list p { color: var(--ink-soft); font-size: 17px; }
+
+  /* GALLERY */
+  .gallery { background: var(--bg); }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 200px;
+    gap: 16px;
+  }
+  .gallery-item {
+    overflow: hidden;
+    border-radius: 14px;
+    position: relative;
+  }
+  .gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+  }
+  .gallery-item:hover img { transform: scale(1.06); }
+  /* Bento layout */
+  .g-tall { grid-row: span 2; }
+  .g-wide { grid-column: span 2; }
+  .g-big { grid-column: span 2; grid-row: span 2; }
+
+  /* HOW IT WORKS */
+  .how { background: var(--ink); color: #f7f3ec; }
+  .how .section-head h2 { color: white; }
+  .how .section-head p { color: rgba(247,243,236,0.75); }
+  .how .eyebrow { background: rgba(200,132,58,0.15); color: var(--gold); }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .step { text-align: center; }
+  .step-num {
+    width: 56px; height: 56px;
+    background: var(--gold); color: var(--ink);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-size: 24px; font-weight: 700;
+    margin: 0 auto 20px;
+  }
+  .step h3 { font-size: 24px; color: white; margin-bottom: 10px; }
+  .step p { color: rgba(247,243,236,0.8); font-size: 17px; }
+
+  /* FAQ */
+  .faq { background: var(--bg); }
+  .faq-list { max-width: 800px; margin: 0 auto; }
+  .faq-item {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .faq-q {
+    padding: 22px 26px;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 19px; font-weight: 600;
+    transition: background 0.2s;
+  }
+  .faq-q:hover { background: var(--bg); }
+  .faq-q .plus { font-size: 24px; color: var(--accent); transition: transform 0.2s; }
+  .faq-item.open .faq-q .plus { transform: rotate(45deg); }
+  .faq-a {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.3s, padding 0.3s;
+    padding: 0 26px;
+    color: var(--ink-soft); font-size: 17px; line-height: 1.7;
+  }
+  .faq-item.open .faq-a { max-height: 300px; padding: 0 26px 22px; }
+
+  /* FINAL CTA with photo bg */
+  .final-cta {
+    position: relative;
+    color: white;
+    padding: 120px 0;
+    text-align: center;
+    overflow: hidden;
+  }
+  .final-bg {
+    position: absolute; inset: 0;
+    z-index: 0;
+  }
+  .final-bg img { width: 100%; height: 100%; object-fit: cover; }
+  .final-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(26,42,46,0.85) 0%, rgba(26,42,46,0.92) 100%);
+  }
+  .final-inner { position: relative; z-index: 1; }
+  .final-cta h2 {
+    font-size: clamp(38px, 5vw, 60px);
+    margin-bottom: 20px;
+    max-width: 800px; margin-left: auto; margin-right: auto;
+    color: white;
+  }
+  .final-cta h2 em { color: var(--gold); }
+  .final-cta p { font-size: 21px; opacity: 0.9; margin-bottom: 36px; }
+  .final-cta-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .final-cta .btn-call { background: transparent; color: white; border-color: white; }
+  .final-cta .btn-call:hover { background: white; color: var(--ink); }
+
+  /* FOOTER */
+  footer {
+    background: #0e1d20;
+    color: rgba(247,243,236,0.6);
+    padding: 48px 0 32px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 32px;
+  }
+  footer h4 { color: white; font-size: 18px; margin-bottom: 14px; }
+  footer a { color: rgba(247,243,236,0.7); text-decoration: none; display: block; margin-bottom: 8px; font-size: 16px; }
+  footer a:hover { color: var(--gold); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 24px;
+    text-align: center; font-size: 14px;
+  }
+
+  /* STICKY MOBILE CTA */
+  .sticky-cta {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: white;
+    border-top: 1px solid var(--border);
+    padding: 12px 16px;
+    z-index: 40;
+    gap: 8px;
+    box-shadow: 0 -8px 24px rgba(0,0,0,0.08);
+  }
+  .sticky-cta .btn { flex: 1; padding: 14px; font-size: 16px; justify-content: center; }
+
+  @media (max-width: 900px) {
+    .hero-grid, .why-grid { grid-template-columns: 1fr; gap: 48px; }
+    .steps { grid-template-columns: 1fr; gap: 24px; }
+    .strip-grid { grid-template-columns: repeat(2, 1fr); }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
+    .g-big { grid-column: span 2; grid-row: span 1; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .why-photo { aspect-ratio: 4 / 3; }
+  }
+  @media (max-width: 640px) {
+    body { font-size: 18px; }
+    section { padding: 64px 0; }
+    .hero { padding: 48px 0 64px; }
+    .nav-phone .label { display: none; }
+    .quote-card { padding: 28px 24px; }
+    .field-row { grid-template-columns: 1fr; }
+    .sticky-cta { display: flex; }
+    body { padding-bottom: 80px; }
+    .gallery-grid { grid-auto-rows: 140px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="logo">Sparkle<span class="dot">.</span>Greenville</div>
+    <div class="nav-right">
+      <a href="tel:+18645551234" class="nav-phone">📞 <span class="label">(864) 555-1234</span></a>
+      <a href="#quote" class="nav-cta">Free Quote</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow"><span class="pulse"></span> Greenville, SC · Booking this week</span>
+      <h1>A <em>spotless home</em> without lifting a finger.</h1>
+      <p class="lede">Local house cleaning in Greenville — deep cleans, recurring service, move-outs, and Airbnb turnovers. Get a free quote in 60 seconds.</p>
+
+      <div class="trust-row">
+        <div class="trust-item"><span class="check">✓</span> Local team</div>
+        <div class="trust-item"><span class="check">✓</span> Satisfaction guarantee</div>
+        <div class="trust-item"><span class="check">✓</span> Same-week openings</div>
+      </div>
+
+      <div class="hero-cta">
+        <a href="#quote" class="btn btn-primary">Get My Free Quote →</a>
+        <a href="tel:+18645551234" class="btn btn-call">📞 (864) 555-1234</a>
+      </div>
+    </div>
+
+    <!-- QUOTE FORM CARD -->
+    <div class="quote-card" id="quote">
+      <span class="ribbon">FREE QUOTE</span>
+      <h3>Get a quote in 60 seconds</h3>
+      <p class="sub">No obligation. We'll be in touch within one business day.</p>
+
+      <div class="success-msg" id="successMsg">✓ Got it! We'll be in touch within one business day.</div>
+
+      <form id="quoteForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="field-row">
+          <div class="field">
+            <label for="name">First name</label>
+            <input type="text" id="name" name="name" required placeholder="Jane">
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" required placeholder="(864) 555-0000">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="jane@email.com">
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="service">Service needed</label>
+            <select id="service" name="service" required>
+              <option value="">Choose…</option>
+              <option>One-time deep clean</option>
+              <option>Recurring cleaning</option>
+              <option>Move-in / Move-out</option>
+              <option>Airbnb / Rental turnover</option>
+              <option>Post-construction</option>
+              <option>Office / Commercial</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="size">Home size</label>
+            <select id="size" name="size" required>
+              <option value="">Choose…</option>
+              <option>1 BR / 1 BA</option>
+              <option>2 BR / 1-2 BA</option>
+              <option>3 BR / 2 BA</option>
+              <option>4 BR / 2-3 BA</option>
+              <option>5+ BR</option>
+              <option>Commercial space</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="zip">ZIP code</label>
+          <input type="text" id="zip" name="zip" required placeholder="29607" pattern="[0-9]{5}" maxlength="5">
+        </div>
+
+        <button type="submit" class="submit-btn">Get My Free Quote →</button>
+        <p class="form-note"><span class="lock">🔒</span> We never share your info. No spam, ever.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTO STRIP -->
+<section class="photo-strip">
+  <div class="strip-grid">
+    <div class="strip-img">
+      <img src="https://images.unsplash.com/photo-1563453392212-326f5e854473?w=600&q=80&auto=format&fit=crop" alt="Cleaning supplies">
+      <div class="overlay">Kitchens</div>
+    </div>
+    <div class="strip-img">
+      <img src="https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?w=600&q=80&auto=format&fit=crop" alt="Bathroom cleaning">
+      <div class="overlay">Bathrooms</div>
+    </div>
+    <div class="strip-img">
+      <img src="https://images.unsplash.com/photo-1686178827149-6d55c72d81df?w=600&q=80&auto=format&fit=crop" alt="Vacuuming living room">
+      <div class="overlay">Living Spaces</div>
+    </div>
+    <div class="strip-img">
+      <img src="https://images.unsplash.com/photo-1603712725038-e9334ae8f39f?w=600&q=80&auto=format&fit=crop" alt="Window cleaning">
+      <div class="overlay">Windows</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">What we clean</span>
+      <h2>Cleaning that <em>actually fits</em> your life.</h2>
+      <p>From one-time deep cleans to weekly recurring service, pick the option that matches your space and schedule.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-photo">
+          <img src="https://images.unsplash.com/photo-1642505172378-a6f5e5b15580?w=800&q=80&auto=format&fit=crop" alt="Recurring cleaning service">
+        </div>
+        <div class="service-body">
+          <h3>Recurring Cleans</h3>
+          <p>Weekly, bi-weekly, or monthly. The same trusted team, every visit. Set it and forget it.</p>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-photo">
+          <img src="https://images.unsplash.com/photo-1585417238790-f6d290d6490c?w=800&q=80&auto=format&fit=crop" alt="Deep cleaning">
+        </div>
+        <div class="service-body">
+          <h3>Deep Cleans</h3>
+          <p>Baseboards, behind appliances, inside cabinets — every corner gets attention. Perfect for seasonal resets.</p>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-photo">
+          <img src="https://images.unsplash.com/photo-1740657254989-42fe9c3b8cce?w=800&q=80&auto=format&fit=crop" alt="Move-in move-out cleaning">
+        </div>
+        <div class="service-body">
+          <h3>Move-In / Move-Out</h3>
+          <p>Get your deposit back or start fresh in a sparkling new place. Detailed checklist included.</p>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-photo">
+          <img src="https://images.unsplash.com/photo-1646980241033-cd7abda2ee88?w=800&q=80&auto=format&fit=crop" alt="Airbnb turnover cleaning">
+        </div>
+        <div class="service-body">
+          <h3>Airbnb Turnovers</h3>
+          <p>Fast, reliable rental turnovers between guests. Linen service available on request.</p>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-photo">
+          <img src="https://images.unsplash.com/photo-1627905646269-7f034dcc5738?w=800&q=80&auto=format&fit=crop" alt="Office cleaning">
+        </div>
+        <div class="service-body">
+          <h3>Office &amp; Commercial</h3>
+          <p>After-hours office cleaning, retail spaces, and small commercial buildings across the Upstate.</p>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-photo">
+          <img src="https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=800&q=80&auto=format&fit=crop" alt="Post-construction cleaning">
+        </div>
+        <div class="service-body">
+          <h3>Post-Construction</h3>
+          <p>Drywall dust, paint splatter, and construction debris — we'll make your renovation feel finished.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why">
+  <div class="container why-grid">
+    <div class="why-photo">
+      <img src="https://images.unsplash.com/photo-1713110824336-f78c320dcf8e?w=900&q=80&auto=format&fit=crop" alt="Professional cleaner at work">
+    </div>
+    <div>
+      <span class="eyebrow">Why choose us</span>
+      <h2 style="font-size: clamp(34px, 4.5vw, 48px); margin-bottom: 36px;">Cleaning done <em>right</em> the first time.</h2>
+
+      <ul class="why-list">
+        <li>
+          <div class="why-icon">✓</div>
+          <div><h4>Vetted, local team</h4><p>Background-checked and insured cleaners — not a rotating door of strangers.</p></div>
+        </li>
+        <li>
+          <div class="why-icon">★</div>
+          <div><h4>Same team, every visit</h4><p>Build a relationship with the people in your home. They learn your preferences.</p></div>
+        </li>
+        <li>
+          <div class="why-icon">⚡</div>
+          <div><h4>Same-week availability</h4><p>Most quotes get booked within 48 hours. No waiting a month for a slot.</p></div>
+        </li>
+        <li>
+          <div class="why-icon">🛡</div>
+          <div><h4>Satisfaction guarantee</h4><p>Not happy with the result? We'll come back and re-clean the area — free of charge.</p></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">A closer look</span>
+      <h2>The work, <em>up close</em>.</h2>
+      <p>Bathrooms scrubbed, kitchens shining, floors gleaming — here's what a clean home looks like.</p>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item g-big">
+        <img src="https://images.unsplash.com/photo-1642505172378-a6f5e5b15580?w=1000&q=80&auto=format&fit=crop" alt="Kitchen cleaning">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?w=600&q=80&auto=format&fit=crop" alt="Bathroom detail">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1740657254989-42fe9c3b8cce?w=600&q=80&auto=format&fit=crop" alt="Floor scrubbing">
+      </div>
+      <div class="gallery-item g-wide">
+        <img src="https://images.unsplash.com/photo-1686178827149-6d55c72d81df?w=1000&q=80&auto=format&fit=crop" alt="Vacuuming living room">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1646980241033-cd7abda2ee88?w=600&q=80&auto=format&fit=crop" alt="Mirror cleaning">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1585417238790-f6d290d6490c?w=600&q=80&auto=format&fit=crop" alt="Detail cleaning">
+      </div>
+      <div class="gallery-item g-wide">
+        <img src="https://images.unsplash.com/photo-1603712725038-e9334ae8f39f?w=1000&q=80&auto=format&fit=crop" alt="Window cleaning">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=600&q=80&auto=format&fit=crop" alt="Floor work">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1713110824336-f78c320dcf8e?w=600&q=80&auto=format&fit=crop" alt="Furniture cleaning">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">How it works</span>
+      <h2>Three steps. <em>That's it.</em></h2>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Request a quote</h3>
+        <p>Fill out the 60-second form or give us a call. Tell us what you need.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Get a fast estimate</h3>
+        <p>We'll be in touch within one business day with a fair, flat-rate quote — no surprises.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Enjoy a clean home</h3>
+        <p>Our team shows up on time, does the work right, and you come home to bliss.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Common questions</span>
+      <h2>Quick <em>answers</em>.</h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">How much does a cleaning cost? <span class="plus">+</span></div>
+        <div class="faq-a">Pricing depends on your home size and the type of cleaning. Most recurring cleans for a 3BR/2BA home in Greenville run between $150–$220. Deep cleans are typically $250–$400. Request a quote and we'll give you an exact number — no obligation.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do I need to be home during the cleaning? <span class="plus">+</span></div>
+        <div class="faq-a">Nope! Most clients aren't home. We'll arrange secure access — lockbox, door code, or hidden key — and lock up when we're done.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Are your cleaners insured? <span class="plus">+</span></div>
+        <div class="faq-a">Yes — every team member is background-checked, trained, and we carry full liability insurance. Your home and belongings are protected.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What if I'm not happy with the cleaning? <span class="plus">+</span></div>
+        <div class="faq-a">We offer a satisfaction guarantee. If something isn't right, let us know within 24 hours and we'll come back and re-clean the area — free of charge.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What areas do you serve? <span class="plus">+</span></div>
+        <div class="faq-a">Greenville, Greer, Simpsonville, Mauldin, Travelers Rest, Easley, Taylors, Five Forks, and surrounding areas in the Upstate.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-bg">
+    <img src="https://images.unsplash.com/photo-1740657254989-42fe9c3b8cce?w=1800&q=80&auto=format&fit=crop" alt="">
+  </div>
+  <div class="container final-inner">
+    <h2>Ready for a <em>spotless</em> home?</h2>
+    <p>Get your free, no-obligation quote in 60 seconds. We'll handle the rest.</p>
+    <div class="final-cta-row">
+      <a href="#quote" class="btn btn-primary">Get My Free Quote →</a>
+      <a href="tel:+18645551234" class="btn btn-call">📞 (864) 555-1234</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div style="font-family:'Fraunces',serif;font-size:24px;color:white;margin-bottom:12px;">Sparkle<span style="color:var(--gold);">.</span>Greenville</div>
+        <p style="font-size:16px;line-height:1.6;">Greenville's local cleaning service. Fair prices, satisfaction guaranteed.</p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="tel:+18645551234">📞 (864) 555-1234</a>
+        <a href="mailto:hello@sparklegreenville.com">✉ hello@sparklegreenville.com</a>
+        <a href="#quote">Get a free quote</a>
+      </div>
+      <div>
+        <h4>Service Area</h4>
+        <a>Greenville · Greer</a>
+        <a>Simpsonville · Mauldin</a>
+        <a>Travelers Rest · Easley</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Sparkle.Greenville · Cleaning services in Greenville, SC
+    </div>
+  </div>
+</footer>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-cta">
+  <a href="tel:+18645551234" class="btn btn-call">📞 Call</a>
+  <a href="#quote" class="btn btn-primary">Free Quote</a>
+</div>
+
+<script>
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-q').addEventListener('click', () => {
+      item.classList.toggle('open');
+    });
+  });
+
+  const form = document.getElementById('quoteForm');
+  const successMsg = document.getElementById('successMsg');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        form.reset();
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+        successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        alert('Something went wrong. Please try again or call us directly at (864) 555-1234.');
+      }
+    } catch (err) {
+      alert('Network error. Please call us at (864) 555-1234.');
+    }
+  });
+</script>
+
+</body>
+</html>
