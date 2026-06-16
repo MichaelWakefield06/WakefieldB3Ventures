@@ -1596,8 +1596,8 @@ ranked <span class="kw">AS</span> (
     { tier: 1, difficulty: 'easy', lesson: 0, prompt: "Return the <code>name</code> and <code>class</code> of every hero.", check: (r,c) => c.length===2 && c.includes('name') && c.includes('class') && r.length===20, solution: "SELECT name, class FROM heroes;" },
     { tier: 1, difficulty: 'easy', lesson: 1, prompt: "Return all heroes with <code>level</code> exactly 22.", check: (r) => r.every(x => x.level===22) && r.length===2, solution: "SELECT * FROM heroes WHERE level = 22;" },
     { tier: 1, difficulty: 'easy', lesson: 1, prompt: "Return the <code>name</code> of every hero in <code>guild_id</code> 4.", check: (r,c) => c.length===1 && c[0]==='name' && r.length===4, solution: "SELECT name FROM heroes WHERE guild_id = 4;" },
-    { tier: 1, difficulty: 'easy', lesson: 1, prompt: "Return all <code>quests</code> with <code>min_level</code> ≤ 15.", check: (r) => r.every(x => x.min_level<=15) && r.length===5, solution: "SELECT * FROM quests WHERE min_level <= 15;" },
-    { tier: 1, difficulty: 'easy', lesson: 2, prompt: "Return quests with <code>reward_gold</code> over 1000 AND <code>min_level</code> at most 30.", check: (r) => r.every(x => x.reward_gold>1000 && x.min_level<=30) && r.length===2, solution: "SELECT * FROM quests WHERE reward_gold > 1000 AND min_level <= 30;" },
+    { tier: 1, difficulty: 'easy', lesson: 1, prompt: "Return all <code>quests</code> with <code>min_level</code> ≤ 15.", check: (r) => r.every(x => x.min_level<=15) && r.length===4, solution: "SELECT * FROM quests WHERE min_level <= 15;" },
+    { tier: 1, difficulty: 'easy', lesson: 2, prompt: "Return quests with <code>reward_gold</code> over 1000 AND <code>min_level</code> at most 30.", check: (r) => r.every(x => x.reward_gold>1000 && x.min_level<=30) && r.length===3, solution: "SELECT * FROM quests WHERE reward_gold > 1000 AND min_level <= 30;" },
     { tier: 1, difficulty: 'medium', lesson: 2, prompt: "Heroes who are Warriors OR have <code>level</code> ≥ 35. Show <code>name</code>, <code>class</code>, <code>level</code>.", check: (r) => r.every(x => x.class==='Warrior' || x.level>=35) && r.length>=5, solution: "SELECT name, class, level FROM heroes WHERE class = 'Warrior' OR level >= 35;" },
     { tier: 2, difficulty: 'medium', lesson: 3, prompt: "Three heroes with lowest <code>xp</code>, lowest first. Show <code>name</code>, <code>xp</code>.", check: (r,c) => r.length===3 && c.includes('name') && c.includes('xp') && r[0].xp===3100, solution: "SELECT name, xp FROM heroes ORDER BY xp ASC LIMIT 3;" },
     { tier: 2, difficulty: 'medium', lesson: 3, prompt: "All <code>quests</code> sorted by <code>difficulty</code> ASC, then <code>reward_gold</code> DESC.", check: (r) => r.length===12, solution: "SELECT * FROM quests ORDER BY difficulty ASC, reward_gold DESC;" },
@@ -2722,7 +2722,7 @@ function highlightSql(sql) {
   const funcs = /\b(COUNT|SUM|AVG|MIN|MAX|RANK|ROW_NUMBER|DENSE_RANK|LAG|LEAD|COALESCE|NULLIF|SUBSTR|STRFTIME)\b/gi;
   return escapeHtml(sql)
     .replace(/--[^\n]*/g, m => `<span class="cmt">${m}</span>`)
-    .replace(/'([^']*)'/g, (m, s) => `<span class="str">'${s}'</span>`)
+    .replace(/&#39;(.*?)&#39;/g, (m, s) => `<span class="str">'${s}'</span>`)
     .replace(/\b(\d+)\b/g, '<span class="num">$1</span>')
     .replace(funcs, '<span class="fn">$1</span>')
     .replace(keywords, '<span class="kw">$1</span>');
