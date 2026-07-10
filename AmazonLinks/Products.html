@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Top Picks</title>
+<style>
+  :root{
+    --bg:#f4f2ee;
+    --card:#ffffff;
+    --ink:#1c1c1c;
+    --muted:#6b6b6b;
+    --accent:#e8820c;
+    --accent-dark:#c76a00;
+    --star:#f5a623;
+    --border:#e7e4de;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  header{
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    padding:22px 20px;
+    text-align:center;
+  }
+  header h1{font-size:1.6rem;letter-spacing:-.02em}
+  header p{color:var(--muted);margin-top:4px;font-size:.95rem}
+
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 20px 60px}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+    gap:22px;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,.09)}
+  .thumb{
+    aspect-ratio:1/1;
+    background:#faf9f7;
+    display:flex;align-items:center;justify-content:center;
+    padding:18px;
+    border-bottom:1px solid var(--border);
+  }
+  .thumb img{max-width:100%;max-height:100%;object-fit:contain}
+  .body{padding:16px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .title{font-size:1rem;font-weight:600;line-height:1.35}
+  .desc{font-size:.85rem;color:var(--muted);flex:1}
+  .stars{color:var(--star);font-size:.9rem;letter-spacing:1px}
+  .stars span{color:var(--muted);margin-left:4px;font-size:.8rem}
+  .price{font-size:1.15rem;font-weight:700}
+  .price small{font-size:.8rem;font-weight:400;color:var(--muted)}
+  .btn{
+    display:block;
+    text-align:center;
+    text-decoration:none;
+    background:var(--accent);
+    color:#fff;
+    font-weight:600;
+    padding:11px;
+    border-radius:9px;
+    margin-top:6px;
+    transition:background .15s ease;
+  }
+  .btn:hover{background:var(--accent-dark)}
+
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:.8rem;
+    padding:26px 20px;
+    border-top:1px solid var(--border);
+    background:var(--card);
+  }
+</style>
+</head>
+<body>
+
+<!--
+====================================================================
+  HOW TO ADD A NEW PRODUCT  (read this, then scroll to the SCRIPT
+  at the bottom of the file — that's the only part you edit)
+====================================================================
+
+  1. Find the line that says:  const products = [
+     Each product is one { ... } block, separated by commas.
+
+  2. To ADD a product, copy an existing block (everything from the
+     opening {  to the closing }  ) and paste it as a new item in
+     the list. Make sure there's a comma AFTER the } of every block
+     except the very last one.
+
+  3. Fill in the seven fields for your new product:
+
+       title    -> the product name (text in quotes)
+       desc     -> one short sentence describing it
+       image    -> a link to the product image (see note below)
+       price    -> e.g. "$24.95"  (or "" to hide it — see PRICE note)
+       rating   -> a number from 0 to 5, e.g. 4.5
+       reviews  -> number of reviews, e.g. 2143  (no quotes, no commas)
+       link     -> YOUR Amazon affiliate URL (paste it inside the quotes)
+
+  4. Save the file and refresh it in your browser. Done.
+
+  ----------------------------------------------------------------
+  TEMPLATE — copy this whole block for a new product:
+
+    {
+      title: "Product name here",
+      desc: "Short description here.",
+      image: "https://link-to-image.jpg",
+      price: "$0.00",
+      rating: 4.5,
+      reviews: 100,
+      link: "https://www.amazon.com/dp/PRODUCT_ID?tag=YOURTAG-20"
+    },
+
+  ----------------------------------------------------------------
+  IMAGE note: get your image link from Amazon's SiteStripe "Get Link
+  > Image" tool, or upload your own image somewhere and paste its URL.
+  Directly hotlinking Amazon images can break over time.
+
+  PRICE note: Amazon's Associates rules discourage showing a fixed
+  price you typed in (prices change). To hide the price, set
+  price: ""  and it won't display. Safer to let the real price show
+  on Amazon after the click.
+
+  AFFILIATE TAG note: replace YOURTAG-20 in each link with your own
+  Associates tracking ID so you get credit for sales.
+====================================================================
+-->
+
+<header>
+  <h1>My Top Picks</h1>
+  <p>Handpicked products I actually recommend</p>
+</header>
+
+<div class="wrap">
+  <div class="grid" id="grid"></div>
+</div>
+
+<footer>
+  As an Amazon Associate I earn from qualifying purchases.
+</footer>
+
+<script>
+  /* ===================================================================
+     EDIT YOUR PRODUCTS BELOW.
+     Full instructions are in the big comment block near the top of
+     this file. Quick version: copy one { ... } block, paste it as a
+     new list item, put a comma after every } except the last one,
+     then fill in the seven fields.
+  =================================================================== */
+  const products = [
+
+    // ↓↓↓ YOUR FIRST PRODUCT — link is set. Fill in the FILL_IN fields.
+    {
+      title: "FILL_IN — product name",
+      desc: "FILL_IN — one short line about it.",
+      image: "FILL_IN — image URL (SiteStripe > Get Link > Image)",
+      price: "",          // leave "" to hide, or e.g. "$29.99"
+      rating: 4.5,        // change to the product's star rating
+      reviews: 0,         // change to the review count
+      link: "https://amzn.to/4pjCvlY"
+    },
+
+    {
+      title: "Wireless Noise-Cancelling Headphones",
+      desc: "40-hour battery, plush earcups, great for travel.",
+      image: "https://via.placeholder.com/300x300?text=Product+Image",
+      price: "$79.99",
+      rating: 4.5,
+      reviews: 2143,
+      link: "https://www.amazon.com/dp/PRODUCT_ID?tag=YOURTAG-20"
+    },
+
+    {
+      title: "Stainless Steel Water Bottle",
+      desc: "Keeps drinks cold 24h. Leakproof, 32oz.",
+      image: "https://via.placeholder.com/300x300?text=Product+Image",
+      price: "$24.95",
+      rating: 4.8,
+      reviews: 5820,
+      link: "https://www.amazon.com/dp/PRODUCT_ID?tag=YOURTAG-20"
+    },
+
+    {
+      title: "Mechanical Keyboard",
+      desc: "Hot-swappable switches, RGB, compact 75% layout.",
+      image: "https://via.placeholder.com/300x300?text=Product+Image",
+      price: "$59.00",
+      rating: 4.6,
+      reviews: 981,
+      link: "https://www.amazon.com/dp/PRODUCT_ID?tag=YOURTAG-20"
+    }
+
+  ];
+  /* === STOP EDITING HERE — the code below builds the page === */
+
+  function starRow(rating){
+    const full = Math.floor(rating);
+    const half = rating - full >= 0.5;
+    let s = "★".repeat(full);
+    if (half) s += "½";
+    s += "☆".repeat(5 - full - (half ? 1 : 0));
+    return s;
+  }
+
+  document.getElementById("grid").innerHTML = products.map(p => `
+    <div class="card">
+      <div class="thumb"><img src="${p.image}" alt="${p.title}"></div>
+      <div class="body">
+        <div class="title">${p.title}</div>
+        <div class="desc">${p.desc}</div>
+        <div class="stars">${starRow(p.rating)}<span>${p.rating} (${p.reviews.toLocaleString()})</span></div>
+        ${p.price ? `<div class="price">${p.price} <small>on Amazon</small></div>` : ``}
+        <a class="btn" href="${p.link}" target="_blank" rel="nofollow sponsored noopener">View on Amazon →</a>
+      </div>
+    </div>
+  `).join("");
+</script>
+
+</body>
+</html>
