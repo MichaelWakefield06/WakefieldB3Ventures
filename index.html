@@ -112,8 +112,10 @@
   .review-form textarea{resize:vertical}
   .review-form select:invalid{color:var(--muted)}
   .review-form input:focus,.review-form select:focus,.review-form textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .review-form label.field-label{font-size:13px;color:var(--muted);margin:6px 0 -4px 2px;font-weight:500}
   .review-form .btn{margin-top:4px}
   .form-note{color:var(--muted);font-size:13.5px;margin-top:16px}
+  #websiteUrlWrap{display:none}
 
   footer{border-top:1px solid var(--line);padding:44px 0}
   .foot-inner{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
@@ -283,7 +285,16 @@
       <input type="text" name="_honey" style="display:none">
       <input type="text" name="name" placeholder="Your name" aria-label="Your name" required>
       <input type="email" name="email" placeholder="Your email" aria-label="Your email" required>
-      <input type="text" name="business" placeholder="Business name or website" aria-label="Business name or website" required>
+      <input type="text" name="business" placeholder="Business name" aria-label="Business name" required>
+      <select name="request_type" id="requestType" aria-label="Is this a new site or a rebuild" required>
+        <option value="" disabled selected>Do you have a website already?</option>
+        <option value="New site build">No — I need a brand new site</option>
+        <option value="Rebuild / redesign of existing site">Yes — I want my existing site rebuilt</option>
+        <option value="Not sure yet">Not sure yet</option>
+      </select>
+      <div id="websiteUrlWrap">
+        <input type="text" name="current_website" id="currentWebsite" placeholder="Your current website address" aria-label="Your current website address">
+      </div>
       <select name="package" aria-label="Which package" required>
         <option value="" disabled selected>Which package?</option>
         <option value="Basic">Basic — $597</option>
@@ -323,6 +334,18 @@
     var form=document.getElementById('wb3form');
     var thanks=document.getElementById('wb3thanks');
     var note=document.getElementById('wb3note');
+    var requestType=document.getElementById('requestType');
+    var urlWrap=document.getElementById('websiteUrlWrap');
+    var currentWebsite=document.getElementById('currentWebsite');
+
+    // Show the "current website" field only when they have an existing site to rebuild
+    requestType.addEventListener('change',function(){
+      var show=requestType.value==='Rebuild / redesign of existing site';
+      urlWrap.style.display=show?'block':'none';
+      currentWebsite.required=show;
+      if(!show){currentWebsite.value='';}
+    });
+
     form.addEventListener('submit',function(e){
       e.preventDefault();
       var btn=form.querySelector('button[type="submit"]');
