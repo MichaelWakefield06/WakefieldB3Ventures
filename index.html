@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WB3 Ventures — Websites &amp; Local Marketing</title>
+<title>WB3 — Websites &amp; Local Marketing</title>
 <meta name="description" content="Custom websites, Google Business Profile setup, and local SEO for small businesses. Built before you pay.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -107,9 +107,12 @@
   .cta-band .wrap{text-align:center;padding:92px 24px}
   .cta-band h2{max-width:22ch;margin:0 auto}
   .cta-band p{color:var(--muted);font-size:19px;margin:18px auto 34px;max-width:48ch}
-  .review-form{display:flex;gap:12px;max-width:520px;margin:0 auto;flex-wrap:wrap;justify-content:center}
-  .review-form input{flex:1;min-width:240px;background:var(--bg);border:1px solid var(--line);color:var(--text);font-family:var(--body);font-size:16px;padding:14px 16px;border-radius:8px}
-  .review-form input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .review-form{display:flex;flex-direction:column;gap:12px;max-width:480px;margin:0 auto;text-align:left}
+  .review-form input,.review-form select,.review-form textarea{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--text);font-family:var(--body);font-size:16px;padding:14px 16px;border-radius:8px}
+  .review-form textarea{resize:vertical}
+  .review-form select:invalid{color:var(--muted)}
+  .review-form input:focus,.review-form select:focus,.review-form textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .review-form .btn{margin-top:4px}
   .form-note{color:var(--muted);font-size:13.5px;margin-top:16px}
 
   footer{border-top:1px solid var(--line);padding:44px 0}
@@ -140,7 +143,7 @@
 
 <!-- HERO: your chosen banner sits here as banner.png -->
 <section class="hero">
-  <img src="banner.png" alt="WB3 Ventures — websites and local marketing" class="hero-banner" onerror="this.style.display='none'">
+  <img src="banner.png" alt="WB3 — websites and local marketing" class="hero-banner" onerror="this.style.display='none'">
   <div class="wrap hero-content">
     <span class="eyebrow">Website packages · 2026</span>
     <h1>Show up higher on Google. <em>Built before you pay.</em></h1>
@@ -273,11 +276,25 @@
   <div class="wrap">
     <h2>Tell me your business name. I'll build the site.</h2>
     <p>No payment up front. Send your business name or current website and the package you want, and I'll get started.</p>
-    <div class="review-form">
-      <input type="text" id="siteInput" placeholder="your business name or website" aria-label="Your business name or website">
-      <button class="btn btn-primary" onclick="submitReview()">Get started</button>
-    </div>
-    <p class="form-note" id="formNote">Replies usually within one business day.</p>
+    <form class="review-form" action="https://formsubmit.co/WB3_ventures@outlook.com" method="POST">
+      <input type="hidden" name="_subject" value="New WB3 website request">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" style="display:none">
+      <input type="text" name="name" placeholder="Your name" aria-label="Your name" required>
+      <input type="email" name="email" placeholder="Your email" aria-label="Your email" required>
+      <input type="text" name="business" placeholder="Business name or website" aria-label="Business name or website" required>
+      <select name="package" aria-label="Which package" required>
+        <option value="" disabled selected>Which package?</option>
+        <option value="Basic">Basic — $597</option>
+        <option value="Standard">Standard — $997</option>
+        <option value="Pro">Pro — $1,497</option>
+        <option value="Not sure yet">Not sure yet</option>
+      </select>
+      <textarea name="message" placeholder="Anything else you want me to know (optional)" aria-label="Message" rows="3"></textarea>
+      <button type="submit" class="btn btn-primary">Get started</button>
+    </form>
+    <p class="form-note">No payment up front. Replies usually within one business day.</p>
   </div>
 </section>
 
@@ -296,16 +313,6 @@
   </div>
 </footer>
 
-<script>
-  function submitReview(){
-    var v=document.getElementById('siteInput').value.trim();
-    var note=document.getElementById('formNote');
-    if(!v){note.textContent='Enter your business name or website first.';note.style.color='#f0997b';return;}
-    note.style.color='';
-    note.textContent='Thanks — connect this form to your email or a form service to receive "'+v+'".';
-    document.getElementById('siteInput').value='';
-  }
-</script>
 
 </body>
 </html>
