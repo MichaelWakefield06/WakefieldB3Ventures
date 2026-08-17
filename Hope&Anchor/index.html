@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hope &amp; Anchor Coffeehouse &amp; Café | Coffee &amp; Cafe in Chetek, WI</title>
+<meta name="description" content="A cozy coffeehouse and cafe on 2nd Street in downtown Chetek, WI. Coffee, crepes, paninis, breakfast, lunch, smoothies, and handmade chocolates. Indoor seating, patio, and drive-thru. Order ahead online.">
+<link rel="canonical" href="https://hopeandanchorcoffee.com/">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%23EE4056'/><g fill='none' stroke='%23FBF4EA' stroke-width='3.4' stroke-linecap='round'><circle cx='32' cy='17' r='4.4'/><path d='M32 21.5V49'/><path d='M20 33h24'/><path d='M17 37c0 9 7 13 15 13s15-4 15-13'/></g></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"CafeOrCoffeeShop",
+  "name":"Hope & Anchor Coffeehouse & Café",
+  "description":"Coffeehouse and cafe in downtown Chetek, WI serving coffee, tea, smoothies, breakfast, lunch, and handmade chocolates with indoor and patio seating and a drive-thru.",
+  "url":"https://hopeandanchorcoffee.com/","telephone":"+1-715-925-5282","email":"hopeandanchorcoffee@gmail.com","priceRange":"$$",
+  "servesCuisine":["Coffee","Cafe","Breakfast","Lunch"],
+  "address":{"@type":"PostalAddress","streetAddress":"526 2nd St, Ste 2","addressLocality":"Chetek","addressRegion":"WI","postalCode":"54728","addressCountry":"US"},
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"07:00","closes":"15:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"08:00","closes":"15:00"}],
+  "sameAs":["https://www.facebook.com/HopeAndAnchorCoffeehouse/"]
+}
+</script>
+<style>
+  :root{
+    --cream:#FBF4EA;--cream2:#EFE6D6;--tan:#E7C6B2;
+    --ink:#101E33;--ink2:#2A3E56;--red:#EE4056;--red2:#D62B44;
+    --teal:#1D6E6B;--teal2:#155450;
+    --muted:#6B727A;--line:#E6DECF;
+    --display:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--wrap:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 26px}
+  h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.08;letter-spacing:-.01em}
+  h2{font-size:clamp(2rem,4.4vw,3.1rem)}
+  .kicker{font-family:var(--body);font-weight:600;font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red2)}
+  .lede{font-size:1.12rem;color:var(--muted)}
+
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--body);font-weight:600;font-size:.98rem;padding:14px 26px;border-radius:40px;cursor:pointer;border:2px solid transparent;transition:transform .16s,background .16s,color .16s}
+  .btn-red{background:var(--red);color:#fff}
+  .btn-red:hover{transform:translateY(-2px);background:var(--red2)}
+  .btn-ink{background:var(--ink);color:var(--cream)}
+  .btn-ink:hover{transform:translateY(-2px);background:#000}
+  .btn-out{border-color:rgba(255,255,255,.6);color:#fff}
+  .btn-out:hover{background:rgba(255,255,255,.14)}
+  .btn-outink{border-color:var(--ink);color:var(--ink)}
+  .btn-outink:hover{background:var(--ink);color:var(--cream)}
+  .btn .arw{transition:transform .16s}.btn:hover .arw{transform:translateX(3px)}
+
+  /* announcement marquee */
+  .announce{background:var(--red);color:#fff;overflow:hidden;white-space:nowrap;font-family:var(--body);font-weight:600;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase}
+  .announce .track{display:inline-block;padding:9px 0;animation:scroll 26s linear infinite}
+  .announce a{color:#fff}
+  .announce span{padding:0 22px}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* header */
+  header.site{position:sticky;top:0;z-index:60;background:rgba(251,244,234,.92);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:82px;gap:20px}
+  .brand .wm b{font-family:var(--display);font-weight:700;font-size:1.35rem;display:block;line-height:1;letter-spacing:-.01em;color:var(--ink)}
+  .brand .wm small{font-family:var(--body);font-weight:600;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
+  .navlinks{display:flex;align-items:center;gap:30px}
+  .navlinks a.lnk{font-size:.95rem;font-weight:500;color:var(--ink);transition:color .15s}
+  .navlinks a.lnk:hover{color:var(--red2)}
+  .navtoggle{display:none;background:none;border:1px solid var(--line);border-radius:9px;padding:8px 10px;cursor:pointer}
+  .navtoggle span{display:block;width:20px;height:2px;background:var(--ink);margin:4px 0;border-radius:2px}
+
+  /* hero */
+  .hero{position:relative;min-height:56vh;display:flex;align-items:center;color:#fff;background:linear-gradient(180deg,rgba(12,24,42,.36),rgba(12,24,42,.74)),url('photos/hero.jpg') center/cover no-repeat,linear-gradient(150deg,#0E1B2E,#163A44)}
+  .hero .wrap{padding:56px 26px}
+  .hero-inner{max-width:640px}
+  .hero .kicker{color:#F3C9B8}
+  .hero h1{font-size:clamp(2.6rem,6vw,4.6rem);margin:14px 0 18px;letter-spacing:-.02em}
+  .hero p{font-size:1.16rem;color:rgba(255,255,255,.9);max-width:44ch;margin-bottom:28px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+
+  /* offerings ticker */
+  .ticker{background:var(--ink);color:var(--cream);overflow:hidden;white-space:nowrap}
+  .ticker .track{display:inline-block;padding:16px 0;animation:scroll 30s linear infinite;font-family:var(--display);font-style:italic;font-size:1.15rem}
+  .ticker span{padding:0 26px}
+  .ticker .dot{color:var(--teal)}
+
+  /* sections */
+  .section{padding:88px 0}
+  .center{text-align:center;max-width:64ch;margin:0 auto}
+  .center h2{margin:14px 0 16px}
+
+  /* feature tiles */
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:12px}
+  .tile{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/5;display:block;background:var(--cream2)}
+  .tile .ph{position:absolute;inset:0}
+  .tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .tile .ph-ic{position:absolute;inset:0;display:grid;place-items:center;color:var(--tan)}
+  .tile .cap{position:absolute;left:0;right:0;bottom:0;padding:22px;background:linear-gradient(180deg,transparent,rgba(34,30,31,.82));color:#fff;display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .tile .cap b{font-family:var(--display);font-weight:600;font-size:1.3rem}
+  .tile .cap .arw{color:#fff}
+  .tile:hover img{transform:scale(1.04)}
+  .tile img{transition:transform .4s ease}
+
+  /* alternating split sections */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch}
+  .split .media{position:relative;min-height:440px;background:var(--cream2)}
+  .split .media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .split .media .ph-ic{position:absolute;inset:0;display:grid;place-items:center;color:var(--tan)}
+  .split .copy{padding:64px 56px;display:flex;flex-direction:column;justify-content:center}
+  .split.alt{background:var(--cream2)}
+  .split .copy h2{margin:12px 0 8px}
+  .split .copy .sub{font-family:var(--display);font-style:italic;color:var(--teal);font-size:1.2rem;margin-bottom:16px}
+  .split .copy p{color:var(--muted);margin-bottom:24px;max-width:46ch}
+  .split.rev .media{order:2}
+  @media(max-width:860px){.split{grid-template-columns:1fr}.split .media{min-height:300px}.split.rev .media{order:0}.split .copy{padding:44px 30px}}
+
+  /* faq */
+  .faq{max-width:820px;margin:26px auto 0}
+  .faq details{border-bottom:1px solid var(--line);padding:20px 4px}
+  .faq summary{font-family:var(--display);font-weight:600;font-size:1.18rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";color:var(--red2);font-weight:400;font-size:1.5rem}
+  .faq details[open] summary::after{content:"\2013"}
+  .faq p{color:var(--muted);margin-top:12px;max-width:70ch}
+
+  /* newsletter */
+  .news{background:var(--tan)}
+  .news .wrap{padding:74px 26px;text-align:center}
+  .news h2{margin-bottom:10px}
+  .news p{color:var(--ink2);margin-bottom:24px}
+  .news form{display:flex;gap:10px;max-width:460px;margin:0 auto;flex-wrap:wrap}
+  .news input{flex:1;min-width:200px;background:var(--cream);border:1px solid rgba(34,30,31,.18);border-radius:40px;padding:14px 20px;font-family:var(--body);font-size:.98rem;color:var(--ink)}
+  .news input:focus{outline:2px solid var(--red);outline-offset:1px}
+  .news .thanks{font-family:var(--display);font-style:italic;font-size:1.2rem;color:var(--ink);display:none}
+
+  /* visit */
+  .visit-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:44px;align-items:stretch}
+  .info .row{display:flex;gap:14px;padding:18px 0;border-bottom:1px solid var(--line)}
+  .info .row:first-child{padding-top:0}
+  .info .row .ic{width:40px;height:40px;flex:none;border-radius:11px;background:var(--cream2);color:var(--red2);display:grid;place-items:center}
+  .info .row h4{font-family:var(--display);font-size:1.12rem;margin-bottom:3px}
+  .info .row p,.info .row a{color:var(--muted);font-size:.96rem}
+  .info .row a:hover{color:var(--red2)}
+  .hours{list-style:none}
+  .hours li{display:flex;justify-content:space-between;font-size:.94rem;padding:5px 0;color:var(--muted)}
+  .hours li.today{color:var(--ink);font-weight:600}
+  .hours li.today .d::after{content:" \00B7 Today";color:var(--red2)}
+  .map{border-radius:18px;overflow:hidden;border:1px solid var(--line);min-height:380px}
+  .map iframe{width:100%;height:100%;min-height:380px;border:0;display:block}
+  @media(max-width:860px){.visit-grid{grid-template-columns:1fr}}
+
+  /* footer */
+  footer.site{background:var(--ink);color:rgba(251,244,234,.72);padding:70px 0 32px}
+  .foot-top{text-align:center;max-width:60ch;margin:0 auto 44px}
+  .foot-top .kicker{color:var(--red);display:block;margin-bottom:12px}
+  .foot-top h3{font-family:var(--display);color:var(--cream);font-size:1.7rem;margin-bottom:12px}
+  .foot-top p{color:rgba(251,244,234,.66)}
+  .foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:36px;border-top:1px solid rgba(255,255,255,.12);padding-top:36px}
+  .foot-wm b{font-family:var(--display);font-size:1.4rem;color:var(--cream);display:block}
+  .foot-wm small{font-family:var(--body);font-weight:600;font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:rgba(251,244,234,.5)}
+  .foot-wm p{margin-top:12px;font-size:.9rem;max-width:32ch;color:rgba(251,244,234,.6)}
+  .foot-col h4{font-family:var(--body);font-weight:600;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(251,244,234,.45);margin-bottom:14px}
+  .foot-col a,.foot-col p{display:block;color:rgba(251,244,234,.78);font-size:.92rem;margin-bottom:9px}
+  .foot-col a:hover{color:var(--red)}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.12);margin-top:36px;padding-top:22px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.78rem;color:rgba(251,244,234,.5)}
+  .foot-bottom a{color:rgba(251,244,234,.7)}.foot-bottom a:hover{color:var(--red)}
+
+  :focus-visible{outline:2px solid var(--red);outline-offset:2px}
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.seen{opacity:1;transform:none}
+
+  @media(max-width:860px){
+    .tiles{grid-template-columns:1fr;max-width:420px;margin:12px auto 0}
+    .foot-grid{grid-template-columns:1fr}
+    .navlinks{position:absolute;top:82px;left:0;right:0;background:var(--cream);border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;gap:0;padding:8px 26px 20px;display:none}
+    .navlinks.open{display:flex}
+    .navlinks a.lnk{padding:13px 0;border-bottom:1px solid var(--line)}
+    .navlinks .btn{margin-top:14px;justify-content:center}
+    .navtoggle{display:block}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.announce .track,.ticker .track{animation:none}}
+</style>
+</head>
+<body>
+
+<!-- announcement -->
+<div class="announce">
+  <div class="track">
+    <span>Open Mon&ndash;Fri 7am&ndash;3pm</span><span>&middot;</span><span>Sat 8am&ndash;3pm</span><span>&middot;</span><span><a href="https://hopeandanchorcoffee.square.site" target="_blank" rel="noopener">Order ahead online &rarr;</a></span><span>&middot;</span><span>Open Mon&ndash;Fri 7am&ndash;3pm</span><span>&middot;</span><span>Sat 8am&ndash;3pm</span><span>&middot;</span><span><a href="https://hopeandanchorcoffee.square.site" target="_blank" rel="noopener">Order ahead online &rarr;</a></span><span>&middot;</span>
+  </div>
+</div>
+
+<!-- header -->
+<header class="site">
+  <div class="wrap nav">
+    <a href="#top" class="brand"><span class="wm"><b>Hope &amp; Anchor</b><small>Coffeehouse &amp; Café</small></span></a>
+    <nav class="navlinks" id="menu">
+      <a class="lnk" href="#offerings">Menu</a>
+      <a class="lnk" href="#story">About</a>
+      <a class="lnk" href="#visit">Visit</a>
+      <a class="btn btn-red" href="https://hopeandanchorcoffee.square.site" target="_blank" rel="noopener">Order Online</a>
+    </nav>
+    <button class="navtoggle" id="toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-inner">
+        <span class="kicker">Downtown Chetek, Wisconsin</span>
+        <h1>Coffeehouse &amp; Café in Chetek</h1>
+        <p>Coffee, crepes, paninis, breakfast, lunch, and handmade chocolates, with cozy indoor seating, a patio, and a drive-thru.</p>
+        <div class="hero-cta">
+          <a href="https://hopeandanchorcoffee.square.site" target="_blank" rel="noopener" class="btn btn-red">Order Online <span class="arw">&rarr;</span></a>
+          <a href="#offerings" class="btn btn-out">See the Menu</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- offerings ticker -->
+  <div class="ticker" aria-hidden="true">
+    <div class="track">
+      <span>Coffee</span><span class="dot">&#9875;</span><span>Crepes</span><span class="dot">&#9875;</span><span>Paninis</span><span class="dot">&#9875;</span><span>Smoothies</span><span class="dot">&#9875;</span><span>Lemonades</span><span class="dot">&#9875;</span><span>Handmade Chocolates</span><span class="dot">&#9875;</span><span>Coffee</span><span class="dot">&#9875;</span><span>Crepes</span><span class="dot">&#9875;</span><span>Paninis</span><span class="dot">&#9875;</span><span>Smoothies</span><span class="dot">&#9875;</span><span>Lemonades</span><span class="dot">&#9875;</span><span>Handmade Chocolates</span><span class="dot">&#9875;</span>
+    </div>
+  </div>
+
+  <!-- intro -->
+  <section class="section">
+    <div class="wrap center reveal" id="story">
+      <span class="kicker">Welcome aboard</span>
+      <h2>A cozy little harbor in the heart of Chetek.</h2>
+      <p class="lede">Hope &amp; Anchor is a locally loved coffeehouse and cafe on 2nd Street, just a short walk from the water. Grab a coffee before you head out on the lake, or settle into a cozy corner and stay a while. There's a spot for every mood, quiet nooks, comfortable tables, a sunny patio, and a drive-thru for the mornings you're in a hurry.</p>
+    </div>
+  </section>
+
+  <!-- feature tiles -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="tiles">
+        <a class="tile reveal" href="https://hopeandanchorcoffee.square.site" target="_blank" rel="noopener">
+          <div class="ph"><span class="ph-ic"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z"/></svg></span><img src="photos/coffee.jpg" alt="Coffee at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
+          <span class="cap"><b>Order Online</b><span class="arw">&rarr;</span></span>
+        </a>
+        <a class="tile reveal" href="#offerings">
+          <div class="ph"><span class="ph-ic"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 4v16M4 8h6a3 3 0 0 1 0 6H4"/><path d="M18 4c-2 2-3 4-3 7s1 5 3 9"/></svg></span><img src="photos/food.jpg" alt="Cafe food at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
+          <span class="cap"><b>See the Menu</b><span class="arw">&rarr;</span></span>
+        </a>
+        <a class="tile reveal" href="#visit">
+          <div class="ph"><span class="ph-ic"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><img src="photos/seating.jpg" alt="Seating at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
+          <span class="cap"><b>Visit Us</b><span class="arw">&rarr;</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFERINGS: alternating sections -->
+  <section id="offerings">
+    <div class="split">
+      <div class="media"><span class="ph-ic"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg></span><img src="photos/coffee.jpg" alt="Hot and iced coffee drinks at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
+      <div class="copy reveal">
+        <span class="kicker">The good stuff</span>
+        <h2>Coffee, Espresso &amp; More</h2>
+        <div class="sub">hot, iced &amp; blended</div>
+        <p>Espresso drinks made just how you like them, plus teas, fruit smoothies, and fresh lemonades. Can't decide? Try a coffee flight.</p>
+        <a href="https://hopeandanchorcoffee.square.site" target="_blank" rel="noopener" class="btn btn-outink">Order a drink <span class="arw">&rarr;</span></a>
+      </div>
+    </div>
+    <div class="split alt rev">
+      <div class="media"><span class="ph-ic"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 4v16M4 8h6a3 3 0 0 1 0 6H4"/><path d="M18 4c-2 2-3 4-3 7s1 5 3 9"/></svg></span><img src="photos/food.jpg" alt="Breakfast and lunch at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
+      <div class="copy reveal">
+        <span class="kicker">Made fresh</span>
+        <h2>Breakfast &amp; Lunch</h2>
+        <div class="sub">morning &lsquo;til afternoon</div>
+        <p>Hearty breakfast sandwiches, big fresh bagels, and crepes worth getting up for, then paninis and cafe favorites when lunch rolls around, with lighter and vegetarian options too.</p>
+        <a href="https://hopeandanchorcoffee.square.site" target="_blank" rel="noopener" class="btn btn-outink">See the menu <span class="arw">&rarr;</span></a>
+      </div>
+    </div>
+    <div class="split">
+      <div class="media"><span class="ph-ic"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M4 12h16M12 8v12"/><path d="M8 8a2 2 0 1 1 4 0M12 8a2 2 0 1 1 4 0"/></svg></span><img src="photos/chocolates.jpg" alt="Handmade chocolates at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
+      <div class="copy reveal">
+        <span class="kicker">Made in-house</span>
+        <h2>Handmade Chocolates</h2>
+        <div class="sub">a sweet little something</div>
+        <p>Made right here and impossible to resist. Grab a few for the road, or a box to bring home. They make a pretty great gift, too.</p>
+        <a href="https://www.facebook.com/HopeAndAnchorCoffeehouse/" target="_blank" rel="noopener" class="btn btn-outink">See what's fresh <span class="arw">&rarr;</span></a>
+      </div>
+    </div>
+    <div class="split alt rev">
+      <div class="media"><span class="ph-ic"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg></span><img src="photos/seating.jpg" alt="Indoor seating, patio, and drive-thru at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
+      <div class="copy reveal">
+        <span class="kicker">Room for every mood</span>
+        <h2>Cozy Seating, Patio &amp; Drive-Thru</h2>
+        <div class="sub">stay a while, or grab &amp; go</div>
+        <p>Settle into a quiet corner with a laptop, catch up with friends at a comfy table, soak up the sun on the patio, or roll through the drive-thru on your way to the water.</p>
+        <a href="#visit" class="btn btn-outink">Find us <span class="arw">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="wrap">
+      <div class="center"><span class="kicker">Good to know</span><h2>Frequently asked questions</h2></div>
+      <div class="faq">
+        <details open><summary>Where are you located?</summary><p>We're at 526 2nd Street, Suite 2, in downtown Chetek, WI, just across from the bait shop and a short walk from the water.</p></details>
+        <details><summary>What are your hours?</summary><p>Monday through Friday, 7am to 3pm, and Saturday from 8am to 3pm. We're closed on Sundays.</p></details>
+        <details><summary>What do you serve?</summary><p>Hot, iced, and blended coffee and espresso, teas, smoothies, and lemonades, plus a full cafe for breakfast and lunch, crepes, paninis, bagels, and handmade chocolates.</p></details>
+        <details><summary>Can I order ahead?</summary><p>Yes. You can order online for pickup, and we have a drive-thru for when you're on the go.</p></details>
+        <details><summary>Do you have seating?</summary><p>We do, indoor seating with cozy corners and comfortable tables, plus a sunny patio when the weather's right.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="news">
+    <div class="wrap">
+      <span class="kicker" style="color:var(--red2)">Stay in the loop</span>
+      <h2>Something warm for your inbox.</h2>
+      <p>Monthly specials, new treats, and the occasional sweet surprise.</p>
+      <form id="newsform" action="https://formsubmit.co/ajax/hopeandanchorcoffee@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New newsletter signup - hopeandanchorcoffee.com">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
+        <input type="email" name="email" placeholder="Your email address" aria-label="Your email address" required>
+        <button type="submit" class="btn btn-ink">Sign up</button>
+      </form>
+      <div class="thanks" id="newsthanks">Thanks, you're on the list.</div>
+    </div>
+  </section>
+
+  <!-- VISIT -->
+  <section class="section" id="visit" style="background:var(--cream2)">
+    <div class="wrap">
+      <div class="center"><span class="kicker">Come see us</span><h2>Visit us in downtown Chetek</h2></div>
+      <div class="visit-grid" style="margin-top:40px">
+        <div class="info reveal">
+          <div class="row"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><h4>Location</h4><a href="https://www.google.com/maps/search/?api=1&query=526+2nd+St+Chetek+WI+54728" target="_blank" rel="noopener">526 2nd St, Ste 2<br>Chetek, WI 54728</a></div></div>
+          <div class="row"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><h4>Hours</h4><ul class="hours" id="hours"><li data-day="1"><span class="d">Mon&ndash;Fri</span><span>7:00am &ndash; 3:00pm</span></li><li data-day="6"><span class="d">Saturday</span><span>8:00am &ndash; 3:00pm</span></li><li data-day="0"><span class="d">Sunday</span><span>Closed</span></li></ul></div></div>
+          <div class="row"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.4 2.1L8 9.6a16 16 0 0 0 6 6l1.1-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7A2 2 0 0 1 22 16.9Z"/></svg></span><div><h4>Call or email</h4><a href="tel:+17159255282">(715) 925-5282</a><br><a href="mailto:hopeandanchorcoffee@gmail.com">hopeandanchorcoffee@gmail.com</a></div></div>
+          <div style="margin-top:24px"><a href="https://www.google.com/maps/search/?api=1&query=526+2nd+St+Chetek+WI+54728" target="_blank" rel="noopener" class="btn btn-outink">Get directions <span class="arw">&rarr;</span></a></div>
+        </div>
+        <div class="map reveal"><iframe title="Map to Hope &amp; Anchor Coffeehouse" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=526%202nd%20St,%20Chetek,%20WI%2054728&output=embed"></iframe></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-top">
+      <span class="kicker">Drop by</span>
+      <h3>Visit Hope &amp; Anchor on 2nd Street</h3>
+      <p>Find us in downtown Chetek for coffee, cafe favorites, and something sweet to take home. Stop in for breakfast, brunch, lunch, or a coffee on your way to the lake.</p>
+    </div>
+    <div class="foot-grid">
+      <div class="foot-wm">
+        <b>Hope &amp; Anchor</b>
+        <small>Coffeehouse &amp; Café</small>
+        <p>A cozy coffeehouse and cafe in downtown Chetek, Wisconsin.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Visit</h4>
+        <p>526 2nd St, Ste 2<br>Chetek, WI 54728</p>
+        <a href="tel:+17159255282">(715) 925-5282</a>
+        <a href="mailto:hopeandanchorcoffee@gmail.com">hopeandanchorcoffee@gmail.com</a>
+      </div>
+      <div class="foot-col">
+        <h4>More</h4>
+        <a href="https://hopeandanchorcoffee.square.site" target="_blank" rel="noopener">Order Online</a>
+        <a href="#offerings">Menu</a>
+        <a href="#visit">Hours &amp; Directions</a>
+        <a href="https://www.facebook.com/HopeAndAnchorCoffeehouse/" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 Hope &amp; Anchor Coffeehouse &amp; Café &middot; Chetek, WI</span>
+      <span>Website by <a href="https://wb3ventures.com" target="_blank" rel="noopener">WB3 Ventures</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var t=document.getElementById('toggle'),m=document.getElementById('menu');
+  t.addEventListener('click',function(){var o=m.classList.toggle('open');t.setAttribute('aria-expanded',o);});
+  m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){m.classList.remove('open');t.setAttribute('aria-expanded',false);});});
+
+  var day=new Date().getDay();
+  document.querySelectorAll('#hours li').forEach(function(li){
+    var d=li.getAttribute('data-day');
+    if((d==='1'&&day>=1&&day<=5)||(d==='6'&&day===6)||(d==='0'&&day===0)){li.classList.add('today');}
+  });
+
+  var nf=document.getElementById('newsform');
+  if(nf){nf.addEventListener('submit',function(e){
+    e.preventDefault();
+    fetch(nf.action,{method:'POST',body:new FormData(nf),headers:{'Accept':'application/json'}}).then(function(){}).catch(function(){});
+    nf.style.display='none';document.getElementById('newsthanks').style.display='block';
+  });}
+
+  var io=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting){en.target.classList.add('seen');io.unobserve(en.target);}});},{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+</script>
+</body>
+</html>
