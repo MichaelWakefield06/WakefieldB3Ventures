@@ -73,7 +73,7 @@
   .navtoggle span{display:block;width:20px;height:2px;background:var(--ink);margin:4px 0;border-radius:2px}
 
   /* hero */
-  .hero{position:relative;min-height:56vh;display:flex;align-items:center;color:#fff;background:linear-gradient(180deg,rgba(12,24,42,.36),rgba(12,24,42,.74)),url('photos/hero.jpg') center/cover no-repeat,linear-gradient(150deg,#0E1B2E,#163A44)}
+  .hero{position:relative;min-height:56vh;display:flex;align-items:center;color:#fff;background:linear-gradient(180deg,rgba(12,24,42,.36),rgba(12,24,42,.74)),url('Images/hero.jpg') center/cover no-repeat,linear-gradient(150deg,#0E1B2E,#163A44)}
   .hero .wrap{padding:56px 26px}
   .hero-inner{max-width:640px}
   .hero .kicker{color:#F3C9B8}
@@ -98,6 +98,7 @@
   .tile .ph{position:absolute;inset:0}
   .tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   .tile .ph-ic{position:absolute;inset:0;display:grid;place-items:center;color:var(--tan)}
+  .ph-cap{position:absolute;left:0;right:0;bottom:14px;z-index:1;text-align:center;font-family:var(--body);font-size:12px;color:var(--muted);padding:0 10px;word-break:break-all}
   .tile .cap{position:absolute;left:0;right:0;bottom:0;padding:22px;background:linear-gradient(180deg,transparent,rgba(34,30,31,.82));color:#fff;display:flex;align-items:center;justify-content:space-between;gap:10px}
   .tile .cap b{font-family:var(--display);font-weight:600;font-size:1.3rem}
   .tile .cap .arw{color:#fff}
@@ -245,15 +246,15 @@
     <div class="wrap">
       <div class="tiles">
         <a class="tile reveal" href="https://hopeandanchorcoffee.square.site" target="_blank" rel="noopener">
-          <div class="ph"><span class="ph-ic"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z"/></svg></span><img src="photos/coffee.jpg" alt="Coffee at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
+          <div class="ph"><span class="ph-ic"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z"/></svg></span><span class="ph-cap">Images/tile-order.jpg</span><img src="Images/tile-order.jpg" alt="Coffee at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
           <span class="cap"><b>Order Online</b><span class="arw">&rarr;</span></span>
         </a>
         <a class="tile reveal" href="#offerings">
-          <div class="ph"><span class="ph-ic"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 4v16M4 8h6a3 3 0 0 1 0 6H4"/><path d="M18 4c-2 2-3 4-3 7s1 5 3 9"/></svg></span><img src="photos/food.jpg" alt="Cafe food at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
+          <div class="ph"><span class="ph-ic"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 4v16M4 8h6a3 3 0 0 1 0 6H4"/><path d="M18 4c-2 2-3 4-3 7s1 5 3 9"/></svg></span><span class="ph-cap">Images/tile-menu.jpg</span><img src="Images/tile-menu.jpg" alt="Cafe food at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
           <span class="cap"><b>See the Menu</b><span class="arw">&rarr;</span></span>
         </a>
         <a class="tile reveal" href="#visit">
-          <div class="ph"><span class="ph-ic"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><img src="photos/seating.jpg" alt="Seating at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
+          <div class="ph"><span class="ph-ic"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><span class="ph-cap">Images/tile-visit.jpg</span><img src="Images/tile-visit.jpg" alt="Seating at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
           <span class="cap"><b>Visit Us</b><span class="arw">&rarr;</span></span>
         </a>
       </div>
@@ -263,7 +264,7 @@
   <!-- OFFERINGS: alternating sections -->
   <section id="offerings">
     <div class="split">
-      <div class="media"><span class="ph-ic"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg></span><img src="photos/coffee.jpg" alt="Hot and iced coffee drinks at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
+      <div class="media"><span class="ph-ic"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg></span><span class="ph-cap">Images/section-coffee.jpg</span><img src="Images/section-coffee.jpg" alt="Hot and iced coffee drinks at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
       <div class="copy reveal">
         <span class="kicker">The good stuff</span>
         <h2>Coffee, Espresso &amp; More</h2>
@@ -273,7 +274,7 @@
       </div>
     </div>
     <div class="split alt rev">
-      <div class="media"><span class="ph-ic"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 4v16M4 8h6a3 3 0 0 1 0 6H4"/><path d="M18 4c-2 2-3 4-3 7s1 5 3 9"/></svg></span><img src="photos/food.jpg" alt="Breakfast and lunch at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
+      <div class="media"><span class="ph-ic"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 4v16M4 8h6a3 3 0 0 1 0 6H4"/><path d="M18 4c-2 2-3 4-3 7s1 5 3 9"/></svg></span><span class="ph-cap">Images/section-breakfast-lunch.jpg</span><img src="Images/section-breakfast-lunch.jpg" alt="Breakfast and lunch at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
       <div class="copy reveal">
         <span class="kicker">Made fresh</span>
         <h2>Breakfast &amp; Lunch</h2>
@@ -283,7 +284,7 @@
       </div>
     </div>
     <div class="split">
-      <div class="media"><span class="ph-ic"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M4 12h16M12 8v12"/><path d="M8 8a2 2 0 1 1 4 0M12 8a2 2 0 1 1 4 0"/></svg></span><img src="photos/chocolates.jpg" alt="Handmade chocolates at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
+      <div class="media"><span class="ph-ic"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M4 12h16M12 8v12"/><path d="M8 8a2 2 0 1 1 4 0M12 8a2 2 0 1 1 4 0"/></svg></span><span class="ph-cap">Images/section-chocolates.jpg</span><img src="Images/section-chocolates.jpg" alt="Handmade chocolates at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
       <div class="copy reveal">
         <span class="kicker">Made in-house</span>
         <h2>Handmade Chocolates</h2>
@@ -293,7 +294,7 @@
       </div>
     </div>
     <div class="split alt rev">
-      <div class="media"><span class="ph-ic"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg></span><img src="photos/seating.jpg" alt="Indoor seating, patio, and drive-thru at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
+      <div class="media"><span class="ph-ic"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg></span><span class="ph-cap">Images/section-seating.jpg</span><img src="Images/section-seating.jpg" alt="Indoor seating, patio, and drive-thru at Hope & Anchor" loading="lazy" onerror="this.remove()"></div>
       <div class="copy reveal">
         <span class="kicker">Room for every mood</span>
         <h2>Cozy Seating, Patio &amp; Drive-Thru</h2>
